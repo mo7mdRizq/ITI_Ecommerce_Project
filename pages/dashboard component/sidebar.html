@@ -1,18 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar Component</title>
+  <meta charset="UTF-8">
+  <title>Responsive Sidebar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Link Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid #618674;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #618674;
+      background-color: #fff;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #4D6B5C;
+      color: white;
+    }
+
+    .nav-button i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .nav-button.active {
+      background-color: #618674;
+      color: #fff;
+      border: none;
+    }
+
+    .nav-button.active:hover {
+      background-color: #4D6B5C;
+      color: #fff;
+    }
+
+    .main-content {
+      margin-left: 300px;
+      padding: 30px;
+    }
+
+    @media (max-width: 991.98px) {
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    
 
+<!-- Navbar for small screens -->
+<nav class="navbar bg-white d-lg-none px-3 shadow-sm">
+  <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+    <i class="bi bi-list"></i>
+  </button>
+</nav>
 
-    <!-- Link Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- Offcanvas Sidebar (Mobile / Tablet) -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <a href="dashboard.html" class="nav-button active">
+      <i class="bi bi-speedometer2"></i> Dashboard Overview
+    </a>
+    <a href="products.html" class="nav-button">
+      <i class="bi bi-box"></i> Product Management
+    </a>
+    <a href="orders.html" class="nav-button">
+      <i class="bi bi-journal-text"></i> Order Management
+    </a>
+    <hr>
+    <a href="settings.html" class="nav-button">
+      <i class="bi bi-gear"></i> Setting
+    </a>
+    <a href="logout.html" class="nav-button">
+      <i class="bi bi-box-arrow-left"></i> Log Out
+    </a>
+  </div>
+</div>
+
+<!-- Desktop Sidebar -->
+<div class="sidebar position-fixed top-0 bottom-0 start-0 bg-white border-end px-4 py-4 d-none d-lg-block vh-100" style="width: 300px; border-radius: 0 20px 20px 0;">
+  <a href="dashboard.html" class="nav-button active">
+    <i class="bi bi-speedometer2"></i> Dashboard Overview
+  </a>
+  <a href="products.html" class="nav-button">
+    <i class="bi bi-box"></i> Product Management
+  </a>
+  <a href="orders.html" class="nav-button">
+    <i class="bi bi-journal-text"></i> Order Management
+  </a>
+  <hr>
+  <a href="settings.html" class="nav-button">
+    <i class="bi bi-gear"></i> Setting
+  </a>
+  <a href="logout.html" class="nav-button">
+    <i class="bi bi-box-arrow-left"></i> Log Out
+  </a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <h2>Dashboard Content</h2>
+  <p>This is where your main content goes.</p>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Auto-active link script -->
+<script>
+  const links = document.querySelectorAll('.nav-button');
+  const currentUrl = window.location.pathname;
+
+  links.forEach(link => {
+    if (link.getAttribute('href') && currentUrl.includes(link.getAttribute('href'))) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+</script>
+
 </body>
 </html>
