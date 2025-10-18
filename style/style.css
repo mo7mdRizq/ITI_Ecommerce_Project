@@ -9,14 +9,16 @@ body {
   border-radius: 15px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 30px 35px;
-  width: 850px;
-  margin: 80px auto;
+  width: 1100px;
+  margin-top: 100px;
+  margin-left: 350px;
+  margin-right: auto;
 }
 
 .dashboard-section h5 {
   font-weight: 600;
   color: #111827;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .dashboard-section p {
