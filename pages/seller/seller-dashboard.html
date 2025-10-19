@@ -1,18 +1,277 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seller Dashboard</title>
 
-    <!-- Link Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-<body>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+
+    <link rel="stylesheet" href="../../style/style.css" />
+    <style>
+        body {
+      background-color: #f9fafb;
+      font-family: "Poppins", sans-serif;
+    }
+    .sidebar {
+      width: 300px;
+      min-height: 80vh;
+      height: 70vh;
+      padding: 20px;
+      background-color: #fff;
+      border-right: 1px solid #dee2e6;
+      border-radius: 20px;
+      /* margin-top: 80px; */
+      margin-left: 10px;
+    }
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid #618674;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #618674;
+      background-color: #fff;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #4D6B5C;
+      color: white;
+    }
+
+    .nav-button i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .nav-button.active {
+      background-color: #618674;
+      color: #fff;
+      border: none;
+    }
+
+    .nav-button.active:hover {
+      background-color: #4D6B5C;
+      color: #fff;
+    }
+
+    @media (max-width: 991.98px) {
+      .sidebar {
+        display: none;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .offcanvas {
+        display: none;
+      }
+    }
+
+    .main-content {
+      margin-left: 250px;
+    }
+    </style>
+  </head>
+
+  <body>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
     
+            <!-- Brand -->
+            <a class="navbar-brand" href="../index.html" id="brand">
+                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+            </a>
+        
+            <!-- Center Links - Collapse -->
+            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link active" href="/">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="">Shop</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="">About</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
+                </li>
+                <li class="nav-item me-5" id="dashboard">
+                    <a class="nav-link main-nav-link" href="">dashboard</a>
+                </li>
+
+                
+                </ul>
+
+                <form class="d-flex align-items-center" role="search" style="width: 300px;">
+                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
+                </form>
+
+            </div>
+        
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+
+        
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../../assets/icons/shopping-cart.svg" alt="">
+                    </i>
+                </a>
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../../assets/icons/profileIcon.svg" alt="">
+                    </i>
+                </a>
+        
+                <!-- Navar Toggler -->
+                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+                     <img src="../../assets/icons/menu.svg">
+                </button>
+            </div>
+    
+        </div>
+    </nav>
 
 
-    <!-- Link Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
+
+
+<!-- Navbar for small screens -->
+<nav class="navbar bg-white d-lg-none px-3 shadow-sm">
+  <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+    <i class="bi bi-list"></i>
+  </button>
+  <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
+</nav>
+
+<!-- Offcanvas Sidebar (Mobile / Tablet) -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <a href="dashboard.html" class="nav-button active">
+      <i class="bi bi-speedometer2"></i> Dashboard Overview
+    </a>
+    <a href="products.html" class="nav-button">
+      <i class="bi bi-box"></i> Product Management
+    </a>
+    <a href="orders.html" class="nav-button">
+      <i class="bi bi-journal-text"></i> Order Management
+    </a>
+    <hr>
+    <a href="settings.html" class="nav-button">
+      <i class="bi bi-gear"></i> Setting
+    </a>
+    <a href="logout.html" class="nav-button">
+      <i class="bi bi-box-arrow-left"></i> Log Out
+    </a>
+  </div>
+</div>
+
+<!-- Desktop Sidebar -->
+<div class="sidebar d-none d-lg-block position-fixed">
+  <a href="dashboard.html" class="nav-button active">
+    <i class="bi bi-speedometer2"></i> Dashboard Overview
+  </a>
+  <a href="products.html" class="nav-button">
+    <i class="bi bi-box"></i> Product Management
+  </a>
+  <a href="orders.html" class="nav-button">
+    <i class="bi bi-journal-text"></i> Order Management
+  </a>
+  <hr>
+  <a href="settings.html" class="nav-button">
+    <i class="bi bi-gear"></i> Setting
+  </a>
+  <a href="logout.html" class="nav-button">
+    <i class="bi bi-box-arrow-left"></i> Log Out
+  </a>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Optional: Auto-highlight active link by URL -->
+<script>
+  const links = document.querySelectorAll('.nav-button');
+  const currentUrl = window.location.pathname;
+
+  links.forEach(link => {
+    if (link.getAttribute('href') && currentUrl.includes(link.getAttribute('href'))) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+</script>
+
+
+
+
+
+
+       <!--//////////////////////////////////////////////////tpo-section1//////////////////////////////////////////////////////////////////////////-->
+    <section class="dashboard-section">
+      <h5>Dashboard Overview</h5>
+      <p>Welcome to your dashboard, here’s  what’s happing in your today.</p>
+
+      <div class="row g-4">
+
+        <div class="col-md-4">
+          <div class="dashboard-card card-total">
+            <div class="dashboard-card-header">
+              <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
+            </div>
+            <h2>4500</h2>
+            <small>All active products in your store
+</small>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card card-active">
+            <div class="dashboard-card-header">
+              <div class="check-wrapper">
+                <div class="check-inner">
+                  <i class="bi bi-check-circle"></i>
+                </div>
+              </div>
+              Total Orders
+            </div>
+            <h2>120K</h2>
+            <small>Total number of customer orders</small>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card card-pending">
+            <div class="dashboard-card-header">
+              <i class="bi bi-receipt icon-red"></i> Total Users
+            </div>
+            <h2>480K</h2>
+            <small>Your total sales this month</small>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
