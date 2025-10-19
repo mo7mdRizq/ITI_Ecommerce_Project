@@ -265,13 +265,130 @@
         <div class="col-md-4">
           <div class="dashboard-card card-pending">
             <div class="dashboard-card-header">
-              <i class="bi bi-receipt icon-red"></i> Total Users
+              <i class="bi bi-receipt icon-red"></i> Total Revenue
             </div>
-            <h2>480K</h2>
+            <h2>120K</h2>
             <small>Your total sales this month</small>
           </div>
         </div>
       </div>
     </section>
+      <!-- Table componant -->
+     <section class="orders-section">
+   <div class="mb-4">
+  <div>
+    <h4 class="mb-1">Orders</h4>
+    <p class="mb-6 text-muted">Search and manage your store orders.</p>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center flex-wrap">
+    <span class="fw-bold">All orders</span>
+
+    <div class="d-flex align-items-center gap-2">
+      <label for="filter" class="form-label mb-0 small text-muted">Filter Orders by</label>
+      <select id="filter" class="form-select form-select-sm" style="min-width: 150px;">
+        <option>All Orders</option>
+        <option>Delivered</option>
+        <option>Shipped</option>
+        <option>Cancelled</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Products</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>1234567</td>
+            <td>2354367</td>
+            <td>Item1 - Item2</td>
+            <td>$10</td>
+            <td><span class="status delivered">Delivered</span></td>
+            <td>23-11-2025</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>1234567</td>
+            <td>2345672</td>
+            <td>Item1 - Item2</td>
+            <td>$0</td>
+            <td><span class="status shipped">Shipped</span></td>
+            <td>04-11-2025</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>1234567</td>
+            <td>1254268</td>
+            <td>Item1 - Item2</td>
+            <td>$12</td>
+            <td><span class="status shipped">Shipped</span></td>
+            <td>23-10-2025</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>1234567</td>
+            <td>4642985</td>
+            <td>Item1 - Item2</td>
+            <td>$32</td>
+            <td><span class="status cancelled">Cancelled</span></td>
+            <td>12-10-2025</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>1234567</td>
+            <td>2342342</td>
+            <td>Item1 - Item2</td>
+            <td>$32</td>
+            <td><span class="status delivered">Delivered</span></td>
+            <td>29-10-2025</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>1234567</td>
+            <td>1245236</td>
+            <td>Item1 - Item2</td>
+            <td>$32</td>
+            <td><span class="status delivered">Delivered</span></td>
+            <td>23-10-2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+   <nav class="pagination-container">
+  <ul class="custom-pagination" id="pagination">
+    <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li class="dots" id="dots">••</li>
+    <li style="display:none;"><a href="#">5</a></li>
+    <li style="display:none;"><a href="#">6</a></li>
+    <li style="display:none;"><a href="#">7</a></li>
+    <li style="display:none;"><a href="#">8</a></li>
+    <li style="display:none;"><a href="#">9</a></li>
+    <li><a href="#">10</a></li>
+    <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
+  </ul>
+</nav>
+
+  </section>
+    
   </body>
 </html>

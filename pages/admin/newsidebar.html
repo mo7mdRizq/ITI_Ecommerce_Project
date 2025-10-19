@@ -72,174 +72,152 @@
         margin-left: 250px;
       }
 
+      /* ===== Sidebar ===== */
       .sidebar {
-        width: 250px;
-        height: 100vh;
         position: fixed;
-        top: 50px;
+        top: 80px;
         left: 0;
-        bottom: 50px;
+        height: 80vh;
+        width: 240px;
         background-color: #fff;
         border-right: 1px solid #dee2e6;
+        border-radius: 10px;
         padding: 50px 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         transition: width 0.3s;
         z-index: 1000;
       }
 
       .sidebar.collapsed {
         width: 70px;
-        align-items: center;
       }
 
-      .sidebar.collapsed .nav-button span {
-        display: none;
-      }
-
-      .sidebar.collapsed .nav-button i {
-        margin-right: 0;
-        font-size: 22px;
-      }
-
-      .nav-button {
+      .sidebar .nav-link {
         display: flex;
         align-items: center;
         padding: 10px 14px;
-        border: 1px solid #618674;
         border-radius: 8px;
         margin-bottom: 10px;
-        font-weight: 600;
-        color: #618674;
-        background-color: #fff;
-        text-decoration: none;
+        font-weight: 500;
+        color: #4d6b5c;
         transition: background-color 0.3s, color 0.3s;
-        white-space: nowrap;
       }
 
-      .nav-button:hover {
+      .sidebar .nav-link i {
+        font-size: 20px;
+        margin-right: 10px;
+      }
+
+      .sidebar .nav-link.active,
+      .sidebar .nav-link:hover {
         background-color: #4d6b5c;
         color: white;
       }
 
-      .nav-button.active {
-        background-color: #618674;
-        color: white;
-        border: none;
+      .sidebar.collapsed .nav-link span {
+        display: none;
       }
 
-      .nav-button i {
-        margin-right: 10px;
-        font-size: 18px;
+      .sidebar.collapsed .nav-link i {
+        margin-right: 0;
       }
 
+      /* ===== Toggle Button ===== */
       .collapse-toggle {
         position: absolute;
         top: 15px;
         right: -15px;
         width: 30px;
         height: 30px;
-        border-radius: 50%;
-        background-color: #618674;
+        background-color: coral;
         color: white;
         border: none;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: transform 0.3s;
-        z-index: 1100;
       }
 
       .sidebar.collapsed .collapse-toggle {
         transform: rotate(180deg);
       }
 
-      .main-content {
-        margin-left: 250px;
-        transition: margin-left 0.3s;
-        padding: 90px 20px 20px;
+      /* ===== Mobile Styles ===== */
+      @media (max-width: 767.98px) {
+        body {
+          display: flex;
+          flex-direction: row;
+          margin: 0;
+        }
+
+        .sidebar {
+          width: 70px;
+          min-width: 70px;
+          height: 100vh;
+          position: fixed;
+          top: 50px;
+          left: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          border-right: 1px solid #dee2e6;
+          background-color: #fff;
+          z-index: 100;
+          transition: width 0.3s ease;
+        }
+
+        .sidebar:not(.collapsed) {
+          width: 200px;
+        }
+
+        .sidebar .nav-link span {
+          display: none;
+        }
+
+        .sidebar:not(.collapsed) .nav-link span {
+          display: inline;
+        }
+
+        .main-content,
+        .dashboard-section {
+          margin-left: 70px;
+          width: calc(100% - 70px);
+          text-align: center;
+          padding: 80px 10px 20px;
+          transition: margin-left 0.3s ease;
+        }
+
+        .sidebar:not(.collapsed) ~ .main-content {
+          margin-left: 200px;
+        }
+
+        .collapse-toggle {
+           position: absolute;
+        top: 50px;
+        right: -15px;
+        width: 25px;
+        height: 25px;
+        background-color: coral;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.3s
+
+
+        }
+
+        .sidebar .nav-link:active,
+        .sidebar .nav-link:focus {
+          background-color: #4d6b5c !important;
+          color: white !important;
+        }
       }
-
-      .sidebar.collapsed ~ .main-content {
-        margin-left: 70px;
-      }
-
-      /* ===== Mobile Behavior (Updated for 320px) ===== */
-     @media (max-width: 767.98px) {
-  body {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-  }
-
-  .sidebar {
-    width: 70px;
-    min-width: 70px;
-    height: 100vh;
-    position: fixed;
-    top: 50px;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    border-right: 1px solid #dee2e6;
-    background-color: #fff;
-    z-index: 100;
-  }
-
-  .sidebar .nav-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    margin: 8px 0;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    color: #618674;
-    background: transparent;
-  }
-
-  .sidebar .nav-button i {
-    font-size: 22px;
-    transition: transform 0.2s ease, color 0.2s ease;
-  }
-
-  /* 🔹 تأثير Hover و Active في الموبايل */
-  .sidebar .nav-button:hover,
-  .sidebar .nav-button:active,
-  .sidebar .nav-button.active {
-    background-color: #618674;
-    color: #fff;
-  }
-
-  .sidebar .nav-button:hover i,
-  .sidebar .nav-button:active i,
-  .sidebar .nav-button.active i {
-    transform: scale(1.2);
-    color: #fff;
-  }
-
-  .sidebar .nav-button span {
-    display: none;
-  }
-
-  .main-content,
-  .dashboard-section {
-    margin-left: 70px;
-    width: calc(100% - 70px);
-    text-align: center;
-    padding: 80px 10px 20px;
-  }
-
-  .collapse-toggle {
-    display: none;
-  }
-}
-
     </style>
   </head>
 
@@ -290,22 +268,26 @@
     </nav>
 
     <!-- Sidebar -->
-    <div class="sidebar collapsed" id="mainSidebar">
+    <div class="sidebar collapsed" id="sidebar">
       <button class="collapse-toggle" id="toggleSidebar">
         <i class="bi bi-chevron-right"></i>
       </button>
 
-      <div>
-        <a href="#" class="nav-button active"><i class="bi bi-speedometer2"></i><span> Dashboard</span></a>
-        <a href="#" class="nav-button"><i class="bi bi-box"></i><span> Products</span></a>
-        <a href="#" class="nav-button"><i class="bi bi-journal-text"></i><span> Orders</span></a>
-      </div>
-
-      <div>
-        <hr />
-        <a href="#" class="nav-button"><i class="bi bi-gear"></i><span> Settings</span></a>
-        <a href="#" class="nav-button"><i class="bi bi-box-arrow-left"></i><span> Logout</span></a>
-      </div>
+      <a href="#" class="nav-link active">
+        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="bi bi-box"></i> <span>Products</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="bi bi-journal-text"></i> <span>Orders</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="bi bi-gear"></i> <span>Settings</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="bi bi-box-arrow-left"></i> <span>Logout</span>
+      </a>
     </div>
 
     <!-- Dashboard Section -->
@@ -351,10 +333,13 @@
       </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-      const sidebar = document.getElementById("mainSidebar");
+      const sidebar = document.getElementById("sidebar");
       const toggleBtn = document.getElementById("toggleSidebar");
+
       toggleBtn.addEventListener("click", () => {
         sidebar.classList.toggle("collapsed");
       });
