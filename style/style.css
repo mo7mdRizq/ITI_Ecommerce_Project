@@ -1,0 +1,16 @@
+.btn-custom-green {
+   
+    border-color: #618674;
+    color: #618674; 
+}
+.btn-custom-green:hover {
+    background-color: #618674; 
+    border-color: #618674;
+    color: #fff;
+}
+.new-item{
+    border-color: #618674;
+    color: #618674;
+    border: #618674;
+    border: 1px solid #618674 ;
+}
