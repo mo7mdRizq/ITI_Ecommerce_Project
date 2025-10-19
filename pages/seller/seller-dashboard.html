@@ -84,6 +84,209 @@
     .main-content {
       margin-left: 250px;
     }
+        /*  table style  */
+/* ===== Orders Section ===== */
+.orders-section {
+  width: 1100px;
+  margin-top: 50px;
+  margin-left: 350px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+
+.orders-section h4 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* ===== Table ===== */
+.table thead th {
+  background-color: #f1f3f5;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.status.delivered { background-color: #4aa3d8; }
+.status.shipped { background-color: #f0a04b; }
+.status.cancelled { background-color: #dc5d5d; }
+
+/* ===== Pagination ===== */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.custom-pagination {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.custom-pagination li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #7ca394;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #7ca394;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.custom-pagination a:hover {
+  background-color: #e3eee9;
+}
+
+.custom-pagination .active a {
+  background-color: #7ca394;
+  color: white;
+  border-color: #7ca394;
+}
+
+.custom-pagination .dots {
+  color: #7ca394;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+.custom-pagination .arrow {
+  font-size: 30px;
+  border: none;
+  background: none;
+  color: #7ca394;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+.custom-pagination .arrow:hover {
+  color: #5d7e71;
+}
+
+/* ===== Responsive Design ===== */
+
+/* Large tablets & small laptops */
+@media (max-width: 1200px) {
+  .orders-section {
+    width: calc(100% - 220px);
+    margin-left: 250px;
+    padding: 25px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .orders-section {
+    width: 100%;
+    margin-left: 0;
+    padding: 25px;
+  }
+
+  .table {
+    font-size: 14px;
+  }
+
+  .table thead th,
+  .table td {
+    white-space: nowrap;
+  }
+
+  .pagination-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* Small Tablets & Large Phones */
+@media (max-width: 768px) {
+  .orders-section {
+    padding: 20px;
+  }
+
+  .orders-section h4 {
+    font-size: 18px;
+  }
+
+  .orders-section p {
+    font-size: 13px;
+  }
+
+  .table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+
+  .table thead {
+    font-size: 13px;
+  }
+
+  .status {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .custom-pagination a {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+}
+
+/* Phones */
+@media (max-width: 576px) {
+  .orders-section {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .orders-section h4 {
+    font-size: 16px;
+  }
+
+  .table {
+    font-size: 12px;
+  }
+
+  .custom-pagination a {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .custom-pagination .arrow {
+    font-size: 20px;
+  }
+}
+
     </style>
   </head>
 
@@ -241,7 +444,7 @@
             <div class="dashboard-card-header">
               <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
             </div>
-            <h2>4500</h2>
+            <h2>1,050</h2>
             <small>All active products in your store
 </small>
           </div>
@@ -273,30 +476,13 @@
         </div>
       </div>
     </section>
-      <!-- Table componant -->
+      <!--///////////////////////////////////////////// Table componant ////////////////////////////-->
      <section class="orders-section">
    <div class="mb-4">
   <div>
-    <h4 class="mb-1">Orders</h4>
-    <p class="mb-6 text-muted">Search and manage your store orders.</p>
-  </div>
-
-  <div class="d-flex justify-content-between align-items-center flex-wrap">
-    <span class="fw-bold">All orders</span>
-
-    <div class="d-flex align-items-center gap-2">
-      <label for="filter" class="form-label mb-0 small text-muted">Filter Orders by</label>
-      <select id="filter" class="form-select form-select-sm" style="min-width: 150px;">
-        <option>All Orders</option>
-        <option>Delivered</option>
-        <option>Shipped</option>
-        <option>Cancelled</option>
-      </select>
-    </div>
+    <h4 class="mb-1">Recent Orders</h4>   
   </div>
 </div>
-
-
 
     <div class="table-responsive">
       <table class="table table-bordered text-center">
