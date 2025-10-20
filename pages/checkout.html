@@ -1,267 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MODEVIA Checkout</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJd/rOWp+1/A0L9T+p2d7d8eLhW+A/B6O/X8Jm2H75K9W+tqD5/p7W7o/j9tS8g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* Custom styles for the checkout section */
-        .header-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 30px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .header-section .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #212529;
-            margin-bottom: 20px;
-        }
-        .nav-steps .nav-link {
-            color: #6c757d;
-            font-weight: 500;
-        }
-        .nav-steps .nav-link.active {
-            color: #212529;
-            border-bottom: 3px solid #212529;
-        }
-        .product-summary-card {
-            background-color: #f8f9fa; /* Light grey background for the review section */
-            border-radius: 0.5rem;
-            padding: 2rem;
-        }
-        .summary-item-total {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .btn-pay-now {
-            background-color: #0d6efd; /* Blue primary color */
-            border-color: #0d6efd;
-            font-weight: bold;
-            padding: 0.75rem 1.5rem;
-            font-size: 1.1rem;
-        }
-        .secure-checkout {
-            font-size: 0.85rem;
-            color: #6c757d;
-        }
-        .footer-link {
-            text-decoration: none;
-            color: #adb5bd;
-        }
-        .footer-link:hover {
-            color: #ffffff;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../style/style.css">
 </head>
+
 <body>
+    <div class="container">
 
-    <header class="container-fluid">
-        <div class="header-section">
-            <div class="logo">MODEVIA</div>
-            <nav class="nav nav-steps">
-                <a class="nav-link" href="#">Cart</a>
-                <a class="nav-link active" href="#">Checkout</a>
-                <a class="nav-link" href="#">Review</a>
-            </nav>
-        </div>
-    </header>
+        <nav></nav>
 
-    <div class="container my-5">
-        <div class="row g-5">
-            
-            <div class="col-12 col-lg-7">
-                <h3 class="fw-bold mb-4">Delivery</h3>
-
-                <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-delivery-tab" data-bs-toggle="pill" data-bs-target="#pills-delivery" type="button" role="tab" aria-controls="pills-delivery" aria-selected="true">Delivery</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-pickup-tab" data-bs-toggle="pill" data-bs-target="#pills-pickup" type="button" role="tab" aria-controls="pills-pickup" aria-selected="false">Pick up</button>
-                    </li>
-                </ul>
-
-                <form class="row g-3">
-                    <div class="col-md-6">
-                        <label for="inputLastName" class="form-label">Last name*</label>
-                        <input type="text" class="form-control" id="inputLastName" placeholder="Enter Last name" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputEmail" class="form-label">Email address *</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Enter email address" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputPhone" class="form-label">Phone number *</label>
-                        <input type="tel" class="form-control" id="inputPhone" placeholder="Enter phone number" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputCountry" class="form-label">country *</label>
-                        <input type="text" class="form-control" id="inputCountry" placeholder="Enter country" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity" placeholder="Enter city">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputAddress" class="form-label">Last name* (Address line 1)</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="Enter last name" required>
+        <div class="row my-5">
+            <div class="col col-12 col-lg-6 borrder">
+                <h2 class="mb-3">Checkout</h2>
+                <div class="row ">
+                    <button type="button" class="col-lg-5 btn btn-custom-green btn-lg">Delivery</button>
+                    <button type="button" class=" col-lg-5 btn btn-custom-green btn-lg">Pick up</button>
+                </div>
+               
+                <form class="row g-3 needs-validation my-1" novalidate>
+                    <div class="col-md-4">
+                        <label for="validationCustom01" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="validationCustom01" placeholder="Enter Last name"
+                            required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="inputState" class="form-label">State</label>
-                        <input type="text" class="form-control" id="inputState" placeholder="Enter state">
+                        <label for="validationCustom02" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="validationCustom02" placeholder="Enter last name"
+                            required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="inputZip" class="form-label">ZIP Code</label>
-                        <input type="text" class="form-control" id="inputZip" placeholder="Enter zip code">
+                        <label for="validationCustomUsername" class="form-label">Username</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            <input type="text" class="form-control" id="validationCustomUsername"
+                                aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-12 mt-4">
+                    <div>
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter last name" required>
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+
+                    <div>
+                        <label for="formGroupExampleInput" class="form-label">Example label</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Example input placeholder">
+                    </div>
+                    <div>
+                        <label for="formGroupExampleInput2" class="form-label">Another label</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput2"
+                            placeholder="Another input placeholder">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="validationCustom03" class="form-label">City</label>
+                        <input type="text" class="form-control" id="validationCustom03" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid city.
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationCustom04" class="form-label">State</label>
+                        <select class="form-select" id="validationCustom04" required>
+                            <option selected disabled value="">Choose...</option>
+                            <option>Monofia</option>
+                            <option>Cairo</option>
+                            <option>Alex</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid state.
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationCustom05" class="form-label">Zip</label>
+                        <input type="text" class="form-control" id="validationCustom05" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid zip.
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                            <label class="form-check-label" for="invalidCheck">
+                            <input class="form-check-input" type="checkbox" value="" id="checkChecked" checked>
+                            <label class="form-check-label" for="checkChecked">
                                 I have read and agree to the Terms and Conditions.
                             </label>
                         </div>
                     </div>
+
                 </form>
+
+            </div>
+            <div class=" col-12 col-lg-6 ">
+                <h5 class="mb-3">Review your cart </h5>
+                <!--  -->
+                <div class="product-summary-card p-4">
+                    <h5 class="fw-bold mb-4">Review your cart</h5>
+
+                    <div class="list-group">
+
+                        <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
+                            <div class="me-3 images">
+                                <img class="images" src="./../style/T-shirt.jpg" alt="">
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
+                                <small class="text-muted text-truncate d-block" style="max-width: 90%;">
+                                    "I absolutely love this t-shirt! The design I...
+                                </small>
+                                <p class="mb-0 small fw-bold">1x</p>
+                                <p class="mb-0 fw-bold fs-5">$20.00</p>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
+                            <div class="me-3 images">
+                                <img class="images" src="./../style/T-shirt.jpg" alt="">
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
+                                <small class="text-muted text-truncate d-block" style="max-width: 90%;">"I absolutely
+                                    love this t-shirt! The design I...</small>
+                                <p class="mb-0 small fw-bold">1x</p>
+                                <p class="mb-0 fw-bold fs-5">$20.00</p>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
+                            <div class="me-3 images">
+                                <img class="images" src="./../style/T-shirt.jpg" alt="">
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
+                                <small class="text-muted text-truncate d-block" style="max-width: 90%;">"I absolutely
+                                    love this t-shirt! The design I...</small>
+                                <p class="mb-0 small fw-bold">1x</p>
+                                <p class="mb-0 fw-bold fs-5">$20.00</p>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item d-flex align-items-center p-2 border rounded">
+                            <div class="me-3 images">
+                                <img class="images" src="./../style/T-shirt.jpg" alt="">
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
+                                <small class="text-muted text-truncate d-block" style="max-width: 90%;">"I absolutely
+                                    love this t-shirt! The design I...</small>
+                                <p class="mb-0 small fw-bold">1x</p>
+                                <p class="mb-0 fw-bold fs-5">$20.00</p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
-            <div class="col-12 col-lg-5">
-                <div class="product-summary-card">
-                    <h5 class="fw-bold mb-4">Review your cart</h5>
-                    
-                    <div class="list-group list-group-flush mb-4" style="max-height: 300px; overflow-y: auto;">
-                        
-                        <div class="list-group-item d-flex justify-content-between align-items-start border-0 border-bottom">
-                            <div class="me-auto">
-                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
-                                <small class="text-muted">1x | absolutely love this shirt: the design</small>
-                            </div>
-                            <span class="fw-semibold">$20.00</span>
-                        </div>
-                        
-                        <div class="list-group-item d-flex justify-content-between align-items-start border-0 border-bottom">
-                            <div class="me-auto">
-                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
-                                <small class="text-muted">1x | absolutely love this t-shem The design</small>
-                            </div>
-                            <span class="fw-semibold">$20.00</span>
-                        </div>
+                <!--  -->
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control" placeholder="Discount code" aria-label="Discount code">
+                    <button class="btn btn-outline-secondary" type="button">Apply</button>
+                </div>
 
-                        <div class="list-group-item d-flex justify-content-between align-items-start border-0 border-bottom">
-                            <div class="me-auto">
-                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premiurn</p>
-                                <small class="text-muted">1x | absolutely love this shirt: The design</small>
-                            </div>
-                            <span class="fw-semibold">$20.00</span>
-                        </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal</span>
+                    <span>$80.00</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Shipping</span>
+                    <span>$10.00</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 text-success">
+                    <span>Discount</span>
+                    <span>-$10.00</span>
+                </div>
 
-                         <div class="list-group-item d-flex justify-content-between align-items-start border-0 border-bottom">
-                            <div class="me-auto">
-                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
-                            <small class="text-muted">1x | absolutely love this shirt: The design</small>
-                            </div>
-                            <span class="fw-semibold">$20.00</span>
-                        </div>
-                    </div>
+                <hr>
 
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="Discount code" aria-label="Discount code">
-                        <button class="btn btn-outline-secondary" type="button">Apply</button>
-                    </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <span class="summary-item-total">Total</span>
+                    <span class="summary-item-total">$80.00</span>
+                </div>
 
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal</span>
-                        <span>$80.00</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Shipping</span>
-                        <span>$10.00</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-3 text-success">
-                        <span>Discount</span>
-                        <span>-$10.00</span>
-                    </div>
+                <button class="btn btn-primary btn-pay-now w-100 mb-2">PAY NOW</button>
 
-                    <hr>
-
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <span class="summary-item-total">Total</span>
-                        <span class="summary-item-total">$80.00</span>
-                    </div>
-
-                    <button class="btn btn-primary btn-pay-now w-100 mb-2">PAY NOW</button>
-                    
-                    <div class="text-center secure-checkout">
-                        <i class="fas fa-lock"></i> Secure Checkout - SSL Encrypted
-                        <p class="mb-0">Ensuring your financial and personal details are secure during every transaction.</p>
-                    </div>
+                <div class="text-center secure-checkout">
+                    <i class="fas fa-lock"></i> Secure Checkout - SSL Encrypted
+                    <p class="mb-0">Ensuring your financial and personal details are secure during every transaction.
+                    </p>
                 </div>
             </div>
+
         </div>
     </div>
 
-    <footer class="bg-dark text-light pt-5 pb-3 mt-5">
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-md-3 col-6 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-3">CATEGORIES</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="footer-link">Men</a></li>
-                        <li><a href="#" class="footer-link">Women</a></li>
-                        <li><a href="#" class="footer-link">Shoes</a></li>
-                        <li><a href="#" class="footer-link">Watches</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-3 col-6 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-3">COMPANY</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="footer-link">About Us</a></li>
-                        <li><a href="#" class="footer-link">Contact</a></li>
-                        <li><a href="#" class="footer-link">News</a></li>
-                        <li><a href="#" class="footer-link">Support</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-3 col-6 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-3">HELP</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="footer-link">Track Order</a></li>
-                        <li><a href="#" class="footer-link">Returns</a></li>
-                        <li><a href="#" class="footer-link">FAQs</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-3 col-6 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-3">STAY UP TO DATE</h6>
-                    <form class="d-flex">
-                        <input type="email" class="form-control me-2" placeholder="Enter your email">
-                        <button class="btn btn-primary" type="submit">SUBMIT</button>
-                    </form>
-                    <div class="mt-3">
-                        <h6 class="text-uppercase fw-bold mb-2">SOCIAL MEDIA</h6>
-                        <a href="#" class="text-light me-2"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-light me-2"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-light me-2"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-top pt-3 mt-3 text-center text-muted">
-                <p class="mb-0">Copyright ©2025 All rights reserved By Modevia</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
-```
