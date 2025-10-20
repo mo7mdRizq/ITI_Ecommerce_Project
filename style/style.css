@@ -2,11 +2,13 @@
    
     border-color: #618674;
     color: #618674; 
+    margin: .5em;
 }
 .btn-custom-green:hover {
     background-color: #618674; 
     border-color: #618674;
     color: #fff;
+    
 }
 .new-item{
     border-color: #618674;
@@ -14,3 +16,15 @@
     border: #618674;
     border: 1px solid #618674 ;
 }
+.borrder{
+     /* border: 1px solid #618674 ; */
+     /* border: 0px 1px 0px 0px; */
+     /* border-right: #618674; */
+     border-color: black;
+     border-width:  0px .5px 0px 0px;
+     border-style: solid;
+}
+.images{
+    width: 80px; height: 80px; border: 1px solid #ddd; border-radius: 0.25rem;
+}
+
