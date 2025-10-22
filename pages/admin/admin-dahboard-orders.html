@@ -1,22 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Products Management</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Management</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    />
-    <link
+    <!-- Link Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="../../style/style.css" />
-    <style>
-      /* nav&side bar style */
-    body {
+    <!-- style top-section -->
+        <link rel="stylesheet" href="../../style/style.css" />
+
+
+      <style>
+        /* style navbar&sidebar */
+        body {
       background-color: #f9fafb;
       font-family: "Poppins", sans-serif;
     }
@@ -132,72 +133,51 @@
     right: -15px;
   }
 } 
-  
-   
-    /* Table style */
-   /* ===== Product Card ===== */
-.product-card {
-  width: calc(100% - 195px); 
-  margin-left: 235px;
+        /*  table style  */
+/* ===== Orders Section ===== */
+.orders-section {
+  width: 1100px;
   margin-top: 50px;
+  margin-left: 350px;
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  padding: 40px;
-  max-width: none;
+  padding: 30px;
   transition: all 0.3s ease;
 }
 
-/* ===== Search Box ===== */
-.search-box {
-  position: relative;
-  width: 550px;
-  max-width: 100%;
+label[for="filter"] {
+  white-space: nowrap;
 }
 
-.search-box input {
-  padding-left: 38px;
-  border-radius: 50px;
-  height: 40px;
+.orders-section h4 {
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
-.search-box i {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  color: #999;
-  font-size: 1.1rem;
+.orders-section p {
+  color: #6c757d;
+  font-size: 14px;
 }
 
-/* ===== Table Styling ===== */
+/* ===== Table ===== */
 .table thead th {
   background-color: #f1f3f5;
   font-weight: 500;
   text-transform: capitalize;
 }
 
-/* ===== Status Buttons ===== */
-.status-available {
-  background-color: #5da9d3;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 8px;
+.status {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #fff;
+  text-transform: capitalize;
 }
 
-.status-out {
-  background-color: #e75d5d;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 8px;
-}
-
-/* ===== Actions ===== */
-.action-btn i {
-  font-size: 1.2rem;
-}
+.status.delivered { background-color: #4aa3d8; }
+.status.shipped { background-color: #f0a04b; }
+.status.cancelled { background-color: #dc5d5d; }
 
 /* ===== Pagination ===== */
 .pagination-container {
@@ -269,75 +249,107 @@
 
 /* ===== Responsive Design ===== */
 
-/* Large tablets and small laptops */
+/* Large tablets & small laptops */
 @media (max-width: 1200px) {
-  .product-card {
-    width: calc(100% - 150px);
-    margin-left: 180px;
-    padding: 30px;
-  }
-
-  .search-box {
-    width: 420px;
+  .orders-section {
+    width: calc(100% - 220px);
+    margin-left: 250px;
+    padding: 25px;
   }
 }
 
 /* Tablets */
 @media (max-width: 992px) {
-  .product-card {
+  .orders-section {
     width: 100%;
-    margin-left: 100px;
+    margin-left: 0;
     padding: 25px;
   }
 
-  .d-flex {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 15px;
+  .table {
+    font-size: 14px;
   }
 
-  .search-box {
-    width: 100%;
+  .table thead th,
+  .table td {
+    white-space: nowrap;
   }
 
-  .search-box input {
+  .pagination-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* Small Tablets & Large Phones */
+@media (max-width: 768px) {
+  .orders-section {
+    padding: 20px;
+  }
+
+  .orders-section h4 {
+    font-size: 18px;
+  }
+
+  .orders-section p {
+    font-size: 13px;
+  }
+
+  .table {
+    display: block;
     width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+
+  .table thead {
+    font-size: 13px;
+  }
+
+  .status {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .custom-pagination a {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
   }
 }
 
 /* Phones */
 @media (max-width: 576px) {
-  .product-card {
-    padding: 20px;
+  .orders-section {
+    padding: 15px;
+    border-radius: 10px;
+    margin-left: 110px;
   }
 
-  .search-box input {
-    height: 36px;
-    font-size: 14px;
+  .orders-section h4 {
+    font-size: 16px;
   }
 
   .table {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .custom-pagination a {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     font-size: 12px;
   }
 
   .custom-pagination .arrow {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 
-
   </style>
-  </head>
-
-  <body>
-            <!-- nav&side bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+</head>
+<body>
+    <!-- nav&side bar -->
+     <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
         <div class="container-fluid d-flex align-items-center justify-content-between">
     
             <!-- Brand -->
@@ -383,6 +395,7 @@
                     </i>
                 </a>
 
+
                 <a class="nav-link cart-icon-container position-relative" href="#">
                     <i>
                         <img src="../../assets/icons/heart.svg" alt="">
@@ -405,6 +418,9 @@
         </div>
     </nav>
 
+
+
+
 <!-- Navbar for small screens -->
 <nav class="navbar bg-white d-lg-none px-3 shadow-sm">
   <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
@@ -412,7 +428,6 @@
   </button>
   <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
 </nav>
-
 <!-- Offcanvas Sidebar (Mobile / Tablet) -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
   <div class="offcanvas-header">
@@ -486,20 +501,21 @@
         sidebar.classList.toggle("collapsed");
       });
     </script>
-   
-    <!--//////////////////////////////////////////////////top-section1//////////////////////////////////////////////////////////////////////////-->
+
+     <!--//////////////////////////////////////////////////top-section1//////////////////////////////////////////////////////////////////////////-->
     <section class="dashboard-section">
-      <h5>Products Management</h5>
-      <p>Manage and track all your website products here</p>
+      <h5>Orders Management</h5>
+      <p>Tracking and organizing orders to ensure fast and accurate processing</p>
 
       <div class="row g-3">
+
         <div class="col-md-4">
           <div class="dashboard-card card-total">
             <div class="dashboard-card-header">
-              <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
+              <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Orders
             </div>
-            <h2>4,500</h2>
-            <small>All products in your store</small>
+            <h2>10,500</h2>
+            <small>All orders in your store</small>
           </div>
         </div>
 
@@ -511,119 +527,123 @@
                   <i class="bi bi-check-circle"></i>
                 </div>
               </div>
-              Available Products
+              Active Orders
             </div>
-            <h2>3,500</h2>
-            <small>Currently available products</small>
+            <h2>9,200</h2>
+            <small>All active orders in your store</small>
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="dashboard-card card-pending">
             <div class="dashboard-card-header">
-              <i class="bi bi-receipt icon-red"></i> Out of Stock
+              <i class="bi bi-receipt icon-red"></i> Pending Orders
             </div>
-            <h2>1,000</h2>
-            <small>Out of stock products</small>
+            <h2>1,300</h2>
+            <small>All pending orders in your store</small>
           </div>
         </div>
       </div>
     </section>
-    <!--//////////////////////////////////////////////////table section//////////////////////////////////////////////////////////////////////////-->
-    <div class="container">
-    <div class="product-card">
-      <!-- Header: Title + Search -->
-      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-        <h4 class="fw-bold mb-0">Product List</h4>
 
-        <!-- Search Box (Wider & aligned with title) -->
-        <div class="search-box mt-2 mt-md-0">
-          <i class="bi bi-search"></i>
-          <input type="text" class="form-control" placeholder="Search for users, products, orders...">
-        </div>
-      </div>
+      <!-- Table componant -->
+     <section class="orders-section">
+   <div class="mb-4">
+  <div>
+    <h4 class="mb-1">Orders</h4>
+    <p class="mb-6 text-muted">Search and manage your store orders.</p>
+  </div>
 
-      <!-- Table -->
-      <div class="table-responsive">
-        <table class="table align-middle text-center table-bordered">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Product Name</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Stock</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Item 1</td>
-              <td>Cat 1</td>
-              <td>$100</td>
-              <td>10</td>
-              <td><span class="status-available">Available</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Item 2</td>
-              <td>Cat 2</td>
-              <td>$120</td>
-              <td>0</td>
-              <td><span class="status-out">Out of stock</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Item 3</td>
-              <td>Cat 3</td>
-              <td>$300</td>
-              <td>12</td>
-              <td><span class="status-available">Available</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Item 4</td>
-              <td>Cat 4</td>
-              <td>$90</td>
-              <td>32</td>
-              <td><span class="status-available">Available</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Item 5</td>
-              <td>Cat 4</td>
-              <td>$90</td>
-              <td>0</td>
-              <td><span class="status-out">Out of stock</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="d-flex justify-content-between align-items-center flex-wrap">
+    <span class="fw-bold">All orders</span>
 
-      <!-- Pagination -->
-     <nav class="pagination-container">
+    <div class="d-flex align-items-center gap-2">
+      <label for="filter" class="form-label mb-0 small text-muted">Filter Orders by</label>
+      <select id="filter" class="form-select form-select-sm" style="min-width: 150px;">
+        <option>All Orders</option>
+        <option>Delivered</option>
+        <option>Shipped</option>
+        <option>Cancelled</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Products</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>1234567</td>
+            <td>2354367</td>
+            <td>Item1 - Item2</td>
+            <td>$10</td>
+            <td><span class="status delivered">Delivered</span></td>
+            <td>23-11-2025</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>1234567</td>
+            <td>2345672</td>
+            <td>Item1 - Item2</td>
+            <td>$0</td>
+            <td><span class="status shipped">Shipped</span></td>
+            <td>04-11-2025</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>1234567</td>
+            <td>1254268</td>
+            <td>Item1 - Item2</td>
+            <td>$12</td>
+            <td><span class="status shipped">Shipped</span></td>
+            <td>23-10-2025</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>1234567</td>
+            <td>4642985</td>
+            <td>Item1 - Item2</td>
+            <td>$32</td>
+            <td><span class="status cancelled">Cancelled</span></td>
+            <td>12-10-2025</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>1234567</td>
+            <td>2342342</td>
+            <td>Item1 - Item2</td>
+            <td>$32</td>
+            <td><span class="status delivered">Delivered</span></td>
+            <td>29-10-2025</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>1234567</td>
+            <td>1245236</td>
+            <td>Item1 - Item2</td>
+            <td>$32</td>
+            <td><span class="status delivered">Delivered</span></td>
+            <td>23-10-2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+   <nav class="pagination-container">
   <ul class="custom-pagination" id="pagination">
     <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
     <li class="active"><a href="#">1</a></li>
@@ -640,11 +660,12 @@
     <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
   </ul>
 </nav>
-    </div>
-  </div>
+
+  </section>
+    
 
 
-
-
-  </body>
+    <!-- Link Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
 </html>
