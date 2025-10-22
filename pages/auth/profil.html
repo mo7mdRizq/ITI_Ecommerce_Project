@@ -3,197 +3,236 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account Details</title>
+  <title>User Profile - E-commerce</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
   <style>
     body {
-      background-color: #f8f9fa;
+      background-color: #f7f9f8;
+      font-family: Arial, sans-serif;
     }
-
-    /* ===== Sidebar ===== */
     .sidebar {
-      background-color: #f1f5f1;
-      min-height: 90vh;
-      padding: 20px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: all 0.4s ease;
+      background-color: #fff;
+      min-height: 100vh;
+      padding: 30px 15px;
+      text-align: center;
+      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
     }
-
-    .profile-img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
+    .profile-pic {
+      position: relative;
+      display: inline-block;
+    }
+    .profile-pic img {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      margin-bottom: 10px;
+      object-fit: cover;
     }
-
-    .sidebar h5 {
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 10px 15px;
-      margin-bottom: 5px;
-      border-radius: 5px;
-      color: #333;
-      text-decoration: none;
-      width: 100%;
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .sidebar a:hover {
+    .edit-icon {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
       background-color: #4D6B5C;
       color: white;
+      border-radius: 50%;
+      padding: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
     }
-
-    .sidebar a.active {
+    .edit-icon:hover {
       background-color: #618674;
-      color: white;
     }
-
-    .save-btn {
-      background-color: #618674;
-      color: white;
-      border: none;
-      transition: background-color 0.3s ease;
+    .sidebar h4 {
+      margin-top: 15px;
+      font-weight: bold;
     }
-
-    .save-btn:hover {
+    .nav-pills .nav-link {
+      color: #000;
+      border-radius: 10px;
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+    .nav-pills .nav-link:hover {
       background-color: #4D6B5C;
+      color: #fff;
     }
-
-    /* ====== Mobile Menu Button ====== */
-    .menu-toggle {
-      display: none;
-      background: none;
+    .nav-pills .nav-link.active {
+      background-color: #618674;
+      color: #fff;
+    }
+    .btn-custom {
+      background-color: #4D6B5C;
+      color: #fff;
       border: none;
-      font-size: 1.5rem;
-      color: #618674;
-      margin-top: 10px;
+      transition: 0.3s;
     }
-
-    /* ====== Responsive Styles ====== */
-    @media (max-width: 991px) {
-      .sidebar {
-        min-height: auto;
-      }
-    }
-
-    @media (max-width: 767px) {
-      .row.equal-height {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        min-height: auto;
-        margin-bottom: 15px;
-        padding: 15px;
-      }
-
-      .sidebar a {
-        display: none;
-      }
-
-      .sidebar.show-menu a {
-        display: block;
-        animation: fadeIn 0.4s ease;
-      }
-
-      .menu-toggle {
-        display: inline-block;
-      }
-
-      .profile-img {
-        width: 90px;
-        height: 90px;
-      }
-
-      @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(-10px);}
-        to {opacity: 1; transform: translateY(0);}
-      }
+    .btn-custom:hover {
+      background-color: #618674;
     }
   </style>
 </head>
 <body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 p-4 sidebar d-none d-md-block">
+        <div class="profile-pic">
+          <img src="woman.jpg" alt="User Profile Picture">
+          <i class="bi bi-camera edit-icon" data-bs-toggle="modal" data-bs-target="#editPhotoModal"></i>
+        </div>
+        <h4 class="mt-3">Mona Emad</h4>
 
-<div class="container py-4">
-  <div class="row g-4 equal-height d-flex">
-    <!-- Sidebar -->
-    <div class="col-lg-3 col-md-4">
-      <div class="sidebar text-center text-lg-start" id="sidebarMenu">
-        <img src="man.jpg" alt="Profile" class="profile-img">
-        <h5 class="mb-0">user</h5>
+        <div class="nav flex-column nav-pills mt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button">Profile</button>
+          <button class="nav-link" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" type="button">Change Password</button>
+          <button class="nav-link" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button">Orders</button>
+          <button class="nav-link" id="v-pills-wishlist-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist" type="button">Wishlist</button>
+        </div>
+      </div>
 
-        <!-- Mobile toggle button -->
-        <button class="menu-toggle" id="toggleMenu">
-          <i class="bi bi-chevron-down"></i>
+      <!-- Offcanvas for mobile -->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="text-center">
+            <div class="profile-pic">
+              <img src="woman.jpg" alt="User Profile Picture">
+              <i class="bi bi-camera edit-icon" data-bs-toggle="modal" data-bs-target="#editPhotoModal"></i>
+            </div>
+            <h4 class="mt-3">Mona Emad</h4>
+          </div>
+          <div class="nav flex-column nav-pills mt-4" id="v-pills-tab-mobile" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#v-pills-profile">Profile</button>
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-password">Change Password</button>
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-orders">Orders</button>
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist">Wishlist</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="col-md-9 col-lg-10 p-4">
+        <button class="btn btn-outline-secondary d-md-none mb-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+          <i class="bi bi-list"></i>
         </button>
 
-        <!-- Links -->
-        <a href="#" class="active">Account details</a>
-        <a href="#">Change password</a>
-        <a href="#">My orders</a>
-        <a href="#">Payment info</a>
-        <a href="#">My favorite</a>
-      </div>
-    </div>
+        <div class="tab-content bg-white p-4 rounded shadow-sm" id="v-pills-tabContent">
+          <!-- Profile -->
+          <div class="tab-pane fade show active" id="v-pills-profile">
+            <h5>Profile Information</h5>
+            <form class="mt-3">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-control" value="Mona Emad">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" value="mona@email.com">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Phone</label>
+                  <input type="text" class="form-control" value="01012345678">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Address</label>
+                  <input type="text" class="form-control" value="123 Main Street, Cairo, Egypt">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-custom">Save Changes</button>
+            </form>
+          </div>
 
-    <!-- Form -->
-    <div class="col-lg-9 col-md-8">
-      <div class="bg-white p-4 rounded shadow-sm flex-grow-1">
-        <h4>Account details</h4>
-        <form>
-          <div class="row g-3">
-            <div class="col-12">
-              <label for="firstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="Enter your first name...">
-            </div>
-            <div class="col-12">
-              <label for="lastName" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="Enter your last name...">
-            </div>
-            <div class="col-12">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter your email...">
-            </div>
-            <div class="col-12">
-              <label for="phone" class="form-label">Phone Number</label>
-              <input type="text" class="form-control" id="phone" placeholder="Enter your phone number...">
-            </div>
-            <div class="col-12">
-              <label for="country" class="form-label">Country</label>
-              <input type="text" class="form-control" id="country" placeholder="Enter your country...">
-            </div>
-            <div class="col-12">
-              <label for="city" class="form-label">City</label>
-              <input type="text" class="form-control" id="city" placeholder="Enter your city...">
-            </div>
+          <!-- Change Password -->
+          <div class="tab-pane fade" id="v-pills-password">
+            <h5>Change Password</h5>
+            <form class="mt-3">
+              <div class="mb-3">
+                <label class="form-label">Current Password</label>
+                <input type="password" class="form-control" placeholder="Enter current password">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">New Password</label>
+                <input type="password" class="form-control" placeholder="Enter new password">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Confirm New Password</label>
+                <input type="password" class="form-control" placeholder="Confirm new password">
+              </div>
+              <button type="submit" class="btn btn-custom">Change Password</button>
+            </form>
           </div>
-          <div class="mt-3">
-            <button type="submit" class="btn save-btn">Save changes</button>
+
+          <!-- Orders -->
+          <div class="tab-pane fade" id="v-pills-orders">
+            <h5>Your Orders</h5>
+            <table class="table mt-3">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#1023</td>
+                  <td>Oct 15, 2025</td>
+                  <td><span class="badge bg-success">Delivered</span></td>
+                  <td>$150.00</td>
+                </tr>
+                <tr>
+                  <td>#1024</td>
+                  <td>Oct 18, 2025</td>
+                  <td><span class="badge bg-warning text-dark">Pending</span></td>
+                  <td>$80.00</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </form>
+
+          <!-- Wishlist -->
+          <div class="tab-pane fade" id="v-pills-wishlist">
+            <h5>Your Wishlist</h5>
+            <ul class="list-group mt-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Leather Handbag <button class="btn btn-sm btn-custom">View</button>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Smart Watch <button class="btn btn-sm btn-custom">View</button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  document.getElementById('toggleMenu').addEventListener('click', function() {
-    document.getElementById('sidebarMenu').classList.toggle('show-menu');
-  });
-</script>
+  <!-- Modal Edit Photo -->
+  <div class="modal fade" id="editPhotoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Change Profile Photo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="file" class="form-control" accept="image/*">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-custom">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
