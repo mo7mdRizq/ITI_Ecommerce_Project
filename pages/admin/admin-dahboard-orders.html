@@ -30,7 +30,7 @@
       background-color: #fff;
       border-right: 1px solid #dee2e6;
       border-radius: 20px;
-      margin-top: 80px;
+      margin-top: 90px;
       margin-left: 10px;
     }
 
@@ -72,6 +72,8 @@
     @media (max-width: 991.98px) {
       .sidebar {
         display: none;
+            margin-top: 70px;
+
       }
     }
 
@@ -83,6 +85,8 @@
 
     .main-content {
       margin-left: 250px;
+          margin-top: 70px;
+
     }
     
         /*  table style  */
@@ -207,6 +211,8 @@ label[for="filter"] {
     width: calc(100% - 220px);
     margin-left: 250px;
     padding: 25px;
+        margin-top: 70px;
+
   }
 }
 
@@ -215,6 +221,7 @@ label[for="filter"] {
   .orders-section {
     width: 100%;
     margin-left: 0;
+    margin-top: 70px;
     padding: 25px;
   }
 
@@ -237,6 +244,8 @@ label[for="filter"] {
 @media (max-width: 768px) {
   .orders-section {
     padding: 20px;
+        margin-top: 70px;
+
   }
 
   .orders-section h4 {
@@ -275,6 +284,7 @@ label[for="filter"] {
   .orders-section {
     padding: 15px;
     border-radius: 10px;
+        margin-top: 70px;
   }
 
   .orders-section h4 {
@@ -300,103 +310,55 @@ label[for="filter"] {
 </head>
 <body>
     <!-- nav&side bar -->
-     <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="../index.html" id="brand">
+      <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;">
+    </a>
+
+
+    <!-- Right Side Icons (visible by default) -->
+    <div class="icons-container d-flex align-items-center gap-3 order-lg-3 ms-auto">
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <img src="../../assets/icons/shopping-cart.svg" alt="">
+      </a>
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <img src="../../assets/icons/heart.svg" alt="">
+      </a>
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <img src="../../assets/icons/profileIcon.svg" alt="">
+      </a>
+    </div>
+
+    <!-- Collapsible Menu -->
+    <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="/">Home</a></li>
+        <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="">Shop</a></li>
+        <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="">About</a></li>
+        <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="#footer">Contact</a></li>
+        <li class="nav-item me-5" id="dashboard"><a class="nav-link main-nav-link" href="">Dashboard</a></li>
+      </ul>
+
+      <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px;">
+        <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
+      </form>
+    </div>
+
     
-            <!-- Brand -->
-            <a class="navbar-brand" href="../index.html" id="brand">
-                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
-            </a>
-        
-            <!-- Center Links - Collapse -->
-            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="/">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">Shop</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">About</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
-                </li>
-                <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="">dashboard</a>
-                </li>
+    <!-- Toggle Button -->
+    <button class="navbar-toggler border-0 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <img src="../../assets/icons/menu.svg" alt="menu">
+    </button>
 
-                
-                </ul>
-
-                <form class="d-flex align-items-center" role="search" style="width: 300px;">
-                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
-                </form>
-
-            </div>
-        
-            <!-- Right Side -->
-            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
-
-        
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/shopping-cart.svg" alt="">
-                    </i>
-                </a>
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/profileIcon.svg" alt="">
-                    </i>
-                </a>
-        
-                <!-- Navar Toggler -->
-                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-
-                     <img src="../../assets/icons/menu.svg">
-                </button>
-            </div>
-    
-        </div>
-    </nav>
-
-
-
-
-<!-- Navbar for small screens -->
-<nav class="navbar bg-white d-lg-none px-3 shadow-sm">
-  <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
-    <i class="bi bi-list"></i>
-  </button>
-  <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
+  </div>
 </nav>
 
-<!-- Offcanvas Sidebar (Mobile / Tablet) -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body">
-    <a href="dashboard.html" class="nav-button active">
-      <i class="bi bi-speedometer2"></i> Dashboard Overview
-    </a>
-    <a href="products.html" class="nav-button">
-      <i class="bi bi-box"></i> Product Management
-    </a>
-    <a href="orders.html" class="nav-button">
-      <i class="bi bi-journal-text"></i> Order Management
-    </a>
-    <hr>
-    <a href="settings.html" class="nav-button">
-      <i class="bi bi-gear"></i> Setting
-    </a>
-    <a href="logout.html" class="nav-button">
-      <i class="bi bi-box-arrow-left"></i> Log Out
-    </a>
-  </div>
-</div>
+    <div class="container ms-1">
+      <div class="row">
+        <div class="">
 
 <!-- Desktop Sidebar -->
 <div class="sidebar d-none d-lg-block position-fixed">
@@ -409,6 +371,9 @@ label[for="filter"] {
   <a href="orders.html" class="nav-button">
     <i class="bi bi-journal-text"></i> Order Management
   </a>
+  <a href="users-management.html" class="nav-button">
+    <i class="bi bi-person"></i> Users Management
+  </a>
   <hr>
   <a href="settings.html" class="nav-button">
     <i class="bi bi-gear"></i> Setting
@@ -419,22 +384,9 @@ label[for="filter"] {
 </div>
 
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Optional: Auto-highlight active link by URL -->
-<script>
-  const links = document.querySelectorAll('.nav-button');
-  const currentUrl = window.location.pathname;
 
-  links.forEach(link => {
-    if (link.getAttribute('href') && currentUrl.includes(link.getAttribute('href'))) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
-    }
-  });
-</script>
+
 
      <!--//////////////////////////////////////////////////top-section1//////////////////////////////////////////////////////////////////////////-->
     <section class="dashboard-section">
@@ -596,10 +548,35 @@ label[for="filter"] {
 </nav>
 
   </section>
+   <!-- Link Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script>
+  // إغلاق القائمة تلقائيًا بعد الضغط على أي رابط داخلها
+  document.querySelectorAll('.navbar .nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const navbar = document.querySelector('.navbar-collapse');
+      const bsCollapse = bootstrap.Collapse.getInstance(navbar);
+      if (bsCollapse) {
+        bsCollapse.hide();
+      }
+    });
+  });
+  <!-- Optional: Auto-highlight active link by URL -->
+  const links = document.querySelectorAll('.nav-button');
+  const currentUrl = window.location.pathname;
+
+  links.forEach(link => {
+    if (link.getAttribute('href') && currentUrl.includes(link.getAttribute('href'))) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+
+</script>
     
 
 
-    <!-- Link Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+   
 </body>
 </html>
