@@ -731,17 +731,22 @@
 
           <div class="mb-3">
             <label class="form-label">Category</label>
-            <input type="text" class="form-control" id="productCategory" required>
+            <select class="form-select" id="productCategory" required>
+              <option value="">select category</option>
+              <option value="man">Man's category</option>
+              <option value="women">Women's category</option>
+              <option value="kids">Kids' category</option>
+            </select>
           </div>
 
           <div class="row">
             <div class="col-md-6 mb-3">
               <label class="form-label">Price</label>
-              <input type="number" class="form-control" id="productPrice" required>
+              <input type="number" class="form-control" id="productPrice" min="1" required>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Stock Quantity</label>
-              <input type="number" class="form-control" id="productStock" required>
+              <input type="number" class="form-control" id="productStock" min="0" required>
             </div>
           </div>
 
