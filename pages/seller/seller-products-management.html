@@ -850,7 +850,7 @@
     }
 
     // Stock validation (≥ 1)
-    if (isNaN(stock) || stock < 1) {
+    if (isNaN(stock) || stock < 0) {
       stockInput.classList.add("is-invalid");
       valid = false;
     } else {
