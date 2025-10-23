@@ -686,7 +686,6 @@
           </tbody>
         </table>
       </div>
-
       <!-- Pagination -->
      <nav class="pagination-container">
   <ul class="custom-pagination" id="pagination">
@@ -770,13 +769,13 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
+ <script>
   // ---------- DOM Elements ----------
   const saveBtn = document.getElementById("saveProductBtn");
   const form = document.getElementById("productForm");
   const tableBody = document.querySelector("table tbody");
   const modal = new bootstrap.Modal(document.getElementById("addProductModal"));
-  
+
   let products = JSON.parse(localStorage.getItem("products")) || [];
   let editIndex = null;
 
@@ -833,9 +832,17 @@
     if (!newProduct.name || !newProduct.category) return;
 
     if (editIndex !== null) {
+      // Edit
+      const confirmEdit = confirm("Are you sure you want to save this product");
+      if (!confirmEdit) return;
+
       products[editIndex] = newProduct;
       editIndex = null;
     } else {
+      // Add
+      const confirmAdd = confirm("Are you sure you want to save this product?");
+      if (!confirmAdd) return;
+
       products.push(newProduct);
     }
 
@@ -848,6 +855,9 @@
   // ---------- Delete ----------
   function deleteProduct(e) {
     const index = e.currentTarget.getAttribute("data-index");
+    const confirmDelete = confirm("Are you sure you want to delete this product?");
+    if (!confirmDelete) return;
+
     products.splice(index, 1);
     localStorage.setItem("products", JSON.stringify(products));
     renderTable();
@@ -857,6 +867,9 @@
   function editProduct(e) {
     editIndex = e.currentTarget.getAttribute("data-index");
     const p = products[editIndex];
+
+    const confirmEditClick = confirm("Are you sure you want to edit this product?");
+    if (!confirmEditClick) return;
 
     document.getElementById("productName").value = p.name;
     document.getElementById("productCategory").value = p.category;
