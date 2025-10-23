@@ -775,106 +775,101 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
   <script>
-  // ---------- DOM Elements ----------
+  document.addEventListener("DOMContentLoaded", function () {
   const saveBtn = document.getElementById("saveProductBtn");
   const form = document.getElementById("productForm");
   const tableBody = document.querySelector("table tbody");
-  const modal = new bootstrap.Modal(document.getElementById("addProductModal"));
-  
-  let products = JSON.parse(localStorage.getItem("products")) || [];
-  let editIndex = null;
+  const modalEl = document.getElementById("addProductModal");
+  const modal = new bootstrap.Modal(modalEl);
+  let productCount = tableBody.rows.length;
+  let editingRow = null; // لتحديد الصف الجاري تعديله
 
-  // ---------- Display Products ----------
-  function renderTable() {
-    tableBody.innerHTML = "";
-    products.forEach((p, i) => {
-      const status =
-        p.stock > 0
-          ? `<span class="status-available">Available</span>`
-          : `<span class="status-out">Out of stock</span>`;
+  // عند الضغط على Save
+  saveBtn.addEventListener("click", function () {
+    const name = document.getElementById("productName").value.trim();
+    const category = document.getElementById("productCategory").value.trim();
+    const price = document.getElementById("productPrice").value.trim();
+    const stock = document.getElementById("productStock").value.trim();
 
-      const row = `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${p.name}</td>
-          <td>${p.category}</td>
-          <td>$${p.price}</td>
-          <td>${p.stock}</td>
-          <td>${status}</td>
-          <td>
-            <button class="btn btn-link text-primary action-btn edit-btn" data-index="${i}">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-link text-danger action-btn delete-btn" data-index="${i}">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-      `;
-      tableBody.insertAdjacentHTML("beforeend", row);
-    });
-
-    // بعد ما نرسم الجدول، نربط الأحداث
-    document.querySelectorAll(".delete-btn").forEach((btn) =>
-      btn.addEventListener("click", deleteProduct)
-    );
-    document.querySelectorAll(".edit-btn").forEach((btn) =>
-      btn.addEventListener("click", editProduct)
-    );
-  }
-
-  // ---------- Add / Edit Product ----------
-  saveBtn.addEventListener("click", () => {
-    const newProduct = {
-      name: document.getElementById("productName").value.trim(),
-      category: document.getElementById("productCategory").value.trim(),
-      price: parseFloat(document.getElementById("productPrice").value),
-      stock: parseInt(document.getElementById("productStock").value),
-      description: document.getElementById("productDescription").value.trim(),
-      image: document.getElementById("productImage").value,
-    };
-
-    if (!newProduct.name || !newProduct.category) return;
-
-    if (editIndex !== null) {
-      products[editIndex] = newProduct;
-      editIndex = null;
-    } else {
-      products.push(newProduct);
+    if (!name || !category || !price || stock === "") {
+      alert("Please fill out all fields.");
+      return;
     }
 
-    localStorage.setItem("products", JSON.stringify(products));
-    renderTable();
-    form.reset();
+    const status =
+      stock > 0
+        ? '<span class="status-available">Available</span>'
+        : '<span class="status-out">Out of stock</span>';
+
+    // ✅ لو بنعدّل صف موجود
+    if (editingRow) {
+      editingRow.cells[1].textContent = name;
+      editingRow.cells[2].textContent = category;
+      editingRow.cells[3].textContent = `$${price}`;
+      editingRow.cells[4].textContent = stock;
+      editingRow.cells[5].innerHTML = status;
+      editingRow = null; // نرجعه لحالته الطبيعية
+    } 
+    // ✅ لو بنضيف منتج جديد
+    else {
+      productCount++;
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+        <td>${productCount}</td>
+        <td>${name}</td>
+        <td>${category}</td>
+        <td>$${price}</td>
+        <td>${stock}</td>
+        <td>${status}</td>
+        <td>
+          <button class="btn btn-link text-primary action-btn edit-btn"><i class="bi bi-pencil-square"></i></button>
+          <button class="btn btn-link text-danger action-btn delete-btn"><i class="bi bi-trash"></i></button>
+        </td>
+      `;
+      tableBody.appendChild(newRow);
+      addRowEventListeners(newRow);
+    }
+
+    // غلق المودال وتفريغ الفورم
     modal.hide();
+    form.reset();
+    updateRowNumbers();
   });
 
-  // ---------- Delete ----------
-  function deleteProduct(e) {
-    const index = e.currentTarget.getAttribute("data-index");
-    products.splice(index, 1);
-    localStorage.setItem("products", JSON.stringify(products));
-    renderTable();
+  // تحديث أرقام الصفوف
+  function updateRowNumbers() {
+    const rows = tableBody.querySelectorAll("tr");
+    rows.forEach((row, index) => (row.cells[0].textContent = index + 1));
+    productCount = rows.length;
   }
 
-  // ---------- Edit ----------
-  function editProduct(e) {
-    editIndex = e.currentTarget.getAttribute("data-index");
-    const p = products[editIndex];
+  // إضافة وظائف الحذف والتعديل لأي صف
+  function addRowEventListeners(row) {
+    row.querySelector(".delete-btn").addEventListener("click", function () {
+      row.remove();
+      updateRowNumbers();
+    });
 
-    document.getElementById("productName").value = p.name;
-    document.getElementById("productCategory").value = p.category;
-    document.getElementById("productPrice").value = p.price;
-    document.getElementById("productStock").value = p.stock;
-    document.getElementById("productDescription").value = p.description;
+    row.querySelector(".edit-btn").addEventListener("click", function () {
+      editingRow = row;
+      document.getElementById("productName").value = row.cells[1].textContent;
+      document.getElementById("productCategory").value = row.cells[2].textContent;
+      document.getElementById("productPrice").value = row.cells[3].textContent.replace("$", "");
+      document.getElementById("productStock").value = row.cells[4].textContent;
 
-    modal.show();
+      modal.show(); // فتح المودال في وضع التعديل
+    });
   }
 
-  // ---------- Initialize ----------
-  renderTable();
+  // تفعيل الأحداث على الصفوف القديمة
+  tableBody.querySelectorAll("tr").forEach((row) => addRowEventListeners(row));
+});
 </script>
+
+
 
 
 
