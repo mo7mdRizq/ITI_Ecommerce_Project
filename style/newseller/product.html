@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="ar">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Seller - Products Management</title>
+
+    <!-- Bootstrap + Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+            <link rel="stylesheet" href="../style.css" />
+
+
+    <style>
+      :root {
+        --accent: #618674;
+        --accent-dark: #4d6b5c;
+      }
+
+      body {
+        background-color: #f9fafb;
+        font-family: "Poppins", sans-serif;
+        direction: rtl;
+        text-align: right;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        height: calc(100vh - 96px);
+        width: 240px;
+        background-color: #fff;
+        border-right: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 24px 12px;
+        transition: width 0.25s ease;
+        z-index: 1000;
+      }
+
+      .sidebar.collapsed {
+        width: 70px;
+      }
+
+      .sidebar .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #2f5950;
+        margin-bottom: 8px;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+
+      .sidebar .nav-link:hover,
+      .sidebar .nav-link.active {
+        background: var(--accent-dark);
+        color: #fff;
+      }
+
+      .collapse-toggle {
+        position: absolute;
+        top: 10px;
+        right: -15px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: coral;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+      }
+
+      /* Main area */
+      .dashboard-section {
+        margin-left: 260px;
+        padding: 100px 28px 40px;
+        transition: margin-left 0.25s;
+      }
+
+      .sidebar.collapsed ~ .dashboard-section {
+        margin-left: 100px;
+      }
+
+      /* Product card */
+      .product-card {
+        background: #fff;
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      }
+
+      .search-box {
+        position: relative;
+        width: 420px;
+        max-width: 100%;
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9aa;
+      }
+
+      .search-box input {
+        padding-left: 40px;
+        border-radius: 50px;
+        height: 40px;
+      }
+
+      .status-available {
+        background: #5da9d3;
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 8px;
+        display: inline-block;
+      }
+
+      .status-out {
+        background: #e75d5d;
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 8px;
+        display: inline-block;
+      }
+
+      .prod-img {
+        width: 58px;
+        height: 58px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      @media (max-width: 991.98px) {
+        .sidebar {
+          display: none;
+        }
+
+        .dashboard-section {
+          margin-left: 0;
+          padding: 90px 16px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">Seller Dashboard</a>
+        <button
+          class="btn btn-outline-dark d-lg-none"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#mobileSidebar"
+          aria-controls="mobileSidebar"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar shadow-sm" id="sidebar">
+      <button
+        class="collapse-toggle"
+        id="toggleSidebar"
+        title="Toggle sidebar"
+      >
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <a class="nav-link active" href="#"
+        ><i class="bi bi-speedometer2"></i
+        ><span class="d-none d-md-inline">Dashboard</span></a
+      >
+      <a class="nav-link" href="#"
+        ><i class="bi bi-box"></i
+        ><span class="d-none d-md-inline">Products</span></a
+      >
+      <a class="nav-link" href="#"
+        ><i class="bi bi-journal-text"></i
+        ><span class="d-none d-md-inline">Orders</span></a
+      >
+      <a class="nav-link" href="#"
+        ><i class="bi bi-gear"></i
+        ><span class="d-none d-md-inline">Settings</span></a
+      >
+      <hr />
+      <small class="text-muted">SELLER PANEL</small>
+    </div>
+
+    <!-- Offcanvas mobile -->
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="mobileSidebar"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action" href="#"
+            >Dashboard</a
+          >
+          <a class="list-group-item list-group-item-action" href="#"
+            >Products</a
+          >
+          <a class="list-group-item list-group-item-action" href="#"
+            >Orders</a
+          >
+          <a class="list-group-item list-group-item-action" href="#"
+            >Settings</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards Section -->
+    <section class="dashboard-section">
+      <h5>Products Management</h5>
+      <p>Manage and track all your website products here</p>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="dashboard-card card-total p-3 bg-light rounded">
+            <div class="dashboard-card-header mb-2 fw-semibold">
+              <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
+            </div>
+            <h2>0</h2>
+            <small>All products in your store</small>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card card-active p-3 bg-light rounded">
+            <div class="dashboard-card-header mb-2 fw-semibold">
+              <i class="bi bi-check-circle text-success"></i> Available Products
+            </div>
+            <h2>0</h2>
+            <small>Currently available products in your store</small>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card card-pending p-3 bg-light rounded">
+            <div class="dashboard-card-header mb-2 fw-semibold">
+              <i class="bi bi-receipt text-danger"></i> Out of Stock
+            </div>
+            <h2>0</h2>
+            <small>Out of stock products in your store</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Table -->
+      <div class="product-card">
+        <div
+          class="d-flex align-items-center justify-content-between flex-wrap mb-3 gap-2"
+        >
+          <h4 class="mb-0">Product List</h4>
+
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <div class="search-box">
+              <i class="bi bi-search"></i>
+              <input
+                id="searchInput"
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="ابحث عن منتج أو تصنيف..."
+              />
+            </div>
+
+            <button
+              class="btn btn-success d-flex align-items-center gap-2"
+              id="openAddBtn"
+              data-bs-toggle="modal"
+              data-bs-target="#addProductModal"
+              style="background: var(--accent); border-color: var(--accent)"
+            >
+              <i class="bi bi-plus-lg"></i> إضافة منتج
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table
+            class="table align-middle text-center table-bordered"
+          >
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>صورة</th>
+                <th>اسم المنتج</th>
+                <th>التصنيف</th>
+                <th>السعر</th>
+                <th>المخزون</th>
+                <th>الحالة</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="productsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="addProductModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">إضافة منتج جديد</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="formAlertPlaceholder"></div>
+            <form id="productForm" novalidate>
+              <div class="mb-3">
+                <label class="form-label">اسم المنتج</label>
+                <input
+                  type="text"
+                  id="productName"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">التصنيف</label>
+                <select id="productCategory" class="form-select" required>
+                  <option value="">اختر التصنيف</option>
+                  <option value="Men">Men</option>
+                  <option value="Women">Women</option>
+                  <option value="Kids">Kids</option>
+                </select>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">السعر</label>
+                  <input
+                    type="number"
+                    id="productPrice"
+                    class="form-control"
+                    min="0.01"
+                    step="0.01"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">المخزون</label>
+                  <input
+                    type="number"
+                    id="productStock"
+                    class="form-control"
+                    min="0"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">الوصف</label>
+                <textarea
+                  id="productDescription"
+                  class="form-control"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">صورة المنتج</label>
+                <input
+                  type="file"
+                  id="productImage"
+                  accept="image/*"
+                  class="form-control"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              إلغاء
+            </button>
+            <button type="button" class="btn btn-success" id="saveProductBtn">
+              حفظ المنتج
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      (function () {
+        const saveBtn = document.getElementById("saveProductBtn");
+        const form = document.getElementById("productForm");
+        const tbody = document.getElementById("productsTbody");
+        const modalEl = document.getElementById("addProductModal");
+        const modal = new bootstrap.Modal(modalEl);
+        const alertPlaceholder = document.getElementById("formAlertPlaceholder");
+        const modalTitle = document.getElementById("modalTitle");
+
+        const nameInput = document.getElementById("productName");
+        const catInput = document.getElementById("productCategory");
+        const priceInput = document.getElementById("productPrice");
+        const stockInput = document.getElementById("productStock");
+        const descInput = document.getElementById("productDescription");
+        const imageInput = document.getElementById("productImage");
+        const searchInput = document.getElementById("searchInput");
+
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggleSidebar");
+
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        let editIndex = null;
+
+        function showAlert(msg, type = "danger") {
+          alertPlaceholder.innerHTML = `
+          <div class="alert alert-${type} alert-dismissible fade show">
+            ${msg}
+            <button class="btn-close" data-bs-dismiss="alert"></button>
+          </div>`;
+        }
+
+        function saveToStorage() {
+          localStorage.setItem("products", JSON.stringify(products));
+        }
+
+        function readImage(file) {
+          return new Promise((res, rej) => {
+            if (!file) return res(null);
+            const r = new FileReader();
+            r.onload = () => res(r.result);
+            r.onerror = () => rej();
+            r.readAsDataURL(file);
+          });
+        }
+
+        function updateCards() {
+          const total = products.length;
+          const available = products.filter((p) => p.stock > 0).length;
+          const out = products.filter((p) => p.stock === 0).length;
+
+          document.querySelector(".card-total h2").textContent = total;
+          document.querySelector(".card-active h2").textContent = available;
+          document.querySelector(".card-pending h2").textContent = out;
+        }
+
+        function renderTable(list = products) {
+          tbody.innerHTML = "";
+          list.forEach((p, i) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${i + 1}</td>
+              <td><img src="${p.image ||
+                "https://via.placeholder.com/80?text=No+Image"}" class="prod-img"></td>
+              <td>${p.name}</td>
+              <td>${p.category}</td>
+              <td>$${p.price}</td>
+              <td>${p.stock}</td>
+              <td>${
+                p.stock > 0
+                  ? '<span class="status-available">Available</span>'
+                  : '<span class="status-out">Out of stock</span>'
+              }</td>
+              <td>
+                <button class="btn btn-sm text-primary edit-btn" data-i="${i}">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="btn btn-sm text-danger delete-btn" data-i="${i}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>`;
+            tbody.appendChild(tr);
+          });
+
+          document.querySelectorAll(".delete-btn").forEach((b) =>
+            b.addEventListener("click", (e) => {
+              const i = e.currentTarget.dataset.i;
+              if (confirm("هل أنت متأكد من الحذف؟")) {
+                products.splice(i, 1);
+                saveToStorage();
+                renderTable();
+              }
+            })
+          );
+
+          document.querySelectorAll(".edit-btn").forEach((b) =>
+            b.addEventListener("click", (e) => {
+              const i = e.currentTarget.dataset.i;
+              const p = products[i];
+              editIndex = i;
+              modalTitle.textContent = "تعديل المنتج";
+              nameInput.value = p.name;
+              catInput.value = p.category;
+              priceInput.value = p.price;
+              stockInput.value = p.stock;
+              descInput.value = p.description;
+              modal.show();
+            })
+          );
+
+          updateCards();
+        }
+
+        saveBtn.addEventListener("click", async () => {
+          const name = nameInput.value.trim();
+          const cat = catInput.value.trim();
+          const price = parseFloat(priceInput.value);
+          const stock = parseInt(stockInput.value);
+          const desc = descInput.value.trim();
+
+          if (!name || !cat || !price || stock < 0 || !desc) {
+            showAlert("يجب إدخال جميع البيانات بشكل صحيح");
+            return;
+          }
+
+          const file = imageInput.files[0];
+          let img = null;
+
+          if (file) img = await readImage(file);
+          else if (editIndex !== null) img = products[editIndex].image;
+
+          const obj = { name, category: cat, price, stock, description: desc, image: img };
+
+          if (editIndex !== null) {
+            products[editIndex] = obj;
+            editIndex = null;
+            modalTitle.textContent = "إضافة منتج جديد";
+          } else products.push(obj);
+
+          saveToStorage();
+          renderTable();
+          form.reset();
+          modal.hide();
+        });
+
+        searchInput.addEventListener("input", () => {
+          const val = searchInput.value.toLowerCase();
+          const f = products.filter(
+            (p) =>
+              p.name.toLowerCase().includes(val) ||
+              p.category.toLowerCase().includes(val)
+          );
+          renderTable(f);
+        });
+
+        toggleBtn.addEventListener("click", () => {
+          sidebar.classList.toggle("collapsed");
+          toggleBtn.querySelector("i").classList.toggle("bi-chevron-right");
+          toggleBtn.querySelector("i").classList.toggle("bi-chevron-left");
+        });
+
+        renderTable();
+      })();
+    </script>
+  </body>
+</html>
