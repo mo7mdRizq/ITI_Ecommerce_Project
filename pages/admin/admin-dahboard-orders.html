@@ -630,6 +630,9 @@ label[for="filter"] {
       tableBody.appendChild(tr);
     }
 
+    // تطبيق ألوان الحالات
+    applyStatusColors();
+
     // حدث عند تغيير الحالة
     document.querySelectorAll(".order-status").forEach(select => {
       select.addEventListener("change", e => {
@@ -651,6 +654,33 @@ label[for="filter"] {
     // إعادة تحميل الجدول والكروت بعد التحديث
     const currentFilter = document.getElementById("filter").value;
     loadOrders(currentFilter);
+  }
+
+  // ✅ تلوين الحالات
+  function applyStatusColors() {
+    document.querySelectorAll(".order-status").forEach(select => {
+      const status = select.value.toLowerCase();
+      select.style.color = "#fff";
+      select.style.fontWeight = "600";
+      select.style.border = "none";
+
+      switch (status) {
+        case "pending":
+          select.style.backgroundColor = "#f0ad4e"; // برتقالي
+          break;
+        case "shipped":
+          select.style.backgroundColor = "#0275d8"; // أزرق
+          break;
+        case "delivered":
+          select.style.backgroundColor = "#5cb85c"; // أخضر
+          break;
+        case "cancelled":
+          select.style.backgroundColor = "#d9534f"; // أحمر
+          break;
+        default:
+          select.style.backgroundColor = "#adb5bd"; // رمادي افتراضي
+      }
+    });
   }
 
   // ✅ بيانات تجريبية مبدئية (مرة واحدة فقط)
@@ -702,6 +732,7 @@ label[for="filter"] {
     });
   });
 </script>
+
 
 </body>
 </html>
