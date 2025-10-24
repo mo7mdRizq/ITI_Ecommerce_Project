@@ -715,5 +715,57 @@ label[for="filter"] {
 
     <!-- Link Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script>
+  const filterSelect = document.getElementById("filter");
+  const tableRows = document.querySelectorAll(".table tbody tr");
+
+  const totalOrdersEl = document.querySelector(".card-total h2");
+  const deliveredOrdersEl = document.querySelector(".card-active h2");
+  const pendingOrdersEl = document.querySelector(".card-pending h2");
+
+  function updateCounts() {
+    let total = 0;
+    let delivered = 0;
+    let shipped = 0;
+    let cancelled = 0;
+
+    tableRows.forEach(row => {
+      if (row.style.display !== "none") { 
+        total++;
+        const status = row.querySelector(".status")?.textContent.toLowerCase() || "";
+        if (status.includes("delivered")) delivered++;
+        if (status.includes("shipped")) shipped++;
+        if (status.includes("cancelled")) cancelled++;
+      }
+    });
+
+    totalOrdersEl.textContent = total;
+    deliveredOrdersEl.textContent = delivered;
+    pendingOrdersEl.textContent = shipped + cancelled; 
+  }
+
+  filterSelect.addEventListener("change", function () {
+    const selected = this.value.toLowerCase(); 
+
+    tableRows.forEach(row => {
+      const statusCell = row.querySelector(".status");
+      const status = statusCell ? statusCell.textContent.toLowerCase().trim() : "";
+
+      if (selected === "all orders" || status.includes(selected)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+
+    updateCounts();
+  });
+
+  updateCounts();
+</script>
+
+
+
 </body>
 </html>
