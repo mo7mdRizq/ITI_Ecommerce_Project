@@ -5,313 +5,245 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Overview</title>
 
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
     />
-
     <link rel="stylesheet" href="../../style/style.css" />
+
     <style>
-        body {
-      background-color: #f9fafb;
-      font-family: "Poppins", sans-serif;
-    }
-    
-     /* ===== Sidebar ===== */
+      body {
+        background-color: #f9fafb;
+        font-family: "Poppins", sans-serif;
+      }
+
       .sidebar {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        height: 80vh;
-        width: 240px;
+        width: 300px;
+        min-height: 80vh;
+        height: 70vh;
+        padding: 20px;
         background-color: #fff;
         border-right: 1px solid #dee2e6;
-        border-radius: 10px;
-        padding: 50px 10px;
-        transition: width 0.3s ease;
-        z-index: 1000;
-        /* overflow: hidden; */
+        border-radius: 20px;
+        position: fixed;
+        top: 90px;
+        left: 20px;
+        z-index: 1030;
       }
 
-      .sidebar.collapsed {
-        width: 70px;
-      }
-
-      .sidebar .nav-link {
+      .nav-button {
         display: flex;
         align-items: center;
-        padding: 10px 14px;
+        padding: 12px 16px;
+        border: 1px solid #618674;
         border-radius: 8px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        color: #4d6b5c;
-        transition: background-color 0.3s, color 0.3s;
-        white-space: nowrap;
+        margin-bottom: 12px;
+        font-weight: 600;
+        color: #618674;
+        background-color: #fff;
+        text-decoration: none;
+        transition: background-color 0.3s;
       }
 
-      .sidebar .nav-link i {
-        font-size: 20px;
-        margin-right: 10px;
-      }
-
-      .sidebar .nav-link.active,
-      .sidebar .nav-link:hover {
+      .nav-button:hover {
         background-color: #4d6b5c;
         color: white;
       }
 
-      .sidebar.collapsed .nav-link span {
-        display: none;
+      .nav-button i {
+        margin-right: 10px;
+        font-size: 18px;
       }
 
-      .sidebar.collapsed .nav-link i {
-        margin-right: 0;
-      }
-
-      /* ===== Toggle Button ===== */
-      .collapse-toggle {
-        position: absolute;
-        top: 15px;
-        right: -15px;
-        width: 30px;
-        height: 30px;
-        background-color: coral;
-        color: white;
+      .nav-button.active {
+        background-color: #618674;
+        color: #fff;
         border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: transform 0.3s;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
       }
 
-      .sidebar.collapsed .collapse-toggle {
-        transform: rotate(180deg);
+      .nav-button.active:hover {
+        background-color: #4d6b5c;
+        color: #fff;
       }
-      /* ===== Mobile Styles ===== */
-@media (max-width: 767.98px) {
-  .sidebar {
-    width: 70px;
-    margin-left: 8px;
-    /* left: 30px;  */
-  }
 
-  .sidebar:not(.collapsed) {
-    width: 200px;
-  }
+      @media (max-width: 991.98px) {
+        .sidebar {
+          position: fixed;
+          top: 80px;
+          left: 0;
+          height: 80vh;
+          width: 240px;
+          background-color: #fff;
+          border-right: 1px solid #dee2e6;
+          border-radius: 10px;
+          padding: 50px 10px;
+          transition: width 0.3s ease;
+          z-index: 1000;
+        }
 
-  .sidebar .nav-link span {
-    display: none;
-  }
+        .sidebar.collapsed {
+          width: 70px;
+        }
 
-  .sidebar:not(.collapsed) .nav-link span {
-    display: inline;
-  }
+        .sidebar .nav-link {
+          display: flex;
+          align-items: center;
+          padding: 10px 14px;
+          border-radius: 8px;
+          margin-bottom: 10px;
+          font-weight: 500;
+          color: #4d6b5c;
+          transition: background-color 0.3s, color 0.3s;
+          white-space: nowrap;
+        }
 
-  /* ✅ المحتوى يكون ملاصق للسايدبار */
-  .dashboard-section,
-  .orders-section {
-    margin-left: 110px; /* 70px عرض السايدبار + 30px المسافة */
-    margin-right: 15px;
-    padding: 15px;
-    transition: margin 0.3s ease;
-  }
+        .sidebar .nav-link i {
+          font-size: 20px;
+          margin-right: 10px;
+        }
 
-  .sidebar:not(.collapsed) ~ .dashboard-section,
-  .sidebar:not(.collapsed) ~ .orders-section {
-    margin-left: 230px; /* لما السايدبار يتفتح في الموبايل */
-  }
+        .sidebar .nav-link.active,
+        .sidebar .nav-link:hover {
+          background-color: #4d6b5c;
+          color: white;
+        }
 
-  .collapse-toggle {
-    top: 10px;
-    right: -15px;
-  }
-} 
+        .sidebar.collapsed .nav-link span {
+          display: none;
+        }
+
+        .sidebar.collapsed .nav-link i {
+          margin-right: 0;
+        }
+
+        .collapse-toggle {
+          position: absolute;
+          top: 15px;
+          right: -15px;
+          width: 30px;
+          height: 30px;
+          background-color: coral;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: transform 0.3s;
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.collapsed .collapse-toggle {
+          transform: rotate(180deg);
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .sidebar {
+          width: 70px;
+          margin-left: 8px;
+        }
+
+        .sidebar:not(.collapsed) {
+          width: 200px;
+        }
+
+        .sidebar .nav-link span {
+          display: none;
+        }
+
+        .sidebar:not(.collapsed) .nav-link span {
+          display: inline;
+        }
+
+        .dashboard-section {
+          margin-left: 110px;
+          margin-right: 15px;
+          padding: 15px;
+          transition: margin 0.3s ease;
+        }
+
+        .sidebar:not(.collapsed) ~ .dashboard-section {
+          margin-left: 230px;
+        }
+
+        .collapse-toggle {
+          top: 10px;
+          right: -15px;
+        }
+      }
     </style>
   </head>
 
   <body>
-     <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-    
-            <!-- Brand -->
-            <a class="navbar-brand" href="../index.html" id="brand">
-                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
-            </a>
-        
-            <!-- Center Links - Collapse -->
-            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="/">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">Shop</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">About</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
-                </li>
-                <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="">dashboard</a>
-                </li>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+        <a class="navbar-brand" href="../home.html">
+          <img src="../../assets/images/logo.png" alt="Logo" style="width: 100px" />
+        </a>
 
-                
-                </ul>
-
-                <form class="d-flex align-items-center" role="search" style="width: 300px;">
-                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
-                </form>
-
-            </div>
-        
-            <!-- Right Side -->
-            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
-
-        
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/shopping-cart.svg" alt="">
-                    </i>
-                </a>
-
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/heart.svg" alt="">
-                    </i>
-                </a>
-                
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/profileIcon.svg" alt="">
-                    </i>
-                </a>
-        
-                <!-- Navar Toggler -->
-                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-
-                     <img src="../../assets/icons/menu.svg">
-                </button>
-            </div>
-    
+        <div class="icons-container d-flex align-items-center gap-3 order-lg-3 ms-auto">
+          <a class="nav-link position-relative" href="../cart.html">
+            <img src="../../assets/icons/shopping-cart.svg" alt="Cart" />
+          </a>
+          <a class="nav-link position-relative" href="../wishlist.html">
+            <img src="../../assets/icons/heart.svg" alt="Wishlist" />
+          </a>
+          <a class="nav-link position-relative" href="../profile.html">
+            <img src="../../assets/icons/profileIcon.svg" alt="Profile" />
+          </a>
         </div>
+
+        <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="../home.html">Home</a></li>
+            <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
+            <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../about.html">About</a></li>
+            <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
+            <li class="nav-item me-5"><a class="nav-link main-nav-link" href="dashboard.html">Dashboard</a></li>
+          </ul>
+
+          <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px">
+            <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." />
+          </form>
+        </div>
+
+        <button class="navbar-toggler border-0 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <img src="../../assets/icons/menu.svg" alt="menu" />
+        </button>
+      </div>
     </nav>
 
-
-
-
-<!-- Navbar for small screens -->
-<nav class="navbar bg-white d-lg-none px-3 shadow-sm">
-  <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
-    <i class="bi bi-list"></i>
-  </button>
-  <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
-</nav>
-
-<!-- Offcanvas Sidebar (Mobile / Tablet) -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body">
-    <a href="dashboard.html" class="nav-button active">
-      <i class="bi bi-speedometer2"></i> Dashboard Overview
-    </a>
-    <a href="products.html" class="nav-button">
-      <i class="bi bi-box"></i> Product Management
-    </a>
-    <a href="orders.html" class="nav-button">
-      <i class="bi bi-journal-text"></i> Order Management
-    </a>
-    <hr>
-    <a href="settings.html" class="nav-button">
-      <i class="bi bi-gear"></i> Setting
-    </a>
-    <a href="logout.html" class="nav-button">
-      <i class="bi bi-box-arrow-left"></i> Log Out
-    </a>
-  </div>
-</div>
-
-<!-- Sidebar -->
-    <div class="sidebar shadow-sm" id="sidebar">
-      <button class="collapse-toggle" id="toggleSidebar">
-        <i class="bi bi-chevron-left"></i>
-      </button>
-
-      <a href="#" class="nav-link active">
-        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-box"></i> <span>Products</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-journal-text"></i> <span>Orders</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-gear"></i> <span>Settings</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-box-arrow-left"></i> <span>Logout</span>
-      </a>
+    <!-- Sidebar -->
+    <div class="sidebar d-none d-lg-block position-fixed">
+      <a href="admin-dashboard.html" class="nav-button active"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+      <a href="admin-products-management.html" class="nav-button"><i class="bi bi-box"></i> Product Management</a>
+      <a href="admin-dahboard-orders.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
+      <a href="users-management.html" class="nav-button"><i class="bi bi-person"></i> Users Management</a>
+      <hr />
+      <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
+      <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
     </div>
 
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-      const sidebar = document.getElementById("sidebar");
-      const toggleBtn = document.getElementById("toggleSidebar");
-
-      // 🧠 Sidebar behavior based on screen size
-      function handleSidebar() {
-        if (window.innerWidth <= 767.98) {
-          sidebar.classList.add("collapsed"); // في الموبايل يبقى مصغّر
-        } else {
-          sidebar.classList.remove("collapsed"); // في الشاشات الكبيرة يبقى مفتوح
-        }
-      }
-
-      handleSidebar(); // تشغيل عند تحميل الصفحة
-      window.addEventListener("resize", handleSidebar); // تشغيل عند تغيير حجم الشاشة
-
-      toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-      });
-    </script>
-
-
-
-
-
-
-       <!--//////////////////////////////////////////////////tpo-section1//////////////////////////////////////////////////////////////////////////-->
+    <!-- Dashboard Section -->
     <section class="dashboard-section">
       <h5>Dashboard Overview</h5>
-      <p>Welcome to your dashboard, here’s  what’s happing in your today.</p>
+      <p>Welcome to your dashboard, here’s what’s happening today.</p>
 
       <div class="row g-4">
-
         <div class="col-md-4">
           <div class="dashboard-card card-total">
             <div class="dashboard-card-header">
               <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
             </div>
-            <h2>4500</h2>
-            <small>All active products in your store
-</small>
+            <h2 id="totalProducts">0</h2>
+            <small>All active products in your store</small>
           </div>
         </div>
 
@@ -325,7 +257,7 @@
               </div>
               Total Orders
             </div>
-            <h2>120K</h2>
+            <h2 id="totalOrders">0</h2>
             <small>Total number of customer orders</small>
           </div>
         </div>
@@ -335,11 +267,86 @@
             <div class="dashboard-card-header">
               <i class="bi bi-receipt icon-red"></i> Total Users
             </div>
-            <h2>480K</h2>
+            <h2 id="totalUsers">0</h2>
             <small>Your total sales this month</small>
           </div>
         </div>
       </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // دالة لتجهيز بيانات تجريبية لو فاضية
+      function seedDataIfEmpty() {
+        if (!localStorage.getItem("products")) {
+          localStorage.setItem(
+            "products",
+            JSON.stringify([
+              { id: 1, name: "T-shirt" },
+              { id: 2, name: "Shoes" },
+              { id: 3, name: "Watch" },
+              { id: 4, name: "Bag" },
+            ])
+          );
+        }
+
+        if (!localStorage.getItem("users")) {
+          localStorage.setItem(
+            "users",
+            JSON.stringify([
+              { id: 1, name: "Mohamed" },
+              { id: 2, name: "Sara" },
+              { id: 3, name: "Ali" },
+              
+            ])
+          );
+        }
+
+        if (!localStorage.getItem("orders")) {
+          localStorage.setItem(
+            "orders",
+            JSON.stringify([
+              { id: 1, userId: 1, total: 500 },
+              { id: 2, userId: 2, total: 120 },
+              { id: 3, userId: 3, total: 300 },
+              { id: 4, userId: 1, total: 900 },
+            ])
+          );
+        }
+      }
+
+      // دالة تحديث الأرقام
+      function updateDashboardCounts() {
+        const products = JSON.parse(localStorage.getItem("products")) || [];
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+        document.getElementById("totalProducts").textContent = products.length;
+        document.getElementById("totalOrders").textContent = orders.length;
+        document.getElementById("totalUsers").textContent = users.length;
+      }
+
+      // متابعة أي تحديث في الـlocalStorage من أي صفحة
+      window.addEventListener("storage", updateDashboardCounts);
+
+      // تحديث كل ثانية بشكل حي (لو نفس الصفحة تعدل)
+      setInterval(updateDashboardCounts, 1000);
+
+      // تشغيل أول مرة
+      seedDataIfEmpty();
+      updateDashboardCounts();
+
+      // كود السايدبار
+      const sidebar = document.querySelector(".sidebar");
+      function handleSidebar() {
+        if (window.innerWidth <= 767.98) {
+          sidebar.classList.add("collapsed");
+        } else {
+          sidebar.classList.remove("collapsed");
+        }
+      }
+      handleSidebar();
+      window.addEventListener("resize", handleSidebar);
+    </script>
   </body>
 </html>
