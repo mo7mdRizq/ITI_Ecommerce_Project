@@ -20,7 +20,55 @@
       background-color: #f9fafb;
       font-family: "Poppins", sans-serif;
     }
-     /* ===== Sidebar ===== */
+  
+    .sidebar {
+      width: 300px;
+      min-height: 80vh;
+      height: 70vh;
+      padding: 20px;
+      background-color: #fff;
+      border-right: 1px solid #dee2e6;
+      border-radius: 20px;
+      margin-top: 90px;
+      margin-left: 10px;
+    }
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid #618674;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #618674;
+      background-color: #fff;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #4D6B5C;
+      color: white;
+    }
+
+    .nav-button i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .nav-button.active {
+      background-color: #618674;
+      color: #fff;
+      border: none;
+    }
+
+    .nav-button.active:hover {
+      background-color: #4D6B5C;
+      color: #fff;
+    }
+
+    @media (max-width: 991.98px) {
       .sidebar {
         position: fixed;
         top: 80px;
@@ -65,30 +113,20 @@
 
       .sidebar.collapsed .nav-link span {
         display: none;
+            margin-top: 70px;
+
       }
 
       .sidebar.collapsed .nav-link i {
         margin-right: 0;
       }
+    } /* close @media (max-width: 991.98px) */
 
-      /* ===== Toggle Button ===== */
-      .collapse-toggle {
-        position: absolute;
-        top: 15px;
-        right: -15px;
-        width: 30px;
-        height: 30px;
-        background-color: coral;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: transform 0.3s;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-      }
+    .main-content {
+      margin-left: 250px;
+          margin-top: 70px;
+
+    }
 
       .sidebar.collapsed .collapse-toggle {
         transform: rotate(180deg);
@@ -133,12 +171,12 @@
   }
 } 
   
-   
+  
     /* Table style */
    /* ===== Product Card ===== */
 .product-card {
-  width: calc(100% - 195px); 
-  margin-left: 235px;
+  width: calc(100% - 170px); 
+  margin-left: 335px;
   margin-top: 50px;
   background-color: #fff;
   border-radius: 15px;
@@ -190,7 +228,7 @@
   background-color: #e75d5d;
   color: white;
   border: none;
-  padding: 5px 15px;
+  padding: 5px 5px;
   border-radius: 8px;
 }
 
@@ -331,320 +369,297 @@
   }
 }
 
-
   </style>
   </head>
 
   <body>
-            <!-- nav&side bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-    
-            <!-- Brand -->
-            <a class="navbar-brand" href="../index.html" id="brand">
-                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
-            </a>
-        
-            <!-- Center Links - Collapse -->
-            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="/">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">Shop</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">About</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
-                </li>
-                <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="">dashboard</a>
-                </li>
+  <!-- nav&side bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <!-- Brand -->
+      <a class="navbar-brand" href="../home.html" id="brand">
+        <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;">
+      </a>
 
-                
-                </ul>
+      <!-- Right Side Icons -->
+      <div class="icons-container d-flex align-items-center gap-3 order-lg-3 ms-auto">
+        <a class="nav-link cart-icon-container position-relative" href="../cart.html">
+          <img src="../../assets/icons/shopping-cart.svg" alt="">
+        </a>
+        <a class="nav-link cart-icon-container position-relative" href="../wishlist.html">
+          <img src="../../assets/icons/heart.svg" alt="">
+        </a>
+        <a class="nav-link cart-icon-container position-relative" href="../profile.html">
+          <img src="../../assets/icons/profileIcon.svg" alt="">
+        </a>
+      </div>
 
-                <form class="d-flex align-items-center" role="search" style="width: 300px;">
-                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
-                </form>
+      <!-- Collapsible Menu -->
+      <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="../home.html">Home</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="">About</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact us.html">Contact</a></li>
+          <li class="nav-item me-5" id="dashboard"><a class="nav-link main-nav-link" href="">Dashboard</a></li>
+        </ul>
+        <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px;">
+          <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
+        </form>
+      </div>
 
-            </div>
-        
-            <!-- Right Side -->
-            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
-
-        
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/shopping-cart.svg" alt="">
-                    </i>
-                </a>
-
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/heart.svg" alt="">
-                    </i>
-                </a>
-
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/profileIcon.svg" alt="">
-                    </i>
-                </a>
-        
-                <!-- Navar Toggler -->
-                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-
-                     <img src="../../assets/icons/menu.svg">
-                </button>
-            </div>
-    
-        </div>
-    </nav>
-
-<!-- Navbar for small screens -->
-<nav class="navbar bg-white d-lg-none px-3 shadow-sm">
-  <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
-    <i class="bi bi-list"></i>
-  </button>
-  <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
-</nav>
-
-<!-- Offcanvas Sidebar (Mobile / Tablet) -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body">
-    <a href="dashboard.html" class="nav-button active">
-      <i class="bi bi-speedometer2"></i> Dashboard Overview
-    </a>
-    <a href="products.html" class="nav-button">
-      <i class="bi bi-box"></i> Product Management
-    </a>
-    <a href="orders.html" class="nav-button">
-      <i class="bi bi-journal-text"></i> Order Management
-    </a>
-    <hr>
-    <a href="settings.html" class="nav-button">
-      <i class="bi bi-gear"></i> Setting
-    </a>
-    <a href="logout.html" class="nav-button">
-      <i class="bi bi-box-arrow-left"></i> Log Out
-    </a>
-  </div>
-</div>
-
-<!-- Sidebar -->
-    <div class="sidebar shadow-sm" id="sidebar">
-      <button class="collapse-toggle" id="toggleSidebar">
-        <i class="bi bi-chevron-left"></i>
+      <!-- Toggle Button -->
+      <button class="navbar-toggler border-0 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <img src="../../assets/icons/menu.svg" alt="menu">
       </button>
-
-      <a href="#" class="nav-link active">
-        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-box"></i> <span>Products</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-journal-text"></i> <span>Orders</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-gear"></i> <span>Settings</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-box-arrow-left"></i> <span>Logout</span>
-      </a>
     </div>
+  </nav>
 
+  <div class="container ms-1">
+    <div class="row">
+      <div class="">
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-      const sidebar = document.getElementById("sidebar");
-      const toggleBtn = document.getElementById("toggleSidebar");
-
-      // 🧠 Sidebar behavior based on screen size
-      function handleSidebar() {
-        if (window.innerWidth <= 767.98) {
-          sidebar.classList.add("collapsed"); // في الموبايل يبقى مصغّر
-        } else {
-          sidebar.classList.remove("collapsed"); // في الشاشات الكبيرة يبقى مفتوح
-        }
-      }
-
-      handleSidebar(); // تشغيل عند تحميل الصفحة
-      window.addEventListener("resize", handleSidebar); // تشغيل عند تغيير حجم الشاشة
-
-      toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-      });
-    </script>
-   
-    <!--//////////////////////////////////////////////////top-section1//////////////////////////////////////////////////////////////////////////-->
-    <section class="dashboard-section">
-      <h5>Products Management</h5>
-      <p>Manage and track all your website products here</p>
-
-      <div class="row g-3">
-        <div class="col-md-4">
-          <div class="dashboard-card card-total">
-            <div class="dashboard-card-header">
-              <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
-            </div>
-            <h2>4,500</h2>
-            <small>All products in your store</small>
-          </div>
+        <!-- Sidebar -->
+        <div class="sidebar d-none d-lg-block position-fixed">
+          <a href="../admin/admin-dashboard.html" class="nav-button">
+            <i class="bi bi-speedometer2"></i> Dashboard Overview
+          </a>
+          <a href="../admin/admin-products-management.html" class="nav-button active">
+            <i class="bi bi-box"></i> Product Management
+          </a>
+          <a href="../admin/admin-dahboard-orders.html" class="nav-button">
+            <i class="bi bi-journal-text"></i> Order Management
+          </a>
+          <a href="../admin/users-management.html" class="nav-button">
+            <i class="bi bi-person"></i> Users Management
+          </a>
+          <hr>
+          <a href="settings.html" class="nav-button">
+            <i class="bi bi-gear"></i> Setting
+          </a>
+          <a href="logout.html" class="nav-button">
+            <i class="bi bi-box-arrow-left"></i> Log Out
+          </a>
         </div>
 
-        <div class="col-md-4">
-          <div class="dashboard-card card-active">
-            <div class="dashboard-card-header">
-              <div class="check-wrapper">
-                <div class="check-inner">
-                  <i class="bi bi-check-circle"></i>
+        <!-- Top Section -->
+        <section class="dashboard-section">
+          <h5>Products Management</h5>
+          <p>Manage and track all your website products here</p>
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="dashboard-card card-total">
+                <div class="dashboard-card-header">
+                  <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
                 </div>
+                <h2 id="totalProducts">4,500</h2>
+                <small>All products in your store</small>
               </div>
-              Available Products
             </div>
-            <h2>3,500</h2>
-            <small>Currently available products</small>
+
+            <div class="col-md-4">
+              <div class="dashboard-card card-active">
+                <div class="dashboard-card-header">
+                  <div class="check-wrapper">
+                    <div class="check-inner">
+                      <i class="bi bi-check-circle"></i>
+                    </div>
+                  </div>
+                  Available Products
+                </div>
+                <h2 id="availableProducts">3,500</h2>
+                <small>Currently available products</small>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="dashboard-card card-pending">
+                <div class="dashboard-card-header">
+                  <i class="bi bi-receipt icon-red"></i> Out of Stock
+                </div>
+                <h2 id="outOfStock">1,000</h2>
+                <small>Out of stock products</small>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Table Section -->
+        <div class="container">
+          <div class="product-card">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+              <h4 class="fw-bold mb-0">Product List</h4>
+              <div class="search-box mt-2 mt-md-0">
+                <i class="bi bi-search"></i>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search for users, products, orders...">
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table align-middle text-center table-bordered">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                  <!-- dynamic rows here -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <nav class="pagination-container">
+              <ul class="custom-pagination" id="pagination">
+                <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li class="dots" id="dots">••</li>
+                <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
+              </ul>
+            </nav>
           </div>
         </div>
 
-        <div class="col-md-4">
-          <div class="dashboard-card card-pending">
-            <div class="dashboard-card-header">
-              <i class="bi bi-receipt icon-red"></i> Out of Stock
-            </div>
-            <h2>1,000</h2>
-            <small>Out of stock products</small>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!--//////////////////////////////////////////////////table section//////////////////////////////////////////////////////////////////////////-->
-    <div class="container">
-    <div class="product-card">
-      <!-- Header: Title + Search -->
-      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-        <h4 class="fw-bold mb-0">Product List</h4>
+       
+        <script>
+document.addEventListener("DOMContentLoaded", () => {
+  loadProducts();
+  setActiveSidebar();
+});
 
-        <!-- Search Box (Wider & aligned with title) -->
-        <div class="search-box mt-2 mt-md-0">
-          <i class="bi bi-search"></i>
-          <input type="text" class="form-control" placeholder="Search for users, products, orders...">
-        </div>
-      </div>
+// ---------- تحميل المنتجات ----------
+function loadProducts() {
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+  const tbody = document.getElementById("productsTableBody");
+  tbody.innerHTML = "";
 
-      <!-- Table -->
-      <div class="table-responsive">
-        <table class="table align-middle text-center table-bordered">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Product Name</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Stock</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Item 1</td>
-              <td>Cat 1</td>
-              <td>$100</td>
-              <td>10</td>
-              <td><span class="status-available">Available</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Item 2</td>
-              <td>Cat 2</td>
-              <td>$120</td>
-              <td>0</td>
-              <td><span class="status-out">Out of stock</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Item 3</td>
-              <td>Cat 3</td>
-              <td>$300</td>
-              <td>12</td>
-              <td><span class="status-available">Available</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Item 4</td>
-              <td>Cat 4</td>
-              <td>$90</td>
-              <td>32</td>
-              <td><span class="status-available">Available</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Item 5</td>
-              <td>Cat 4</td>
-              <td>$90</td>
-              <td>0</td>
-              <td><span class="status-out">Out of stock</span></td>
-              <td>
-                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  if (products.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7">No products found.</td></tr>`;
+  } else {
+    products.forEach((product, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${product.name}</td>
+        <td>${product.category}</td>
+        <td>$${product.price}</td>
+        <td>${product.stock}</td>
+        <td>
+          <span class="${product.stock > 0 ? "status-available" : "status-out"}">
+            ${product.stock > 0 ? "Available" : "Out of stock"}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-link text-danger action-btn delete-btn" data-id="${product.id}">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
 
-      <!-- Pagination -->
-     <nav class="pagination-container">
-  <ul class="custom-pagination" id="pagination">
-    <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
-    <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li class="dots" id="dots">••</li>
-    <li style="display:none;"><a href="#">5</a></li>
-    <li style="display:none;"><a href="#">6</a></li>
-    <li style="display:none;"><a href="#">7</a></li>
-    <li style="display:none;"><a href="#">8</a></li>
-    <li style="display:none;"><a href="#">9</a></li>
-    <li><a href="#">10</a></li>
-    <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
-  </ul>
-</nav>
-    </div>
-  </div>
+  updateDashboardCards();
+  attachDeleteButtons();
+}
+// ---------- البحث ----------
+const searchInput = document.getElementById("searchInput");
+
+if (searchInput) {
+  searchInput.addEventListener("keyup", () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    const tbody = document.getElementById("productsTableBody");
+    tbody.innerHTML = "";
+
+    // فلترة المنتجات بناءً على النص اللي المستخدم كتبه
+    const filtered = products.filter(p =>
+      p.name.toLowerCase().includes(searchTerm) ||
+      (p.category && p.category.toLowerCase().includes(searchTerm)) ||
+      (p.price && p.price.toString().includes(searchTerm)) ||
+      (p.stock && p.stock.toString().includes(searchTerm))
+    );
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7">No products found.</td></tr>`;
+    } else {
+      filtered.forEach((product, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${product.name}</td>
+          <td>${product.category || '-'}</td>
+          <td>$${product.price ?? '-'}</td>
+          <td>${product.stock ?? '-'}</td>
+          <td>
+            <span class="${product.stock > 0 ? "status-available" : "status-out"}">
+              ${product.stock > 0 ? "Available" : "Out of stock"}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-link text-danger action-btn delete-btn" data-id="${product.id}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  });
+}
 
 
+// ---------- تحديث الكروت ----------
+function updateDashboardCards() {
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+  document.getElementById("totalProducts").textContent = products.length;
+  document.getElementById("availableProducts").textContent = products.filter(p => p.stock > 0).length;
+  document.getElementById("outOfStock").textContent = products.filter(p => p.stock == 0).length;
+}
 
+// ---------- Sidebar Active ----------
+function setActiveSidebar() {
+  document.querySelectorAll(".sidebar .nav-button").forEach(btn => btn.classList.remove("active"));
+  const productBtn = document.querySelector('.sidebar .nav-button[href="../admin/admin-products-management.html"]');
+  if (productBtn) productBtn.classList.add("active");
+}
 
-  </body>
+// ---------- زر الحذف ----------
+function attachDeleteButtons() {
+  document.querySelectorAll(".delete-btn").forEach(btn => {
+    btn.addEventListener("click", e => deleteProduct(e.target.closest("button").dataset.id));
+  });
+}
+
+// ---------- حذف المنتج ----------
+function deleteProduct(id) {
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+  const product = products.find(p => p.id == id);
+  if (!product) return;
+
+  if (confirm(`Are you sure you want to delete "${product.name}"?`)) {
+    const updated = products.filter(p => p.id != id);
+    localStorage.setItem("products", JSON.stringify(updated));
+    loadProducts();
+  }
+}
+
+// ---------- تحديث مباشر بين الصفحات ----------
+window.addEventListener("storage", e => {
+  if (e.key === "products") loadProducts();
+});
+
+</script>
+
+</body>
 </html>
