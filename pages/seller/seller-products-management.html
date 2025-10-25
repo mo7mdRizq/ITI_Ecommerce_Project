@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seller - Products Management</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="../../style/style.css" />
+    <style>
+      /* nav&side bar style */
+    body {
+      background-color: #f9fafb;
+      font-family: "Poppins", sans-serif;
+    }
+  
+   
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid #618674;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #618674;
+      background-color: #fff;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #4D6B5C;
+      color: white;
+    }
+
+    .nav-button i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .nav-button.active {
+      background-color: #618674;
+      color: #fff;
+      border: none;
+    }
+
+    .nav-button.active:hover {
+      background-color: #4D6B5C;
+      color: #fff;
+    }
+
+    @media (max-width: 991.98px) {
+      .sidebar {
+          display: block;      
+        position: fixed;
+        z-index: 999;
+        transition: all 0.3s ease;
+    
+    }
+    .sidebar:not(.collapsed) {
+    width: 200px;           /* ✅ لما يتفتح */
+  }
+    }
+
+    @media (min-width: 992px) {
+      .offcanvas {
+        display: none;
+      }
+    }
+
+    .main-content {
+      margin-left: 250px;
+    }
+    
+    /* Table style */
+   /* ===== Product Card ===== */
+.product-card {
+  width: calc(100% - 195px); 
+  margin-left: 235px;
+  margin-top: 50px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 40px;
+  max-width: none;
+  transition: all 0.3s ease;
+}
+
+/* ===== Search Box ===== */
+.search-box {
+  position: relative;
+  width: 550px;
+  max-width: 100%;
+}
+
+.search-box input {
+  padding-left: 38px;
+  border-radius: 50px;
+  height: 40px;
+}
+
+.search-box i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 1.1rem;
+}
+
+/* ===== Table Styling ===== */
+.table thead th {
+  background-color: #f1f3f5;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.btn-success:hover {
+  background-color: #4d6b5c !important;
+  border-color: #4d6b5c !important;
+}
+
+
+/* ===== Status Buttons ===== */
+.status-available {
+  background-color: #5da9d3;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 8px;
+}
+
+.status-out {
+  background-color: #e75d5d;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 8px;
+}
+
+/* ===== Actions ===== */
+.action-btn i {
+  font-size: 1.2rem;
+}
+
+/* ===== Pagination ===== */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.custom-pagination {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.custom-pagination li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #7ca394;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #7ca394;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.custom-pagination a:hover {
+  background-color: #e3eee9;
+}
+
+.custom-pagination .active a {
+  background-color: #7ca394;
+  color: white;
+  border-color: #7ca394;
+}
+
+.custom-pagination .dots {
+  color: #7ca394;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+.custom-pagination .arrow {
+  font-size: 30px;
+  border: none;
+  background: none;
+  color: #7ca394;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+.custom-pagination .arrow:hover {
+  color: #5d7e71;
+}
+
+/* ===== Responsive Design ===== */
+
+/* Large tablets and small laptops */
+@media (max-width: 1200px) {
+  .product-card {
+    width: calc(100% - 150px);
+    margin-left: 180px;
+    padding: 30px;
+  }
+
+  .search-box {
+    width: 420px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .product-card {
+    width: 100%;
+    margin-left: 0;
+    padding: 25px;
+  }
+
+  .d-flex {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 15px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+}
+
+/* Phones */
+@media (max-width: 576px) {
+  .product-card {
+    padding: 20px;
+    margin-left: 100px;
+  }
+
+  .search-box input {
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .table {
+    font-size: 13px;
+  }
+
+  .custom-pagination a {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .custom-pagination .arrow {
+    font-size: 22px;
+  }
+}
+/* ===== Sidebar ===== */
+      .sidebar {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        height: 80vh;
+        width: 240px;
+        background-color: #fff;
+        border-right: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 50px 10px;
+        transition: width 0.3s ease;
+        z-index: 1000;
+        /* overflow: hidden; */
+      }
+
+      .sidebar.collapsed {
+        width: 70px;
+      }
+
+      .sidebar .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 10px 14px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        color: #4d6b5c;
+        transition: background-color 0.3s, color 0.3s;
+        white-space: nowrap;
+      }
+
+      .sidebar .nav-link i {
+        font-size: 20px;
+        margin-right: 10px;
+      }
+
+      .sidebar .nav-link.active,
+      .sidebar .nav-link:hover {
+        background-color: #4d6b5c;
+        color: white;
+      }
+
+      .sidebar.collapsed .nav-link span {
+        display: none;
+      }
+
+      .sidebar.collapsed .nav-link i {
+        margin-right: 0;
+      }
+
+      /* ===== Toggle Button ===== */
+      .collapse-toggle {
+        position: absolute;
+        top: 15px;
+        right: -15px;
+        width: 30px;
+        height: 30px;
+        background-color: coral;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.3s;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar.collapsed .collapse-toggle {
+        transform: rotate(180deg);
+      }
+      /* ===== Mobile Styles ===== */
+@media (max-width: 767.98px) {
+  .sidebar {
+    width: 70px;
+    margin-left: 8px;
+    /* left: 30px;  */
+  }
+
+  .sidebar:not(.collapsed) {
+    width: 200px;
+  }
+
+  .sidebar .nav-link span {
+    display: none;
+  }
+
+  .sidebar:not(.collapsed) .nav-link span {
+    display: inline;
+  }
+
+  /* ✅ المحتوى يكون ملاصق للسايدبار */
+  .dashboard-section,
+  .orders-section {
+    margin-left: 110px; /* 70px عرض السايدبار + 30px المسافة */
+    margin-right: 15px;
+    padding: 15px;
+    transition: margin 0.3s ease;
+  }
+
+  .sidebar:not(.collapsed) ~ .dashboard-section,
+  .sidebar:not(.collapsed) ~ .orders-section {
+    margin-left: 230px; /* لما السايدبار يتفتح في الموبايل */
+  }
+
+  .collapse-toggle {
+    top: 10px;
+    right: -15px;
+  }
+}
+
+
+
+  </style>
+  </head>
+
+  <body>
+            <!-- nav&side bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+    
+            <!-- Brand -->
+            <a class="navbar-brand" href="../index.html" id="brand">
+                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+            </a>
+        
+            <!-- Center Links - Collapse -->
+            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link active" href="/">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="">Shop</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="">About</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
+                </li>
+                <li class="nav-item me-5" id="dashboard">
+                    <a class="nav-link main-nav-link" href="">dashboard</a>
+                </li>
+
+                
+                </ul>
+
+                <form class="d-flex align-items-center" role="search" style="width: 300px;">
+                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
+                </form>
+
+            </div>
+        
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+
+        
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../../assets/icons/shopping-cart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../../assets/icons/heart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../../assets/icons/profileIcon.svg" alt="">
+                    </i>
+                </a>
+        
+                <!-- Navar Toggler -->
+                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+                     <img src="../../assets/icons/menu.svg">
+                </button>
+            </div>
+    
+        </div>
+    </nav>
+
+<!-- Navbar for small screens -->
+<nav class="navbar bg-white d-lg-none px-3 shadow-sm">
+  <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+    <i class="bi bi-list"></i>
+  </button>
+  <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
+</nav>
+
+<!-- Sidebar -->
+    <div class="sidebar shadow-sm" id="sidebar">
+      <button class="collapse-toggle" id="toggleSidebar">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <a href="#" class="nav-link active">
+        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="bi bi-box"></i> <span>Products</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="bi bi-journal-text"></i> <span>Orders</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="bi bi-gear"></i> <span>Settings</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="bi bi-box-arrow-left"></i> <span>Logout</span>
+      </a>
+    </div>
+
+
+    <!-- Offcanvas for mobile sidebar (matches data-bs-target="#mobileSidebar") -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <div class="list-group list-group-flush">
+          <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
+          <a href="#" class="list-group-item list-group-item-action">Products</a>
+          <a href="#" class="list-group-item list-group-item-action">Orders</a>
+          <a href="#" class="list-group-item list-group-item-action">Settings</a>
+          <a href="#" class="list-group-item list-group-item-action">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const sidebar = document.getElementById("sidebar");
+      const toggleBtn = document.getElementById("toggleSidebar");
+
+      // 🧠 Sidebar behavior based on screen size
+      function handleSidebar() {
+        if (window.innerWidth <= 767.98) {
+          sidebar.classList.add("collapsed"); // في الموبايل يبقى مصغّر
+        } else {
+          sidebar.classList.remove("collapsed"); // في الشاشات الكبيرة يبقى مفتوح
+        }
+      }
+
+      handleSidebar(); // تشغيل عند تحميل الصفحة
+      window.addEventListener("resize", handleSidebar); // تشغيل عند تغيير حجم الشاشة
+
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("collapsed");
+      });
+    </script>
+   
+    <!--//////////////////////////////////////////////////top-section1//////////////////////////////////////////////////////////////////////////-->
+    <section class="dashboard-section">
+      <h5>Products Management</h5>
+      <p>Manage and track all your website products here</p>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="dashboard-card card-total">
+            <div class="dashboard-card-header">
+              <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
+            </div>
+            <h2>220</h2>
+            <small>All products in your store</small>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card card-active">
+            <div class="dashboard-card-header">
+              <div class="check-wrapper">
+                <div class="check-inner">
+                  <i class="bi bi-check-circle"></i>
+                </div>
+              </div>
+              Available Products
+            </div>
+            <h2>202</h2>
+            <small>Currently available products in your store
+</small>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card card-pending">
+            <div class="dashboard-card-header">
+              <i class="bi bi-receipt icon-red"></i> Out of Stock
+            </div>
+            <h2>20</h2>
+            <small>Out of stock products in your store
+</small>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--//////////////////////////////////////////////////table section//////////////////////////////////////////////////////////////////////////-->
+    <div class="container">
+    <div class="product-card">
+      <!-- Header: Title + Search -->
+      <!-- Header: Title + Search + Add Product -->
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+  <h4 class="fw-bold mb-0">Product List</h4>
+
+  <div class="d-flex align-items-center gap-3 mt-2 mt-md-0 flex-wrap">
+    <!-- Search Box -->
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input type="text" class="form-control" placeholder="Search for users, products, orders...">
+    </div>
+
+    <!-- Add Product Button -->
+    <button class="btn btn-success d-flex align-items-center gap-2 px-4 rounded-3" style="background-color: #618674; border-color: #618674;">
+      <i class="bi bi-plus-lg"></i>
+      Add Product
+    </button>
+  </div>
+</div>
+
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table align-middle text-center table-bordered">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Item 1</td>
+              <td>Cat 1</td>
+              <td>$100</td>
+              <td>10</td>
+              <td><span class="status-available">Available</span></td>
+              <td>
+                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Item 2</td>
+              <td>Cat 2</td>
+              <td>$120</td>
+              <td>0</td>
+              <td><span class="status-out">Out of stock</span></td>
+              <td>
+                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Item 3</td>
+              <td>Cat 3</td>
+              <td>$300</td>
+              <td>12</td>
+              <td><span class="status-available">Available</span></td>
+              <td>
+                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Item 4</td>
+              <td>Cat 4</td>
+              <td>$90</td>
+              <td>32</td>
+              <td><span class="status-available">Available</span></td>
+              <td>
+                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Item 5</td>
+              <td>Cat 4</td>
+              <td>$90</td>
+              <td>0</td>
+              <td><span class="status-out">Out of stock</span></td>
+              <td>
+                <button class="btn btn-link text-primary action-btn"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-link text-danger action-btn"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+     <nav class="pagination-container">
+  <ul class="custom-pagination" id="pagination">
+    <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li class="dots" id="dots">••</li>
+    <li style="display:none;"><a href="#">5</a></li>
+    <li style="display:none;"><a href="#">6</a></li>
+    <li style="display:none;"><a href="#">7</a></li>
+    <li style="display:none;"><a href="#">8</a></li>
+    <li style="display:none;"><a href="#">9</a></li>
+    <li><a href="#">10</a></li>
+    <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
+  </ul>
+</nav>
+    </div>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+  </body>
+</html>
