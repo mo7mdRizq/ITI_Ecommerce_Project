@@ -7,22 +7,83 @@
     <title>Checkout Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="./../style/style.css">
+    <link rel="stylesheet" href="./style-prodc.css">
 </head>
 
 <body>
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
 
-        <nav></nav>
+            <a class="navbar-brand" href="../index.html" id="brand">
+                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;" />
+            </a>
 
-        <div class="row my-5">
+            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link main-nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link main-nav-link" href="">Shop</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link main-nav-link" href="">About</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link main-nav-link" href="#footer">Contact</a>
+                    </li>
+                    <li class="nav-item me-5" id="dashboard">
+                        <a class="nav-link main-nav-link" href="">dashboard</a>
+                    </li>
+
+
+                </ul>
+
+                <form class="d-flex align-items-center" role="search" style="width: 300px;">
+                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..."
+                        aria-label="Search">
+                </form>
+
+            </div>
+
+
+            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+
+
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../../assets/icons/shopping-cart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../../assets/icons/heart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../../assets/icons/profileIcon.svg" alt="">
+                    </i>
+                </a>
+
+
+                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+
+                    <img src="../../assets/icons/menu.svg">
+                </button>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container pt-5 mt-5">
+        <div class="row ">
             <div class="col col-12 col-lg-6 borrder">
                 <h2 class="mb-3">Checkout</h2>
-                <div class="row ">
-                    <button type="button" class="col-lg-5 btn btn-custom-green btn-lg">Delivery</button>
-                    <button type="button" class=" col-lg-5 btn btn-custom-green btn-lg">Pick up</button>
-                </div>
-               
+
                 <form class="row g-3 needs-validation my-1" novalidate>
                     <div class="col-md-4">
                         <label for="validationCustom01" class="form-label">First name</label>
@@ -89,12 +150,17 @@
                             Please select a valid state.
                         </div>
                     </div>
+
                     <div class="col-md-3">
                         <label for="validationCustom05" class="form-label">Zip</label>
                         <input type="text" class="form-control" id="validationCustom05" required>
                         <div class="invalid-feedback">
                             Please provide a valid zip.
                         </div>
+                    </div>
+                    <div class="row ">
+                        <button type="button" class="col-lg-5 btn btn-custom-green btn-lg">Delivery</button>
+                        <button type="button" class=" col-lg-5 btn btn-custom-green btn-lg">Pick up</button>
                     </div>
                     <div class="col-12">
                         <div class="form-check">
@@ -105,12 +171,13 @@
                         </div>
                     </div>
 
+
                 </form>
 
             </div>
             <div class=" col-12 col-lg-6 ">
-                <h5 class="mb-3">Review your cart </h5>
-                <!--  -->
+                
+                
                 <div class="product-summary-card p-4">
                     <h5 class="fw-bold mb-4">Review your cart</h5>
 
@@ -118,7 +185,7 @@
 
                         <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
                             <div class="me-3 images">
-                                <img class="images" src="./../style/T-shirt.jpg" alt="">
+                                <img class="images" src="./41S+9swCRBL._AC_SX522_.jpg" alt="">
                             </div>
                             <div class="flex-grow-1">
                                 <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
@@ -132,7 +199,7 @@
 
                         <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
                             <div class="me-3 images">
-                                <img class="images" src="./../style/T-shirt.jpg" alt="">
+                                <img class="images" src="./41S+9swCRBL._AC_SX522_.jpg" alt="">
                             </div>
                             <div class="flex-grow-1">
                                 <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
@@ -145,7 +212,7 @@
 
                         <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
                             <div class="me-3 images">
-                                <img class="images" src="./../style/T-shirt.jpg" alt="">
+                                <img class="images" src="./41S+9swCRBL._AC_SX522_.jpg" alt="">
                             </div>
                             <div class="flex-grow-1">
                                 <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
@@ -158,7 +225,7 @@
 
                         <div class="list-group-item d-flex align-items-center p-2 border rounded">
                             <div class="me-3 images">
-                                <img class="images" src="./../style/T-shirt.jpg" alt="">
+                                <img class="images" src="./41S+9swCRBL._AC_SX522_.jpg" alt="">
                             </div>
                             <div class="flex-grow-1">
                                 <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
@@ -172,7 +239,6 @@
                     </div>
                 </div>
 
-                <!--  -->
                 <div class="input-group mb-4">
                     <input type="text" class="form-control" placeholder="Discount code" aria-label="Discount code">
                     <button class="btn btn-outline-secondary" type="button">Apply</button>
@@ -209,6 +275,57 @@
 
         </div>
     </div>
+
+    <footer class="py-5" style="background-color: #222; color: #fff;">
+            <div class="container">
+                <div class="row text-md-start">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <img src="Images/logo_footer.png" alt="" style="width: 150px;">
+                        <p class="text-white-50 small my-2">Your favorite destination for modern fashion and trends.</p>
+                    </div>
+
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <h6 class="fw-bold mb-3">Quick Links</h6>
+                        <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Shop</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">About</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <h6 class="fw-bold mb-3">Categories</h6>
+                        <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Men's Collection</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Women's Collection</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Kids Collection</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h6 class="fw-bold mb-3">Follow Us</h6>
+                        <div class="d-flex justify-content-center justify-content-md-start gap-3">
+                        <a href="#" class="text-white-50 fs-4"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white-50 fs-4"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white-50 fs-4"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white-50 fs-4"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+
+
+                    
+
+                </div>
+
+                <hr class="border-secondary my-4">
+
+                <div class="text-center">
+                <p class="text-white-50 mb-0">&copy; 2025 MODEVIA. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
