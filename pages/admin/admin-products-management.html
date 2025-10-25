@@ -454,13 +454,14 @@ body {
       `;
       tableBody.appendChild(tr);
     });
-    updateCardsCounts();
+    updateCardsCounts(data);
+    updateCharts(data);
   }
 
   // ---------- Update dashboard cards ---------- //
-  function updateCardsCounts(){
-    const total = products.length;
-    const available = products.filter(p=>p.stock>0).length;
+  function updateCardsCounts(dataList){
+    const total = dataList.length;
+    const available = dataList.filter(p=>p.stock>0).length;
     const out = total - available;
     totalEl.textContent = total;
     availEl.textContent = available;
@@ -468,10 +469,11 @@ body {
   }
 
   // ---------- Charts ---------- //
-  function updateCharts(){
+  function updateCharts(dataList = products){
     const categoryData = {};
-    let availableCount=0, outOfStockCount=0;
-    products.forEach(p=>{
+    let availableCount = 0, outOfStockCount = 0;
+
+    dataList.forEach(p=>{
       categoryData[p.category] = (categoryData[p.category]||0)+1;
       if(p.stock>0) availableCount++; else outOfStockCount++;
     });
@@ -482,14 +484,15 @@ body {
     categoryChart = new Chart(ctxC,{
       type:"doughnut",
       data:{
-        labels:Object.keys(categoryData).length?Object.keys(categoryData):["No Data"],
+        labels:Object.keys(categoryData).length ? Object.keys(categoryData) : ["No Data"],
         datasets:[{
-          data:Object.values(categoryData).length?Object.values(categoryData):[1],
+          data:Object.values(categoryData).length ? Object.values(categoryData) : [1],
           backgroundColor:["#7ca394","#5da9d3","#e75d5d","#ffc107","#618674"],
-          borderWidth:3,borderColor:"#fff"
+          borderWidth:3,
+          borderColor:"#fff"
         }]
       },
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"bottom"}}}
+      options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{position:"bottom"}}}
     });
 
     // Stock Chart
@@ -501,14 +504,14 @@ body {
         labels:["Available","Out of Stock"],
         datasets:[{label:"Number of Products",data:[availableCount,outOfStockCount],backgroundColor:["#5da9d3","#e75d5d"],borderRadius:8,barThickness:48}]
       },
-      options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}} ,plugins:{legend:{display:false}}}
+      options:{responsive:true, maintainAspectRatio:false, scales:{y:{beginAtZero:true}}, plugins:{legend:{display:false}}}
     });
   }
 
   // ---------- Search filter ---------- //
-  searchInput.addEventListener("input",()=>{
+  searchInput.addEventListener("input", ()=>{
     const q = searchInput.value.trim().toLowerCase();
-    const filtered = products.filter(p=> 
+    const filtered = products.filter(p => 
       p.name.toLowerCase().includes(q) ||
       p.category.toLowerCase().includes(q) ||
       p.price.toString().includes(q) ||
@@ -527,7 +530,6 @@ body {
         products.splice(rowIndex,1);
         localStorage.setItem("products_v1",JSON.stringify(products));
         renderTable();
-        updateCharts();
       }
     }
   });
@@ -545,9 +547,9 @@ body {
       localStorage.setItem("products_v1",JSON.stringify(products));
     }
     renderTable();
-    updateCharts();
   });
 </script>
+
 
 
 
