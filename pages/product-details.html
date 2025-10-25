@@ -1,11 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
+    <title>product details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style-prodc.css">
 </head>
+
 <body>
-    
+    <div class="container my-4">
+        <div class="row g-4">
+            <div aria-label="breadcrumb" class="mb-1">
+                <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Shop</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">T-shirts</li>
+                </ol>
+            </div>
+            <div class="col-12 col-lg-4 ">
+                <div class="main-image mb-4 " style="height: 120px;">
+                    <img class="card-img-top rounded-lg shadow-md w-50 h-25" src="/assets/images/6.jpg" alt="Product Main View">
+                </div>
+            </div>
+            <div class="col-12 col-lg-8">
+                <h1>One Life Graphic T-shirt</h1>
+                <!-- <p>rate</p> -->
+                <p>Nihil voluptatem magni et non pariatur. Expedita fugit qui ut praesentium aspernatur
+                    voluptatem voluptas ut. Ipsam laborum quis exercitationem</p>
+                <hr>
+                <div class="mb-4">
+                    <p class=" mb-2">Select Size</p>
+                    <div class="btn-group" role="group" aria-label="Size selection">
+                        <input type="radio" class="btn-check" name="size-radio" id="size-small" autocomplete="off"
+                            checked>
+                        <label class="btn btn-outline-secondary" for="size-small">Small</label>
+
+                        <input type="radio" class="btn-check" name="size-radio" id="size-medium" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="size-medium">Medium</label>
+
+                        <input type="radio" class="btn-check" name="size-radio" id="size-large" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="size-large">Large</label>
+
+                        <input type="radio" class="btn-check" name="size-radio" id="size-xlarge" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="size-xlarge">X-Large</label>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="input-group" style="width: 9.5em;">
+                            <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(-1)">
+                                &minus;
+                            </button>
+                            <input type="text" class="form-control text-center" value="1" id="productQuantity" readonly>
+                            <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(1)">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <button class="btn btn-sm btn-custom-green mb-4">ADD TO CART</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 ">
+                <div class="col ">
+                    <div class="card c1 ">
+                        <img src="/assets/images/7.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge new-item">New</span>
+                                <span class=" small">
+                                    4.5 <i class="fas fa-star"></i>
+                                </span>
+
+                            </div>
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the
+                                bulk
+                                of the
+                                card’s
+                                content.</p>
+                            <p class="card-text fs-5 fw-bold text-dark mb-3">$18.64</p>
+                            <a href="#" class="btn btn-custom-green">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card c2">
+                        <img src="./../style/T-shirt.jpg"
+                            class="card-img-top image_card" alt="...">
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge new-item">New</span>
+                                <span class=" small">
+                                    4.5 <i class="fas fa-star"></i>
+                                </span>
+
+                            </div>
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the
+                                bulk
+                                of the
+                                card’s
+                                content.</p>
+                            <p class="card-text fs-5 fw-bold text-dark mb-3">$18.64</p>
+                            <a href="#" class="btn btn-custom-green">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card c3">
+                        <img src="./../style/T-shirt.jpg"
+                            class="card-img-top image_card" alt="...">
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge new-item">New</span>
+                                <span class=" small">
+                                    4.5 <i class="fas fa-star"></i>
+                                </span>
+                            </div>
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the
+                                bulk
+                                of the
+                                card’s
+                                content.</p>
+                            <p class="card-text fs-5 fw-bold text-dark mb-3">$18.64</p>
+                            <a href="#" class="btn btn-custom-green">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card c4">
+                        <img src="./../style/T-shirt.jpg"
+                            class="card-img-top image_card" alt="...">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge new-item">New</span>
+                                <span class=" small">
+                                    4.5 <i class="fas fa-star"></i>
+                                </span>
+                            </div>
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the
+                                bulk
+                                of the
+                                card’s
+                                content.</p>
+                            <p class="card-text fs-5 fw-bold text-dark mb-3">$18.64</p>
+                            <a href="#" class="btn btn-custom-green">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
 </html>
