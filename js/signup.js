@@ -408,8 +408,8 @@ function setupResetPassword(formSelector) {
 document.addEventListener("DOMContentLoaded", () => {
   // switch between seller and user
   if (document.getElementById("goUser") && document.getElementById("goSeller")) {
-    document.getElementById("goUser").addEventListener("click", () => window.location.href = "../pages/auth/signupuser.html");
-    document.getElementById("goSeller").addEventListener("click", () => window.location.href = "../pages/auth/signupseller.html");
+    document.getElementById("goUser").addEventListener("click", () => window.location.href = "signupuser.html");
+    document.getElementById("goSeller").addEventListener("click", () => window.location.href = "signupseller.html");
   }
 
   // form of seller
