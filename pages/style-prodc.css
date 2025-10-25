@@ -1,3 +1,15 @@
+/* style.css */
+
+/* ... other styles ... */
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 250px; /* This is the fixed height for product images */
+    object-fit: cover; /* This ensures images fill the space without distortion */
+}
+
+/* ... rest of your styles ... */
 .btn-custom-green {
 
     border-color: #618674;
@@ -21,7 +33,6 @@
 
 .borrder {
     /* border: 1px solid #618674; */
-
     border-color: black;
     border-width: 0px .5px 0px 0px;
     border-style: solid;
@@ -39,21 +50,22 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-
-.card1:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+.image_1 {
+    width: 15em;
+    height: 15em;
+    padding: 1em;
+    border-radius: 0.5rem;
 }
 
 .image_card {
-    width: 100%;
-    height: 100%;
+    width: 25em;
+    height: 25em;
     padding: 1em;
 }
 
 .sm-img {
-    width: 30%;
-    height: 30%;
+    width: 7em;
+    height: 7em;
 }
 
 .quantity-input .form-control {
@@ -64,6 +76,18 @@
     border-right: 0;
     /* Match button height */
     height: 48px;
+}
+
+.quantity-input .btn-outline-secondary {
+    border-color: #EBF3ED;
+    color: #78A08A;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
 }
 
 .text-truncate-2-lines {
@@ -78,3 +102,46 @@
     /* Fallback for browsers that don't support -webkit-line-clamp */
     text-overflow: ellipsis;
 }
+
+/* --- Styles for Image Hover Swap --- */
+.hover-swap-card {
+    /* Required to position the layered images */
+    position: relative;
+    /* Hide any potential overflow */
+    overflow: hidden;
+}
+
+/* Base style for both images to ensure they are the same size */
+.hover-swap-card .card-img-top {
+    width: 100%;
+    height: auto;
+    /* Ensure layered images are within the card's boundaries */
+    display: block;
+}
+
+/* Style for the image that shows on hover */
+.hover-swap-card .hover-img {
+    /* Layer the hover image on top of the default image */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Start by making the hover image completely transparent and unclickable */
+    opacity: 0;
+    /* Optional: Smooth transition for a nicer effect */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* When the entire card is hovered */
+.hover-swap-card:hover .hover-img {
+    /* Show the hover image */
+    opacity: 1;
+    padding: 1em;
+    width: 14em;
+    height: auto;
+}
+
+.btn-group .btn-check:checked + .btn-outline-secondary {
+            background-color: #78A08A;
+            color: white;
+            border-color: #78A08A;
+        }
