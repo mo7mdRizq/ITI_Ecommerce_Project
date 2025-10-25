@@ -65,9 +65,9 @@ function setupSignIn() {
             alert(`Welcome ${user.name}Your role: ${user.role}`);
 
             if (user.role === 'seller') {
-                window.location.href = "../pages/seller/seller-dashboard.html"; 
+                window.location.href = "../../pages/seller/seller-dashboard.html"; 
             } else {
-                window.location.href = "../pages/testHome.html"; 
+                window.location.href = "../testHome.html"; 
             }
 
         } else {
@@ -78,8 +78,8 @@ function setupSignIn() {
 
 function setupPasswordToggle() {
     
-    const ICON_HIDE_SRC = "../assets/icons/icons_hide.png";
-    const ICON_SHOW_SRC = "../assets/icons/icons_show.png";
+    const ICON_HIDE_SRC = "../../assets/icons/icons_hide.png";
+    const ICON_SHOW_SRC = "../../assets/icons/icons_show.png";
 
    
     const toggle = document.getElementById("togglePassword"); 
