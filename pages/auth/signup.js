@@ -32,7 +32,7 @@ function savePending(p) {
 function clearPending() {
   localStorage.removeItem("pendingUser");
 }
-// 🚀 جديد: دوال إدارة حالة إعادة تعيين كلمة المرور
+
 function getPendingReset() {
   return JSON.parse(localStorage.getItem("pendingReset") || "null");
 }
@@ -153,7 +153,7 @@ function setupSignup(formSelector, defaultRole = "user") {
     try {
       await sendVerificationEmail(email, pending.name, code);
       alert("Activation code has been sent to your email. Please check your inbox or spam folder.");
-      window.location.href = "../pages/auth/verification.html";
+      window.location.href = "verification.html"; //000000
     } catch (err) {
       console.error("EmailJS send error:", err);
       clearPending();
@@ -230,11 +230,11 @@ function setupVerification() {
     pendingData = getPendingReset();
     clearFunction = clearPendingReset;
     
-    redirectSuccess = "../pages/auth/newpass.html";
+    redirectSuccess = "newpass.html"; //000000
   } else {
     pendingData = getPending(); 
     clearFunction = clearPending;
-    redirectSuccess = pendingData ? (pendingData.role === 'seller' ? "../pages/seller/seller-dashboard.html" : "../pages/auth/welcome.html") : "../pages/auth/welcome.html";
+    redirectSuccess = pendingData ? (pendingData.role === 'seller' ? "../../pages/seller/seller-dashboard.html" : "welcome.html") : "welcome.html"; //00000000000
   }
 
 
@@ -301,7 +301,7 @@ function setupVerification() {
         users.push(newUser);
         saveUsers(users);
         clearFunction();
-        alert("Password changed successfully.");
+        alert("Password verified successfully.");
         window.location.href = redirectSuccess; // -> seller-dashboard.html or welcome.html
       }
 
@@ -366,7 +366,7 @@ function setupResetPassword(formSelector) {
 
   const pendingReset = getPendingReset();
   if (!pendingReset) {
-    window.location.href = "../pages/auth/signin.html";
+    window.location.href = "signin.html"; //0000000
     return;
   }
 
@@ -396,7 +396,7 @@ function setupResetPassword(formSelector) {
 
       clearPendingReset();
       // alert("Password reset successful. You can now sign in.");
-      window.location.href = "../pages/auth/finishednewpass.html"; 
+      window.location.href = "finishednewpass.html"; //000000
     } else {
       clearPendingReset();
       showError("An unexpected error occurred. Please try signing in again.");
@@ -408,8 +408,8 @@ function setupResetPassword(formSelector) {
 document.addEventListener("DOMContentLoaded", () => {
   // switch between seller and user
   if (document.getElementById("goUser") && document.getElementById("goSeller")) {
-    document.getElementById("goUser").addEventListener("click", () => window.location.href = "signupuser.html");
-    document.getElementById("goSeller").addEventListener("click", () => window.location.href = "signupseller.html");
+    document.getElementById("goUser").addEventListener("click", () => window.location.href = "signupuser.html"); //0000000
+    document.getElementById("goSeller").addEventListener("click", () => window.location.href = "signupseller.html"); //00000
   }
 
   // form of seller
@@ -444,8 +444,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // toggle password
 
-  const ICON_HIDE_SRC = "../assets/icons/icons_hide.png";
-  const ICON_SHOW_SRC = "../assets/icons/icons_show.png";
+  const ICON_HIDE_SRC = "../../assets/icons/icons_hide.png"; //000000
+  const ICON_SHOW_SRC = "../../assets/icons/icons_show.png"; ///0000000
 
   function setupPasswordToggle(toggleId, passwordId, iconId) {
     const toggle = document.getElementById(toggleId);
