@@ -7,7 +7,39 @@
     <title>Product Catalog</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style-prodc.css">
+    <!-- <link rel="stylesheet" href="./style-prodc.css"> -->
+
+    <style>
+        .card {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: 0.3s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+    </style>
+
+
 </head>
 
 <body>
@@ -21,19 +53,19 @@
             <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item mx-2">
-                        <a class="nav-link main-nav-link active" href="/">Home</a>
+                        <a class="nav-link main-nav-link" href="testHome.html">Home</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link main-nav-link" href="">Shop</a>
+                        <a class="nav-link main-nav-link active" href="product-catalog.html">Shop</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link main-nav-link" href="">About</a>
+                        <a class="nav-link main-nav-link" href="about.html">About</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link main-nav-link" href="#footer">Contact</a>
+                        <a class="nav-link main-nav-link" href="contact.html">Contact</a>
                     </li>
                     <li class="nav-item me-5" id="dashboard">
-                        <a class="nav-link main-nav-link" href="">dashboard</a>
+                        <a class="nav-link main-nav-link" href="seller/seller-dashboard.html">dashboard</a>
                     </li>
 
 
@@ -49,19 +81,19 @@
             <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
 
 
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="cart.html">
                     <i>
                         <img src="../../assets/icons/shopping-cart.svg" alt="">
                     </i>
                 </a>
 
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="auth/profile.html">
                     <i>
                         <img src="../../assets/icons/heart.svg" alt="">
                     </i>
                 </a>
 
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="auth/profile.html">
                     <i>
                         <img src="../../assets/icons/profileIcon.svg" alt="">
                     </i>
@@ -78,9 +110,9 @@
     </nav>
 
 
-    <div class="container pt-5 mt-5">
-        <div class="row g-4" id="productGrid">
-            <div class="col-12 col-lg-3">
+    <div class="container pt-5 mt-5 mb-4">
+        <div class="row g-3" id="productGrid">
+            <div class="col-12 col-md-3">
                 <div class="card shadow-sm p-3">
                     <h5 class="fw-bold">Filter</h5>
                     <button class="btn btn-sm btn-custom-green mb-4">CLEAR FILTER</button>
@@ -101,10 +133,7 @@
                         </li>
                     </ul>
 
-                    <h6 class="text-uppercase text-muted small mb-3">Price Range</h6>
-                    <label for="priceRange" class="form-label d-block text-center mb-2"><span class="fw-bold">$0</span>
-                        to <span class="fw-bold">$200</span></label>
-                    <input type="range" class="form-range" min="0" max="200" step="5" value="100" id="priceRange">
+                    
                     <div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="checkDefault">
@@ -122,10 +151,17 @@
                 </div>
 
             </div>
+            <div class="col-12 col-md-9 ">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2" id="productsRow">
+                    <!-- السكريبت هيولّد الكروت هنا -->
+                </div>
+            </div>
 
-            <div class="col-12 col-lg-9  ">
 
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 ">
+
+            <!-- <div class="col-12 col-md-12  "> -->
+
+                <!-- <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 ">
 
                     <div class="col ">
                         <div class="card c1 ">
@@ -334,11 +370,16 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
+                </div> -->
+            
+            
+
+                
+            <!-- </div> -->
 
         </div>
     </div>
+
 
 
 
@@ -353,19 +394,19 @@
                 <div class="col-md-4 mb-4 mb-md-0">
                     <h6 class="fw-bold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white-50 text-decoration-none">Home</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Shop</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Contact</a></li>
+                        <li><a href="testHome.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li><a href="product-catalog.html" class="text-white-50 text-decoration-none">Shop</a></li>
+                        <li><a href="about.html" class="text-white-50 text-decoration-none">About</a></li>
+                        <li><a href="contact.html" class="text-white-50 text-decoration-none">Contact</a></li>
                     </ul>
                 </div>
 
                 <div class="col-md-4 mb-4 mb-md-0">
                     <h6 class="fw-bold mb-3">Categories</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white-50 text-decoration-none">Men's Collection</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Women's Collection</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Kids Collection</a></li>
+                        <li><a href="product-catalog.html" class="text-white-50 text-decoration-none">Men's Collection</a></li>
+                        <li><a href="product-catalog.html" class="text-white-50 text-decoration-none">Women's Collection</a></li>
+                        <li><a href="product-catalog.html" class="text-white-50 text-decoration-none">Kids Collection</a></li>
                     </ul>
                 </div>
 
@@ -397,63 +438,272 @@
         crossorigin="anonymous"></script>
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
 
-            const mockProducts = [
-                { id: 1, name: "تيشيرت أسود أساسي", price: "25.00", image: "T-shirt.jpg", description: "تيشيرت قطني مريح وأنيق ومناسب لجميع الأوقات.", link: "product details.html?id=1" },
-                { id: 2, name: "جاكيت جينز عصري", price: "75.00", image: "images.jpeg", description: "جاكيت دينم بستايل شبابي مميز وتصميم مقاوم للرياح.", link: "product details.html?id=2" },
-                { id: 3, name: "معطف شتوي أنيق", price: "120.00", image: "portrait-handsome-fashion-stylish-hipster-model-dressed-warm-overcoat-posing-studio_158538-11452.jpg", description: "معطف صوف دافئ ومميز لموسم الشتاء بياقة أنيقة.", link: "product details.html?id=3" },
-                { id: 4, name: "بنطلون أسود أساسي", price: "25.00", image: "T-shirt.jpg", description: "تيشيرت قطني مريح وأنيق ومناسب لجميع الأوقات.", link: "product details.html?id=1" },
-                { id: 5, name: "هودي رمادي رياضي", price: "45.00", image: "./T-shirt.jpg", description: "هودي مبطن ودافئ بجودة عالية مثالي للرياضة أو الخروج.", link: "product details.html?id=4" }
-               
-            ];
+        
 
-            if (!localStorage.getItem('productDatabase')) {
-                localStorage.setItem('productDatabase', JSON.stringify(mockProducts));
-                console.log('Mock product database initialized.');
-            }
+    <!-- <script>
+/* ========= Product Catalog dynamic renderer ========= */
 
-            const productGrid = document.getElementById('productGrid');
+function getProducts() {
+  try { return JSON.parse(localStorage.getItem('products')) || []; }
+  catch (e) { console.error(e); return []; }
+}
 
-            if (productGrid) {
-                const productsJSON = localStorage.getItem('productDatabase');
-                const products = JSON.parse(productsJSON);
+function getCart() {
+  try { return JSON.parse(localStorage.getItem('cart')) || []; }
+  catch { return []; }
+}
+function saveCart(cart){ localStorage.setItem('cart', JSON.stringify(cart)); }
 
-                let htmlContent = '';
+function escapeHtml(str){
+  return String(str||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 
-                if (products && products.length > 0) {
-                    products.forEach(product => {
-                        const cardHtml = `
-                        <div class="col-12 col-sm-6 col-md-5 col-lg-3 mb-4">
-                            <div class="card card1 shadow-sm h-100">
-                                <a href="${product.link}" class="text-decoration-none">
-                                    <img src="${product.image}" class="card-img-top " alt="${product.name}">
-                                </a>
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title text-dark">${product.name}</h5>
-                                    <p class="card-text text-muted description-text">${product.description}</p>
-                                    <p class="card-text fs-5 fw-bold text-dark mt-auto">$${product.price}</p>
-                                    <a href="${product.link}" class="btn btn-custom-green mt-2"> Show Details </a>
-                                </div>
-                            </div>
+function createCardHTML(p, idx){
+  const placeholder = 'https://via.placeholder.com/400x300?text=No+Image';
+  const imgSrc = p.image && (p.image.startsWith('data:') || p.image.startsWith('http')) ? p.image : placeholder;
+  const priceText = p.price ? `$${p.price}` : '$0';
+  return `
+    <div class="col-12">
+
+      <div class="card h-100 shadow-sm">
+      
+        <img src="${imgSrc}" onerror="this.src='${placeholder}'" class="card-img-top" style="object-fit:cover; height:180px;" alt="${escapeHtml(p.name)}">
+        <div class="card-body d-flex flex-column">
+            <div class="card-body d-flex flex-column">
+                <div class="mb-2 d-flex justify-content-between align-items-center">
+                    ...
+                </div>
+                <h5 class="card-title mb-1">${escapeHtml(p.name||'No name')}</h5>
+                <p class="card-text small text-muted mb-2">${escapeHtml(p.description||'')}</p>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                    <div class="fw-bold fs-5">${priceText}</div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary me-2 view-btn" data-index="${idx}">View</button>
+                            <button class="btn btn-sm btn-success addcart-btn" data-index="${idx}" ${(p.stock && p.stock<=0) ? 'disabled' : ''}>Add to Cart</button>
+
                         </div>
-                    `;
-                        htmlContent += cardHtml;
-                    });
+                </div>
+            </div>
 
-                    
-                    productGrid.innerHTML = htmlContent;
-                } else {
-                    productGrid.innerHTML = '<p class="col-12 text-center text-danger">عفواً، لا توجد منتجات لعرضها حالياً في قاعدة البيانات.</p>';
-                }
-            } else {
-                console.error('Could not find element with ID "productGrid" in Product Catalog.html');
-            }
+        
+        </div>
+      
+      </div>
 
-        });
-    </script>
+    </div>`;
+}
 
+function renderProducts(){
+  const products = getProducts();
+  // نحاول نلاقي المكان الصحيح للكروت:
+  const container = document.getElementById('productsRow') 
+                 || document.querySelector('#productGrid .col-12.col-lg-9 .row')
+                 || document.querySelector('#productGrid');
+  if(!container) return;
+
+  if(!products.length){
+    container.innerHTML = `<div class="col-12"><div class="alert alert-info">لا يوجد منتجات حالياً. أضف منتجات من صفحة التاجر.</div></div>`;
+    return;
+  }
+
+  let html = '';
+  products.forEach((p,i)=> html += createCardHTML(p,i));
+  container.innerHTML = html;
+
+  // أحداث الأزرار
+  container.querySelectorAll('.addcart-btn').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const i = +e.currentTarget.dataset.index;
+      addToCart(i);
+    });
+  });
+  container.querySelectorAll('.view-btn').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const i = +e.currentTarget.dataset.index;
+      viewProduct(i);
+    });
+  });
+}
+
+function addToCart(index){
+  const products = getProducts();
+  const p = products[index];
+  if(!p) return alert('Product not found');
+  const cart = getCart();
+  const exist = cart.find(item => item.name===p.name && item.price===p.price);
+  if(exist) exist.qty = (exist.qty||1)+1; else cart.push({...p, qty:1});
+  saveCart(cart);
+  // بدل alert ممكن تضيف toast لاحقاً
+  alert(`${p.name} added to cart`);
+}
+
+function viewProduct(index){
+  const p = getProducts()[index];
+  if(!p) return;
+  const txt = `Name: ${p.name}\nPrice: $${p.price}\nStock: ${p.stock}\n\n${p.description||''}`;
+  alert(txt);
+}
+
+// لو التاجر عدّل في تبويب تاني نستجيب فوراً
+window.addEventListener('storage', (e)=>{
+  if(e.key === 'products') renderProducts();
+});
+
+document.addEventListener('DOMContentLoaded', ()=> renderProducts());
+</script> -->
+
+
+
+<script>
+/* ========= Product Catalog Dynamic Renderer ========= */
+
+// جلب المنتجات من localStorage
+function getProducts() {
+  try { 
+    return JSON.parse(localStorage.getItem('products')) || []; 
+  } catch (e) { 
+    console.error(e); 
+    return []; 
+  }
+}
+
+// جلب الكارت من localStorage
+function getCart() {
+  try { 
+    return JSON.parse(localStorage.getItem('cart')) || []; 
+  } catch { 
+    return []; 
+  }
+}
+
+// حفظ الكارت
+function saveCart(cart){ 
+  localStorage.setItem('cart', JSON.stringify(cart)); 
+}
+
+// دالة تأمين النصوص من الـ HTML
+function escapeHtml(str){
+  return String(str || '')
+    .replace(/&/g,'&amp;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+// إنشاء الكارد الواحد
+function createCardHTML(p, idx){
+  const placeholder = 'https://via.placeholder.com/400x300?text=No+Image';
+  const imgSrc = p.image && (p.image.startsWith('data:') || p.image.startsWith('http')) 
+      ? p.image 
+      : placeholder;
+  const priceText = p.price ? `$${p.price}` : '$0';
+
+  return `
+    <div class="card h-100 shadow-sm">
+      <img src="${imgSrc}" onerror="this.src='../assets/images/3.jpg'" class="card-img-top" alt="${escapeHtml(p.name)}">
+      <div class="card-body d-flex flex-column">
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+          <span class="badge bg-success">${p.category || 'New'}</span>
+          <span class="small text-muted">${p.rating ? p.rating + ' ★' : ''}</span>
+        </div>
+        <h5 class="card-title mb-1">${escapeHtml(p.name || 'No name')}</h5>
+        <p class="card-text small text-muted mb-2">${escapeHtml(p.description || '')}</p>
+        <div class="mt-auto d-flex justify-content-between align-items-center">
+          <div class="fw-bold fs-5">${priceText}</div>
+          <div>
+            <button class="btn btn-sm btn-outline-primary me-2 view-btn" data-index="${idx}">View</button>
+            <button class="btn btn-sm btn-success addcart-btn" data-index="${idx}" ${(p.stock && p.stock <= 0) ? 'disabled' : ''}>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// عرض المنتجات
+function renderProducts(){
+  const products = getProducts();
+  const container = document.getElementById('productsRow');
+
+  if(!container) return;
+
+  // لو مفيش منتجات
+  if(!products.length){
+    container.innerHTML = `
+      <div class="col-12">
+        <div class="alert alert-info text-center">
+          No Product available now.
+        </div>
+      </div>`;
+    return;
+  }
+
+  // بناء الكروت
+  container.innerHTML = products.map((p, i) => `
+    <div class="col">${createCardHTML(p, i)}</div>
+  `).join('');
+
+  // تفعيل أزرار Add to Cart و View
+  container.querySelectorAll('.addcart-btn').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const i = +e.currentTarget.dataset.index;
+      addToCart(i);
+    });
+  });
+
+  container.querySelectorAll('.view-btn').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const i = +e.currentTarget.dataset.index;
+      viewProduct(i);
+    });
+  });
+}
+
+// إضافة منتج إلى الكارت
+function addToCart(index){
+  const products = getProducts();
+  const p = products[index];
+  if(!p) return alert('Product not found');
+
+  const cart = getCart();
+  const exist = cart.find(item => item.name === p.name && item.price === p.price);
+
+  if(exist) exist.qty = (exist.qty || 1) + 1; 
+  else cart.push({...p, qty: 1});
+
+  saveCart(cart);
+  alert(`${p.name} تم إضافته إلى السلة ✅`);
+}
+
+// عرض تفاصيل المنتج
+function viewProduct(index){
+  const p = getProducts()[index];
+  if(!p) return;
+
+  const details = `
+    الاسم: ${p.name}
+    السعر: $${p.price}
+    الكمية: ${p.stock || 'غير محددة'}
+    التصنيف: ${p.category || 'غير محدد'}
+    
+    الوصف:
+    ${p.description || 'لا يوجد وصف'}
+  `;
+  alert(details);
+}
+
+// لو المنتجات اتغيرت في التبويب التاني (صفحة التاجر)
+window.addEventListener('storage', (e)=>{
+  if(e.key === 'products') renderProducts();
+});
+
+// لما الصفحة تفتح
+document.addEventListener('DOMContentLoaded', ()=> renderProducts());
+</script>
 
 </body>
 
