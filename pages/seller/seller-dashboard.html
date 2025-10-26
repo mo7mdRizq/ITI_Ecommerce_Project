@@ -17,128 +17,104 @@
     />
 
     <link rel="stylesheet" href="../../style/style.css" />
-    <style>
-        body {
-      background-color: #f9fafb;
-      font-family: "Poppins", sans-serif;
-    }
-     /* ===== Sidebar ===== */
-      .sidebar {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        height: 80vh;
-        width: 240px;
-        background-color: #fff;
-        border-right: 1px solid #dee2e6;
-        border-radius: 10px;
-        padding: 50px 10px;
-        transition: width 0.3s ease;
-        z-index: 1000;
-        /* overflow: hidden; */
-      }
-
-      .sidebar.collapsed {
-        width: 70px;
-      }
-
-      .sidebar .nav-link {
-        display: flex;
-        align-items: center;
-        padding: 10px 14px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        color: #4d6b5c;
-        transition: background-color 0.3s, color 0.3s;
-        white-space: nowrap;
-      }
-
-      .sidebar .nav-link i {
-        font-size: 20px;
-        margin-right: 10px;
-      }
-
-      .sidebar .nav-link.active,
-      .sidebar .nav-link:hover {
-        background-color: #4d6b5c;
-        color: white;
-      }
-
-      .sidebar.collapsed .nav-link span {
-        display: none;
-      }
-
-      .sidebar.collapsed .nav-link i {
-        margin-right: 0;
-      }
-
-      /* ===== Toggle Button ===== */
-      .collapse-toggle {
-        position: absolute;
-        top: 15px;
-        right: -15px;
-        width: 30px;
-        height: 30px;
-        background-color: coral;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: transform 0.3s;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-      }
-
-      .sidebar.collapsed .collapse-toggle {
-        transform: rotate(180deg);
-      }
-      /* ===== Mobile Styles ===== */
-@media (max-width: 767.98px) {
-  .sidebar {
-    width: 70px;
-    margin-left: 8px;
-    /* left: 30px;  */
-  }
-
-  .sidebar:not(.collapsed) {
-    width: 200px;
-  }
-
-  .sidebar .nav-link span {
-    display: none;
-  }
-
-  .sidebar:not(.collapsed) .nav-link span {
-    display: inline;
-  }
-
-  /* ✅ المحتوى يكون ملاصق للسايدبار */
-  .dashboard-section,
-  .orders-section {
-    margin-left: 110px; /* 70px عرض السايدبار + 30px المسافة */
-    margin-right: 15px;
-    padding: 15px;
-    transition: margin 0.3s ease;
-  }
-
-  .sidebar:not(.collapsed) ~ .dashboard-section,
-  .sidebar:not(.collapsed) ~ .orders-section {
-    margin-left: 230px; /* لما السايدبار يتفتح في الموبايل */
-  }
-
-  .collapse-toggle {
-    top: 10px;
-    right: -15px;
-  }
+  <style>
+/* ===== Base Styles ===== */
+body {
+  background-color: #f9fafb;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-        /*  table style  */
+/* ===== Navbar Buttons ===== */
+.nav-button {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #618674;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #618674;
+  background-color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: #4D6B5C;
+  color: white;
+}
+
+.nav-button i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.nav-button.active {
+  background-color: #618674;
+  color: #fff;
+  border: none;
+}
+
+.nav-button.active:hover {
+  background-color: #4D6B5C;
+  color: #fff;
+}
+
+/* ===== Sidebar ===== */
+#sidebar {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  height: 80vh;
+  width: 280px;
+  background-color: #fff;
+  border-right: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 40px 15px;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+#sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #4d6b5c;
+  transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap;
+}
+
+#sidebar .nav-link i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+#sidebar .nav-link.active,
+#sidebar .nav-link:hover {
+  background-color: #4d6b5c;
+  color: white;
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  margin-left: 270px;
+  transition: margin-left 0.3s ease;
+}
+
+#sidebar.collapsed ~ .main-content {
+  margin-left: 100px;
+}
+
 /* ===== Orders Section ===== */
 .orders-section {
-  width:calc(100% - 300px);
+  width: 1100px;
   margin-top: 50px;
   margin-left: 350px;
   background-color: #fff;
@@ -148,17 +124,77 @@
   transition: all 0.3s ease;
 }
 
-
 .orders-section h4 {
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-/* ===== Table ===== */
+.orders-section p {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+/* ===== Product List Section ===== */
+.product-card {
+  width: 1100px;
+  margin-top: 50px;
+  margin-left: 238px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+/* ===== Search Box ===== */
+.search-box {
+  position: relative;
+  width: 550px;
+  max-width: 100%;
+}
+
+.search-box input {
+  padding-left: 38px;
+  border-radius: 50px;
+  height: 40px;
+}
+
+.search-box i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 1.1rem;
+}
+
+/* ===== Table Styling ===== */
 .table thead th {
   background-color: #f1f3f5;
   font-weight: 500;
   text-transform: capitalize;
+}
+
+.btn-success:hover {
+  background-color: #4d6b5c !important;
+  border-color: #4d6b5c !important;
+}
+
+/* ===== Status Buttons ===== */
+.status-available {
+  background-color: #5da9d3;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 8px;
+}
+
+.status-out {
+  background-color: #e75d5d;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 8px;
 }
 
 .status {
@@ -169,9 +205,10 @@
   text-transform: capitalize;
 }
 
-.status.delivered { background-color: #4aa3d8; }
-.status.shipped { background-color: #f0a04b; }
-.status.cancelled { background-color: #dc5d5d; }
+/* ===== Actions ===== */
+.action-btn i {
+  font-size: 1.2rem;
+}
 
 /* ===== Pagination ===== */
 .pagination-container {
@@ -242,137 +279,72 @@
 }
 
 /* ===== Responsive Design ===== */
-
-/* Large tablets & small laptops */
 @media (max-width: 1200px) {
-  .orders-section {
+  #sidebar { width: 210px; }
+  .orders-section, .product-card {
     width: calc(100% - 220px);
-    margin-left: 250px;
-    padding: 25px;
+    margin-left: 230px;
   }
 }
 
-/* Tablets */
 @media (max-width: 992px) {
-  .orders-section {
+  #sidebar { width: 150px; }
+  #sidebar .nav-link span { display: none; }
+  #sidebar .nav-link i { margin-right: 0; }
+  .main-content { margin-left: 160px; }
+  .orders-section, .product-card {
     width: 100%;
     margin-left: 0;
     padding: 25px;
   }
-
-  .table {
-    font-size: 14px;
-  }
-
-  .table thead th,
-  .table td {
-    white-space: nowrap;
-  }
-
-  .pagination-container {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
 }
 
-/* Small Tablets & Large Phones */
-@media (max-width: 768px) {
-  .orders-section {
-    padding: 20px;
-  }
-
-  .orders-section h4 {
-    font-size: 18px;
-  }
-
-  .orders-section p {
-    font-size: 13px;
-  }
-
-  .table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 8px;
-  }
-
-  .table thead {
-    font-size: 13px;
-  }
-
-  .status {
-    font-size: 12px;
-    padding: 4px 10px;
-  }
-
-  .custom-pagination a {
-    width: 32px;
-    height: 32px;
-    font-size: 13px;
-  }
-}
-
-/* Phones */
 @media (max-width: 576px) {
-  .orders-section {
+  #sidebar { width: 60px; padding: 20px 10px; }
+  #sidebar .nav-link { justify-content: center; }
+  #sidebar .nav-link i { font-size: 22px; margin-right: 0; }
+  #sidebar .nav-link span { display: none; }
+  .main-content { margin-left: 70px; }
+  .orders-section, .product-card {
+    width: 100%;
     padding: 15px;
     border-radius: 10px;
-    margin-left: 110px;
-  }
-
-  .orders-section h4 {
-    font-size: 16px;
-  }
-
-  .table {
-    font-size: 12px;
-  }
-
-  .custom-pagination a {
-    width: 28px;
-    height: 28px;
-    font-size: 12px;
-  }
-
-  .custom-pagination .arrow {
-    font-size: 20px;
   }
 }
 
-    </style>
+</style>
   </head>
-
   <body>
-     <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-    
-            <!-- Brand -->
-            <a class="navbar-brand" href="../index.html" id="brand">
-                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
-            </a>
-        
-            <!-- Center Links - Collapse -->
-            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="/">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">Shop</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">About</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
-                </li>
-                <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="">dashboard</a>
-                </li>
+  
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <!-- Brand -->
+    <a class="navbar-brand" href="../index.html" id="brand">
+      <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+    </a>
 
-                
-                </ul>
+    <!-- Center Links - Collapse -->
+    <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="">Shop</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="">About</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="#footer">Contact</a>
+        </li>
+        <li class="nav-item me-5" id="dashboard">
+          <a class="nav-link main-nav-link" href="">Dashboard</a>
+        </li>
+      </ul>
 
+<<<<<<< HEAD
                 <form class="d-flex align-items-center" role="search" style="width: 300px;">
                     <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
                 </form>
@@ -444,37 +416,56 @@
       <a href="#" class="nav-link">
         <i class="bi bi-box-arrow-left"></i> <span>Logout</span>
       </a>
+=======
+      <form class="d-flex align-items-center" role="search" style="width: 300px;">
+        <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
+      </form>
+>>>>>>> div
     </div>
 
+    <!-- Right Side -->
+    <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <i><img src="../../assets/icons/shopping-cart.svg" alt=""></i>
+      </a>
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <i><img src="../../assets/icons/heart.svg" alt=""></i>
+      </a>
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <i><img src="../../assets/icons/profileIcon.svg" alt=""></i>
+      </a>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Navbar Toggler -->
+      <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <img src="../../assets/icons/menu.svg">
+      </button>
+    </div>
+  </div>
+</nav>
 
-    <script>
-      const sidebar = document.getElementById("sidebar");
-      const toggleBtn = document.getElementById("toggleSidebar");
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar d-none d-lg-block position-fixed">
+  <a href="admin-dashboard.html" class="nav-button active"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+  <a href="admin-products-management.html" class="nav-button"><i class="bi bi-box"></i> Product Management</a>
+  <a href="admin-dahboard-orders.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
+  <hr />
+  <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
+  <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+</div>
 
-      // 🧠 Sidebar behavior based on screen size
-      function handleSidebar() {
-        if (window.innerWidth <= 767.98) {
-          sidebar.classList.add("collapsed"); // في الموبايل يبقى مصغّر
-        } else {
-          sidebar.classList.remove("collapsed"); // في الشاشات الكبيرة يبقى مفتوح
-        }
-      }
+<script>
+  function handleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    if (window.innerWidth <= 767.98) {
+      sidebar.classList.add("collapsed");
+    } else {
+      sidebar.classList.remove("collapsed");
+    }
+  }
 
-      handleSidebar(); // تشغيل عند تحميل الصفحة
-      window.addEventListener("resize", handleSidebar); // تشغيل عند تغيير حجم الشاشة
-
-      toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-      });
-    </script>
-
-
-
-
-
+  handleSidebar();
+  window.addEventListener("resize", handleSidebar);
+</script>
 
        <!--//////////////////////////////////////////////////tpo-section1//////////////////////////////////////////////////////////////////////////-->
     <section class="dashboard-section">
