@@ -1,21 +1,14 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Products Management</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+        <link rel="stylesheet" href="../../style/style.css" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="../../style/style.css" />
-    <style>
-      /* nav&side bar style */
+  <style>
     body {
       background-color: #f9fafb;
       font-family: "Poppins", sans-serif;
@@ -63,741 +56,471 @@
       border: none;
     }
 
-    .nav-button.active:hover {
-      background-color: #4D6B5C;
-      color: #fff;
+    .product-card {
+      width: calc(100% - 170px); 
+      margin-left: 335px;
+      margin-top: 50px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 40px;
     }
 
-    @media (max-width: 991.98px) {
-      .sidebar {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        height: 80vh;
-        width: 240px;
-        background-color: #fff;
-        border-right: 1px solid #dee2e6;
-        border-radius: 10px;
-        padding: 50px 10px;
-        transition: width 0.3s ease;
-        z-index: 1000;
-        /* overflow: hidden; */
-      }
+    .search-box {
+      position: relative;
+      width: 550px;
+      max-width: 100%;
+    }
 
-      .sidebar.collapsed {
-        width: 70px;
-      }
+    .search-box input {
+      padding-left: 38px;
+      border-radius: 50px;
+      height: 40px;
+    }
 
-      .sidebar .nav-link {
-        display: flex;
+    .search-box i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    .table thead th {
+      background-color: #f1f3f5;
+      font-weight: 500;
+    }
+
+    .status-available {
+      background-color: #5da9d3;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 8px;
+    }
+
+    .status-out {
+      background-color: #e75d5d;
+      color: white;
+      padding: 5px 5px;
+      border-radius: 8px;
+    }
+
+    /* زر Menu الثابت أسفل يسار الناف بار */
+    .mobile-menu-btn {
+      display: none;
+      position: relative;
+      bottom: auto;
+      left: 0;
+      top: 58px;
+      /* z-index: 1030; */
+      padding: 6px 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      /* box-shadow: 2px 2px 8px rgba(0,0,0,0.15); */
+    }
+
+    .mobile-menu-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .mobile-menu-btn i {
+      font-size: 18px;
+      margin-right: 5px;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 767.98px) {
+      .mobile-menu-btn {
+        display: flex !important;
         align-items: center;
-        padding: 10px 14px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        color: #4d6b5c;
-        transition: background-color 0.3s, color 0.3s;
-        white-space: nowrap;
+        gap: 5px;
       }
 
-      .sidebar .nav-link i {
-        font-size: 20px;
-        margin-right: 10px;
+      /* .container-fluid {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 15px !important;
+      }
+      
+      .navbar-brand img {
+        width: 100px !important;
+      }
+      
+      .icons-container {
+        display: flex !important;
+        gap: 18px !important;
+        margin-left: auto !important;
+      }
+      
+      .icons-container img {
+        width: 22px;
+        height: 22px;
+      }
+      
+      .navbar-toggler {
+        padding: 0 !important;
+        border: none !important;
+        margin-left: 18px !important;
+        background: transparent !important;
+      }
+      
+      .navbar-toggler img {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .navbar-collapse {
+        position: fixed !important;
+        top: 65px;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        max-height: calc(100vh - 65px);
+        overflow-y: auto;
+        z-index: 1040;
+      }
+      
+      .navbar-collapse:not(.show) {
+        display: none !important;
+      }
+      
+      .navbar-collapse.show {
+        display: block !important;
+      }
+      
+      .navbar-nav {
+        width: 100%;
+        padding: 0;
+      }
+      
+      .navbar-nav .nav-item {
+        margin: 0 !important;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .navbar-nav .nav-link {
+        padding: 18px 20px !important;
+        font-size: 15px;
+        color: #333 !important;
+      }
+      
+      .navbar-nav .nav-link:hover,
+      .navbar-nav .nav-link.active {
+        background-color: #618674 !important;
+        color: white !important;
+      }
+      
+      .navbar form {
+        width: 100% !important;
+        padding: 15px 20px;
+        margin: 0 !important;
+      }
+      
+      .navbar form input {
+        width: 100%;
+        height: 45px;
+        font-size: 15px;
+        border-radius: 50px;
+      } */
+      
+      .offcanvas {
+        width: 280px !important;
+      }
+      
+      .sidebar.d-none.d-lg-block {
+        display: none !important;
+      }
+      
+      .dashboard-section {
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+        margin-top: 120px !important;
+        padding: 15px;
+      }
+      
+      .product-card {
+        width: calc(100% - 30px) !important;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+        margin-top: 20px !important;
+        padding: 15px !important;
       }
 
-      .sidebar .nav-link.active,
-      .sidebar .nav-link:hover {
-        background-color: #4d6b5c;
-        color: white;
+      .table {
+        font-size: 12px;
       }
+      
+      .table thead th,
+      .table tbody td {
+        padding: 8px 5px;
+      }
+    }
 
-      .sidebar.collapsed .nav-link span {
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 80px;
+      }
+      
+      .nav-button span {
         display: none;
-            margin-top: 70px;
-
       }
-
-      .sidebar.collapsed .nav-link i {
+      
+      .nav-button {
+        justify-content: center;
+      }
+      
+      .nav-button i {
         margin-right: 0;
       }
-    } /* close @media (max-width: 991.98px) */
-
-    .main-content {
-      margin-left: 250px;
-          margin-top: 70px;
-
     }
-
-      .sidebar.collapsed .collapse-toggle {
-        transform: rotate(180deg);
-      }
-      /* ===== Mobile Styles ===== */
-@media (max-width: 767.98px) {
-  .sidebar {
-    width: 70px;
-    margin-left: 8px;
-    /* left: 30px;  */
-  }
-
-  .sidebar:not(.collapsed) {
-    width: 200px;
-  }
-
-  .sidebar .nav-link span {
-    display: none;
-  }
-
-  .sidebar:not(.collapsed) .nav-link span {
-    display: inline;
-  }
-
-  /* ✅ المحتوى يكون ملاصق للسايدبار */
-  .dashboard-section,
-  .orders-section {
-    margin-left: 110px; /* 70px عرض السايدبار + 30px المسافة */
-    margin-right: 15px;
-    padding: 15px;
-    transition: margin 0.3s ease;
-  }
-
-  .sidebar:not(.collapsed) ~ .dashboard-section,
-  .sidebar:not(.collapsed) ~ .orders-section {
-    margin-left: 230px; /* لما السايدبار يتفتح في الموبايل */
-  }
-
-  .collapse-toggle {
-    top: 10px;
-    right: -15px;
-  }
-} 
-  
-  
-    /* Table style */
-   /* ===== Product Card ===== */
-.product-card {
-  width: calc(100% - 170px); 
-  margin-left: 335px;
-  margin-top: 50px;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  padding: 40px;
-  max-width: none;
-  transition: all 0.3s ease;
-}
-
-/* ===== Search Box ===== */
-.search-box {
-  position: relative;
-  width: 550px;
-  max-width: 100%;
-}
-
-.search-box input {
-  padding-left: 38px;
-  border-radius: 50px;
-  height: 40px;
-}
-
-.search-box i {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  color: #999;
-  font-size: 1.1rem;
-}
-
-/* ===== Table Styling ===== */
-.table thead th {
-  background-color: #f1f3f5;
-  font-weight: 500;
-  text-transform: capitalize;
-}
-
-/* ===== Status Buttons ===== */
-.status-available {
-  background-color: #5da9d3;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 8px;
-}
-
-.status-out {
-  background-color: #e75d5d;
-  color: white;
-  border: none;
-  padding: 5px 5px;
-  border-radius: 8px;
-}
-
-/* ===== Actions ===== */
-.action-btn i {
-  font-size: 1.2rem;
-}
-
-/* ===== Pagination ===== */
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0;
-}
-
-.custom-pagination {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0;
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-}
-
-.custom-pagination li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.custom-pagination a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid #7ca394;
-  border-radius: 50%;
-  text-decoration: none;
-  color: #7ca394;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.custom-pagination a:hover {
-  background-color: #e3eee9;
-}
-
-.custom-pagination .active a {
-  background-color: #7ca394;
-  color: white;
-  border-color: #7ca394;
-}
-
-.custom-pagination .dots {
-  color: #7ca394;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 0 6px;
-}
-
-.custom-pagination .arrow {
-  font-size: 30px;
-  border: none;
-  background: none;
-  color: #7ca394;
-  width: auto;
-  height: auto;
-  cursor: pointer;
-}
-
-.custom-pagination .arrow:hover {
-  color: #5d7e71;
-}
-
-/* ===== Responsive Design ===== */
-
-/* Large tablets and small laptops */
-@media (max-width: 1200px) {
-  .product-card {
-    width: calc(100% - 150px);
-    margin-left: 180px;
-    padding: 30px;
-  }
-
-  .search-box {
-    width: 420px;
-  }
-}
-
-/* Tablets */
-@media (max-width: 992px) {
-  .product-card {
-    width: 100%;
-    margin-left: 100px;
-    padding: 25px;
-  }
-
-  .d-flex {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 15px;
-  }
-
-  .search-box {
-    width: 100%;
-  }
-
-  .search-box input {
-    width: 100%;
-  }
-}
-
-/* Phones */
-@media (max-width: 576px) {
-  .product-card {
-    padding: 20px;
-  }
-
-  .search-box input {
-    height: 36px;
-    font-size: 14px;
-  }
-
-  .table {
-    font-size: 13px;
-  }
-
-  .custom-pagination a {
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
-  }
-
-  .custom-pagination .arrow {
-    font-size: 22px;
-  }
-}
-/* ---------- تنسيق Overlay ---------- */
-.custom-alert-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1055;
-  animation: fadeIn 0.3s ease;
-}
-.custom-alert-box {
-  min-width: 300px;
-  max-width: 500px;
-  animation: popIn 0.3s ease;
-}
-.fade-out {
-  animation: fadeOut 0.4s ease forwards;
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-@keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.custom-alert-overlay,
-.custom-confirm-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(3px);
-  z-index: 2000;
-  transition: opacity 0.3s ease;
-}
-
-.custom-alert-box,
-.confirm-box {
-  animation: popIn 0.3s ease;
-}
-
-.fade-out {
-  opacity: 0 !important;
-}
-
-@keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
   </style>
-  </head>
+</head>
 
-  <body>
-  <!-- nav&side bar -->
+<body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
     <div class="container-fluid d-flex align-items-center justify-content-between">
-      <!-- Brand -->
-      <a class="navbar-brand" href="../testHome.html" id="brand">
-        <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;">
+      <a class="navbar-brand" href="../testHome.html">
+        <img src="../../assets/images/logo.png" alt="Logo" style="width: 100px;">
       </a>
 
-      <!-- Right Side Icons -->
       <div class="icons-container d-flex align-items-center gap-3 order-lg-3 ms-auto">
-        <a class="nav-link cart-icon-container position-relative" href="../cart.html">
-          <img src="../../assets/icons/shopping-cart.svg" alt="">
+        <a class="nav-link" href="../cart.html">
+          <img src="../../assets/icons/shopping-cart.svg" alt="Cart">
         </a>
-        <a class="nav-link cart-icon-container position-relative" href="../wishlist.html">
-          <img src="../../assets/icons/heart.svg" alt="">
+        <a class="nav-link" href="../wishlist.html">
+          <img src="../../assets/icons/heart.svg" alt="Wishlist">
         </a>
-        <a class="nav-link cart-icon-container position-relative" href="../profile.html">
-          <img src="../../assets/icons/profileIcon.svg" alt="">
+        <a class="nav-link" href="../profile.html">
+          <img src="../../assets/icons/profileIcon.svg" alt="Profile">
         </a>
       </div>
 
-      <!-- Collapsible Menu -->
       <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="../testHome.html">Home</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../testHome.html">Home</a></li>
           <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
           <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../about.html">About</a></li>
           <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
-          <li class="nav-item me-5" id="dashboard"><a class="nav-link main-nav-link" href="./admin-dashboard.html">Dashboard</a></li>
+          <li class="nav-item me-5"><a class="nav-link main-nav-link active" href="./admin-dashboard.html">Dashboard</a></li>
         </ul>
         <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px;">
           <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
         </form>
       </div>
 
-      <!-- Toggle Button -->
       <button class="navbar-toggler border-0 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <img src="../../assets/icons/menu.svg" alt="menu">
       </button>
     </div>
   </nav>
 
+  <!-- زر Menu الثابت أسفل يسار الناف بار - للموبايل فقط -->
+  <button class="mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+    <i class="bi bi-list"></i> Menu
+  </button>
+
   <div class="container ms-1">
     <div class="row">
-      <div class="">
+      <!-- Sidebar للشاشات الكبيرة -->
+      <div class="sidebar d-none d-lg-block position-fixed">
+        <a href="admin-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> <span>Dashboard Overview</span></a>
+        <a href="admin-products-management.html" class="nav-button active"><i class="bi bi-box"></i> <span>Product Management</span></a>
+        <a href="admin-dahboard-orders.html" class="nav-button"><i class="bi bi-journal-text"></i> <span>Order Management</span></a>
+        <a href="users-management.html" class="nav-button"><i class="bi bi-person"></i> <span>Users Management</span></a>
+        <hr />
+        <a href="../auth/signin.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> <span>Log Out</span></a>
+      </div>
 
-        <!-- Sidebar -->
-        <div class="sidebar d-none d-lg-block position-fixed">
-          <a href="../admin/admin-dashboard.html" class="nav-button">
-            <i class="bi bi-speedometer2"></i> Dashboard Overview
-          </a>
-          <a href="../admin/admin-products-management.html" class="nav-button active">
-            <i class="bi bi-box"></i> Product Management
-          </a>
-          <a href="../admin/admin-dahboard-orders.html" class="nav-button">
-            <i class="bi bi-journal-text"></i> Order Management
-          </a>
-          <a href="../admin/users-management.html" class="nav-button">
-            <i class="bi bi-person"></i> Users Management
-          </a>
-          <hr>
-          <!-- <a href="settings.html" class="nav-button">
-            <i class="bi bi-gear"></i> Setting
-          </a> -->
-          <a href="../auth/signin.html" class="nav-button">
-            <i class="bi bi-box-arrow-left"></i> Log Out
-          </a>
+      <!-- Offcanvas للموبايل -->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
+        <div class="offcanvas-body p-0">
+          <div class="list-group list-group-flush">
+            <a href="./admin-dashboard.html" class="list-group-item list-group-item-action">
+              <i class="bi bi-speedometer2 me-2"></i> Dashboard Overview
+            </a>
+            <a href="./admin-products-management.html" class="list-group-item list-group-item-action active">
+              <i class="bi bi-box me-2"></i> Product Management
+            </a>
+            <a href="./admin-dahboard-orders.html" class="list-group-item list-group-item-action">
+              <i class="bi bi-journal-text me-2"></i> Order Management
+            </a>
+            <a href="./users-management.html" class="list-group-item list-group-item-action">
+              <i class="bi bi-person me-2"></i> Users Management
+            </a>
+            <hr>
+            <a href="../auth/signin.html" class="list-group-item list-group-item-action">
+              <i class="bi bi-box-arrow-left me-2"></i> Log Out
+            </a>
+          </div>
+        </div>
+      </div>
 
-        <!-- Top Section -->
-        <section class="dashboard-section">
-          <h5>Products Management</h5>
-          <p>Manage and track all your website products here</p>
+      <!-- Dashboard Section -->
+      <section class="dashboard-section">
+        <h5>Products Management</h5>
+        <p>Manage and track all your website products here</p>
 
-          <div class="row g-3">
-            <div class="col-md-4">
-              <div class="dashboard-card card-total">
-                <div class="dashboard-card-header">
-                  <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
-                </div>
-                <h2 id="totalProducts">4,500</h2>
-                <small>All products in your store</small>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="dashboard-card card-total">
+              <div class="dashboard-card-header">
+                <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
               </div>
+              <h2 id="totalProducts">4,500</h2>
+              <small>All products in your store</small>
             </div>
+          </div>
 
-            <div class="col-md-4">
-              <div class="dashboard-card card-active">
-                <div class="dashboard-card-header">
-                  <div class="check-wrapper">
-                    <div class="check-inner">
-                      <i class="bi bi-check-circle"></i>
-                    </div>
+          <div class="col-md-4">
+            <div class="dashboard-card card-active">
+              <div class="dashboard-card-header">
+                <div class="check-wrapper">
+                  <div class="check-inner">
+                    <i class="bi bi-check-circle"></i>
                   </div>
-                  Available Products
                 </div>
-                <h2 id="availableProducts">3,500</h2>
-                <small>Currently available products</small>
+                Available Products
               </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="dashboard-card card-pending">
-                <div class="dashboard-card-header">
-                  <i class="bi bi-receipt icon-red"></i> Out of Stock
-                </div>
-                <h2 id="outOfStock">1,000</h2>
-                <small>Out of stock products</small>
-              </div>
+              <h2 id="availableProducts">3,500</h2>
+              <small>Currently available products</small>
             </div>
           </div>
-        </section>
 
-        <!-- Table Section -->
-        <div class="container">
-          <div class="product-card">
-            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-              <h4 class="fw-bold mb-0">Product List</h4>
-              <div class="search-box mt-2 mt-md-0">
-                <i class="bi bi-search"></i>
-                <input type="text" id="searchInput" class="form-control" placeholder="Search for users, products, orders...">
+          <div class="col-md-4">
+            <div class="dashboard-card card-pending">
+              <div class="dashboard-card-header">
+                <i class="bi bi-receipt icon-red"></i> Out of Stock
               </div>
+              <h2 id="outOfStock">1,000</h2>
+              <small>Out of stock products</small>
             </div>
-
-            <div class="table-responsive">
-              <table class="table align-middle text-center table-bordered">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Product Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="productsTableBody">
-                  <!-- dynamic rows here -->
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Pagination -->
-            <nav class="pagination-container">
-              <ul class="custom-pagination" id="pagination">
-                <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li class="dots" id="dots">••</li>
-                <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
-              </ul>
-            </nav>
           </div>
         </div>
+      </section>
 
-       
-    <script>
-document.addEventListener("DOMContentLoaded", () => {
-  loadProducts();
-  setActiveSidebar();
-});
-
-// ---------- تحميل المنتجات ----------
-function loadProducts() {
-  const products = JSON.parse(localStorage.getItem("products")) || [];
-  const tbody = document.getElementById("productsTableBody");
-  tbody.innerHTML = "";
-
-  if (products.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" class="text-center">No products found.</td></tr>`;
-  } else {
-    products.forEach((product, index) => {
-      if (!product.id) product.id = Date.now() + index;
-
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${product.name}</td>
-        <td>${product.category || '-'}</td>
-        <td>$${product.price ?? '-'}</td>
-        <td>${product.stock ?? '-'}</td>
-        <td>
-          <span class="${product.stock > 0 ? "status-available" : "status-out"}">
-            ${product.stock > 0 ? "Available" : "Out of stock"}
-          </span>
-        </td>
-        <td>
-          <button class="btn btn-link text-danger action-btn delete-btn" data-id="${product.id}">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
-      `;
-      tbody.appendChild(row);
-    });
-  }
-
-  updateDashboardCards();
-  attachDeleteButtons();
-}
-
-// ---------- البحث ----------
-const searchInput = document.getElementById("searchInput");
-if (searchInput) {
-  searchInput.addEventListener("keyup", () => {
-    const searchTerm = searchInput.value.toLowerCase();
-    const products = JSON.parse(localStorage.getItem("products")) || [];
-    const tbody = document.getElementById("productsTableBody");
-    tbody.innerHTML = "";
-
-    const filtered = products.filter(p =>
-      p.name?.toLowerCase().includes(searchTerm) ||
-      p.category?.toLowerCase().includes(searchTerm) ||
-      p.price?.toString().includes(searchTerm) ||
-      p.stock?.toString().includes(searchTerm)
-    );
-
-    if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" class="text-center">No products found.</td></tr>`;
-    } else {
-      filtered.forEach((product, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${product.name}</td>
-          <td>${product.category || '-'}</td>
-          <td>$${product.price ?? '-'}</td>
-          <td>${product.stock ?? '-'}</td>
-          <td>
-            <span class="${product.stock > 0 ? "status-available" : "status-out"}">
-              ${product.stock > 0 ? "Available" : "Out of stock"}
-            </span>
-          </td>
-          <td>
-            <button class="btn btn-link text-danger action-btn delete-btn" data-id="${product.id}">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
-
-    attachDeleteButtons();
-  });
-}
-
-// ---------- تحديث الكروت ----------
-function updateDashboardCards() {
-  const products = JSON.parse(localStorage.getItem("products")) || [];
-  document.getElementById("totalProducts").textContent = products.length;
-  document.getElementById("availableProducts").textContent = products.filter(p => p.stock > 0).length;
-  document.getElementById("outOfStock").textContent = products.filter(p => p.stock == 0).length;
-}
-
-// ---------- Sidebar Active ----------
-function setActiveSidebar() {
-  document.querySelectorAll(".sidebar .nav-button").forEach(btn => btn.classList.remove("active"));
-  const productBtn = document.querySelector('.sidebar .nav-button[href="../admin/admin-products-management.html"]');
-  if (productBtn) productBtn.classList.add("active");
-}
-
-// ---------- زر الحذف ----------
-function attachDeleteButtons() {
-  const buttons = document.querySelectorAll(".delete-btn");
-  buttons.forEach(btn => {
-    btn.onclick = () => {
-      const id = btn.dataset.id;
-      const products = JSON.parse(localStorage.getItem("products")) || [];
-      const product = products.find(p => String(p.id) === String(id));
-      if (!product) return showAlert("Product not found!", "danger");
-
-      showConfirmOverlay(
-        `Are you sure you want to delete "${product.name}"?`,
-        () => {
-          const updated = products.filter(p => String(p.id) !== String(id));
-          localStorage.setItem("products", JSON.stringify(updated));
-          loadProducts();
-          showAlert(`Product "${product.name}" deleted successfully.`, "success");
-        }
-      );
-    };
-  });
-}
-
-// ---------- Overlay تأكيد (Yes / No) ----------
-function showConfirmOverlay(message, onConfirm) {
-  // لو فيه Overlay مفتوح، احذفه
-  const old = document.querySelector(".custom-confirm-overlay");
-  if (old) old.remove();
-
-  const overlay = document.createElement("div");
-  overlay.className = "custom-confirm-overlay d-flex align-items-center justify-content-center";
-  overlay.innerHTML = `
-    <div class="confirm-box bg-white p-4 rounded-4 shadow-lg text-center">
-      <h5 class="mb-4">${message}</h5>
-      <div class="d-flex justify-content-center gap-3">
-        <button class="btn btn-success px-4" id="confirmYes">Yes</button>
-        <button class="btn btn-secondary px-4" id="confirmNo">No</button>
+      <!-- Products Table -->
+      <div class="container">
+        <div class="product-card">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+            <h4 class="fw-bold mb-0">Product List</h4>
+            <div class="search-box mt-2 mt-md-0">
+              <i class="bi bi-search"></i>
+              <input type="text" id="searchInput" class="form-control" placeholder="Search products...">
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle text-center table-bordered">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Product Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody">
+                <tr>
+                  <td>1</td>
+                  <td>Laptop HP</td>
+                  <td>Electronics</td>
+                  <td>$15500</td>
+                  <td>12</td>
+                  <td><span class="status-available">Available</span></td>
+                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>iPhone 15 Pro</td>
+                  <td>Mobiles</td>
+                  <td>$53000</td>
+                  <td>5</td>
+                  <td><span class="status-available">Available</span></td>
+                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Samsung S23</td>
+                  <td>Mobiles</td>
+                  <td>$47000</td>
+                  <td>0</td>
+                  <td><span class="status-out">Out of stock</span></td>
+                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  `;
-  document.body.appendChild(overlay);
+  </div>
 
-  document.getElementById("confirmYes").onclick = () => {
-    onConfirm();
-    overlay.remove();
-  };
-  document.getElementById("confirmNo").onclick = () => overlay.remove();
-}
-
-// ---------- Alert كـ Overlay ----------
-function showAlert(message, type = "success") {
-  const oldAlert = document.querySelector(".custom-alert-overlay");
-  if (oldAlert) oldAlert.remove();
-
-  const overlay = document.createElement("div");
-  overlay.className = "custom-alert-overlay d-flex align-items-center justify-content-center";
-  overlay.innerHTML = `
-    <div class="custom-alert-box bg-${type === "danger" ? "danger" : "success"} text-white p-4 rounded-4 shadow-lg text-center">
-      <h5 class="mb-0">${message}</h5>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-
-  setTimeout(() => {
-    overlay.classList.add("fade-out");
-    setTimeout(() => overlay.remove(), 500);
-  }, 2500);
-}
-
-// ---------- تحديث مباشر بين الصفحات ----------
-window.addEventListener("storage", e => {
-  if (e.key === "products") loadProducts();
-});
-
-// --- إضافة منتجات تجريبية إلى localStorage ---
-(function addSampleProducts() {
-  const existing = JSON.parse(localStorage.getItem("products")) || [];
-  if (existing.length === 0) {
-    const sampleProducts = [
-      { id: Date.now() + 1, name: "Laptop HP Pavilion", category: "Electronics", price: 15500, stock: 12 },
-      { id: Date.now() + 2, name: "iPhone 15 Pro", category: "Mobiles", price: 53000, stock: 5 },
-      { id: Date.now() + 3, name: "Samsung Galaxy S23", category: "Mobiles", price: 47000, stock: 0 },
-      { id: Date.now() + 4, name: "Bluetooth Headset", category: "Accessories", price: 1200, stock: 8 },
-      { id: Date.now() + 5, name: "Mechanical Keyboard", category: "Computers", price: 950, stock: 0 }
-    ];
-    localStorage.setItem("products", JSON.stringify(sampleProducts));
-  }
-})();
- document.addEventListener("DOMContentLoaded", () => {
-    const currentPage = window.location.pathname.split("/").pop();
-
-    // ✅ تفعيل الـ active تلقائي في الـ Navbar
-    document.querySelectorAll(".navbar .nav-link.main-nav-link").forEach(link => {
-      const href = link.getAttribute("href");
-
-      // لو المستخدم داخل أي صفحة Dashboard
-      if (window.location.pathname.includes("admin") || window.location.pathname.includes("dashboard")) {
-        if (href.includes("dashboard.html")) {
-          link.classList.add("active");
-        } else {
-          link.classList.remove("active");
-        }
-      } 
-      // لو مش في الداشبورد → فعّل الرابط العادي حسب الصفحة
-      else if (href && href.includes(currentPage)) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function loadProducts() {
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      const tbody = document.getElementById("productsTableBody");
+      
+      if (products.length === 0) {
+        const sampleProducts = [
+          { id: 1, name: "Laptop HP Pavilion", category: "Electronics", price: 15500, stock: 12 },
+          { id: 2, name: "iPhone 15 Pro", category: "Mobiles", price: 53000, stock: 5 },
+          { id: 3, name: "Samsung Galaxy S23", category: "Mobiles", price: 47000, stock: 0 }
+        ];
+        localStorage.setItem("products", JSON.stringify(sampleProducts));
+        return loadProducts();
       }
-    });
-  });
-</script>
+      
+      tbody.innerHTML = "";
+      products.forEach((product, index) => {
+        const row = `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${product.name}</td>
+            <td>${product.category}</td>
+            <td>$${product.price}</td>
+            <td>${product.stock}</td>
+            <td>
+              <span class="${product.stock > 0 ? 'status-available' : 'status-out'}">
+                ${product.stock > 0 ? 'Available' : 'Out of stock'}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-link text-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+      
+      updateDashboardCards();
+    }
+
+    function updateDashboardCards() {
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      document.getElementById("totalProducts").textContent = products.length;
+      document.getElementById("availableProducts").textContent = products.filter(p => p.stock > 0).length;
+      document.getElementById("outOfStock").textContent = products.filter(p => p.stock === 0).length;
+    }
+
+    document.addEventListener("DOMContentLoaded", loadProducts);
+  </script>
 </body>
 </html>
