@@ -409,54 +409,58 @@ label[for="filter"] {
   <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
 </nav>
 
- <!-- Sidebar -->
-    <div class="sidebar d-none d-lg-block position-fixed">
-      <a href="admin-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
-      <a href="admin-products-management.html" class="nav-button"><i class="bi bi-box"></i> Product Management</a>
-      <a href="admin-dahboard-orders.html" class="nav-button active"><i class="bi bi-journal-text"></i> Order Management</a>
-      <hr />
-      <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
-      <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+<!-- Sidebar for Desktop -->
+<div class="sidebar d-none d-lg-block position-fixed">
+  <a href="seller-dashboard.html" class="nav-button"> <i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+  <a href="seller-products-management.html" class="nav-button"> <i class="bi bi-box"></i> Product Management</a>
+  <a href="seller-orders.html" class="nav-button active"> <i class="bi bi-journal-text"></i> Order Management</a>
+  <hr />
+  <a href="seller-settings.html" class="nav-button"> <i class="bi bi-gear"></i> Settings</a>
+  <a href="../logout.html" class="nav-button"> <i class="bi bi-box-arrow-left"></i> Log Out</a>
+</div>
+
+<!-- Toggle button for Mobile -->
+<button id="toggleSidebar" class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+  ☰ Menu
+</button>
+
+<!-- Offcanvas for Mobile Sidebar -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <div class="list-group list-group-flush">
+      <a href="seller-dashboard.html" class="list-group-item list-group-item-action">Dashboard Overview</a>
+      <a href="seller-products-management.html" class="list-group-item list-group-item-action">Product Management</a>
+      <a href="seller-orders.html" class="list-group-item list-group-item-action active">Order Management</a>
+      <a href="seller-settings.html" class="list-group-item list-group-item-action">Settings</a>
+      <a href="../logout.html" class="list-group-item list-group-item-action">Log Out</a>
     </div>
+  </div>
+</div>
 
+<script>
+  const sidebar = document.querySelector(".sidebar");
+  const toggleBtn = document.getElementById("toggleSidebar");
 
-    <!-- Offcanvas for mobile sidebar (matches data-bs-target="#mobileSidebar") -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body p-0">
-        <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
-          <a href="#" class="list-group-item list-group-item-action">Products</a>
-          <a href="#" class="list-group-item list-group-item-action">Orders</a>
-          <a href="#" class="list-group-item list-group-item-action">Settings</a>
-          <a href="#" class="list-group-item list-group-item-action">Logout</a>
-        </div>
-      </div>
-    </div>
+  function handleSidebar() {
+    if (window.innerWidth <= 767.98) {
+      sidebar.classList.add("collapsed");
+    } else {
+      sidebar.classList.remove("collapsed");
+    }
+  }
 
-    <script>
-      const sidebar = document.getElementById("sidebar");
-      const toggleBtn = document.getElementById("toggleSidebar");
+  handleSidebar();
+  window.addEventListener("resize", handleSidebar);
 
-      // 🧠 Sidebar behavior based on screen size
-      function handleSidebar() {
-        if (window.innerWidth <= 767.98) {
-          sidebar.classList.add("collapsed"); // في الموبايل يبقى مصغّر
-        } else {
-          sidebar.classList.remove("collapsed"); // في الشاشات الكبيرة يبقى مفتوح
-        }
-      }
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+  });
+</script>
 
-      handleSidebar(); // تشغيل عند تحميل الصفحة
-      window.addEventListener("resize", handleSidebar); // تشغيل عند تغيير حجم الشاشة
-
-      toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-      });
-    </script>
 
      <!--//////////////////////////////////////////////////top-section1//////////////////////////////////////////////////////////////////////////-->
     <section class="dashboard-section">
