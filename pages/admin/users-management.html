@@ -719,6 +719,29 @@
   window.addEventListener("storage", e => {
     if (e.key === "users") renderUsers();
   });
+   document.addEventListener("DOMContentLoaded", () => {
+    const currentPage = window.location.pathname.split("/").pop();
+
+    // ✅ تفعيل الـ active تلقائي في الـ Navbar
+    document.querySelectorAll(".navbar .nav-link.main-nav-link").forEach(link => {
+      const href = link.getAttribute("href");
+
+      // لو المستخدم داخل أي صفحة Dashboard
+      if (window.location.pathname.includes("admin") || window.location.pathname.includes("dashboard")) {
+        if (href.includes("dashboard.html")) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      } 
+      // لو مش في الداشبورد → فعّل الرابط العادي حسب الصفحة
+      else if (href && href.includes(currentPage)) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  });
 </script>
   </body>
 </html>

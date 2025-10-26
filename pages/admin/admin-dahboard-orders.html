@@ -336,7 +336,7 @@ label[for="filter"] {
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../about.html">About</a></li>
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
-            <li class="nav-item me-5"><a class="nav-link main-nav-link" href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item me-5"><a class="nav-link main-nav-link" href="../admin/admin-dashboard.html">Dashboard</a></li>
           </ul>
 
           <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px">
@@ -709,6 +709,31 @@ label[for="filter"] {
       else link.classList.remove("active");
     });
   });
+  document.addEventListener("DOMContentLoaded", () => {
+    const currentPage = window.location.pathname.split("/").pop();
+
+    // ✅ تفعيل الـ active تلقائي في الـ Navbar
+    document.querySelectorAll(".navbar .nav-link.main-nav-link").forEach(link => {
+      const href = link.getAttribute("href");
+
+      // لو المستخدم داخل أي صفحة Dashboard
+      if (window.location.pathname.includes("admin") || window.location.pathname.includes("dashboard")) {
+        if (href.includes("dashboard.html")) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      } 
+      // لو مش في الداشبورد → فعّل الرابط العادي حسب الصفحة
+      else if (href && href.includes(currentPage)) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  });
+
+
 </script>
 
 
