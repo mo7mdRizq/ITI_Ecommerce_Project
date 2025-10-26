@@ -14,6 +14,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
     />
     <link rel="stylesheet" href="../../style/style.css" />
+    
 <style>
 /* ===== Base Styles ===== */
 body {
@@ -66,7 +67,7 @@ body {
   top: 80px;
   left: 0;
   height: 80vh;
-  width: 250px;
+  width: 280px;
   background-color: #fff;
   border-right: 1px solid #dee2e6;
   border-radius: 10px;
@@ -185,8 +186,9 @@ label[for="filter"] {
 /* ===== Search Box ===== */
 .search-box {
   position: relative;
-  width: 550px;
+  width: 425px;
   max-width: 100%;
+  align-items: center;
 }
 
 .search-box input {
@@ -435,10 +437,9 @@ label[for="filter"] {
 
  <!-- Sidebar -->
     <div class="sidebar d-none d-lg-block position-fixed">
-      <a href="admin-dashboard.html" class="nav-button active"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
-      <a href="admin-products-management.html" class="nav-button"><i class="bi bi-box"></i> Product Management</a>
+      <a href="admin-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+      <a href="admin-products-management.html" class="nav-button active"><i class="bi bi-box"></i> Product Management</a>
       <a href="admin-dahboard-orders.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
-      <a href="users-management.html" class="nav-button"><i class="bi bi-person"></i> Users Management</a>
       <hr />
       <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
       <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
@@ -734,6 +735,7 @@ label[for="filter"] {
   const modalEl = document.getElementById("addProductModal");
   const modal = new bootstrap.Modal(modalEl);
 
+  const searchInput = document.querySelector(".search-box input");
   const priceInput = document.getElementById("productPrice");
   const stockInput = document.getElementById("productStock");
   const mainImageInput = document.getElementById("mainProductImage");
@@ -882,10 +884,11 @@ label[for="filter"] {
   }
 
   // ---------- Render Table ----------
-  function renderTable() {
+  function renderTable(filteredProducts = null) {
+    const list = filteredProducts || products;
     tableBody.innerHTML = "";
 
-    products.forEach((p, i) => {
+    list.forEach((p, i) => {
       const status = p.stock > 0
         ? `<span class="badge bg-success bg-opacity-25 text-success fw-semibold">Available</span>`
         : `<span class="badge bg-danger bg-opacity-25 text-danger fw-semibold">Out of stock</span>`;
@@ -899,10 +902,10 @@ label[for="filter"] {
           <td>${p.stock}</td>
           <td>${status}</td>
           <td>
-            <button class="btn btn-link text-success action-btn edit-btn" data-index="${i}">
+            <button class="btn btn-link text-success action-btn edit-btn" data-index="${products.indexOf(p)}">
               <i class="bi bi-pencil-square"></i>
             </button>
-            <button class="btn btn-link text-danger action-btn delete-btn" data-index="${i}">
+            <button class="btn btn-link text-danger action-btn delete-btn" data-index="${products.indexOf(p)}">
               <i class="bi bi-trash"></i>
             </button>
           </td>
@@ -920,6 +923,13 @@ label[for="filter"] {
       btn.addEventListener("click", editProduct)
     );
   }
+
+  // ---------- Search Filter ----------
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    const filteredProducts = products.filter(p => p.name.toLowerCase().includes(query));
+    renderTable(filteredProducts);
+  });
 
   // ---------- Add / Edit Product ----------
   saveBtn.addEventListener("click", async () => {
@@ -951,16 +961,17 @@ label[for="filter"] {
 
         if (editIndex !== null) {
           products[editIndex] = newProduct;
-          editIndex = null;
         } else {
           products.push(newProduct);
         }
 
         localStorage.setItem("products", JSON.stringify(products));
         renderTable();
+
         form.reset();
         previewContainer.innerHTML = "";
         additionalImages = [];
+        editIndex = null;
       });
     };
 
@@ -968,8 +979,8 @@ label[for="filter"] {
       const reader = new FileReader();
       reader.onload = (event) => handleSave(event.target.result);
       reader.readAsDataURL(mainImageInput.files[0]);
-    } else {
-      handleSave(editIndex !== null ? products[editIndex].image : null);
+    } else if (editIndex !== null) {
+      handleSave(products[editIndex].image);
     }
   });
 
@@ -995,11 +1006,9 @@ label[for="filter"] {
     document.getElementById("productStock").value = p.stock;
     document.getElementById("productDescription").value = p.description;
 
-    // Reset preview
     previewContainer.innerHTML = "";
     additionalImages = [];
 
-    // Additional images preview
     p.additionalImages.forEach(imgSrc => {
       additionalImages.push(imgSrc);
 
@@ -1025,61 +1034,40 @@ label[for="filter"] {
     modal.show();
   }
 
-  // ---------- Reset editIndex and form on modal close ----------
-  modalEl.addEventListener('hidden.bs.modal', () => {
-    editIndex = null;
-    form.reset();
-    previewContainer.innerHTML = "";
-    additionalImages = [];
-    mainImageInput.value = "";
-    additionalImagesInput.value = "";
-  });
+  // ---------- Confirm on Cancel / Escape ----------
+  modalEl.addEventListener("hide.bs.modal", async (event) => {
+    const hasChanges =
+      document.getElementById("productName").value.trim() ||
+      document.getElementById("productCategory").value.trim() ||
+      priceInput.value.trim() ||
+      stockInput.value.trim() ||
+      document.getElementById("productDescription").value.trim() ||
+      mainImageInput.files.length ||
+      additionalImages.length;
 
-  // ---------- Search Filter ----------
-  const searchInput = document.querySelector(".search-box input");
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-    const filteredProducts = products.filter(p => p.name.toLowerCase().includes(query));
+    if (editIndex !== null && hasChanges) {
+      event.preventDefault(); 
 
-    tableBody.innerHTML = "";
-    filteredProducts.forEach((p, i) => {
-      const status = p.stock > 0
-        ? `<span class="badge bg-success bg-opacity-25 text-success fw-semibold">Available</span>`
-        : `<span class="badge bg-danger bg-opacity-25 text-danger fw-semibold">Out of stock</span>`;
+      const confirmExit = await showConfirm("Are you sure you want to exit without saving your changes?");
 
-      const row = `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${p.name}</td>
-          <td>${p.category}</td>
-          <td>$${p.price}</td>
-          <td>${p.stock}</td>
-          <td>${status}</td>
-          <td>
-            <button class="btn btn-link text-success action-btn edit-btn" data-index="${products.indexOf(p)}">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-link text-danger action-btn delete-btn" data-index="${products.indexOf(p)}">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-      `;
-      tableBody.insertAdjacentHTML("beforeend", row);
-    });
-
-    document.querySelectorAll(".delete-btn").forEach(btn =>
-      btn.addEventListener("click", deleteProduct)
-    );
-    document.querySelectorAll(".edit-btn").forEach(btn =>
-      btn.addEventListener("click", editProduct)
-    );
+      if (confirmExit) {
+        editIndex = null;
+        form.reset();
+        previewContainer.innerHTML = "";
+        additionalImages = [];
+        bootstrap.Modal.getInstance(modalEl).hide();
+      } else {
+      }
+    } else if (editIndex === null) {
+      form.reset();
+      previewContainer.innerHTML = "";
+      additionalImages = [];
+    }
   });
 
   // ---------- Initialize ----------
   renderTable();
 </script>
-
 
 
   </body>
