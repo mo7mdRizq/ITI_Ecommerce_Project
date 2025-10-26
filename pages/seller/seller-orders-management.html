@@ -15,74 +15,136 @@
         <link rel="stylesheet" href="../../style/style.css" />
 
 
-      <style>
-        /* style navbar&sidebar */
-        body {
-      background-color: #f9fafb;
-      font-family: "Poppins", sans-serif;
-    }
+    <style>
+/* ===== Base Styles ===== */
+body {
+  background-color: #f9fafb;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
+/* ===== Navbar Buttons ===== */
+.nav-button {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #618674;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #618674;
+  background-color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
 
-    .nav-button {
-      display: flex;
-      align-items: center;
-      padding: 12px 16px;
-      border: 1px solid #618674;
-      border-radius: 8px;
-      margin-bottom: 12px;
-      font-weight: 600;
-      color: #618674;
-      background-color: #fff;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
+.nav-button:hover {
+  background-color: #4D6B5C;
+  color: white;
+}
 
-    .nav-button:hover {
-      background-color: #4D6B5C;
-      color: white;
-    }
+.nav-button i {
+  margin-right: 10px;
+  font-size: 18px;
+}
 
-    .nav-button i {
-      margin-right: 10px;
-      font-size: 18px;
-    }
+.nav-button.active {
+  background-color: #618674;
+  color: #fff;
+  border: none;
+}
 
-    .nav-button.active {
-      background-color: #618674;
-      color: #fff;
-      border: none;
-    }
+.nav-button.active:hover {
+  background-color: #4D6B5C;
+  color: #fff;
+}
 
-    .nav-button.active:hover {
-      background-color: #4D6B5C;
-      color: #fff;
-    }
+/* ===== Sidebar ===== */
+.sidebar {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  height: 80vh;
+  width: 280px;
+  background-color: #fff;
+  border-right: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 40px 15px;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  overflow: hidden;
+}
 
-    @media (max-width: 991.98px) {
-      .sidebar {
-          display: block;      
-        position: fixed;
-        z-index: 999;
-        transition: all 0.3s ease;
-    
-    }
-    .sidebar:not(.collapsed) {
-    width: 200px;           /* ✅ لما يتفتح */
-  }
-    }
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #4d6b5c;
+  transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap;
+}
 
-    @media (min-width: 992px) {
-      .offcanvas {
-        display: none;
-      }
-    }
+.sidebar .nav-link i {
+  font-size: 20px;
+  margin-right: 10px;
+}
 
-    .main-content {
-      margin-left: 250px;
-    }
-    
-        /*  table style  */
-/* ===== Orders Section ===== */
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+  background-color: #4d6b5c;
+  color: white;
+}
+
+/* ===== Toggle Button ===== */
+.collapse-toggle {
+  position: absolute;
+  top: 15px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  background-color: coral;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar.collapsed .nav-link span {
+  display: none;
+}
+
+.sidebar.collapsed .nav-link i {
+  margin-right: 0;
+}
+
+.sidebar.collapsed .collapse-toggle {
+  transform: rotate(180deg);
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  margin-left: 270px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: 100px;
+}
+
+/* ===== Table & Orders Section ===== */
 .orders-section {
   width: 1100px;
   margin-top: 50px;
@@ -108,7 +170,6 @@ label[for="filter"] {
   font-size: 14px;
 }
 
-/* ===== Table ===== */
 .table thead th {
   background-color: #f1f3f5;
   font-weight: 500;
@@ -196,215 +257,75 @@ label[for="filter"] {
 }
 
 /* ===== Responsive Design ===== */
-
-/* Large tablets & small laptops */
 @media (max-width: 1200px) {
+  .sidebar {
+    width: 210px;
+  }
   .orders-section {
     width: calc(100% - 220px);
-    margin-left: 250px;
-    padding: 25px;
+    margin-left: 230px;
   }
 }
 
-/* Tablets */
+/* ===== Tablet ===== */
 @media (max-width: 992px) {
-  .orders-section {
-    width: 100%;
-    margin-left: 0;
-    padding: 25px;
-  }
-
-  .table {
-    font-size: 14px;
-  }
-
-  .table thead th,
-  .table td {
-    white-space: nowrap;
-  }
-
-  .pagination-container {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-}
-
-/* Small Tablets & Large Phones */
-@media (max-width: 768px) {
-  .orders-section {
-    padding: 20px;
-  }
-
-  .orders-section h4 {
-    font-size: 18px;
-  }
-
-  .orders-section p {
-    font-size: 13px;
-  }
-
-  .table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 8px;
-  }
-
-  .table thead {
-    font-size: 13px;
-  }
-
-  .status {
-    font-size: 12px;
-    padding: 4px 10px;
-  }
-
-  .custom-pagination a {
-    width: 32px;
-    height: 32px;
-    font-size: 13px;
-  }
-}
-
-/* Phones */
-@media (max-width: 576px) {
-  .orders-section {
-    padding: 15px;
-    border-radius: 10px;
-  }
-
-  .orders-section h4 {
-    font-size: 16px;
-  }
-
-  .table {
-    font-size: 12px;
-  }
-
-  .custom-pagination a {
-    width: 28px;
-    height: 28px;
-    font-size: 12px;
-  }
-
-  .custom-pagination .arrow {
-    font-size: 20px;
-  }
-}
- /* ===== Sidebar ===== */
-      .sidebar {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        height: 80vh;
-        width: 240px;
-        background-color: #fff;
-        border-right: 1px solid #dee2e6;
-        border-radius: 10px;
-        padding: 50px 10px;
-        transition: width 0.3s ease;
-        z-index: 1000;
-        /* overflow: hidden; */
-      }
-
-      .sidebar.collapsed {
-        width: 70px;
-      }
-
-      .sidebar .nav-link {
-        display: flex;
-        align-items: center;
-        padding: 10px 14px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        color: #4d6b5c;
-        transition: background-color 0.3s, color 0.3s;
-        white-space: nowrap;
-      }
-
-      .sidebar .nav-link i {
-        font-size: 20px;
-        margin-right: 10px;
-      }
-
-      .sidebar .nav-link.active,
-      .sidebar .nav-link:hover {
-        background-color: #4d6b5c;
-        color: white;
-      }
-
-      .sidebar.collapsed .nav-link span {
-        display: none;
-      }
-
-      .sidebar.collapsed .nav-link i {
-        margin-right: 0;
-      }
-
-      /* ===== Toggle Button ===== */
-      .collapse-toggle {
-        position: absolute;
-        top: 15px;
-        right: -15px;
-        width: 30px;
-        height: 30px;
-        background-color: coral;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: transform 0.3s;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-      }
-
-      .sidebar.collapsed .collapse-toggle {
-        transform: rotate(180deg);
-      }
-      /* ===== Mobile Styles ===== */
-@media (max-width: 767.98px) {
   .sidebar {
-    width: 70px;
-    margin-left: 8px;
-    /* left: 30px;  */
-  }
-
-  .sidebar:not(.collapsed) {
-    width: 200px;
+    width: 150px;
   }
 
   .sidebar .nav-link span {
     display: none;
   }
 
-  .sidebar:not(.collapsed) .nav-link span {
-    display: inline;
+  .sidebar .nav-link i {
+    margin-right: 0;
   }
 
-  /* ✅ المحتوى يكون ملاصق للسايدبار */
-  .dashboard-section,
+  .main-content {
+    margin-left: 160px;
+  }
+
   .orders-section {
-    margin-left: 110px; /* 70px عرض السايدبار + 30px المسافة */
-    margin-right: 15px;
-    padding: 15px;
-    transition: margin 0.3s ease;
-  }
-
-  .sidebar:not(.collapsed) ~ .dashboard-section,
-  .sidebar:not(.collapsed) ~ .orders-section {
-    margin-left: 230px; /* لما السايدبار يتفتح في الموبايل */
-  }
-
-  .collapse-toggle {
-    top: 10px;
-    right: -15px;
+    width: 100%;
+    margin-left: 0;
+    padding: 25px;
   }
 }
 
-  </style>
+/* ===== Small Phones ===== */
+@media (max-width: 576px) {
+  .sidebar {
+    width: 60px;
+    padding: 20px 10px;
+  }
+
+  .sidebar .nav-link {
+    justify-content: center;
+  }
+
+  .sidebar .nav-link i {
+    font-size: 22px;
+    margin-right: 0;
+  }
+
+  .sidebar .nav-link span {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 70px;
+  }
+
+  .orders-section {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+  }
+}
+
+
+</style>
+
 </head>
 <body>
     <!-- nav&side bar -->
@@ -488,27 +409,14 @@ label[for="filter"] {
   <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
 </nav>
 
-<!-- Sidebar -->
-    <div class="sidebar shadow-sm" id="sidebar">
-      <button class="collapse-toggle" id="toggleSidebar">
-        <i class="bi bi-chevron-left"></i>
-      </button>
-
-      <a href="#" class="nav-link active">
-        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-box"></i> <span>Products</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-journal-text"></i> <span>Orders</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-gear"></i> <span>Settings</span>
-      </a>
-      <a href="#" class="nav-link">
-        <i class="bi bi-box-arrow-left"></i> <span>Logout</span>
-      </a>
+ <!-- Sidebar -->
+    <div class="sidebar d-none d-lg-block position-fixed">
+      <a href="admin-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+      <a href="admin-products-management.html" class="nav-button"><i class="bi bi-box"></i> Product Management</a>
+      <a href="admin-dahboard-orders.html" class="nav-button active"><i class="bi bi-journal-text"></i> Order Management</a>
+      <hr />
+      <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
+      <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
     </div>
 
 

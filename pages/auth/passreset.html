@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Your Identity</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#618674',
+            hover: '#4D6B5C',
+          },
+        },
+      },
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../../assets/icons/logo 1.png">
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-cover bg-center" style="font-family: 'Poppins';">
+
+    <div class="absolute top-12 left-12">
+      <img src="../../assets/images/logo.png" alt="Modevia Logo" class="w-32 md:w-40 lg:w-48" title="Modevia">
+    </div>
+
+  <div class="w-full max-w-xl bg-white px-6 py-8">
+
+    <h2 class="text-2xl sm:text-4xl font-semibold text-gray-900 text-center mb-4">
+      Password reset
+    </h2>
+    
+    <p class="text-sm sm:text-lg text-gray-600 text-center mb-20">
+      We've sent a password reset link to your email. Please check your inbox (and spam folder) to continue.
+    </p>
+    
+    <form id="verificationForm">
+      <div class="flex justify-center gap-8 mb-20">
+        <input type="text" maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+          focus:border-gray-800" />
+        <input type="text" maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+          focus:border-gray-800" />
+        <input type="text" maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+          focus:border-gray-800" />
+        <input type="text" maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+          focus:border-gray-800" />
+        <input type="text" maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+          focus:border-gray-800" />
+        <input type="text" maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+          focus:border-gray-800" />  
+      </div>
+    
+      <p id="errorMessage" class="text-red-600 text-center mb-4"></p>
+    
+      <button type="submit"
+        class="w-full bg-primary hover:bg-hover text-white text-xl font-bold py-3 rounded-sm shadow-md transition">
+        Verify code
+      </button>
+    
+    </form>
+   
+    
+    <p class="text-md text-center text-gray-700 mt-6">
+      Don't received code?
+      <a href="#" id="resendCodeLink" class="text-primary hover:text-hover font-semibold hover:underline">Resend code</a>
+    </p>
+  </div>
+
+    <script src="signup.js"></script>
+
+
+</body>
+
+
+</html>

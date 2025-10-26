@@ -15,6 +15,7 @@
     />
     <link rel="stylesheet" href="../../style/style.css" />
 
+
     <style>
       body {
         background-color: #f9fafb;
@@ -177,6 +178,111 @@
           right: -15px;
         }
       }
+      
+      .dashboard-section {
+        margin-left: 340px;
+        margin-right: 30px;
+        padding: 20px;
+      }
+
+      .dashboard-card {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: transform 0.20s;
+      }
+
+      .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      }
+
+      .dashboard-card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 15px;
+      }
+
+      .dashboard-card h2 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #333;
+        margin: 10px 0;
+      }
+
+      .dashboard-card small {
+        color: #999;
+        font-size: 13px;
+      }
+
+      .icon-yellow {
+        color: #ffc107;
+        font-size: 24px;
+      }
+
+      .icon-red {
+        color: #e75d5d;
+        font-size: 24px;
+      }
+
+      .check-wrapper {
+        background: #5da9d3;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .check-inner i {
+        color: white;
+        font-size: 16px;
+      }
+
+      .charts-section {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-top: 30px;
+      }
+
+      .chart-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+
+      .chart-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 350px;
+      }
+
+      @media (max-width: 768px) {
+        .dashboard-section {
+          margin-left: 20px;
+          margin-right: 20px;
+        }
+        
+        .chart-container {
+          height: 300px;
+        }
+      }
     </style>
   </head>
 
@@ -184,7 +290,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
       <div class="container-fluid d-flex align-items-center justify-content-between">
-        <a class="navbar-brand" href="../home.html">
+        <a class="navbar-brand" href="../testHome.html">
           <img src="../../assets/images/logo.png" alt="Logo" style="width: 100px" />
         </a>
 
@@ -192,17 +298,17 @@
           <a class="nav-link position-relative" href="../cart.html">
             <img src="../../assets/icons/shopping-cart.svg" alt="Cart" />
           </a>
-          <a class="nav-link position-relative" href="../wishlist.html">
+          <a class="nav-link position-relative" href="../auth/profile.html">
             <img src="../../assets/icons/heart.svg" alt="Wishlist" />
           </a>
-          <a class="nav-link position-relative" href="../profile.html">
+          <a class="nav-link position-relative" href="../auth/profile.html">
             <img src="../../assets/icons/profileIcon.svg" alt="Profile" />
           </a>
         </div>
 
         <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="../home.html">Home</a></li>
+            <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="../testHome.html">Home</a></li>
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../about.html">About</a></li>
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
@@ -227,14 +333,14 @@
       <a href="admin-dahboard-orders.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
       <a href="users-management.html" class="nav-button"><i class="bi bi-person"></i> Users Management</a>
       <hr />
-      <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
-      <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+      <!-- <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a> -->
+      <a href="../auth/signin.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
     </div>
 
     <!-- Dashboard Section -->
     <section class="dashboard-section">
       <h5>Dashboard Overview</h5>
-      <p>Welcome to your dashboard, here’s what’s happening today.</p>
+      <p>Welcome to your dashboard, here's what's happening today.</p>
 
       <div class="row g-4">
         <div class="col-md-4">
@@ -272,20 +378,36 @@
           </div>
         </div>
       </div>
+      
+      <!-- Charts Section -->
+      <div class="charts-section">
+        <!-- Dashboard Summary Chart -->
+        <div class="chart-card col-12" style="grid-column: 1 / -1;">
+          <div class="chart-title">
+            <i class="bi bi-graph-up" style="color: #ffc107;"></i>
+            Dashboard Summary
+          </div>
+          <div class="chart-container">
+            <canvas id="summaryChart"></canvas>
+          </div>
+        </div>
+      </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <script>
-      // دالة لتجهيز بيانات تجريبية لو فاضية
+      // تجهيز بيانات تجريبية لو الـ localStorage فاضي
       function seedDataIfEmpty() {
         if (!localStorage.getItem("products")) {
           localStorage.setItem(
             "products",
             JSON.stringify([
-              { id: 1, name: "T-shirt" },
-              { id: 2, name: "Shoes" },
-              { id: 3, name: "Watch" },
-              { id: 4, name: "Bag" },
+              { id: 1, name: "T-shirt", category: "Clothes", price: 200, stock: 10 },
+              { id: 2, name: "Shoes", category: "Fashion", price: 800, stock: 5 },
+              { id: 3, name: "Watch", category: "Accessories", price: 600, stock: 0 },
+              { id: 4, name: "Bag", category: "Fashion", price: 300, stock: 2 },
+              { id: 5, name: "Headphones", category: "Electronics", price: 400, stock: 0 },
             ])
           );
         }
@@ -297,7 +419,6 @@
               { id: 1, name: "Mohamed" },
               { id: 2, name: "Sara" },
               { id: 3, name: "Ali" },
-              
             ])
           );
         }
@@ -315,28 +436,103 @@
         }
       }
 
-      // دالة تحديث الأرقام
-      function updateDashboardCounts() {
+      // تحديث الأرقام في الكروت + الشارتات
+      function updateDashboard() {
         const products = JSON.parse(localStorage.getItem("products")) || [];
         const users = JSON.parse(localStorage.getItem("users")) || [];
         const orders = JSON.parse(localStorage.getItem("orders")) || [];
 
+        // --- تحديث الكروت ---
         document.getElementById("totalProducts").textContent = products.length;
         document.getElementById("totalOrders").textContent = orders.length;
         document.getElementById("totalUsers").textContent = users.length;
+
+        // --- تحديث الشارتات ---
+        updateCharts(products, users, orders);
       }
 
-      // متابعة أي تحديث في الـlocalStorage من أي صفحة
-      window.addEventListener("storage", updateDashboardCounts);
+      // تهيئة الشارتات
+      let summaryChart = null;
 
-      // تحديث كل ثانية بشكل حي (لو نفس الصفحة تعدل)
-      setInterval(updateDashboardCounts, 1000);
+      function updateCharts(products, users, orders) {
+        console.log('Updating chart with data:', products.length, orders.length, users.length);
+        
+        // --- Summary Chart (مربوط بالكروت) ---
+        const ctxSummary = document.getElementById("summaryChart");
+        
+        if (!ctxSummary) {
+          console.error('Canvas element not found!');
+          return;
+        }
+        
+        if (summaryChart) {
+          summaryChart.destroy();
+        }
+        
+        summaryChart = new Chart(ctxSummary, {
+          type: "bar",
+          data: {
+            labels: ["Total Products", "Total Orders", "Total Users"],
+            datasets: [
+              {
+                label: "Count",
+                data: [products.length, orders.length, users.length],
+                backgroundColor: ["#618674", "#5da9d3", "#ffc107"],
+                borderRadius: 12,
+                barThickness: 70,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              title: {
+                display: true,
+                text: "Dashboard Overview",
+                font: { size: 18, weight: 'bold' },
+                color: "#333",
+                padding: 20
+              },
+            },
+            scales: {
+              y: { 
+                beginAtZero: true, 
+                ticks: { 
+                  stepSize: 1,
+                  font: { size: 14 }
+                },
+                grid: {
+                  color: 'rgba(0,0,0,0.1)'
+                }
+              },
+              x: {
+                ticks: { 
+                  font: { size: 14 }
+                },
+                grid: {
+                  display: false
+                }
+              }
+            },
+          },
+        });
+        
+        console.log('Chart created successfully!');
+      }
 
       // تشغيل أول مرة
       seedDataIfEmpty();
-      updateDashboardCounts();
+      updateDashboard();
 
-      // كود السايدبار
+      // متابعة أي تحديث من أي تبويب
+      window.addEventListener("storage", updateDashboard);
+
+      // تحديث دوري (في نفس الصفحة)
+      setInterval(updateDashboard, 1500);
+
+      // سايدبار
       const sidebar = document.querySelector(".sidebar");
       function handleSidebar() {
         if (window.innerWidth <= 767.98) {
@@ -349,4 +545,4 @@
       window.addEventListener("resize", handleSidebar);
     </script>
   </body>
-</html>
+</html>                                                                                                                                                   

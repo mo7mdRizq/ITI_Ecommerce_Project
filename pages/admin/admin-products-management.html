@@ -368,7 +368,58 @@
     font-size: 22px;
   }
 }
+/* ---------- تنسيق Overlay ---------- */
+.custom-alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1055;
+  animation: fadeIn 0.3s ease;
+}
+.custom-alert-box {
+  min-width: 300px;
+  max-width: 500px;
+  animation: popIn 0.3s ease;
+}
+.fade-out {
+  animation: fadeOut 0.4s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 
+.custom-alert-overlay,
+.custom-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+  z-index: 2000;
+  transition: opacity 0.3s ease;
+}
+
+.custom-alert-box,
+.confirm-box {
+  animation: popIn 0.3s ease;
+}
+
+.fade-out {
+  opacity: 0 !important;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
   </style>
   </head>
 
@@ -377,7 +428,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
     <div class="container-fluid d-flex align-items-center justify-content-between">
       <!-- Brand -->
-      <a class="navbar-brand" href="../home.html" id="brand">
+      <a class="navbar-brand" href="../testHome.html" id="brand">
         <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;">
       </a>
 
@@ -397,10 +448,10 @@
       <!-- Collapsible Menu -->
       <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="../home.html">Home</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="../testHome.html">Home</a></li>
           <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
-          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="">About</a></li>
-          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact us.html">Contact</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../about.html">About</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
           <li class="nav-item me-5" id="dashboard"><a class="nav-link main-nav-link" href="">Dashboard</a></li>
         </ul>
         <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px;">
@@ -434,10 +485,10 @@
             <i class="bi bi-person"></i> Users Management
           </a>
           <hr>
-          <a href="settings.html" class="nav-button">
+          <!-- <a href="settings.html" class="nav-button">
             <i class="bi bi-gear"></i> Setting
-          </a>
-          <a href="logout.html" class="nav-button">
+          </a> -->
+          <a href="../auth/signin.html" class="nav-button">
             <i class="bi bi-box-arrow-left"></i> Log Out
           </a>
         </div>
@@ -531,7 +582,7 @@
         </div>
 
        
-        <script>
+    <script>
 document.addEventListener("DOMContentLoaded", () => {
   loadProducts();
   setActiveSidebar();
@@ -544,16 +595,18 @@ function loadProducts() {
   tbody.innerHTML = "";
 
   if (products.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7">No products found.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center">No products found.</td></tr>`;
   } else {
     products.forEach((product, index) => {
+      if (!product.id) product.id = Date.now() + index;
+
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${index + 1}</td>
         <td>${product.name}</td>
-        <td>${product.category}</td>
-        <td>$${product.price}</td>
-        <td>${product.stock}</td>
+        <td>${product.category || '-'}</td>
+        <td>$${product.price ?? '-'}</td>
+        <td>${product.stock ?? '-'}</td>
         <td>
           <span class="${product.stock > 0 ? "status-available" : "status-out"}">
             ${product.stock > 0 ? "Available" : "Out of stock"}
@@ -572,9 +625,9 @@ function loadProducts() {
   updateDashboardCards();
   attachDeleteButtons();
 }
+
 // ---------- البحث ----------
 const searchInput = document.getElementById("searchInput");
-
 if (searchInput) {
   searchInput.addEventListener("keyup", () => {
     const searchTerm = searchInput.value.toLowerCase();
@@ -582,16 +635,15 @@ if (searchInput) {
     const tbody = document.getElementById("productsTableBody");
     tbody.innerHTML = "";
 
-    // فلترة المنتجات بناءً على النص اللي المستخدم كتبه
     const filtered = products.filter(p =>
-      p.name.toLowerCase().includes(searchTerm) ||
-      (p.category && p.category.toLowerCase().includes(searchTerm)) ||
-      (p.price && p.price.toString().includes(searchTerm)) ||
-      (p.stock && p.stock.toString().includes(searchTerm))
+      p.name?.toLowerCase().includes(searchTerm) ||
+      p.category?.toLowerCase().includes(searchTerm) ||
+      p.price?.toString().includes(searchTerm) ||
+      p.stock?.toString().includes(searchTerm)
     );
 
     if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7">No products found.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" class="text-center">No products found.</td></tr>`;
     } else {
       filtered.forEach((product, index) => {
         const row = document.createElement("tr");
@@ -615,9 +667,10 @@ if (searchInput) {
         tbody.appendChild(row);
       });
     }
+
+    attachDeleteButtons();
   });
 }
-
 
 // ---------- تحديث الكروت ----------
 function updateDashboardCards() {
@@ -636,22 +689,71 @@ function setActiveSidebar() {
 
 // ---------- زر الحذف ----------
 function attachDeleteButtons() {
-  document.querySelectorAll(".delete-btn").forEach(btn => {
-    btn.addEventListener("click", e => deleteProduct(e.target.closest("button").dataset.id));
+  const buttons = document.querySelectorAll(".delete-btn");
+  buttons.forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      const product = products.find(p => String(p.id) === String(id));
+      if (!product) return showAlert("Product not found!", "danger");
+
+      showConfirmOverlay(
+        `Are you sure you want to delete "${product.name}"?`,
+        () => {
+          const updated = products.filter(p => String(p.id) !== String(id));
+          localStorage.setItem("products", JSON.stringify(updated));
+          loadProducts();
+          showAlert(`Product "${product.name}" deleted successfully.`, "success");
+        }
+      );
+    };
   });
 }
 
-// ---------- حذف المنتج ----------
-function deleteProduct(id) {
-  const products = JSON.parse(localStorage.getItem("products")) || [];
-  const product = products.find(p => p.id == id);
-  if (!product) return;
+// ---------- Overlay تأكيد (Yes / No) ----------
+function showConfirmOverlay(message, onConfirm) {
+  // لو فيه Overlay مفتوح، احذفه
+  const old = document.querySelector(".custom-confirm-overlay");
+  if (old) old.remove();
 
-  if (confirm(`Are you sure you want to delete "${product.name}"?`)) {
-    const updated = products.filter(p => p.id != id);
-    localStorage.setItem("products", JSON.stringify(updated));
-    loadProducts();
-  }
+  const overlay = document.createElement("div");
+  overlay.className = "custom-confirm-overlay d-flex align-items-center justify-content-center";
+  overlay.innerHTML = `
+    <div class="confirm-box bg-white p-4 rounded-4 shadow-lg text-center">
+      <h5 class="mb-4">${message}</h5>
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-success px-4" id="confirmYes">Yes</button>
+        <button class="btn btn-secondary px-4" id="confirmNo">No</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  document.getElementById("confirmYes").onclick = () => {
+    onConfirm();
+    overlay.remove();
+  };
+  document.getElementById("confirmNo").onclick = () => overlay.remove();
+}
+
+// ---------- Alert كـ Overlay ----------
+function showAlert(message, type = "success") {
+  const oldAlert = document.querySelector(".custom-alert-overlay");
+  if (oldAlert) oldAlert.remove();
+
+  const overlay = document.createElement("div");
+  overlay.className = "custom-alert-overlay d-flex align-items-center justify-content-center";
+  overlay.innerHTML = `
+    <div class="custom-alert-box bg-${type === "danger" ? "danger" : "success"} text-white p-4 rounded-4 shadow-lg text-center">
+      <h5 class="mb-0">${message}</h5>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  setTimeout(() => {
+    overlay.classList.add("fade-out");
+    setTimeout(() => overlay.remove(), 500);
+  }, 2500);
 }
 
 // ---------- تحديث مباشر بين الصفحات ----------
@@ -659,7 +761,20 @@ window.addEventListener("storage", e => {
   if (e.key === "products") loadProducts();
 });
 
+// --- إضافة منتجات تجريبية إلى localStorage ---
+(function addSampleProducts() {
+  const existing = JSON.parse(localStorage.getItem("products")) || [];
+  if (existing.length === 0) {
+    const sampleProducts = [
+      { id: Date.now() + 1, name: "Laptop HP Pavilion", category: "Electronics", price: 15500, stock: 12 },
+      { id: Date.now() + 2, name: "iPhone 15 Pro", category: "Mobiles", price: 53000, stock: 5 },
+      { id: Date.now() + 3, name: "Samsung Galaxy S23", category: "Mobiles", price: 47000, stock: 0 },
+      { id: Date.now() + 4, name: "Bluetooth Headset", category: "Accessories", price: 1200, stock: 8 },
+      { id: Date.now() + 5, name: "Mechanical Keyboard", category: "Computers", price: 950, stock: 0 }
+    ];
+    localStorage.setItem("products", JSON.stringify(sampleProducts));
+  }
+})();
 </script>
-
 </body>
 </html>

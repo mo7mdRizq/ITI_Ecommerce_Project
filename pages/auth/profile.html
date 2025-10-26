@@ -86,13 +86,13 @@
             <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
                 <ul class="navbar-nav">
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="/">Home</a>
+                    <a class="nav-link main-nav-link active" href="../testHome.html">Home</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">Shop</a>
+                    <a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">About</a>
+                    <a class="nav-link main-nav-link" href="../about.html">About</a>
                 </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link main-nav-link" href="#footer">Contact</a>
@@ -114,19 +114,19 @@
             <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
 
         
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="../cart.html">
                     <i>
                         <img src="../../assets/icons/shopping-cart.svg" alt="">
                     </i>
                 </a>
 
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="../auth/profile.html">
                     <i>
                         <img src="../../assets/icons/heart.svg" alt="">
                     </i>
                 </a>
 
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="../auth/profile.html">
                     <i>
                         <img src="../../assets/icons/profileIcon.svg" alt="">
                     </i>
@@ -196,21 +196,21 @@
               <div class="row mb-3">
                 <div class="col-md-6">
                   <label class="form-label">Full Name</label>
-                  <input type="text" class="form-control" value="Mona Emad">
+                  <input type="text" class="form-control" id="profileName"  value="Mona Emad" disabled>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">Email</label>
-                  <input type="email" class="form-control" value="mona@email.com">
+                  <input type="email" class="form-control" id="profileEmail" value="mona@email.com" disabled>
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col-md-6">
                   <label class="form-label">Phone</label>
-                  <input type="text" class="form-control" value="01012345678">
+                  <input type="text" class="form-control" id="profilePhone" value="01012345678" disabled>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">Address</label>
-                  <input type="text" class="form-control" value="123 Main Street, Cairo, Egypt">
+                  <input type="text" class="form-control" id="profileAddress" value="123 Main Street, Cairo, Egypt" disabled>
                 </div>
               </div>
               <button type="submit" class="btn btn-custom">Save Changes</button>
@@ -292,7 +292,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <input type="file" class="form-control" accept="image/*">
+          <input type="file" class="form-control" id="inputImg" accept="image/*">
         </div>
         <div class="modal-footer">
           <button class="btn btn-custom">Save</button>
@@ -301,34 +301,149 @@
     </div>
   </div>
 
+
+  <!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header border-0">
+        <h5 class="modal-title w-100">Confirm Logout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-4">Are you sure you want to log out?</p>
+        <div class="d-flex justify-content-center gap-3">
+          <button class="btn btn-danger px-4" id="confirmLogout">Yes, Logout</button>
+          <button class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // العناصر الأساسية
-    const fileInput = document.querySelector('#editPhotoModal input[type="file"]');
-    const profileImgs = document.querySelectorAll('.profile-pic img'); // كل الصور (sidebar + offcanvas)
+// =========================
+// تحميل بيانات المستخدم من localStorage
+// =========================
 
-    // تحميل الصورة من localStorage عند فتح الصفحة
-    window.addEventListener('DOMContentLoaded', function() {
-      const savedImage = localStorage.getItem('profileImage');
-      if (savedImage) {
-        profileImgs.forEach(img => img.src = savedImage);
-      }
-    });
+const inputImg = document.getElementById("inputImg");
 
-    // عند اختيار صورة جديدة
-    fileInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function() {
-          const base64 = reader.result;
-          localStorage.setItem('profileImage', base64);
-          profileImgs.forEach(img => img.src = base64);
-        }
-        reader.readAsDataURL(file);
-      }
-    });
-  </script>
+window.addEventListener('DOMContentLoaded', function() {
+  // التحقق من تسجيل الدخول
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  
+  if (!currentUser) {
+    alert('Please login first!');
+    window.location.href = 'signin.html'; // عدل المسار حسب مشروعك
+    return;
+  }
+
+  // عرض صورة البروفايل لو محفوظة
+  const savedImage = localStorage.getItem('profileImage');
+  const profileImgs = document.querySelectorAll('.profile-pic img');
+  if (savedImage) {
+    profileImgs.forEach(img => img.src = savedImage);
+  }
+
+  // عرض بيانات المستخدم
+  document.querySelector('#profileName').value = currentUser.name || "";
+  document.querySelector('#profileEmail').value = currentUser.email || "";
+  document.querySelector('#profilePhone').value = currentUser.phoneNumber || "";
+  
+  // تحديث الاسم في Sidebar
+  document.querySelectorAll('.sidebar h4, .offcanvas-body h4').forEach(h4 => {
+    h4.textContent = currentUser.name || "User";
+  });
+});
+
+// =========================
+// حفظ التعديلات
+// =========================
+const profileForm = document.querySelector('#v-pills-profile form');
+
+profileForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  
+  if (!currentUser) {
+    alert('Session expired. Please login again.');
+    window.location.href = 'signin.html';
+    return;
+  }
+
+  // جلب البيانات المعدلة
+  const updatedName = document.querySelector('#profileName').value.trim();
+  const updatedEmail = document.querySelector('#profileEmail').value.trim();
+  const updatedPhone = document.querySelector('#profilePhone').value.trim();
+  const updatedAddress = document.querySelector('#profileAddress').value.trim();
+
+  if (!updatedName || !updatedEmail || !updatedPhone) {
+    alert('Please fill in all required fields!');
+    return;
+  }
+
+  // تحديث البيانات
+  currentUser.name = updatedName;
+  currentUser.email = updatedEmail;
+  currentUser.phoneNumber = updatedPhone;
+  currentUser.address = updatedAddress;
+
+  localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+  // تحديث في users array
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const userIndex = users.findIndex(u => u.id === currentUser.id);
+  
+  if (userIndex !== -1) {
+    users[userIndex] = {...users[userIndex], ...currentUser};
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+
+  // تحديث الاسم في الصفحة
+  document.querySelectorAll('.sidebar h4, .offcanvas-body h4').forEach(h4 => {
+    h4.textContent = updatedName;
+  });
+
+  alert('Profile updated successfully! ✅');
+});
+
+// =========================
+// رفع صورة البروفايل
+// =========================
+const fileInput = document.querySelector('#editPhotoModal input[type="file"]');
+const profileImgs = document.querySelectorAll('.profile-pic img');
+const saveBtn = document.querySelector('#editPhotoModal .btn-custom');
+
+saveBtn.addEventListener('click', function() {
+  const file = inputImg.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const base64 = reader.result;
+      localStorage.setItem('profileImage', base64);
+      profileImgs.forEach(img => img.src = base64);
+      
+      const modal = bootstrap.Modal.getInstance(document.getElementById('editPhotoModal'));
+      modal.hide();
+    }
+    reader.readAsDataURL(file);
+    inputImg.value = "";
+  }
+});
+
+// =========================
+// تسجيل الخروج
+// =========================
+document.querySelector('#confirmLogout').addEventListener('click', function() {
+  localStorage.removeItem('currentUser');
+  localStorage.removeItem('profileImage');
+  
+  alert('Logged out successfully!');
+  window.location.href = 'signin.html'; // عدل المسار حسب مشروعك
+});
+</script>
 </body>
 </html>

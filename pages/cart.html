@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cart Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="icon" type="image/png" href="../imgs/logo 1.png">
+
+  <style>
+    .cart-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .cart-item img.product-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .quantity-control button {
+      border: none;
+      background: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .quantity-control button:hover{
+        background: #618674;
+        color: white;
+    }
+    .delete{
+        height: 100px; 
+        gap: 15px;
+    }
+    .delete-btn img {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .delete-btn img:hover {
+      transform: scale(1.1);
+    }
+    .order-summary {
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .order-summary-btn{
+        background-color: #618674; 
+        color: white; 
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 20px;
+    }
+    .order-summary-btn-promo{
+        background-color: #618674; 
+        color: white; 
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        
+    }
+    .order-summary-btn:hover{
+        background-color: #4c6d5d;
+    }
+    .order-summary-btn-promo:hover{
+        background-color: #4c6d5d;
+    }
+    .newsletter {
+      color: white;
+    }
+
+    .newsletter-input {
+        border: none;
+        padding: 15px;
+        width: 450px;
+        border-radius: 5px;
+        margin-right: 0;
+    }
+
+    .newsletter-btn {
+        border: none;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #b6d2c3;
+        color: black;
+        font-weight: bold;
+        width: 100%;
+        max-width: 450px;
+        font-size: 20px;
+        margin-right: 0;
+        transition: background-color 0.3s ease;
+    }
+
+    .newsletter-btn:hover {
+        color: white;
+        background-color: #618674;
+    }
+    
+
+    @media (min-width: 992px) {
+        .newsletter-input, .newsletter-btn {
+        margin-right: 20px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top mb-auto">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+
+            <!-- Brand -->
+            <a class="navbar-brand" href="../index.html" id="brand">
+                <img src="../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;" />
+            </a>
+
+            <!-- Center Links - Collapse -->
+            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link main-nav-link active" href="">Home</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link main-nav-link" href="">Shop</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link main-nav-link" href="">About</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link main-nav-link" href="#footer">Contact</a>
+                    </li>
+                    <li class="nav-item me-5" id="dashboard">
+                        <a class="nav-link main-nav-link" href="">dashboard</a>
+                    </li>
+
+
+                </ul>
+
+                <form class="d-flex align-items-center" role="search" style="width: 300px;">
+                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..."
+                        aria-label="Search">
+                </form>
+
+            </div>
+
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+
+
+                <a class="nav-link cart-icon-container position-relative" href="cart.html">
+                    <i>
+                        <img src="../assets/icons/shopping-cart.svg" alt="Cart">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="#">
+                    <i>
+                        <img src="../assets/icons/heart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="signin.html">
+                    <i>
+                        <img src="../assets/icons/profileIcon.svg" alt="Your profile">
+                    </i>
+                </a>
+
+                <!-- Navar Toggler -->
+                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+
+                    <img src="../assets/icons/menu.svg">
+                </button>
+            </div>
+
+        </div>
+  </nav>
+ 
+  <section>
+    <div class="container my-5 pt-5">
+      <h4 class="fw-bold mb-4">Cart</h4>
+  
+      <div class="row">
+        <!-- Cart Items -->
+        <div class="col-md-8">
+          <!-- Item 1 -->
+          <div class="cart-item">
+            <div class="d-flex align-items-center">
+              <img src="../assets/images/7.jpg" alt="T-shirt" class="product-img">
+              <div class="ms-3">
+                <h6 class="fw-bold mb-1">T-shirt</h6>
+                <p class="mb-1 text-muted">Size: Large</p>
+                <p class="mb-0 text-muted">Color: Black</p>
+                <p class="fw-bold mt-2">250 L.E</p>
+              </div>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-between delete">
+              <div class="delete-btn mb-2">
+                <img src="../imgs/delete.png" alt="Delete">
+              </div>
+              <div class="quantity-control d-flex align-items-center justify-content-end">
+                <button>-</button>
+                <span class="mx-2">1</span>
+                <button>+</button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Item 2 -->
+          <div class="cart-item">
+            <div class="d-flex align-items-center">
+              <img src="../assets/images/8.jpg" alt="T-shirt" class="product-img">
+              <div class="ms-3">
+                <h6 class="fw-bold mb-1">T-shirt</h6>
+                <p class="mb-1 text-muted">Size: Large</p>
+                <p class="mb-0 text-muted">Color: Black</p>
+                <p class="fw-bold mt-2">250 L.E</p>
+              </div>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-between delete">
+              <div class="delete-btn mb-2">
+                <img src="../imgs/delete.png" alt="Delete">
+              </div>
+              <div class="quantity-control d-flex align-items-center justify-content-end">
+                <button>-</button>
+                <span class="mx-2">1</span>
+                <button>+</button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Item 3 -->
+          <div class="cart-item">
+            <div class="d-flex align-items-center">
+              <img src="../assets/images/3.jpg" alt="T-shirt" class="product-img">
+              <div class="ms-3">
+                <h6 class="fw-bold mb-1">T-shirt</h6>
+                <p class="mb-1 text-muted">Size: Large</p>
+                <p class="mb-0 text-muted">Color: Black</p>
+                <p class="fw-bold mt-2">250 L.E</p>
+              </div>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-between delete">
+              <div class="delete-btn mb-2">
+                <img src="../imgs/delete.png" alt="Delete">
+              </div>
+              <div class="quantity-control d-flex align-items-center justify-content-end">
+                <button>-</button>
+                <span class="mx-2">1</span>
+                <button>+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Order Summary -->
+        <div class="col-md-4">
+          <div class="order-summary shadow-sm">
+            <h6 class="fw-bold mb-3">Order Summary</h6>
+            <!-- <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Add Promo Code">
+              <button class="order-summary-btn-promo">Apply</button>
+            </div> -->
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <strong>740 L.E</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Discount (20%)</span>
+              <strong class="text-danger">-120 L.E</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Delivery Fee</span>
+              <strong>80 L.E</strong>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between mb-3">
+              <span class="fw-bold">Total</span>
+              <strong>820 L.E</strong>
+            </div>
+            <button class="w-100 order-summary-btn">Continue to Checkout</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Newsletter Section -->
+      <div class="d-none newsletter mt-5 p-4 rounded d-flex flex-column flex-lg-row align-items-center"
+        style="background: url('../imgs/newsletter.png') no-repeat center/cover;">
+        <h1 class="fw-bold mb-3 mb-lg-0 text-center text-lg-start" style="flex: 1;">
+          STAY CONNECTED ABOUT <br> OUR LATEST OFFERS
+        </h1>
+        <div class="d-flex flex-column align-items-center align-items-lg-end mt-3 mt-lg-0">
+          <input type="email" placeholder="Enter your email address" class="mb-2 newsletter-input">
+          <button class="newsletter-btn">Subscribe to Newsletter</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="py-5" style="background-color: #222; color: #fff;">
+      <div class="container">
+          <div class="row text-md-start">
+              <!-- Logo -->
+              <div class="col-md-4 mb-4 mb-md-0">
+                  <img src="../assets/images/logo_footer.png" alt="" style="width: 150px;">
+                  <p class="text-white-50 small my-2">Your favorite destination for modern fashion and trends.</p>
+              </div>
+
+              <!-- Links -->
+              <div class="col-md-4 mb-4 mb-md-0">
+                  <h6 class="fw-bold mb-3">Quick Links</h6>
+                  <ul class="list-unstyled">
+                      <li><a href="#" class="text-white-50 text-decoration-none">Home</a></li>
+                      <li><a href="#" class="text-white-50 text-decoration-none">Shop</a></li>
+                      <li><a href="#" class="text-white-50 text-decoration-none">About</a></li>
+                      <li><a href="#" class="text-white-50 text-decoration-none">Contact</a></li>
+                  </ul>
+              </div>
+
+              <!-- Categories -->
+              <div class="col-md-4 mb-4 mb-md-0">
+                  <h6 class="fw-bold mb-3">Categories</h6>
+                  <ul class="list-unstyled">
+                      <li><a href="#" class="text-white-50 text-decoration-none">Men's Collection</a></li>
+                      <li><a href="#" class="text-white-50 text-decoration-none">Women's Collection</a></li>
+                      <li><a href="#" class="text-white-50 text-decoration-none">Kids Collection</a></li>
+                  </ul>
+              </div>
+
+              <!-- Social -->
+              <div class="col-md-4">
+                  <h6 class="fw-bold mb-3">Follow Us</h6>
+                  <div class="d-flex justify-content-center justify-content-md-start gap-3">
+                      <a href="#" class="text-white-50 fs-4"><i class="bi bi-facebook"></i></a>
+                      <a href="#" class="text-white-50 fs-4"><i class="bi bi-instagram"></i></a>
+                      <a href="#" class="text-white-50 fs-4"><i class="bi bi-twitter-x"></i></a>
+                      <a href="#" class="text-white-50 fs-4"><i class="bi bi-youtube"></i></a>
+                  </div>
+              </div>
+
+
+
+
+          </div>
+
+          <hr class="border-secondary my-4">
+
+          <!-- End-->
+          <div class="text-center">
+              <p class="text-white-50 mb-0">&copy; 2025 MODEVIA. All Rights Reserved.</p>
+          </div>
+      </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
