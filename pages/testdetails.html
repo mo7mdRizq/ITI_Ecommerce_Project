@@ -53,13 +53,6 @@
       font-weight: 700;
     }
 
-    .product-category {
-      text-transform: uppercase;
-      color: #6c757d;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-    }
-
     .product-price {
       color: #198754;
       font-weight: 700;
@@ -71,7 +64,6 @@
       color: #fff;
       border-radius: 10px;
       padding: 12px 25px;
-      font-size: 1rem;
       transition: all 0.3s ease;
     }
 
@@ -84,10 +76,6 @@
       color: #ffc107;
     }
 
-      .active-thumb {
-    border-color: #28a745 !important;
-    box-shadow: 0 0 5px rgba(40, 167, 69, 0.6);
-  }
     /* ===== Reviews Section ===== */
     .review-card {
       background: #fff;
@@ -146,65 +134,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-      /* ===== Scroll Notification ===== */
-  .scroll-notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #fff;
-    border-radius: 25px;
-    padding: 15px 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    transform: translateY(50px);
-    z-index: 9999;
-    min-width: 250px;
-  }
-
-  .scroll-notification.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .scroll-notification img {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    object-fit: cover;
-  }
-
-  .scroll-notification .info {
-    flex: 1;
-  }
-
-  .scroll-notification .info strong {
-    display: block;
-    font-size: 0.95rem;
-  }
-
-  .scroll-notification .info span {
-    color: #198754;
-    font-weight: 600;
-  }
-
-  .scroll-notification button {
-    background: #198754;
-    color: #fff;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  .scroll-notification button:hover {
-    background: #157347;
-  }
-
   </style>
 </head>
 <body>
@@ -313,7 +242,7 @@
 </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
- <script>
+  <script>
   // ===== Fade In Animation on Scroll =====
   function fadeInOnScroll() {
     document.querySelectorAll("[data-fade]").forEach(el => {
@@ -327,7 +256,7 @@
   // ===== Load Product Details =====
   function loadProductDetails() {
     const p = JSON.parse(localStorage.getItem("selectedProduct"));
-    let products = JSON.parse(localStorage.getItem("products")) || [];
+    const products = JSON.parse(localStorage.getItem("products")) || [];
     const container = document.getElementById("productDetails");
     const suggestions = document.getElementById("suggestions");
 
@@ -339,16 +268,18 @@
 
     const placeholder = "https://via.placeholder.com/600x450?text=No+Image";
     const imgSrc = p.image || placeholder;
-    const allImages = [imgSrc, ...(p.additionalImages || [])];
+    const thumbnails = (p.additionalImages || [])
+      .map(
+        url =>
+          `<img src="${url}" alt="thumb" class="me-2 mb-2 thumb" style="cursor:pointer;width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid #ddd;">`
+      )
+      .join("");
 
     // ===== Product Details Section =====
     container.innerHTML = `
       <div class="col-md-6 text-center mb-4 mb-md-0">
-        <div class="main-image-container position-relative">
-          <img src="${imgSrc}" class="main-image mb-3" id="mainImage"
-               style="width:100%;max-width:500px;border-radius:12px;transition:opacity .3s ease;">
-        </div>
-        <div class="thumbnail-list d-flex flex-wrap justify-content-center"></div>
+        <img src="${imgSrc}" class="main-image mb-3" id="mainImage" style="width:100%;max-width:500px;border-radius:12px;transition:opacity .3s ease;">
+        <div class="thumbnail-list d-flex flex-wrap justify-content-center">${thumbnails}</div>
       </div>
       <div class="col-md-6">
         <h6 class="text-muted text-uppercase">${p.category || "Uncategorized"}</h6>
@@ -366,55 +297,26 @@
       </div>
     `;
 
+    // ===== Smooth Thumbnail Switch =====
     const mainImg = document.getElementById("mainImage");
-    const thumbsContainer = document.querySelector(".thumbnail-list");
-
-    // ===== Generate Thumbnails =====
-    allImages.forEach((url, i) => {
-      const thumb = document.createElement("img");
-      thumb.src = url;
-      thumb.className = "me-2 mb-2 thumb";
-      thumb.style.cssText =
-        "cursor:pointer;width:80px;height:80px;object-fit:cover;border-radius:6px;border:2px solid transparent;transition:border .2s ease;";
-      if (i === 0) thumb.classList.add("active-thumb");
-      thumbsContainer.appendChild(thumb);
-
-      thumb.addEventListener("click", () => {
-        document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active-thumb"));
-        thumb.classList.add("active-thumb");
-        mainImg.style.opacity = "0";
-        setTimeout(() => {
-          mainImg.src = thumb.src;
-          mainImg.style.opacity = "1";
-        }, 150);
+    document.querySelectorAll(".thumbnail-list img").forEach(img => {
+      img.addEventListener("click", () => {
+        if (mainImg.src !== img.src) {
+          const tempImg = new Image();
+          tempImg.src = img.src;
+          tempImg.onload = () => {
+            mainImg.style.opacity = "0";
+            setTimeout(() => {
+              mainImg.src = img.src;
+              mainImg.style.opacity = "1";
+            }, 150);
+          };
+        }
       });
     });
 
-    // ===== Scroll Notification =====
-    let notificationShown = false;
-    const scrollNotification = document.createElement("div");
-    scrollNotification.className = "scroll-notification";
-    scrollNotification.innerHTML = `
-      <img src="${imgSrc}" alt="">
-      <div class="info">
-        <strong>${p.name}</strong>
-        <span>$${p.price}</span>
-      </div>
-      <button id="scrollAddToCart">Add to Cart</button>
-    `;
-    document.body.appendChild(scrollNotification);
-
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 510 && !notificationShown) {
-        scrollNotification.classList.add("show");
-        notificationShown = true;
-      } else if (window.scrollY <= 510 && notificationShown) {
-        scrollNotification.classList.remove("show");
-        notificationShown = false;
-      }
-    });
-
-    scrollNotification.querySelector("#scrollAddToCart").addEventListener("click", () => {
+    // ===== Add to Cart =====
+    document.getElementById("addToCartBtn").addEventListener("click", () => {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const exist = cart.find(item => item.name === p.name);
       if (exist) exist.qty = (exist.qty || 1) + 1;
@@ -424,62 +326,51 @@
     });
 
     // ===== You May Also Like Section =====
-    if (!Array.isArray(products) || products.length === 0) {
-      suggestions.innerHTML = `<div class="col-12 text-center text-muted py-4">No related products available.</div>`;
-      return;
-    }
-
     let related = products.filter(prod => prod.category === p.category && prod.name !== p.name);
     if (related.length < 6) {
       const others = products.filter(prod => prod.name !== p.name);
       const extra = others.slice(0, 6 - related.length);
       related = [...related, ...extra];
     }
-    related = related.slice(0, 4);
 
     suggestions.innerHTML = related
+      .slice(0, 6)
       .map(
         prod => `
-        <div class="col-md-3 col-sm-6 mb-4">
-          <div class="suggestion-card" data-name="${prod.name}" style="cursor:pointer;transition:transform .2s;border-radius:12px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.1);">
-            <img src="${prod.image || placeholder}" class="w-100" alt="" style="height:250px;object-fit:cover;">
-            <div class="p-3">
-              <h6 class="fw-semibold">${prod.name}</h6>
-              <p class="text-muted mb-2">${prod.category || "Uncategorized"}</p>
-              <strong class="text-success">$${prod.price}</strong>
-            </div>
+        <div class="suggestion-card" data-name="${prod.name}" style="cursor:pointer;transition:transform .2s;border-radius:12px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.1);">
+          <img src="${prod.image || placeholder}" class="w-100" alt="" style="height:250px;object-fit:cover;">
+          <div class="p-3">
+            <h6 class="fw-semibold">${prod.name}</h6>
+            <p class="text-muted mb-2">${prod.category || "Uncategorized"}</p>
+            <strong class="text-success">$${prod.price}</strong>
           </div>
         </div>
-      `).join("");
+      `
+      )
+      .join("");
 
+    // Hover effect
     document.querySelectorAll(".suggestion-card").forEach(card => {
       card.addEventListener("mouseenter", () => (card.style.transform = "translateY(-4px)"));
       card.addEventListener("mouseleave", () => (card.style.transform = "translateY(0)"));
+    });
+
+    // ===== Clicking Related Product Reloads In Place =====
+    document.querySelectorAll(".suggestion-card").forEach(card => {
       card.addEventListener("click", () => {
         const name = card.getAttribute("data-name");
         const selected = products.find(x => x.name === name);
         if (selected) {
           localStorage.setItem("selectedProduct", JSON.stringify(selected));
-          window.location.href = "product-details.html";
+          loadProductDetails(); // Reload dynamically
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }
       });
-    });
-
-    // ===== Main Add to Cart Button =====
-    document.getElementById("addToCartBtn").addEventListener("click", () => {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const exist = cart.find(item => item.name === p.name);
-      if (exist) exist.qty = (exist.qty || 1) + 1;
-      else cart.push({ ...p, qty: 1 });
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert(`${p.name} added to cart ✅`);
     });
   }
 
   document.addEventListener("DOMContentLoaded", loadProductDetails);
 </script>
-
-
 
 
 </body>
