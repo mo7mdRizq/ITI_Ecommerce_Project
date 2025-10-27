@@ -147,63 +147,66 @@
       transform: translateY(0);
     }
       /* ===== Scroll Notification ===== */
-  .scroll-notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #fff;
-    border-radius: 25px;
-    padding: 15px 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    transform: translateY(50px);
-    z-index: 9999;
-    min-width: 250px;
-  }
+/* ===== Scroll Notification ===== */
+.scroll-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  border-radius: 25px;
+  padding: 20px 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  transform: translateY(50px);
+  z-index: 9999;
+  min-width: 300px;
+}
 
-  .scroll-notification.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.scroll-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  .scroll-notification img {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    object-fit: cover;
-  }
+.scroll-notification img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+}
 
-  .scroll-notification .info {
-    flex: 1;
-  }
+.scroll-notification .info {
+  flex: 1;
+}
 
-  .scroll-notification .info strong {
-    display: block;
-    font-size: 0.95rem;
-  }
+.scroll-notification .info strong {
+  display: block;
+  font-size: 1rem;
+}
 
-  .scroll-notification .info span {
-    color: #198754;
-    font-weight: 600;
-  }
+.scroll-notification .info span {
+  color: #198754;
+  font-weight: 600;
+  font-size: 1rem;
+}
 
-  .scroll-notification button {
-    background: #198754;
-    color: #fff;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
+.scroll-notification button {
+  background: #198754;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
-  .scroll-notification button:hover {
-    background: #157347;
-  }
+.scroll-notification button:hover {
+  background: #157347;
+}
+
 
   </style>
 </head>
@@ -313,8 +316,7 @@
 </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
- <script>
-  // ===== Fade In Animation on Scroll =====
+<script>
   function fadeInOnScroll() {
     document.querySelectorAll("[data-fade]").forEach(el => {
       const rect = el.getBoundingClientRect();
@@ -324,7 +326,6 @@
   window.addEventListener("scroll", fadeInOnScroll);
   window.addEventListener("load", fadeInOnScroll);
 
-  // ===== Load Product Details =====
   function loadProductDetails() {
     const p = JSON.parse(localStorage.getItem("selectedProduct"));
     let products = JSON.parse(localStorage.getItem("products")) || [];
@@ -390,8 +391,7 @@
       });
     });
 
-    // ===== Scroll Notification =====
-    let notificationShown = false;
+    // ===== Scroll Notification (Always Visible if Add to Cart exists) =====
     const scrollNotification = document.createElement("div");
     scrollNotification.className = "scroll-notification";
     scrollNotification.innerHTML = `
@@ -404,15 +404,28 @@
     `;
     document.body.appendChild(scrollNotification);
 
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 510 && !notificationShown) {
-        scrollNotification.classList.add("show");
-        notificationShown = true;
-      } else if (window.scrollY <= 510 && notificationShown) {
-        scrollNotification.classList.remove("show");
-        notificationShown = false;
+    function updateNotificationVisibility() {
+      const addBtn = document.getElementById("addToCartBtn");
+      if (!addBtn) return;
+
+      let show = false;
+
+      if (window.innerWidth > 768) {
+        // Desktop: يظهر بعد 510px Scroll
+        show = window.scrollY > 510;
+      } else {
+        // Mobile: يظهر قبل ما زر Add to Cart يختفي بـ50px
+        const rect = addBtn.getBoundingClientRect();
+        show = rect.bottom < 50;
       }
-    });
+
+      if (show) scrollNotification.classList.add("show");
+      else scrollNotification.classList.remove("show");
+    }
+
+    window.addEventListener("scroll", updateNotificationVisibility);
+    window.addEventListener("resize", updateNotificationVisibility);
+    updateNotificationVisibility();
 
     scrollNotification.querySelector("#scrollAddToCart").addEventListener("click", () => {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -478,6 +491,7 @@
 
   document.addEventListener("DOMContentLoaded", loadProductDetails);
 </script>
+
 
 
 
