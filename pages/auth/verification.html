@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Your Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#618674',
+            hover: '#4D6B5C',
+          },
+        },
+      },
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../../assets/icons/logo 1.png">
+</head>
+
+<body class="min-h-screen flex flex-col lg:flex-row" style="font-family: 'Poppins';">
+
+  <div class="hidden lg:flex w-1/2 bg-cover bg-center p-12 flex-col justify-between"
+    style="background-image: url('../../assets/images/5.jpg');">
+
+    <div>
+    <img src="../../assets/images/logo_footer.png" alt="Modevia Logo" class="w-48" title="Modevia">
+    </div>
+
+    <div class="mt-auto text-white">
+      <p class="text-lg max-w-md text-shadow-lg/30">
+        You're all set! Step into Modevia's world of fashion
+        where every look tells your story and your style truly speaks.
+      </p>
+    </div>
+  </div>
+
+  <div class="w-full lg:w-1/2 relative flex items-center justify-center min-h-screen bg-white ">
+
+    <div class="lg:hidden absolute top-10 left-10 ">
+      <img src="../../assets/images/logo.png" alt="Modevia Logo" class="w-32" title="Modevia">
+    </div>
+
+    <div class="w-full max-w-md text-center">
+
+      <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold mb-2 text-center">Let's verify account</h2>
+      <p class="text-md text-gray-500 mb-8 text-center">We send code to your email to verify account</p>
+
+      <form id="verificationForm">
+        <div class="flex justify-center gap-8 mb-14">
+          <input type="text"  maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+                focus:border-gray-800" />
+          <input type="text"  maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+                focus:border-gray-800" />
+          <input type="text"  maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+                focus:border-gray-800" />
+          <input type="text"  maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+                focus:border-gray-800" />
+          <input type="text"  maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+                focus:border-gray-800" />
+          <input type="text"  maxlength="1" class="verifyCode w-12 h-14 text-center border-b-2 border-gray-300 text-2xl font-semibold focus:outline-none 
+                focus:border-gray-800" />
+        </div>
+      
+        <button type="submit"
+          class="w-full bg-primary hover:bg-hover text-white text-xl font-bold py-3 rounded-sm shadow-md transition">
+          Verify your account </button>
+      
+        <p id="errorMessage" class="text-red-600 text-center mb-4"></p>
+      </form>
+
+      <p class="text-md text-center text-gray-700 mt-6">
+        Don't received code?
+        <a href="#" id="resendCodeLink" class="text-primary hover:text-hover font-semibold hover:underline">Resend code</a>
+      </p>
+
+
+    </div>
+  </div>
+
+
+  <script src="signup.js"></script>
+
+</body>
+
+</html>

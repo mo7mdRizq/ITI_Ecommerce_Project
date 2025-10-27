@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're All Set!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#618674',
+            hover: '#4D6B5C',
+          },
+        },
+      },
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../../assets/icons/logo 1.png">
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-cover bg-center"
+  style="font-family: 'Poppins'; background-image: url('../../assets/images/1.jpg');">
+
+  <div class="absolute top-12 left-12">
+    <img src="../../assets/images/logo_footer.png" alt="Modevia Logo" class="w-32 md:w-40 lg:w-48" title="Modevia">
+  </div>
+
+  <div class="w-full max-w-xl px-6 py-8">
+
+    <h2 class="text-2xl sm:text-4xl font-semibold text-white text-center mb-4">
+      Reset Password Success
+    </h2>
+
+    <p class="text-sm sm:text-lg text-gray-100 text-center mb-20">
+      Your password has been successfully reset. You can now sign in with your new password.
+    </p>
+    <button class="w-full bg-primary hover:bg-hover text-white text-xl font-bold py-3 rounded-sm shadow-md transition">
+    <a href="signin.html">
+      Let's go!
+    </a></button>
+
+  </div>
+</body>
+
+
+</html>
