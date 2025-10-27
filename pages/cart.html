@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cart Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="icon" type="image/png" href="../imgs/logo 1.png">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .cart-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .cart-item img.product-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .quantity-control button {
+      border: none;
+      background: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .quantity-control button:hover {
+      background: #618674;
+      color: white;
+    }
+
+    .delete {
+      height: 100px;
+      gap: 15px;
+    }
+
+    .delete-btn img {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .delete-btn img:hover {
+      transform: scale(1.1);
+    }
+
+    .order-summary {
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .order-summary-btn {
+      background-color: #618674;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .order-summary-btn:hover {
+      background-color: #4c6d5d;
+    }
+
+    .newsletter {
+      color: white;
+    }
+
+    .newsletter-input {
+      border: none;
+      padding: 15px;
+      width: 450px;
+      border-radius: 5px;
+      margin-right: 0;
+    }
+
+    .newsletter-btn {
+      border: none;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: #b6d2c3;
+      color: black;
+      font-weight: bold;
+      width: 100%;
+      max-width: 450px;
+      font-size: 20px;
+      margin-right: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .newsletter-btn:hover {
+      color: white;
+      background-color: #618674;
+    }
+
+    @media (min-width: 992px) {
+      .newsletter-input, .newsletter-btn {
+        margin-right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top mb-auto">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <a class="navbar-brand" href="testHome.html" id="brand">
+        <img src="../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;" />
+      </a>
+
+      <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="testHome.html">Home</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="product-catalog.html">Shop</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="about.html">About</a></li>
+          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+        <a class="nav-link cart-icon-container position-relative" href="cart.html">
+          <i><img src="../assets/icons/shopping-cart.svg" alt="Cart"></i>
+        </a>
+        <a class="nav-link cart-icon-container position-relative" href="auth/profile.html">
+          <i><img src="../assets/icons/heart.svg" alt=""></i>
+        </a>
+        <a class="nav-link cart-icon-container position-relative" href="auth/profile.html">
+          <i><img src="../assets/icons/profileIcon.svg" alt="Your profile"></i>
+        </a>
+        <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <img src="../assets/icons/menu.svg">
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cart Section -->
+  <section>
+    <div class="container my-5 pt-5">
+      <h4 class="fw-bold mb-4">Cart</h4>
+      <div class="row">
+        <div class="col-md-8" id="cartItems"></div>
+
+        <!-- Order Summary -->
+        <div class="col-md-4">
+          <div class="order-summary shadow-sm">
+            <h6 class="fw-bold mb-3">Order Summary</h6>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <strong id="subtotal">0 L.E</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Delivery Fee</span>
+              <strong id="delivery">80 L.E</strong>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between mb-3">
+              <span class="fw-bold">Total</span>
+              <strong id="total">0 L.E</strong>
+            </div>
+            <a href="checkout.html"><button class="w-100 order-summary-btn">Continue to Checkout</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-5" style="background-color: #222; color: #fff;">
+    <div class="container text-center">
+      <p class="text-white-50 mb-0">&copy; 2025 MODEVIA. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function getCart() {
+      try {
+        return JSON.parse(localStorage.getItem('cart')) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      const container = document.getElementById('cartItems');
+      const subtotalElement = document.getElementById('subtotal');
+      const totalElement = document.getElementById('total');
+      const deliveryFee = 80;
+      let subtotal = 0;
+
+      if (!container) return;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="alert alert-info text-center">
+              Cart is empty
+          </div>`;
+        subtotalElement.textContent = "0 L.E";
+        totalElement.textContent = "0 L.E";
+        return;
+      }
+
+      container.innerHTML = cart.map((item, i) => {
+        const price = Number(item.price) || 0;
+        const qty = Number(item.qty) || 1;
+        subtotal += price * qty;
+        const img = item.image && (item.image.startsWith('data:') || item.image.startsWith('http'))
+          ? item.image
+          : 'https://via.placeholder.com/150x150?text=No+Image';
+
+        return `
+          <div class="cart-item" data-index="${i}">
+            <div class="d-flex align-items-center">
+              <img src="${img}" alt="${item.name}" class="product-img">
+              <div class="ms-3">
+                <h6 class="fw-bold mb-1">${item.name}</h6>
+                <p class="fw-bold mt-2">${price} L.E</p>
+              </div>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-between delete">
+              <div class="delete-btn mb-2">
+                <img src="../imgs/delete.png" alt="Delete" class="delete-icon">
+              </div>
+              <div class="quantity-control d-flex align-items-center justify-content-end">
+                <button class="decrease">-</button>
+                <span class="mx-2">${qty}</span>
+                <button class="increase">+</button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+
+      subtotalElement.textContent = `${subtotal.toFixed(2)} L.E`;
+      totalElement.textContent = `${(subtotal + deliveryFee).toFixed(2)} L.E`;
+
+      // Buttons
+      container.querySelectorAll('.increase').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.target.closest('.cart-item').dataset.index;
+          cart[i].qty++;
+          saveCart(cart);
+          renderCart();
+        });
+      });
+
+      container.querySelectorAll('.decrease').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.target.closest('.cart-item').dataset.index;
+          if (cart[i].qty > 1) cart[i].qty--;
+          else cart.splice(i, 1);
+          saveCart(cart);
+          renderCart();
+        });
+      });
+
+      container.querySelectorAll('.delete-icon').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.target.closest('.cart-item').dataset.index;
+          cart.splice(i, 1);
+          saveCart(cart);
+          renderCart();
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCart);
+  </script>
+</body>
+</html>
