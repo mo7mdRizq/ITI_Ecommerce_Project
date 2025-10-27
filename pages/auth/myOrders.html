@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: "Poppins", sans-serif;
+    }
+    .orders-container {
+      max-width: 900px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    .order-card {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    .order-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    .status {
+      font-weight: 500;
+      color: #198754;
+    }
+    .no-orders {
+      text-align: center;
+      color: #888;
+      font-size: 1.2rem;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="orders-container">
+    <h2 class="text-center mb-4 text-success"><i class="bi bi-list-check me-2"></i> My Orders</h2>
+    <div id="ordersList"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.js"></script>
+  <script>
+    const ordersList = document.getElementById("ordersList");
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    if (orders.length === 0) {
+      ordersList.innerHTML = `<p class="no-orders">No orders found 🛒</p>`;
+    } else {
+      ordersList.innerHTML = orders.map((order, index) => `
+        <div class="order-card">
+          <h5 class="text-success mb-2"><i class="bi bi-receipt me-2"></i> Order #${index + 1}</h5>
+          <p><strong>Name:</strong> ${order.firstName} ${order.lastName}</p>
+          <p><strong>Email:</strong> ${order.email}</p>
+          <p><strong>Address:</strong> ${order.address}, ${order.city}</p>
+          <p><strong>Payment:</strong> ${order.paymentMethod}</p>
+          <p><strong>Notes:</strong> ${order.notes || "No notes"}</p>
+          <p><strong>Date:</strong> ${order.date}</p>
+          <p><strong>Status:</strong> <span class="status">${order.status}</span></p>
+        </div>
+      `).join("");
+    }
+  </script>
+</body>
+</html>

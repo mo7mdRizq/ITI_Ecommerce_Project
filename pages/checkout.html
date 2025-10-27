@@ -1,217 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style-prodc.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --main-green: #618674;
+      --light-green: #eaf2ed;
+      --dark-green: #4f705d;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f1f4f2 0%, #e6ede9 100%);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .container {
+      max-width: 1100px;
+    }
+
+    .checkout-form,
+    .product-summary-card {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+
+    h2, h5 {
+      color: #2d3e36;
+      font-weight: 600;
+    }
+
+    .btn-custom-green {
+      background-color: var(--main-green);
+      color: #fff;
+      border: none;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      border-radius: 10px;
+    }
+
+    .btn-custom-green:hover {
+      background-color: var(--dark-green);
+      transform: translateY(-2px);
+    }
+
+    .checkout-form label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .checkout-form .form-control,
+    .checkout-form .form-select {
+      border-radius: 10px;
+      padding: 0.6em 1em;
+      border: 1px solid #dce3df;
+    }
+
+    .checkout-form textarea {
+      resize: none;
+    }
+
+    /* Payment Options */
+    .payment-option {
+      border: 2px solid #dce3df;
+      border-radius: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .payment-option:hover {
+      border-color: var(--main-green);
+      background-color: #f3f6f4;
+    }
+
+    .payment-option.selected {
+      border-color: var(--main-green);
+      background-color: var(--light-green);
+    }
+
+    .summary-item-total span {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      background-color: #222;
+      color: #fff;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    #discountRow {
+      color: #d9534f;
+      font-weight: 600;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
 
-        <nav></nav>
-
-        <div class="row my-5">
-            <div class="col col-12 col-lg-6 borrder">
-                <h2 class="mb-3">Checkout</h2>
-                <form class="row g-3 needs-validation my-1" novalidate>
-                    <div class="col-md-4">
-                        <label for="validationCustom01" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="validationCustom01" placeholder="Enter Last name"
-                            required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="validationCustom02" class="form-label">Last name</label>
-                        <input type="text" class="form-control" id="validationCustom02" placeholder="Enter last name"
-                            required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="validationCustomUsername" class="form-label">Username</label>
-                        <div class="input-group has-validation">
-                            <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            <input type="text" class="form-control" id="validationCustomUsername"
-                                aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please choose a username.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter last name" required>
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-
-                    <div>
-                        <label for="formGroupExampleInput" class="form-label">Example label</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput"
-                            placeholder="Example input placeholder">
-                    </div>
-                    <div>
-                        <label for="formGroupExampleInput2" class="form-label">Another label</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput2"
-                            placeholder="Another input placeholder">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="validationCustom03" class="form-label">City</label>
-                        <input type="text" class="form-control" id="validationCustom03" required>
-                        <div class="invalid-feedback">
-                            Please provide a valid city.
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="validationCustom04" class="form-label">State</label>
-                        <select class="form-select" id="validationCustom04" required>
-                            <option selected disabled value="">Choose...</option>
-                            <option>Monofia</option>
-                            <option>Cairo</option>
-                            <option>Alex</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select a valid state.
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="validationCustom05" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="validationCustom05" required>
-                        <div class="invalid-feedback">
-                            Please provide a valid zip.
-                        </div>
-                    </div>
-
-                    <div class="row my-4">
-                        <button type="button" class="col-lg-5 btn btn-custom-green btn-lg">Delivery</button>
-                        <button type="button" class=" col-lg-5 btn btn-custom-green btn-lg">Pick up</button>
-                    </div>
-
-                    <div class="col-12 my-1">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkChecked" checked>
-                            <label class="form-check-label" for="checkChecked">
-                                I have read and agree to the Terms and Conditions.
-                            </label>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-            <div class=" col-12 col-lg-6 ">
-                <div class="product-summary-card p-4">
-                    <h5 class="fw-bold mb-4">Review your cart</h5>
-
-                    <div class="list-group">
-
-                        <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
-                            <div class="me-3 images">
-                                <img class="images" src="./../style/T-shirt.jpg" alt="">
-                            </div>
-                            <div class="flex-grow-1">
-                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
-                                <small class="text-muted text-truncate d-block" style="max-width: 90%;">
-                                    "I absolutely love this t-shirt! The design I...
-                                </small>
-                                <p class="mb-0 small fw-bold">1x</p>
-                                <p class="mb-0 fw-bold fs-5">$20.00</p>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
-                            <div class="me-3 images">
-                                <img class="images" src="./../style/T-shirt.jpg" alt="">
-                            </div>
-                            <div class="flex-grow-1">
-                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
-                                <small class="text-muted text-truncate d-block" style="max-width: 90%;">"I absolutely
-                                    love this t-shirt! The design I...</small>
-                                <p class="mb-0 small fw-bold">1x</p>
-                                <p class="mb-0 fw-bold fs-5">$20.00</p>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item d-flex align-items-center mb-3 p-2 border rounded">
-                            <div class="me-3 images">
-                                <img class="images" src="./../style/T-shirt.jpg" alt="">
-                            </div>
-                            <div class="flex-grow-1">
-                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
-                                <small class="text-muted text-truncate d-block" style="max-width: 90%;">"I absolutely
-                                    love this t-shirt! The design I...</small>
-                                <p class="mb-0 small fw-bold">1x</p>
-                                <p class="mb-0 fw-bold fs-5">$20.00</p>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item d-flex align-items-center p-2 border rounded">
-                            <div class="me-3 images">
-                                <img class="images" src="./../style/T-shirt.jpg" alt="">
-                            </div>
-                            <div class="flex-grow-1">
-                                <p class="mb-0 fw-semibold">DuoComfort Sofa Premium</p>
-                                <small class="text-muted text-truncate d-block" style="max-width: 90%;">"I absolutely
-                                    love this t-shirt! The design I...</small>
-                                <p class="mb-0 small fw-bold">1x</p>
-                                <p class="mb-0 fw-bold fs-5">$20.00</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!--  -->
-                <div class="input-group mb-4">
-                    <input type="text" class="form-control" placeholder="Discount code" aria-label="Discount code">
-                    <button class="btn btn-outline-secondary" type="button">Apply</button>
-                </div>
-
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Subtotal</span>
-                    <span>$80.00</span>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Shipping</span>
-                    <span>$10.00</span>
-                </div>
-                <div class="d-flex justify-content-between mb-3 text-success">
-                    <span>Discount</span>
-                    <span>-$10.00</span>
-                </div>
-
-                <hr>
-
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <span class="summary-item-total">Total</span>
-                    <span class="summary-item-total">$80.00</span>
-                </div>
-
-                <button class="btn btn-primary btn-pay-now w-100 mb-2">PAY NOW</button>
-
-                <div class="text-center secure-checkout">
-                    <i class="fas fa-lock"></i> Secure Checkout - SSL Encrypted
-                    <p class="mb-0">Ensuring your financial and personal details are secure during every transaction.
-                    </p>
-                </div>
-            </div>
-
-        </div>
+  <!-- ✅ Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <a class="navbar-brand" href="testHome.html">
+        <img src="../assets/images/logo.png" alt="Logo" style="width: 100px;"/>
+      </a>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item mx-2"><a class="nav-link active" href="testHome.html">Home</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="product-catalog.html">Shop</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="../pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <a href="../pages/cart.html"><img src="../assets/icons/shopping-cart.svg" width="25"></a>
+        <a href="../pages/auth/profile.html"><img src="../assets/icons/profileIcon.svg" width="25"></a>
+      </div>
     </div>
+  </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+  <!-- ✅ Checkout Section -->
+  <div class="container pt-5 mt-5">
+    <div class="row">
+
+      <!-- Checkout Form -->
+      <div class="col-12 col-lg-6 order-2 order-md-1">
+        <div class="checkout-form">
+          <h2 class="mb-4 text-center">
+            <i class="bi bi-bag-check me-2 text-success"></i>Checkout
+          </h2>
+
+          <form id="checkoutForm" class="row g-3 needs-validation" novalidate>
+            
+            <!-- Personal Info -->
+            <div class="col-md-6">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="John" required>
+              <div class="invalid-feedback">Please enter your first name.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+              <div class="invalid-feedback">Please enter your last name.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="john@example.com" required>
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+
+            <!-- Address -->
+            <div class="col-md-6">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" placeholder="123 Main Street" required>
+              <div class="invalid-feedback">Please enter your address.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="city" class="form-label">City</label>
+              <select class="form-select" id="city" required>
+                <option value="">Choose city...</option>
+                <option>Cairo</option>
+                <option>Alexandria</option>
+                <option>Giza</option>
+                <option>Monofia</option>
+              </select>
+              <div class="invalid-feedback">Please select your city.</div>
+            </div>
+
+            <!-- Payment -->
+            <div class="col-12 mt-2">
+              <label class="form-label d-block mb-2">Payment Method</label>
+              <div class="d-flex flex-column gap-3">
+                <div class="payment-option" onclick="selectPayment(this)">
+                  <i class="bi bi-credit-card text-success fs-5"></i> Visa / MasterCard
+                </div>
+                <div class="payment-option" onclick="selectPayment(this)">
+                  <i class="bi bi-cash-stack text-success fs-5"></i> Cash on Delivery
+                </div>
+              </div>
+              <div id="paymentError" class="text-danger small mt-1" style="display:none;">
+                Please select a payment method.
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="col-12">
+              <label for="notes" class="form-label">Delivery Notes (Optional)</label>
+              <textarea id="notes" class="form-control" rows="3" placeholder="Write any specific instructions..."></textarea>
+            </div>
+
+            <!-- Terms -->
+            <div class="col-12 mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                <label class="form-check-label" for="termsCheck">
+                  I agree to the <a href="#" class="text-decoration-none text-success">Terms and Conditions</a>.
+                </label>
+                <div class="invalid-feedback">You must agree before submitting.</div>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="col-12">
+              <button type="submit" class="btn btn-custom-green w-100 py-2 fw-semibold">
+                <i class="bi bi-credit-card me-2"></i> PAY NOW
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="col-12 col-lg-6 order-1 order-md-2">
+        <div class="product-summary-card">
+          <h5><i class="bi bi-cart-check me-2 text-success"></i>Review Your Cart</h5>
+          <div id="cartItems" class="list-group mb-4"></div>
+          <hr>
+          <div id="summary">
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+            <div id="discountRow" class="d-flex justify-content-between mb-2" style="display:none;">
+              <span>Discount</span>
+              <span id="discount">-$0.00</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Shipping</span>
+              <span id="shipping">$10.00</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between summary-item-total">
+              <span>Total</span>
+              <span id="total">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Footer -->
+  <footer>
+    <div class="container">
+      <p class="text-white-50 mb-0">&copy; 2025 MODEVIA. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function selectPayment(el) {
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('paymentError').style.display = 'none';
+    }
+
+    // ✅ Validation & Save Order
+(function () {
+  'use strict';
+  const form = document.getElementById('checkoutForm');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const selectedPayment = document.querySelector('.payment-option.selected');
+    const paymentError = document.getElementById('paymentError');
+
+    if (!selectedPayment) {
+      paymentError.style.display = 'block';
+    }
+
+    if (!form.checkValidity() || !selectedPayment) {
+      form.classList.add('was-validated');
+      return;
+    }
+
+    // ✅ Collect order data
+    const order = {
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      email: document.getElementById('email').value,
+      address: document.getElementById('address').value,
+      city: document.getElementById('city').value,
+      notes: document.getElementById('notes').value || "No notes",
+      paymentMethod: selectedPayment.textContent.trim(),
+      date: new Date().toLocaleString(),
+      status: "Pending",
+      cart: JSON.parse(localStorage.getItem('cart')) || []
+    };
+
+    // ✅ Save to localStorage
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    // ✅ Clear the cart after placing order
+    localStorage.removeItem('cart');
+
+    // ✅ Redirect to success page
+    window.location.href = "successPayment.html";
+  }, false);
+})();
+
+
+    // ✅ Load Cart Summary
+    function loadCartSummary() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartContainer = document.getElementById('cartItems');
+      let subtotal = 0;
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<div class="alert alert-warning">Your cart is empty.</div>';
+        document.getElementById('subtotal').textContent = '$0.00';
+        document.getElementById('total').textContent = '$0.00';
+        return;
+      }
+
+      cartContainer.innerHTML = cart.map(item => {
+        const itemTotal = item.price * (item.qty || 1);
+        subtotal += itemTotal;
+        const imgSrc = item.image && (item.image.startsWith('data:') || item.image.startsWith('http'))
+          ? item.image
+          : 'https://via.placeholder.com/100?text=No+Image';
+
+        return `
+          <div class="list-group-item d-flex align-items-center mb-2 p-2 border rounded">
+            <img src="${imgSrc}" alt="${item.name}" class="img-fluid rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+            <div class="flex-grow-1">
+              <p class="mb-1 fw-semibold">${item.name}</p>
+              <small class="text-muted">${item.qty || 1}x</small>
+            </div>
+            <span class="fw-bold">$${itemTotal.toFixed(2)}</span>
+          </div>`;
+      }).join('');
+
+      const shipping = 10;
+      const discount = subtotal > 100 ? 10 : 0;
+      const total = subtotal + shipping - discount;
+
+      document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
+      document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+      if (discount > 0) document.getElementById('discountRow').style.display = 'flex';
+    }
+
+    document.addEventListener('DOMContentLoaded', loadCartSummary);
+  </script>
 </body>
-
 </html>

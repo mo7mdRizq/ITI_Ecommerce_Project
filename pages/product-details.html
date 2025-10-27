@@ -1,170 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>product details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style-prodc.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f9fafc;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .product-container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .product-container:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      max-height: 500px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 40px;
+    }
+
+    .product-title {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .product-category {
+      text-transform: uppercase;
+      color: #6c757d;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+
+    .product-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #198754;
+    }
+
+    .btn-add-cart {
+      background-color: #198754;
+      color: #fff;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-add-cart:hover {
+      background-color: #157347;
+      transform: translateY(-2px);
+    }
+
+    .rating i {
+      color: #ffc107;
+      font-size: 1.2rem;
+    }
+
+    .review-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    .review-card h6 {
+      font-weight: 600;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: #6c757d;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: #000;
+    }
+
+    @media (max-width: 768px) {
+      .product-info { padding: 20px; }
+      .product-title { font-size: 1.5rem; }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container my-4">
-        <div class="row g-4">
-            <div aria-label="breadcrumb" class="mb-1">
-                <ol class="breadcrumb">
 
-                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Shop</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">T-shirts</li>
-                </ol>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+    
+            <!-- Brand -->
+            <a class="navbar-brand" href="../index.html" id="brand">
+                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+            </a>
+        
+            <!-- Center Links - Collapse -->
+            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link " href="testHome.html">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="product-catalog.html">Shop</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link active" href="aboutUs.html">About</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
+                </li>
+                <li class="nav-item me-5" id="dashboard">
+                    <a class="nav-link main-nav-link" href="seller/seller-dashboard.html">dashboard</a>
+                </li>
+
+                
+                </ul>
+
+                <form class="d-flex align-items-center" role="search" style="width: 300px;">
+                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
+                </form>
+
             </div>
-            <div class="col-12 col-lg-4 ">
-                <div class="main-image mb-4 " style="height: 120px;">
-                    <img class="card-img-top rounded-lg shadow-md w-50 h-25" src="/assets/images/6.jpg" alt="Product Main View">
-                </div>
+        
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+
+        
+                <a class="nav-link cart-icon-container position-relative" href="cart.html">
+                    <i>
+                        <img src="../../assets/icons/shopping-cart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
+                    <i>
+                        <img src="../../assets/icons/heart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
+                    <i>
+                        <img src="../../assets/icons/profileIcon.svg" alt="">
+                    </i>
+                </a>
+        
+                <!-- Navar Toggler -->
+                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+                     <img src="../../assets/icons/menu.svg">
+                </button>
             </div>
-            <div class="col-12 col-lg-8">
-                <h1>One Life Graphic T-shirt</h1>
-                <!-- <p>rate</p> -->
-                <p>Nihil voluptatem magni et non pariatur. Expedita fugit qui ut praesentium aspernatur
-                    voluptatem voluptas ut. Ipsam laborum quis exercitationem</p>
-                <hr>
-                <div class="mb-4">
-                    <p class=" mb-2">Select Size</p>
-                    <div class="btn-group" role="group" aria-label="Size selection">
-                        <input type="radio" class="btn-check" name="size-radio" id="size-small" autocomplete="off"
-                            checked>
-                        <label class="btn btn-outline-secondary" for="size-small">Small</label>
-
-                        <input type="radio" class="btn-check" name="size-radio" id="size-medium" autocomplete="off">
-                        <label class="btn btn-outline-secondary" for="size-medium">Medium</label>
-
-                        <input type="radio" class="btn-check" name="size-radio" id="size-large" autocomplete="off">
-                        <label class="btn btn-outline-secondary" for="size-large">Large</label>
-
-                        <input type="radio" class="btn-check" name="size-radio" id="size-xlarge" autocomplete="off">
-                        <label class="btn btn-outline-secondary" for="size-xlarge">X-Large</label>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <div class="input-group" style="width: 9.5em;">
-                            <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(-1)">
-                                &minus;
-                            </button>
-                            <input type="text" class="form-control text-center" value="1" id="productQuantity" readonly>
-                            <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(1)">
-                                +
-                            </button>
-                        </div>
-                    </div>
-                    <div class="my-4">
-                        <button class="btn btn-sm btn-custom-green mb-4">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 ">
-                <div class="col ">
-                    <div class="card c1 ">
-                        <img src="/assets/images/7.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge new-item">New</span>
-                                <span class=" small">
-                                    4.5 <i class="fas fa-star"></i>
-                                </span>
-
-                            </div>
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the
-                                card’s
-                                content.</p>
-                            <p class="card-text fs-5 fw-bold text-dark mb-3">$18.64</p>
-                            <a href="#" class="btn btn-custom-green">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card c2">
-                        <img src="./../style/T-shirt.jpg"
-                            class="card-img-top image_card" alt="...">
-                        <div class="card-body">
-
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge new-item">New</span>
-                                <span class=" small">
-                                    4.5 <i class="fas fa-star"></i>
-                                </span>
-
-                            </div>
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the
-                                card’s
-                                content.</p>
-                            <p class="card-text fs-5 fw-bold text-dark mb-3">$18.64</p>
-                            <a href="#" class="btn btn-custom-green">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card c3">
-                        <img src="./../style/T-shirt.jpg"
-                            class="card-img-top image_card" alt="...">
-                        <div class="card-body">
-
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge new-item">New</span>
-                                <span class=" small">
-                                    4.5 <i class="fas fa-star"></i>
-                                </span>
-                            </div>
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the
-                                card’s
-                                content.</p>
-                            <p class="card-text fs-5 fw-bold text-dark mb-3">$18.64</p>
-                            <a href="#" class="btn btn-custom-green">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card c4">
-                        <img src="./../style/T-shirt.jpg"
-                            class="card-img-top image_card" alt="...">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge new-item">New</span>
-                                <span class=" small">
-                                    4.5 <i class="fas fa-star"></i>
-                                </span>
-                            </div>
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the
-                                card’s
-                                content.</p>
-                            <p class="card-text fs-5 fw-bold text-dark mb-3">$18.64</p>
-                            <a href="#" class="btn btn-custom-green">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    
         </div>
+    </nav>
+
+
+  <div class="container py-5 mt-5">
+    <a href="product-catalog.html" class="back-btn d-inline-flex align-items-center mb-4">
+      <i class="bi bi-arrow-left me-2"></i> Back to Products
+    </a>
+
+    <div class="product-container row g-0" id="productDetails">
+      <!-- Product details will load here -->
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+
+    <!-- Reviews Section -->
+    <div class="mt-5">
+      <h4 class="fw-bold mb-4">Customer Reviews</h4>
+
+      <div class="review-card">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6>Ahmed Mostafa</h6>
+          <div class="rating">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-half"></i>
+            <i class="bi bi-star"></i>
+          </div>
+        </div>
+        <p class="text-muted mb-0">Good quality and fast delivery! Highly recommended.</p>
+      </div>
+
+      <div class="review-card">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6>Sara Ali</h6>
+          <div class="rating">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+          </div>
+        </div>
+        <p class="text-muted mb-0">Loved the product! Looks exactly like the pictures.</p>
+      </div>
+
+      <div class="review-card">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6>Omar Hassan</h6>
+          <div class="rating">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+          </div>
+        </div>
+        <p class="text-muted mb-0">Decent product but delivery was a bit slow.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function loadProductDetails() {
+      const p = JSON.parse(localStorage.getItem('selectedProduct'));
+      const container = document.getElementById('productDetails');
+
+      if (!p) {
+        container.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <div class="alert alert-warning">No product selected.</div>
+          </div>`;
+        return;
+      }
+
+      const placeholder = 'https://via.placeholder.com/600x450?text=No+Image';
+      const imgSrc = p.image && (p.image.startsWith('data:') || p.image.startsWith('http'))
+        ? p.image
+        : placeholder;
+
+      container.innerHTML = `
+        <div class="col-md-6">
+          <img src="${imgSrc}" alt="${p.name}" class="product-image">
+        </div>
+        <div class="col-md-6">
+          <div class="product-info d-flex flex-column justify-content-center h-100">
+            <h6 class="product-category">${p.category || 'Uncategorized'}</h6>
+            <h2 class="product-title mb-2">${p.name}</h2>
+            <div class="rating mb-3">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+              <i class="bi bi-star"></i>
+            </div>
+            <h4 class="product-price mb-3">$${p.price}</h4>
+            <p class="mb-3 text-muted">${p.description || 'No description available.'}</p>
+            <p><strong>Stock:</strong> ${p.stock || 'Not specified'}</p>
+            <button class="btn btn-add-cart mt-4 w-50" id="addToCartBtn">
+              <i class="bi bi-cart-plus me-2"></i>Add to Cart
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('addToCartBtn').addEventListener('click', () => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const exist = cart.find(item => item.name === p.name && item.price === p.price);
+        if (exist) exist.qty = (exist.qty || 1) + 1;
+        else cart.push({ ...p, qty: 1 });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${p.name} added to cart ✅`);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProductDetails);
+  </script>
+
 </body>
 </html>
