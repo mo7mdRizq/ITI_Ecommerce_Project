@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Successful</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    :root {
+      --main-green: #4caf50;
+      --dark-green: #388e3c;
+      --light-green: #e8f5e9;
+      --text-color: #2e2e2e;
+      --gray: #777;
+    }
+
+    body {
+      background: linear-gradient(135deg, #eaf2ed, #f7faf8);
+      font-family: "Poppins", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Floating background */
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      background: var(--main-green);
+      animation: float 10s infinite ease-in-out;
+    }
+    .circle1 { width: 200px; height: 200px; top: 10%; left: -80px; animation-delay: 0s; }
+    .circle2 { width: 150px; height: 150px; bottom: 15%; right: -60px; animation-delay: 2s; }
+    .circle3 { width: 100px; height: 100px; top: 60%; left: 30%; animation-delay: 4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Splash screen */
+    .splash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--main-green);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 10;
+      animation: fadeOut 0.8s ease forwards;
+      animation-delay: 2s;
+    }
+
+    .splash i {
+      font-size: 4rem;
+      margin-bottom: 15px;
+      animation: spin 2s linear infinite;
+    }
+
+    .splash h3 {
+      font-weight: 500;
+      font-size: 1.3rem;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* Success Card */
+    .success-card {
+      position: relative;
+      background: #fff;
+      border-radius: 25px;
+      padding: 60px 50px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      z-index: 2;
+      animation: fadeUp 0.8s ease-out 2.2s forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--light-green);
+      color: var(--main-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin: 0 auto 25px;
+      animation: pop 0.5s ease-out 2.3s forwards;
+      opacity: 0;
+      box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.1);
+    }
+
+    @keyframes pop {
+      to { transform: scale(1); opacity: 1; }
+      from { transform: scale(0.5); opacity: 0; }
+    }
+
+    h2 {
+      color: var(--text-color);
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      margin-bottom: 35px;
+      line-height: 1.6;
+    }
+
+    .btn-home {
+      background-color: var(--main-green);
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 35px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+    }
+
+    .btn-home:hover {
+      background-color: var(--dark-green);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.35);
+    }
+
+    .order-info {
+      background: var(--light-green);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: var(--dark-green);
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 576px) {
+      .success-card {
+        padding: 40px 25px;
+      }
+      h2 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Floating background shapes -->
+  <div class="floating-circle circle1"></div>
+  <div class="floating-circle circle2"></div>
+  <div class="floating-circle circle3"></div>
+
+  <!-- Splash animation -->
+  <div class="splash">
+    <i class="bi bi-arrow-repeat"></i>
+    <h3>Processing your payment...</h3>
+  </div>
+
+  <!-- Success content -->
+  <div class="success-card">
+    <div class="success-icon"><i class="bi bi-check-lg"></i></div>
+    <div>
+      <div class="order-info">Order #MO12345 | Paid Successfully</div>
+      <h2>Payment Successful!</h2>
+      <p>We’ve received your order and it’s being processed.<br> You’ll receive an email confirmation shortly 💚</p>
+      <a href="testHome.html" class="btn-home"><i class="bi bi-house-door me-2"></i>Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>

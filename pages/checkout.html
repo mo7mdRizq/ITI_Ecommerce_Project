@@ -1,164 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout Page</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
 
   <style>
+    :root {
+      --main-green: #618674;
+      --light-green: #eaf2ed;
+      --dark-green: #4f705d;
+    }
+
     body {
-      background-color: #f9fafb;
+      background: linear-gradient(135deg, #f1f4f2 0%, #e6ede9 100%);
       font-family: "Poppins", sans-serif;
     }
 
-    /* Navbar */
-    .navbar-brand img {
-      width: 100px;
+    .container {
+      max-width: 1100px;
     }
 
-    .main-nav-link {
+    .checkout-form,
+    .product-summary-card {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+
+    h2, h5 {
+      color: #2d3e36;
+      font-weight: 600;
+    }
+
+    .btn-custom-green {
+      background-color: var(--main-green);
+      color: #fff;
+      border: none;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      border-radius: 10px;
+    }
+
+    .btn-custom-green:hover {
+      background-color: var(--dark-green);
+      transform: translateY(-2px);
+    }
+
+    .checkout-form label {
       font-weight: 500;
       color: #333;
     }
 
-    .main-nav-link:hover,
-    .main-nav-link.active {
-      color: #618674;
+    .checkout-form .form-control,
+    .checkout-form .form-select {
+      border-radius: 10px;
+      padding: 0.6em 1em;
+      border: 1px solid #dce3df;
     }
 
-    /* Checkout Form */
-    .checkout-form {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-      margin-bottom: 30px;
+    .checkout-form textarea {
+      resize: none;
     }
 
-    .checkout-form h2 {
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
-    .delivery-options {
+    /* Payment Options */
+    .payment-option {
+      border: 2px solid #dce3df;
+      border-radius: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
       display: flex;
-      gap: 15px;
-      margin-top: 10px;
+      align-items: center;
+      gap: 10px;
     }
 
-    .delivery-options .btn {
-      flex: 1;
+    .payment-option:hover {
+      border-color: var(--main-green);
+      background-color: #f3f6f4;
     }
 
-    /* Buttons */
-    .btn-custom-green {
-      border-color: #618674;
-      color: #618674;
-      margin: 0.3em 0;
+    .payment-option.selected {
+      border-color: var(--main-green);
+      background-color: var(--light-green);
     }
 
-    .btn-custom-green:hover,
-    .btn-custom-green.active {
-      background-color: #618674;
-      color: #fff;
-      border-color: #618674;
-    }
-
-    /* Cart Summary */
-    .product-summary-card {
-      background-color: #fff;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-      margin-bottom: 30px;
-    }
-
-    .product-summary-card h5 {
-      margin-bottom: 20px;
+    .summary-item-total span {
       font-weight: 600;
-    }
-
-    .summary-item-total {
-      font-weight: 700;
-      font-size: 1.2rem;
-    }
-
-    .secure-checkout {
-      font-size: 14px;
-      color: #6c757d;
+      font-size: 1.1rem;
     }
 
     footer {
       background-color: #222;
       color: #fff;
       padding: 60px 0;
+      text-align: center;
     }
 
-    footer a {
-      color: #618674;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    footer a:hover {
-      color: #4D6B5C;
-    }
-
-    @media (max-width: 992px) {
-      .checkout-form,
-      .product-summary-card {
-        margin-bottom: 20px;
-      }
+    #discountRow {
+      color: #d9534f;
+      font-weight: 600;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Navbar -->
+  <!-- ✅ Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
     <div class="container-fluid d-flex align-items-center justify-content-between">
-      <a class="navbar-brand" href="../index.html">
-        <img src="../../assets/images/logo.png" alt="Logo">
+      <a class="navbar-brand" href="testHome.html">
+        <img src="../assets/images/logo.png" alt="Logo" style="width: 100px;"/>
       </a>
-
-      <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="/">Home</a></li>
-          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="#">Shop</a></li>
-          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="#">About</a></li>
-          <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="#footer">Contact</a></li>
-          <li class="nav-item me-5"><a class="nav-link main-nav-link" href="#">Dashboard</a></li>
+          <li class="nav-item mx-2"><a class="nav-link active" href="testHome.html">Home</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="product-catalog.html">Shop</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="../pages/contact.html">Contact</a></li>
         </ul>
-
-        <form class="d-flex align-items-center" role="search" style="width: 300px;">
-          <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..."
-            aria-label="Search">
-        </form>
       </div>
-
-      <div class="d-flex align-items-center gap-3 order-lg-3 ms-auto">
-        <a class="nav-link position-relative" href="#"><img src="../../assets/icons/shopping-cart.svg" alt=""></a>
-        <a class="nav-link position-relative" href="#"><img src="../../assets/icons/heart.svg" alt=""></a>
-        <a class="nav-link position-relative" href="#"><img src="../../assets/icons/profileIcon.svg" alt=""></a>
-        <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarNav">
-          <img src="../../assets/icons/menu.svg">
-        </button>
+      <div class="d-flex align-items-center gap-3">
+        <a href="../pages/cart.html"><img src="../assets/icons/shopping-cart.svg" width="25"></a>
+        <a href="../pages/auth/profile.html"><img src="../assets/icons/profileIcon.svg" width="25"></a>
       </div>
     </div>
   </nav>
 
+  <!-- ✅ Checkout Section -->
   <div class="container pt-5 mt-5">
     <div class="row">
 
       <!-- Checkout Form -->
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-6 order-2 order-md-1">
         <div class="checkout-form">
-          <h2>Checkout</h2>
-          <form class="row g-3 needs-validation" novalidate>
+          <h2 class="mb-4 text-center">
+            <i class="bi bi-bag-check me-2 text-success"></i>Checkout
+          </h2>
+
+          <form id="checkoutForm" class="row g-3 needs-validation" novalidate>
+            
+            <!-- Personal Info -->
             <div class="col-md-6">
               <label for="firstName" class="form-label">First Name</label>
               <input type="text" class="form-control" id="firstName" placeholder="John" required>
@@ -173,187 +160,206 @@
             <div class="col-12">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" id="email" placeholder="john@example.com" required>
-              <div class="invalid-feedback">Please enter a valid email.</div>
+              <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
 
+            <!-- Address -->
+            <div class="col-md-6">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" placeholder="123 Main Street" required>
+              <div class="invalid-feedback">Please enter your address.</div>
+            </div>
             <div class="col-md-6">
               <label for="city" class="form-label">City</label>
-              <input type="text" class="form-control" id="city" placeholder="Cairo" required>
-              <div class="invalid-feedback">Please enter a city.</div>
-            </div>
-            <div class="col-md-3">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" required>
-                <option value="">Choose...</option>
+              <select class="form-select" id="city" required>
+                <option value="">Choose city...</option>
                 <option>Cairo</option>
+                <option>Alexandria</option>
+                <option>Giza</option>
                 <option>Monofia</option>
-                <option>Alex</option>
               </select>
-              <div class="invalid-feedback">Please select a state.</div>
-            </div>
-            <div class="col-md-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="12345" required>
-              <div class="invalid-feedback">Please enter zip code.</div>
+              <div class="invalid-feedback">Please select your city.</div>
             </div>
 
-            <!-- Delivery / Pickup -->
-            <div class="col-12 delivery-options mt-2 mb-3">
-              <button type="button" class="btn btn-custom-green" onclick="selectOption(this)">Delivery</button>
-              <button type="button" class="btn btn-custom-green" onclick="selectOption(this)">Pick Up</button>
+            <!-- Payment -->
+            <div class="col-12 mt-2">
+              <label class="form-label d-block mb-2">Payment Method</label>
+              <div class="d-flex flex-column gap-3">
+                <div class="payment-option" onclick="selectPayment(this)">
+                  <i class="bi bi-credit-card text-success fs-5"></i> Visa / MasterCard
+                </div>
+                <div class="payment-option" onclick="selectPayment(this)">
+                  <i class="bi bi-cash-stack text-success fs-5"></i> Cash on Delivery
+                </div>
+              </div>
+              <div id="paymentError" class="text-danger small mt-1" style="display:none;">
+                Please select a payment method.
+              </div>
             </div>
 
-            <div class="col-12 mb-3">
+            <!-- Notes -->
+            <div class="col-12">
+              <label for="notes" class="form-label">Delivery Notes (Optional)</label>
+              <textarea id="notes" class="form-control" rows="3" placeholder="Write any specific instructions..."></textarea>
+            </div>
+
+            <!-- Terms -->
+            <div class="col-12 mb-2">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="termsCheck" required>
                 <label class="form-check-label" for="termsCheck">
-                  I agree to the Terms and Conditions
+                  I agree to the <a href="#" class="text-decoration-none text-success">Terms and Conditions</a>.
                 </label>
                 <div class="invalid-feedback">You must agree before submitting.</div>
               </div>
             </div>
 
+            <!-- Submit -->
             <div class="col-12">
-              <button type="submit" class="btn btn-custom-green w-100">PAY NOW</button>
+              <button type="submit" class="btn btn-custom-green w-100 py-2 fw-semibold">
+                <i class="bi bi-credit-card me-2"></i> PAY NOW
+              </button>
             </div>
           </form>
         </div>
       </div>
 
       <!-- Cart Summary -->
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-6 order-1 order-md-2">
         <div class="product-summary-card">
-          <h5>Review Your Cart</h5>
-
-          <!-- Product List -->
-          <div class="list-group mb-3">
-
-            <div class="list-group-item d-flex align-items-center mb-2 p-2 border rounded">
-              <div class="me-3">
-                <img src="./41S+9swCRBL._AC_SX522_.jpg" alt="DuoComfort Sofa Premium"
-                  class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;">
-              </div>
-              <div class="flex-grow-1">
-                <p class="mb-1 fw-semibold">DuoComfort Sofa Premium</p>
-                <small class="text-muted">1x</small>
-              </div>
-              <span class="fw-bold">$20.00</span>
-            </div>
-
-            <div class="list-group-item d-flex align-items-center mb-2 p-2 border rounded">
-              <div class="me-3">
-                <img src="./41S+9swCRBL._AC_SX522_.jpg" alt="DuoComfort Sofa Premium"
-                  class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;">
-              </div>
-              <div class="flex-grow-1">
-                <p class="mb-1 fw-semibold">DuoComfort Sofa Premium</p>
-                <small class="text-muted">2x</small>
-              </div>
-              <span class="fw-bold">$40.00</span>
-            </div>
-
-          </div>
-
-          <!-- Discount Code -->
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Discount code">
-            <button class="btn btn-custom-green" type="button">Apply</button>
-          </div>
-
-          <!-- Summary -->
-          <div class="d-flex justify-content-between mb-2">
-            <span>Subtotal</span>
-            <span>$60.00</span>
-          </div>
-          <div class="d-flex justify-content-between mb-2">
-            <span>Shipping</span>
-            <span>$10.00</span>
-          </div>
-          <div class="d-flex justify-content-between mb-3 text-success">
-            <span>Discount</span>
-            <span>-$5.00</span>
-          </div>
+          <h5><i class="bi bi-cart-check me-2 text-success"></i>Review Your Cart</h5>
+          <div id="cartItems" class="list-group mb-4"></div>
           <hr>
-          <div class="d-flex justify-content-between summary-item-total">
-            <span>Total</span>
-            <span>$65.00</span>
-          </div>
-
-          <div class="text-center secure-checkout mt-3">
-            <i class="fas fa-lock"></i> Secure Checkout - SSL Encrypted
+          <div id="summary">
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+            <div id="discountRow" class="d-flex justify-content-between mb-2" style="display:none;">
+              <span>Discount</span>
+              <span id="discount">-$0.00</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Shipping</span>
+              <span id="shipping">$10.00</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between summary-item-total">
+              <span>Total</span>
+              <span id="total">$0.00</span>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer id="footer">
+  <!-- ✅ Footer -->
+  <footer>
     <div class="container">
-      <div class="row text-md-start">
-        <div class="col-md-4 mb-4 mb-md-0">
-          <img src="Images/logo_footer.png" alt="" style="width: 150px;">
-          <p class="text-white-50 small my-2">Your favorite destination for modern fashion and trends.</p>
-        </div>
-        <div class="col-md-4 mb-4 mb-md-0">
-          <h6 class="fw-bold mb-3">Quick Links</h6>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white-50 text-decoration-none">Home</a></li>
-            <li><a href="#" class="text-white-50 text-decoration-none">Shop</a></li>
-            <li><a href="#" class="text-white-50 text-decoration-none">About</a></li>
-            <li><a href="#" class="text-white-50 text-decoration-none">Contact</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4 mb-4 mb-md-0">
-          <h6 class="fw-bold mb-3">Categories</h6>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white-50 text-decoration-none">Men's Collection</a></li>
-            <li><a href="#" class="text-white-50 text-decoration-none">Women's Collection</a></li>
-            <li><a href="#" class="text-white-50 text-decoration-none">Kids Collection</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4 mt-4">
-          <h6 class="fw-bold mb-3">Follow Us</h6>
-          <div class="d-flex justify-content-center justify-content-md-start gap-3">
-            <a href="#" class="text-white-50 fs-4"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="text-white-50 fs-4"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="text-white-50 fs-4"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="text-white-50 fs-4"><i class="bi bi-youtube"></i></a>
-          </div>
-        </div>
-      </div>
-      <hr class="border-secondary my-4">
-      <div class="text-center text-white-50">
-        &copy; 2025 MODEVIA. All Rights Reserved.
-      </div>
+      <p class="text-white-50 mb-0">&copy; 2025 MODEVIA. All Rights Reserved.</p>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    (function () {
-      'use strict'
-      const forms = document.querySelectorAll('.needs-validation')
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-          form.classList.add('was-validated')
-        }, false)
-      })
-    })()
-
-    function selectOption(button) {
-      const buttons = document.querySelectorAll('.delivery-options button');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+    function selectPayment(el) {
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('paymentError').style.display = 'none';
     }
+
+    // ✅ Validation & Save Order
+(function () {
+  'use strict';
+  const form = document.getElementById('checkoutForm');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const selectedPayment = document.querySelector('.payment-option.selected');
+    const paymentError = document.getElementById('paymentError');
+
+    if (!selectedPayment) {
+      paymentError.style.display = 'block';
+    }
+
+    if (!form.checkValidity() || !selectedPayment) {
+      form.classList.add('was-validated');
+      return;
+    }
+
+    // ✅ Collect order data
+    const order = {
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      email: document.getElementById('email').value,
+      address: document.getElementById('address').value,
+      city: document.getElementById('city').value,
+      notes: document.getElementById('notes').value || "No notes",
+      paymentMethod: selectedPayment.textContent.trim(),
+      date: new Date().toLocaleString(),
+      status: "Pending",
+      cart: JSON.parse(localStorage.getItem('cart')) || []
+    };
+
+    // ✅ Save to localStorage
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    // ✅ Clear the cart after placing order
+    localStorage.removeItem('cart');
+
+    // ✅ Redirect to success page
+    window.location.href = "successPayment.html";
+  }, false);
+})();
+
+
+    // ✅ Load Cart Summary
+    function loadCartSummary() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartContainer = document.getElementById('cartItems');
+      let subtotal = 0;
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<div class="alert alert-warning">Your cart is empty.</div>';
+        document.getElementById('subtotal').textContent = '$0.00';
+        document.getElementById('total').textContent = '$0.00';
+        return;
+      }
+
+      cartContainer.innerHTML = cart.map(item => {
+        const itemTotal = item.price * (item.qty || 1);
+        subtotal += itemTotal;
+        const imgSrc = item.image && (item.image.startsWith('data:') || item.image.startsWith('http'))
+          ? item.image
+          : 'https://via.placeholder.com/100?text=No+Image';
+
+        return `
+          <div class="list-group-item d-flex align-items-center mb-2 p-2 border rounded">
+            <img src="${imgSrc}" alt="${item.name}" class="img-fluid rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+            <div class="flex-grow-1">
+              <p class="mb-1 fw-semibold">${item.name}</p>
+              <small class="text-muted">${item.qty || 1}x</small>
+            </div>
+            <span class="fw-bold">$${itemTotal.toFixed(2)}</span>
+          </div>`;
+      }).join('');
+
+      const shipping = 10;
+      const discount = subtotal > 100 ? 10 : 0;
+      const total = subtotal + shipping - discount;
+
+      document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
+      document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+      if (discount > 0) document.getElementById('discountRow').style.display = 'flex';
+    }
+
+    document.addEventListener('DOMContentLoaded', loadCartSummary);
   </script>
-
 </body>
-
 </html>
