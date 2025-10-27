@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seller - Products Management</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    />
-    <link
+ 
+    <!-- Link Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="../../style/style.css" />
+    <!-- style top-section -->
+        <link rel="stylesheet" href="../../style/style.css" />
+    
 <style>
 /* ===== Base Styles ===== */
 body {
@@ -349,7 +350,6 @@ label[for="filter"] {
     padding: 15px;
     border-radius: 10px;
   }
-  
 }
 </style>
 
@@ -435,54 +435,53 @@ label[for="filter"] {
   <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
 </nav>
 
- <!-- Sidebar -->
-    <div class="sidebar d-none d-lg-block position-fixed">
-      <a href="admin-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
-      <a href="admin-products-management.html" class="nav-button active"><i class="bi bi-box"></i> Product Management</a>
-      <a href="admin-dahboard-orders.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
-      <hr />
-      <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
-      <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+<!-- Sidebar for Desktop -->
+<div class="sidebar d-none d-lg-block position-fixed">
+  <a href="seller-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+  <a href="seller-products-management.html" class="nav-button active"><i class="bi bi-box"></i> Product Management</a>
+  <a href="seller-orders-management.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
+  <hr />
+  <!-- <a href="seller-settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a> -->
+  <a href="../signin.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+</div>
+
+<!-- Offcanvas for mobile sidebar -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <div class="list-group list-group-flush">
+      <a href="seller-dashboard.html" class="list-group-item list-group-item-action">Dashboard Overview</a>
+      <a href="seller-products-management.html" class="list-group-item list-group-item-action active">Product Management</a>
+      <a href="seller-orders-management.html" class="list-group-item list-group-item-action">Order Management</a>
+      <!-- <a href="seller-settings.html" class="list-group-item list-group-item-action">Settings</a> -->
+      <a href="../auth/signin.html" class="list-group-item list-group-item-action">Log Out</a>
     </div>
+  </div>
+</div>
 
+<script>
+  const sidebar = document.querySelector(".sidebar");
+  const toggleBtn = document.getElementById("toggleSidebar");
 
-    <!-- Offcanvas for mobile sidebar (matches data-bs-target="#mobileSidebar") -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body p-0">
-        <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
-          <a href="#" class="list-group-item list-group-item-action">Products</a>
-          <a href="#" class="list-group-item list-group-item-action">Orders</a>
-          <a href="#" class="list-group-item list-group-item-action">Settings</a>
-          <a href="#" class="list-group-item list-group-item-action">Logout</a>
-        </div>
-      </div>
-    </div>
+  function handleSidebar() {
+    if (window.innerWidth <= 767.98) {
+      sidebar.classList.add("collapsed");
+    } else {
+      sidebar.classList.remove("collapsed");
+    }
+  }
 
-    <script>
-      const sidebar = document.getElementById("sidebar");
-      const toggleBtn = document.getElementById("toggleSidebar");
+  handleSidebar();
+  window.addEventListener("resize", handleSidebar);
 
-      // 🧠 Sidebar behavior based on screen size
-      function handleSidebar() {
-        if (window.innerWidth <= 767.98) {
-          sidebar.classList.add("collapsed"); // في الموبايل يبقى مصغّر
-        } else {
-          sidebar.classList.remove("collapsed"); // في الشاشات الكبيرة يبقى مفتوح
-        }
-      }
+  toggleBtn?.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+  });
+</script>
 
-      handleSidebar(); // تشغيل عند تحميل الصفحة
-      window.addEventListener("resize", handleSidebar); // تشغيل عند تغيير حجم الشاشة
-
-      toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-      });
-    </script>
    
     <!--//////////////////////////////////////////////////top-section1//////////////////////////////////////////////////////////////////////////-->
     <section class="dashboard-section">
@@ -634,11 +633,11 @@ label[for="filter"] {
     </div>
   </div>
 
-  <!-- Add Product Modal -->
+<!-- Add Product Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      
+
       <!-- Modal Header -->
       <div class="modal-header">
         <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
@@ -679,21 +678,20 @@ label[for="filter"] {
             <textarea class="form-control" id="productDescription" rows="3" required></textarea>
           </div>
 
-  <!-- Main Image -->
-<div class="mb-3">
-  <label class="form-label">Main Product Image</label>
-  <input type="file" class="form-control" id="mainProductImage" accept="image/*" required>
-  <div id="mainImagePreview" class="mt-2"></div>
-</div>
+          <!-- Main Image URL -->
+          <div class="mb-3">
+            <label class="form-label">Main Product Image URL</label>
+            <input type="url" class="form-control" id="mainProductImage" placeholder="Enter image URL" required>
+            <div id="mainImagePreview" class="mt-2"></div>
+          </div>
 
-<!-- Additional Images -->
-<div class="mb-3">
-  <label class="form-label">Additional Images (up to 3)</label>
-  <input type="file" class="form-control" id="additionalImages" accept="image/*" multiple>
-  <div id="additionalPreview" class="d-flex flex-wrap gap-2 mt-2"></div>
-  <small class="text-muted">You can upload up to 3 images</small>
-</div>
-
+          <!-- Additional Images URLs -->
+          <div class="mb-3">
+            <label class="form-label">Additional Images URLs (up to 3)</label>
+            <input type="url" class="form-control" id="additionalImages" placeholder="Enter image URL and press Enter">
+            <div id="additionalPreview" class="d-flex flex-wrap gap-2 mt-2"></div>
+            <small class="text-muted">You can add up to 3 image URLs</small>
+          </div>
 
         </form>
       </div>
@@ -707,16 +705,15 @@ label[for="filter"] {
     </div>
   </div>
 </div>
-<!-- ========== Confirmation Modal ========== -->
+
+<!-- Confirmation Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0" style="border-radius: 15px;">
       <div class="modal-header" style="background-color: #3f756c; color: white; border-bottom: none;">
         <h5 class="modal-title">Confirm Action</h5>
       </div>
-      <div class="modal-body text-center" id="confirmMessage" style="font-size: 16px;">
-
-      </div>
+      <div class="modal-body text-center" id="confirmMessage" style="font-size: 16px;"></div>
       <div class="modal-footer d-flex justify-content-center border-0 pb-4">
         <button type="button" class="btn btn-light px-4" id="cancelBtn" style="border-radius: 8px; border: 1px solid #3f756c; color: #3f756c;">Cancel</button>
         <button type="button" class="btn px-4 text-white" id="confirmBtn" style="background-color: #3f756c; border-radius: 8px;">Confirm</button>
@@ -724,13 +721,8 @@ label[for="filter"] {
     </div>
   </div>
 </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   // ---------- DOM Elements ----------
   const saveBtn = document.getElementById("saveProductBtn");
@@ -745,60 +737,59 @@ label[for="filter"] {
   const mainImageInput = document.getElementById("mainProductImage");
   const additionalImagesInput = document.getElementById("additionalImages");
 
-  const priceInput = document.getElementById("productPrice");
-  const stockInput = document.getElementById("productStock");
-
   let products = JSON.parse(localStorage.getItem("products")) || [];
   let editIndex = null;
-
-<<<<<<< HEAD
-  // Pagination
-  let currentPage = 1;
-  const itemsPerPage = 5;
-=======
-  // ---------- Preview Additional Images ----------
-  const previewContainer = document.createElement("div");
-  previewContainer.classList.add("d-flex", "gap-2", "flex-wrap", "mt-2");
-  additionalImagesInput.insertAdjacentElement("afterend", previewContainer);
-
   let additionalImages = [];
 
-  additionalImagesInput.addEventListener("change", (e) => {
-    const files = Array.from(e.target.files);
-    if (additionalImages.length + files.length > 3) {
-      additionalImagesInput.classList.add("is-invalid");
-      return;
+  // ---------- Main Image Preview ----------
+  const mainPreview = document.getElementById("mainImagePreview");
+  mainImageInput.addEventListener("input", () => {
+    const url = mainImageInput.value.trim();
+    mainPreview.innerHTML = "";
+    if (url) {
+      const img = document.createElement("img");
+      img.src = url;
+      img.style.width = "100px";
+      img.style.height = "100px";
+      img.style.objectFit = "cover";
+      img.style.borderRadius = "6px";
+      mainPreview.appendChild(img);
     }
-    additionalImagesInput.classList.remove("is-invalid");
-
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        additionalImages.push(event.target.result);
-
-        const imgBox = document.createElement("div");
-        imgBox.classList.add("position-relative", "border", "p-1", "rounded");
-        imgBox.style.width = "70px";
-        imgBox.style.height = "70px";
-        imgBox.style.overflow = "hidden";
-
-        imgBox.innerHTML = `
-          <img src="${event.target.result}" class="w-100 h-100" style="object-fit:cover; border-radius:6px;">
-          <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 p-0 px-1" style="font-size:12px;">×</button>
-        `;
-
-        imgBox.querySelector("button").addEventListener("click", () => {
-          imgBox.remove();
-          additionalImages = additionalImages.filter(img => img !== event.target.result);
-        });
-
-        previewContainer.appendChild(imgBox);
-      };
-      reader.readAsDataURL(file);
-    });
-    additionalImagesInput.value = "";
   });
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
+
+  // ---------- Additional Images Preview ----------
+  const additionalPreview = document.getElementById("additionalPreview");
+  additionalImagesInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const url = additionalImagesInput.value.trim();
+      if (!url) return;
+      if (additionalImages.length >= 3) {
+        alert("You can only add up to 3 additional images.");
+        return;
+      }
+      additionalImages.push(url);
+
+      const imgBox = document.createElement("div");
+      imgBox.classList.add("position-relative", "border", "p-1", "rounded");
+      imgBox.style.width = "70px";
+      imgBox.style.height = "70px";
+      imgBox.style.overflow = "hidden";
+
+      imgBox.innerHTML = `
+        <img src="${url}" class="w-100 h-100" style="object-fit:cover; border-radius:6px;">
+        <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 p-0 px-1" style="font-size:12px;">×</button>
+      `;
+
+      imgBox.querySelector("button").addEventListener("click", () => {
+        imgBox.remove();
+        additionalImages = additionalImages.filter(img => img !== url);
+      });
+
+      additionalPreview.appendChild(imgBox);
+      additionalImagesInput.value = "";
+    }
+  });
 
   // ---------- Show Bootstrap Confirm ----------
   function showConfirm(message) {
@@ -825,28 +816,6 @@ label[for="filter"] {
     });
   }
 
-<<<<<<< HEAD
-  // ---------- Real-time Validation ----------
-  function validateInputs() {
-    let valid = true;
-    const price = parseFloat(priceInput.value);
-    const stock = parseInt(stockInput.value);
-
-    // Price validation (≥ 350)
-    if (isNaN(price) || price < 350) {
-      priceInput.classList.add("is-invalid");
-      valid = false;
-    } else {
-      priceInput.classList.remove("is-invalid");
-    }
-
-    // Stock validation (≥ 1)
-    if (isNaN(stock) || stock < 0) {
-      stockInput.classList.add("is-invalid");
-      valid = false;
-    } else {
-      stockInput.classList.remove("is-invalid");
-=======
   // ---------- Validation ----------
   function validateInputs() {
     let valid = true;
@@ -855,7 +824,8 @@ label[for="filter"] {
       document.getElementById("productCategory"),
       priceInput,
       stockInput,
-      document.getElementById("productDescription")
+      document.getElementById("productDescription"),
+      mainImageInput
     ];
 
     inputs.forEach(input => {
@@ -868,7 +838,7 @@ label[for="filter"] {
     });
 
     const price = parseFloat(priceInput.value);
-    if (isNaN(price) || price < 350) {
+    if (isNaN(price) || price < 1) {
       priceInput.classList.add("is-invalid");
       valid = false;
     }
@@ -879,28 +849,16 @@ label[for="filter"] {
       valid = false;
     }
 
-    if (!mainImageInput.files.length && editIndex === null) {
-      mainImageInput.classList.add("is-invalid");
-      valid = false;
-    } else {
-      mainImageInput.classList.remove("is-invalid");
-    }
-
     if (additionalImages.length > 3) {
       additionalImagesInput.classList.add("is-invalid");
       valid = false;
     } else {
       additionalImagesInput.classList.remove("is-invalid");
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
     }
 
     return valid;
   }
 
-<<<<<<< HEAD
-  priceInput.addEventListener("input", validateInputs);
-  stockInput.addEventListener("input", validateInputs);
-=======
   const allInputs = [
     document.getElementById("productName"),
     document.getElementById("productCategory"),
@@ -911,7 +869,6 @@ label[for="filter"] {
     additionalImagesInput
   ];
   allInputs.forEach(input => input.addEventListener("input", validateInputs));
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
 
   // ---------- Update Dashboard Cards ----------
   function updateDashboardCards() {
@@ -925,45 +882,28 @@ label[for="filter"] {
   }
 
   // ---------- Render Table ----------
-<<<<<<< HEAD
-  function renderTable(page = 1) {
-    tableBody.innerHTML = "";
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const paginatedProducts = products.slice(start, end);
-
-    paginatedProducts.forEach((p, i) => {
-=======
   function renderTable(filteredProducts = null) {
     const list = filteredProducts || products;
     tableBody.innerHTML = "";
 
     list.forEach((p, i) => {
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
       const status = p.stock > 0
         ? `<span class="badge bg-success bg-opacity-25 text-success fw-semibold">Available</span>`
         : `<span class="badge bg-danger bg-opacity-25 text-danger fw-semibold">Out of stock</span>`;
 
       const row = `
         <tr>
-          <td>${start + i + 1}</td>
+          <td>${i + 1}</td>
           <td>${p.name}</td>
           <td>${p.category}</td>
           <td>$${p.price}</td>
           <td>${p.stock}</td>
           <td>${status}</td>
           <td>
-<<<<<<< HEAD
-            <button class="btn btn-link text-success action-btn edit-btn" data-index="${start + i}">
+            <button class="btn btn-link text-success action-btn edit-btn" data-index="${i}">
               <i class="bi bi-pencil-square"></i>
             </button>
-            <button class="btn btn-link text-danger action-btn delete-btn" data-index="${start + i}">
-=======
-            <button class="btn btn-link text-success action-btn edit-btn" data-index="${products.indexOf(p)}">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-link text-danger action-btn delete-btn" data-index="${products.indexOf(p)}">
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
+            <button class="btn btn-link text-danger action-btn delete-btn" data-index="${i}">
               <i class="bi bi-trash"></i>
             </button>
           </td>
@@ -973,14 +913,8 @@ label[for="filter"] {
     });
 
     updateDashboardCards();
-<<<<<<< HEAD
-    renderPagination();
-
-    document.querySelectorAll(".delete-btn").forEach((btn) =>
-=======
 
     document.querySelectorAll(".delete-btn").forEach(btn =>
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
       btn.addEventListener("click", deleteProduct)
     );
     document.querySelectorAll(".edit-btn").forEach(btn =>
@@ -988,83 +922,6 @@ label[for="filter"] {
     );
   }
 
-<<<<<<< HEAD
-  // ---------- Render Pagination ----------
-  function renderPagination() {
-    const pagination = document.getElementById("pagination");
-    if (!pagination) return;
-
-    const totalPages = Math.ceil(products.length / itemsPerPage);
-    let html = `<li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>`;
-
-    for (let i = 1; i <= totalPages; i++) {
-      html += `<li class="${i === currentPage ? "active" : ""}"><a href="#">${i}</a></li>`;
-    }
-
-    html += `<li><a href="#" class="arrow" id="next">&rsaquo;</a></li>`;
-    pagination.innerHTML = html;
-
-    document.querySelectorAll("#pagination li:not(.arrow)").forEach((li, idx) => {
-      li.addEventListener("click", (e) => {
-        e.preventDefault();
-        currentPage = idx + 1;
-        renderTable(currentPage);
-      });
-    });
-
-    document.getElementById("prev").addEventListener("click", (e) => {
-      e.preventDefault();
-      if (currentPage > 1) currentPage--;
-      renderTable(currentPage);
-    });
-
-    document.getElementById("next").addEventListener("click", (e) => {
-      e.preventDefault();
-      if (currentPage < totalPages) currentPage++;
-      renderTable(currentPage);
-    });
-  }
-
-  // ---------- Add / Edit Product ----------
-  saveBtn.addEventListener("click", async () => {
-    if (!validateInputs()) return; 
-
-    const newProduct = {
-      name: document.getElementById("productName").value.trim(),
-      category: document.getElementById("productCategory").value.trim(),
-      price: parseFloat(priceInput.value),
-      stock: parseInt(stockInput.value),
-      description: document.getElementById("productDescription").value.trim(),
-      image: document.getElementById("productImage").value,
-    };
-
-    if (!newProduct.name || !newProduct.category) return;
-
-    modal.hide();
-
-    let confirmMessage =
-      editIndex !== null
-        ? "Are you sure you want to save the changes?"
-        : "Are you sure you want to save this product?";
-
-    const confirmSave = await showConfirm(confirmMessage);
-    if (!confirmSave) {
-      modal.show();
-      return;
-    }
-
-    if (editIndex !== null) {
-      products[editIndex] = newProduct;
-      editIndex = null;
-    } else {
-      products.push(newProduct);
-    }
-
-    localStorage.setItem("products", JSON.stringify(products));
-    currentPage = Math.ceil(products.length / itemsPerPage);
-    renderTable(currentPage);
-    form.reset();
-=======
   // ---------- Search Filter ----------
   searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
@@ -1076,71 +933,56 @@ label[for="filter"] {
   saveBtn.addEventListener("click", async () => {
     if (!validateInputs()) return;
 
-    const handleSave = (mainImage) => {
-      const newProduct = {
-        name: document.getElementById("productName").value.trim(),
-        category: document.getElementById("productCategory").value.trim(),
-        price: parseFloat(priceInput.value),
-        stock: parseInt(stockInput.value),
-        description: document.getElementById("productDescription").value.trim(),
-        image: mainImage,
-        additionalImages: additionalImages
-      };
-
-      modal.hide();
-
-      let confirmMessage =
-        editIndex !== null
-          ? "Are you sure you want to save the changes?"
-          : "Are you sure you want to save this product?";
-
-      showConfirm(confirmMessage).then(confirmSave => {
-        if (!confirmSave) {
-          modal.show();
-          return;
-        }
-
-        if (editIndex !== null) {
-          products[editIndex] = newProduct;
-        } else {
-          products.push(newProduct);
-        }
-
-        localStorage.setItem("products", JSON.stringify(products));
-        renderTable();
-
-        form.reset();
-        previewContainer.innerHTML = "";
-        additionalImages = [];
-        editIndex = null;
-      });
+    const newProduct = {
+      name: document.getElementById("productName").value.trim(),
+      category: document.getElementById("productCategory").value.trim(),
+      price: parseFloat(priceInput.value),
+      stock: parseInt(stockInput.value),
+      description: document.getElementById("productDescription").value.trim(),
+      image: mainImageInput.value.trim(),
+      additionalImages: additionalImages
     };
 
-    if (mainImageInput.files.length) {
-      const reader = new FileReader();
-      reader.onload = (event) => handleSave(event.target.result);
-      reader.readAsDataURL(mainImageInput.files[0]);
-    } else if (editIndex !== null) {
-      handleSave(products[editIndex].image);
-    }
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
+    let confirmMessage =
+      editIndex !== null
+        ? "Are you sure you want to save the changes?"
+        : "Are you sure you want to save this product?";
+
+    showConfirm(confirmMessage).then(confirmSave => {
+      if (!confirmSave) return;
+
+      if (editIndex !== null) {
+        products[editIndex] = newProduct;
+      } else {
+        products.push(newProduct);
+      }
+
+      localStorage.setItem("products", JSON.stringify(products));
+      renderTable();
+
+      form.reset();
+      mainPreview.innerHTML = "";
+      additionalPreview.innerHTML = "";
+      additionalImages = [];
+      editIndex = null;
+      modal.hide();
+    });
   });
 
   // ---------- Delete ----------
   async function deleteProduct(e) {
-    const index = e.currentTarget.getAttribute("data-index");
+    const index = Number(e.currentTarget.getAttribute("data-index"));
     const confirmDelete = await showConfirm("Are you sure you want to delete this product?");
     if (!confirmDelete) return;
 
     products.splice(index, 1);
     localStorage.setItem("products", JSON.stringify(products));
-    if ((currentPage - 1) * itemsPerPage >= products.length && currentPage > 1) currentPage--;
-    renderTable(currentPage);
+    renderTable();
   }
 
   // ---------- Edit ----------
   function editProduct(e) {
-    editIndex = e.currentTarget.getAttribute("data-index");
+    editIndex = Number(e.currentTarget.getAttribute("data-index"));
     const p = products[editIndex];
 
     document.getElementById("productName").value = p.name;
@@ -1149,12 +991,12 @@ label[for="filter"] {
     document.getElementById("productStock").value = p.stock;
     document.getElementById("productDescription").value = p.description;
 
-    previewContainer.innerHTML = "";
-    additionalImages = [];
+    mainImageInput.value = p.image;
+    mainPreview.innerHTML = `<img src="${p.image}" style="width:100px;height:100px;object-fit:cover;border-radius:6px;">`;
 
-    p.additionalImages.forEach(imgSrc => {
-      additionalImages.push(imgSrc);
-
+    additionalImages = [...p.additionalImages];
+    additionalPreview.innerHTML = "";
+    additionalImages.forEach(url => {
       const imgBox = document.createElement("div");
       imgBox.classList.add("position-relative", "border", "p-1", "rounded");
       imgBox.style.width = "70px";
@@ -1162,16 +1004,16 @@ label[for="filter"] {
       imgBox.style.overflow = "hidden";
 
       imgBox.innerHTML = `
-        <img src="${imgSrc}" class="w-100 h-100" style="object-fit:cover; border-radius:6px;">
+        <img src="${url}" class="w-100 h-100" style="object-fit:cover; border-radius:6px;">
         <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 p-0 px-1" style="font-size:12px;">×</button>
       `;
 
       imgBox.querySelector("button").addEventListener("click", () => {
         imgBox.remove();
-        additionalImages = additionalImages.filter(img => img !== imgSrc);
+        additionalImages = additionalImages.filter(img => img !== url);
       });
 
-      previewContainer.appendChild(imgBox);
+      additionalPreview.appendChild(imgBox);
     });
 
     modal.show();
@@ -1185,36 +1027,35 @@ label[for="filter"] {
       priceInput.value.trim() ||
       stockInput.value.trim() ||
       document.getElementById("productDescription").value.trim() ||
-      mainImageInput.files.length ||
+      mainImageInput.value.trim() ||
       additionalImages.length;
 
     if (editIndex !== null && hasChanges) {
       event.preventDefault(); 
-
       const confirmExit = await showConfirm("Are you sure you want to exit without saving your changes?");
-
       if (confirmExit) {
         editIndex = null;
         form.reset();
-        previewContainer.innerHTML = "";
+        mainPreview.innerHTML = "";
+        additionalPreview.innerHTML = "";
         additionalImages = [];
         bootstrap.Modal.getInstance(modalEl).hide();
-      } else {
       }
     } else if (editIndex === null) {
       form.reset();
-      previewContainer.innerHTML = "";
+      mainPreview.innerHTML = "";
+      additionalPreview.innerHTML = "";
       additionalImages = [];
     }
   });
 
   // ---------- Initialize ----------
-  renderTable(currentPage);
+  renderTable();
 </script>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> be77f3cba4f2d4f09422c5dba717eb5df112463d
+
+
+
   </body>
 </html>
