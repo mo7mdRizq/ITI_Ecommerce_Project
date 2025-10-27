@@ -312,7 +312,7 @@
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../about.html">About</a></li>
             <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
-            <li class="nav-item me-5"><a class="nav-link main-nav-link" href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item me-5"><a class="nav-link main-nav-link" href="../admin/admin-dashboard.html">Dashboard</a></li>
           </ul>
 
           <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px">
@@ -336,6 +336,48 @@
       <!-- <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a> -->
       <a href="../auth/signin.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
     </div>
+    <!-- ✅ Navbar الصغيرة اللي فيها زر القائمة -->
+<nav class="navbar bg-white d-lg-none px-3 shadow-sm">
+  <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+    <i class="bi bi-list"></i>
+  </button>
+  <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
+</nav>
+
+<!-- ✅ الزر الاختياري لفتح السايدبار (مش ضروري لو فوق شغال) -->
+<button id="toggleSidebar" class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+  ☰ Menu
+</button>
+
+<!-- ✅ الـ Offcanvas Sidebar نفسه -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body p-0">
+    <div class="list-group list-group-flush">
+      <a href="../admin/admin-dashboard.html" class="list-group-item list-group-item-action">
+        <i class="bi bi-speedometer2 me-2"></i> Dashboard Overview
+      </a>
+      <a href="../admin/admin-products-management.html" class="list-group-item list-group-item-action">
+        <i class="bi bi-box me-2"></i> Product Management
+      </a>
+      <a href="../admin/admin-dahboard-orders.html" class="list-group-item list-group-item-action active">
+        <i class="bi bi-journal-text me-2"></i> Order Management
+      </a>
+      <a href="../admin/users-management.html" class="list-group-item list-group-item-action active">
+        <i class="bi bi-person-text me-2"></i> Users Management
+      </a>
+      <hr>
+      <a href="../auth/signin.html" class="list-group-item list-group-item-action">
+        <i class="bi bi-box-arrow-left me-2"></i> Log Out
+      </a>
+    </div>
+  </div>
+</div>
+
 
     <!-- Dashboard Section -->
     <section class="dashboard-section">
@@ -397,6 +439,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <script>
+       const sidebar = document.querySelector(".sidebar");
+  const toggleBtn = document.getElementById("toggleSidebar");
+
+  function handleSidebar() {
+    if (window.innerWidth <= 767.98) {
+      sidebar?.classList.add("collapsed");
+    } else {
+      sidebar?.classList.remove("collapsed");
+    }
+  }
+  // ✅ تحديد الصفحة الحالية
+  const currentPage = window.location.pathname.split("/").pop(); // آخر جزء في الـ URL
+
+  // ✅ كل روابط السايدبار (في الموبايل)
+  const mobileLinks = document.querySelectorAll("#mobileSidebar .list-group-item");
+
+  mobileLinks.forEach(link => {
+    const linkPage = link.getAttribute("href").split("/").pop(); // اسم الصفحة من الرابط
+
+    // لو الصفحة الحالية هي نفس صفحة الرابط → أضف الكلاس active
+    if (linkPage === currentPage) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+
+  handleSidebar();
+  window.addEventListener("resize", handleSidebar);
       // تجهيز بيانات تجريبية لو الـ localStorage فاضي
       function seedDataIfEmpty() {
         if (!localStorage.getItem("products")) {
@@ -532,17 +603,31 @@
       // تحديث دوري (في نفس الصفحة)
       setInterval(updateDashboard, 1500);
 
-      // سايدبار
-      const sidebar = document.querySelector(".sidebar");
-      function handleSidebar() {
-        if (window.innerWidth <= 767.98) {
-          sidebar.classList.add("collapsed");
+      // Sidebar is handled earlier in the script to avoid redeclaration
+       document.addEventListener("DOMContentLoaded", () => {
+    const currentPage = window.location.pathname.split("/").pop();
+
+    // ✅ تفعيل الـ active تلقائي في الـ Navbar
+    document.querySelectorAll(".navbar .nav-link.main-nav-link").forEach(link => {
+      const href = link.getAttribute("href");
+
+      // لو المستخدم داخل أي صفحة Dashboard
+      if (window.location.pathname.includes("admin") || window.location.pathname.includes("dashboard")) {
+        if (href.includes("dashboard.html")) {
+          link.classList.add("active");
         } else {
-          sidebar.classList.remove("collapsed");
+          link.classList.remove("active");
         }
+      } 
+      // لو مش في الداشبورد → فعّل الرابط العادي حسب الصفحة
+      else if (href && href.includes(currentPage)) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
       }
-      handleSidebar();
-      window.addEventListener("resize", handleSidebar);
+    });
+  });
+      
     </script>
   </body>
 </html>                                                                                                                                                   
