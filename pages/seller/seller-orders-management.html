@@ -60,12 +60,12 @@ body {
   color: #fff;
 }
 
-/* ===== Sidebar ===== */
+/* ===== Sidebar للشاشات الكبيرة ===== */
 .sidebar {
   position: fixed;
   top: 80px;
   left: 0;
-  height: 80vh;
+  height: calc(100vh - 80px);
   width: 280px;
   background-color: #fff;
   border-right: 1px solid #dee2e6;
@@ -73,10 +73,10 @@ body {
   padding: 40px 15px;
   transition: all 0.3s ease;
   z-index: 1000;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
-.sidebar .nav-link {
+/* .sidebar .nav-link {
   display: flex;
   align-items: center;
   padding: 10px 14px;
@@ -97,9 +97,9 @@ body {
 .sidebar .nav-link:hover {
   background-color: #4d6b5c;
   color: white;
-}
+} */
 
-/* ===== Toggle Button ===== */
+/* ===== Toggle Button =====
 .collapse-toggle {
   position: absolute;
   top: 15px;
@@ -116,9 +116,9 @@ body {
   cursor: pointer;
   transition: transform 0.3s;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-}
+} */
 
-.sidebar.collapsed {
+/* .sidebar.collapsed {
   width: 70px;
 }
 
@@ -132,7 +132,7 @@ body {
 
 .sidebar.collapsed .collapse-toggle {
   transform: rotate(180deg);
-}
+} */
 
 /* ===== Main Content ===== */
 .main-content {
@@ -140,9 +140,9 @@ body {
   transition: margin-left 0.3s ease;
 }
 
-.sidebar.collapsed ~ .main-content {
+/* .sidebar.collapsed ~ .main-content {
   margin-left: 100px;
-}
+} */
 
 /* ===== Table & Orders Section ===== */
 .orders-section {
@@ -259,6 +259,8 @@ label[for="filter"] {
 /* ===== Responsive Design ===== */
 @media (max-width: 1200px) {
   .sidebar {
+    /* margin-top: 35px; */
+    top:80px !important;
     width: 210px;
   }
   .orders-section {
@@ -270,6 +272,8 @@ label[for="filter"] {
 /* ===== Tablet ===== */
 @media (max-width: 992px) {
   .sidebar {
+    /* margin-top: 60px; */
+    top: 80px !important;
     width: 150px;
   }
 
@@ -295,6 +299,8 @@ label[for="filter"] {
 /* ===== Small Phones ===== */
 @media (max-width: 576px) {
   .sidebar {
+    /* margin-top: 20px; */
+    top: 80px !important;
     width: 60px;
     padding: 20px 10px;
   }
@@ -329,7 +335,7 @@ label[for="filter"] {
 </head>
 <body>
  <!-- ===================== Navbar & Sidebar ===================== -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+<nav class="navbar d-none navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
   <div class="container-fluid d-flex align-items-center justify-content-between">
 
     <!-- Brand -->
@@ -407,35 +413,44 @@ label[for="filter"] {
   <span class="navbar-brand ms-3 fw-bold">Menu</span>
 </nav>
 
- <!-- Sidebar -->
-    <div class="sidebar d-none d-lg-block position-fixed">
-      <a href="admin-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
-      <a href="admin-products-management.html" class="nav-button"><i class="bi bi-box"></i> Product Management</a>
-      <a href="admin-dahboard-orders.html" class="nav-button active"><i class="bi bi-journal-text"></i> Order Management</a>
-      <hr />
-      <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
-      <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+<!-- Sidebar للشاشات الكبيرة فقط -->
+<div class="sidebar d-none d-lg-block mt-5">
+  <a href="#" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard</a>
+  <a href="#" class="nav-button"><i class="bi bi-box"></i> Products</a>
+  <a href="#" class="nav-button active"><i class="bi bi-journal-text"></i> Orders</a>
+  <hr />
+  <a href="#" class="nav-button"><i class="bi bi-gear"></i> Settings</a>
+  <a href="#" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+</div>
+
+<!-- Offcanvas للموبايل -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title fw-bold">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <div class="list-group list-group-flush">
+      <a href="#" class="list-group-item list-group-item-action">
+        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <i class="bi bi-box me-2"></i> Products
+      </a>
+      <a href="#" class="list-group-item list-group-item-action active">
+        <i class="bi bi-journal-text me-2"></i> Orders
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <i class="bi bi-gear me-2"></i> Settings
+      </a>
+      <a href="#" class="list-group-item list-group-item-action text-danger">
+        <i class="bi bi-box-arrow-left me-2"></i> Log Out
+      </a>
     </div>
+  </div>
+</div>
 
-
-    <!-- Offcanvas for mobile sidebar (matches data-bs-target="#mobileSidebar") -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body p-0">
-        <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
-          <a href="#" class="list-group-item list-group-item-action">Products</a>
-          <a href="#" class="list-group-item list-group-item-action">Orders</a>
-          <a href="#" class="list-group-item list-group-item-action">Settings</a>
-          <a href="#" class="list-group-item list-group-item-action">Logout</a>
-        </div>
-      </div>
-    </div>
-
-    <script>
+    <!-- <script>
       const sidebar = document.getElementById("sidebar");
       const toggleBtn = document.getElementById("toggleSidebar");
 
@@ -454,7 +469,7 @@ label[for="filter"] {
       toggleBtn.addEventListener("click", () => {
         sidebar.classList.toggle("collapsed");
       });
-    </script>
+    </script> -->
 
      <!--//////////////////////////////////////////////////top-section1//////////////////////////////////////////////////////////////////////////-->
     <section class="dashboard-section">
