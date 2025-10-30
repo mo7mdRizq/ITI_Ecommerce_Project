@@ -57,18 +57,84 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-      <a class="navbar-brand" href="#">
-        <img src="../../assets/images/logo.png" alt="Logo" style="width: 100px;" />
-      </a>
-      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item mx-2"><a class="nav-link active" href="#">Shop</a></li>
-        </ul>
+   <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+    
+            <!-- Brand -->
+            <a class="navbar-brand" href="testHome.html" id="brand">
+                <img src="../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+            </a>
+        
+            <!-- Center Links - Collapse -->
+            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link " href="testHome.html">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link active" href="product-catalog.html">Shop</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="contact.html">Contact</a>
+                </li>
+                <li class="nav-item me-5" id="dashboard">
+                    <a class="nav-link main-nav-link" href="seller/seller-dashboard.html">dashboard</a>
+                </li>
+
+                
+                </ul>
+          <!-- 🔍 Search Box -->
+        <div class="autocomplete-container ms-3">
+          <input
+            id="searchInput"
+            class="form-control form-control-sm rounded-5 ps-3"
+            type="search"
+            placeholder="Search..."
+            aria-label="Search"
+          />
+          <div id="autocompleteList" class="autocomplete-list"></div>
+          <div id="errorMsg" class="error-msg"></div>
+        </div>
       </div>
-    </div>
-  </nav>
+
+            </div>
+        
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+
+        
+                <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
+                    <i>
+                        <img src="../assets/icons/shopping-cart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="auth/profile.html">
+                    <i>
+                        <img src="../assets/icons/heart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
+                    <i>
+                        <img src="../assets/icons/profileIcon.svg" alt="">
+                    </i>
+                </a>
+        
+                <!-- Navar Toggler -->
+                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+                     <img src="../assets/icons/menu.svg">
+                </button>
+            </div>
+    
+        </div>
+    </nav>
 
   <div class="container pt-5 mt-5 mb-4">
     <div class="row g-4">
@@ -197,10 +263,8 @@
   const p = products[index];
   if(!p) return;
 
-  // نحفظ المنتج المختار في localStorage
   localStorage.setItem('selectedProduct', JSON.stringify(p));
 
-  // ننتقل لصفحة التفاصيل
   window.location.href = 'product-details.html';
 }
 
@@ -217,6 +281,129 @@
     window.addEventListener('storage', (e) => {
       if (e.key === 'products') renderProducts();
     });
+
+    const products = [
+    "Casual T-Shirt",
+    "Summer Dress",
+    "Denim Jacket",
+    "Stylish Hat",
+    "Men’s Collection",
+    "Women’s Collection",
+    "Kids’ Collection",
+    "Sneakers",
+    "Leather Jacket",
+    "Formal Suit",
+  ];
+
+  const searchInput = document.getElementById("searchInput");
+  const autocompleteList = document.getElementById("autocompleteList");
+  const errorMsg = document.getElementById("errorMsg");
+
+  // Function to navigate based on search
+  function navigateProduct(inputVal) {
+    const exactMatch = products.find(
+      (item) => item.toLowerCase() === inputVal.toLowerCase()
+    );
+
+    if (exactMatch) {
+      // Redirect to product-details.html
+      window.location.href = "product-details.html?product=" + encodeURIComponent(exactMatch);
+    } else {
+      // Redirect to product-catalog.html with query
+      window.location.href = "product-catalog.html?search=" + encodeURIComponent(inputVal);
+    }
+  }
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    autocompleteList.innerHTML = "";
+    errorMsg.textContent = "";
+
+    if (query.length === 0) {
+      autocompleteList.style.display = "none";
+      return;
+    }
+
+    const matches = products.filter((item) =>
+      item.toLowerCase().includes(query)
+    );
+
+    if (matches.length === 0) {
+      autocompleteList.style.display = "none";
+      return;
+    }
+
+    matches.forEach((item) => {
+      const div = document.createElement("div");
+      div.classList.add("autocomplete-item", "p-2", "border-bottom", "bg-white", "cursor-pointer");
+      div.textContent = item;
+      div.style.position = "relative";
+      div.addEventListener("click", () => {
+        searchInput.value = item;
+        autocompleteList.style.display = "none";
+        navigateProduct(item);
+      });
+      autocompleteList.appendChild(div);
+    });
+
+    autocompleteList.style.display = "block";
+    autocompleteList.style.position = "absolute";
+    autocompleteList.style.backgroundColor = "#fff";
+    autocompleteList.style.border = "1px solid #ccc";
+    autocompleteList.style.borderRadius = "8px";
+    autocompleteList.style.top = searchInput.offsetTop + searchInput.offsetHeight + "px";
+    autocompleteList.style.left = searchInput.offsetLeft + "px";
+    autocompleteList.style.width = searchInput.offsetWidth + "px";
+    autocompleteList.style.zIndex = 10000;
+  });
+
+  // Enter key
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const inputVal = searchInput.value.trim();
+      if (!inputVal) return;
+      navigateProduct(inputVal);
+    }
+  });
+
+  // Hide list when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".autocomplete-container")) {
+      autocompleteList.style.display = "none";
+    }
+  });
+  // Enter key
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    const inputVal = searchInput.value.trim();
+    if (!inputVal) return;
+
+    const exactMatch = products.find(
+      (item) => item.toLowerCase() === inputVal.toLowerCase()
+    );
+
+    if (exactMatch) {
+      // Redirect to product-details.html
+      window.location.href = "product-details.html?product=" + encodeURIComponent(exactMatch);
+    } else {
+      // Check for partial matches
+      const partialMatches = products.filter((item) =>
+        item.toLowerCase().includes(inputVal.toLowerCase())
+      );
+
+      if (partialMatches.length > 0) {
+        window.location.href = "product-catalog.html?search=" + encodeURIComponent(inputVal);
+      } else {
+        // Show error message
+        errorMsg.textContent = "❌ No product found with this name.";
+        autocompleteList.style.display = "none";
+      }
+    }
+  }
+});
+
   </script>
 </body>
 </html>
