@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seller Dashboard</title>
+
+
+    <!-- Link Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <!-- style top-section -->
+        <link rel="stylesheet" href="../../style/style.css" />
+  <style>
+/* ===== Base Styles ===== */
+body {
+  background-color: #f9fafb;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ===== Navbar Buttons ===== */
+.nav-button {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #618674;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #618674;
+  background-color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: #4D6B5C;
+  color: white;
+}
+
+.nav-button i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.nav-button.active {
+  background-color: #618674;
+  color: #fff;
+  border: none;
+}
+
+.nav-button.active:hover {
+  background-color: #4D6B5C;
+  color: #fff;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  height: 80vh;
+  width: 280px;
+  background-color: #fff;
+  border-right: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 40px 15px;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #4d6b5c;
+  transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap;
+}
+
+.sidebar .nav-link i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+  background-color: #4d6b5c;
+  color: white;
+}
+
+/* ===== Toggle Button ===== */
+.collapse-toggle {
+  position: absolute;
+  top: 15px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  background-color: coral;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar.collapsed .nav-link span {
+  display: none;
+}
+
+.sidebar.collapsed .nav-link i {
+  margin-right: 0;
+}
+
+.sidebar.collapsed .collapse-toggle {
+  transform: rotate(180deg);
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  margin-left: 270px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: 100px;
+}
+
+/* ===== Orders Section ===== */
+.orders-section {
+  width: 1100px;
+  margin-top: 50px;
+  margin-left: 350px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+.orders-section h4 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.orders-section p {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+/* ===== Table ===== */
+.table thead th {
+  background-color: #f1f3f5;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.status.delivered { background-color: #4aa3d8; }
+.status.shipped { background-color: #f0a04b; }
+.status.cancelled { background-color: #dc5d5d; }
+
+/* ===== Pagination ===== */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.custom-pagination {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.custom-pagination li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #7ca394;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #7ca394;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.custom-pagination a:hover {
+  background-color: #e3eee9;
+}
+
+.custom-pagination .active a {
+  background-color: #7ca394;
+  color: white;
+  border-color: #7ca394;
+}
+
+.custom-pagination .dots {
+  color: #7ca394;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+.custom-pagination .arrow {
+  font-size: 30px;
+  border: none;
+  background: none;
+  color: #7ca394;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+.custom-pagination .arrow:hover {
+  color: #5d7e71;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 210px;
+  }
+  .orders-section {
+    width: calc(100% - 220px);
+    margin-left: 230px;
+  }
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    width: 150px;
+  }
+
+  .sidebar .nav-link span {
+    display: none;
+  }
+
+  .sidebar .nav-link i {
+    margin-right: 0;
+  }
+
+  .main-content {
+    margin-left: 160px;
+  }
+
+  .orders-section {
+    width: 100%;
+    margin-left: 0;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sidebar {
+    width: 60px;
+    padding: 20px 10px;
+  }
+
+  .sidebar .nav-link {
+    justify-content: center;
+  }
+
+  .sidebar .nav-link i {
+    font-size: 22px;
+    margin-right: 0;
+  }
+
+  .sidebar .nav-link span {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 70px;
+  }
+
+  .orders-section {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+  }
+}
+</style>
+  </head>
+  <body>
+  
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <!-- Brand -->
+    <a class="navbar-brand" href="../index.html" id="brand">
+      <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+    </a>
+
+    <!-- Center Links - Collapse -->
+    <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="">Shop</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="">About</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="#footer">Contact</a>
+        </li>
+        <li class="nav-item me-5" id="dashboard">
+          <a class="nav-link main-nav-link" href="">Dashboard</a>
+        </li>
+      </ul>
+
+      <form class="d-flex align-items-center" role="search" style="width: 300px;">
+        <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
+      </form>
+    </div>
+
+    <!-- Right Side -->
+    <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <i><img src="../../assets/icons/shopping-cart.svg" alt=""></i>
+      </a>
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <i><img src="../../assets/icons/heart.svg" alt=""></i>
+      </a>
+      <a class="nav-link cart-icon-container position-relative" href="#">
+        <i><img src="../../assets/icons/profileIcon.svg" alt=""></i>
+      </a>
+
+      <!-- Navbar Toggler -->
+      <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <img src="../../assets/icons/menu.svg">
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar d-none d-lg-block position-fixed">
+  <a href="seller-dashboard.html" class="nav-button active"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+  <a href="seller-products-management.html" class="nav-button"><i class="bi bi-box"></i> Product Management</a>
+  <a href="seller-orders-management.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
+  <hr />
+  <a href="../logout.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+</div>
+
+<script>
+  function handleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    if (window.innerWidth <= 767.98) {
+      sidebar.classList.add("collapsed");
+    } else {
+      sidebar.classList.remove("collapsed");
+    }
+  }
+
+  handleSidebar();
+  window.addEventListener("resize", handleSidebar);
+</script>
+
+  <!--//////////////////////////////////////////////////tpo-section1//////////////////////////////////////////////////////////////////////////-->
+<section class="dashboard-section">
+  <h5>Dashboard Overview</h5>
+  <p>Welcome to your dashboard, here’s what’s happening today.</p>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="dashboard-card card-total">
+        <div class="dashboard-card-header">
+          <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
+        </div>
+        <h2 id="totalProducts">0</h2>
+        <small>All active products in your store</small>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="dashboard-card card-active">
+        <div class="dashboard-card-header">
+          <div class="check-wrapper">
+            <div class="check-inner">
+              <i class="bi bi-check-circle"></i>
+            </div>
+          </div>
+          Total Orders
+        </div>
+        <h2 id="totalOrders">0</h2>
+        <small>Total number of customer orders</small>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="dashboard-card card-pending">
+        <div class="dashboard-card-header">
+          <i class="bi bi-receipt icon-red"></i> Total Revenue
+        </div>
+        <h2 id="totalRevenue">$0</h2>
+        <small>Your total sales this month</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--///////////////////////////////////////////// Table componant ////////////////////////////-->
+<section class="orders-section">
+  <div class="mb-4">
+    <h4 class="mb-1">Recent Orders</h4>   
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered text-center" id="ordersTable">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Order ID</th>
+          <th>Customer ID</th>
+          <th>Products</th>
+          <th>Total Price</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr><td>1</td><td>1234567</td><td>2354367</td><td>Item1 - Item2</td><td>250</td><td><span class="status delivered">Delivered</span></td><td>23-11-2025</td></tr>
+        <tr><td>2</td><td>1234567</td><td>2345672</td><td>Item1 - Item2</td><td>100</td><td><span class="status shipped">Shipped</span></td><td>04-11-2025</td></tr>
+        <tr><td>3</td><td>1234567</td><td>1254268</td><td>Item1 - Item2</td><td>120</td><td><span class="status shipped">Shipped</span></td><td>23-10-2025</td></tr>
+        <tr><td>4</td><td>1234567</td><td>4642985</td><td>Item1 - Item2</td><td>320</td><td><span class="status cancelled">Cancelled</span></td><td>12-10-2025</td></tr>
+        <tr><td>5</td><td>1234567</td><td>2342342</td><td>Item1 - Item2</td><td>480</td><td><span class="status delivered">Delivered</span></td><td>29-10-2025</td></tr>
+        <tr><td>6</td><td>1234567</td><td>1245236</td><td>Item1 - Item2</td><td>270</td><td><span class="status delivered">Delivered</span></td><td>23-10-2025</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="pagination-container">
+    <ul class="custom-pagination" id="pagination">
+      <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
+      <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
+    </ul>
+  </nav>
+</section>
+
+<script>
+const rowsPerPage = 6;
+const table = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
+const rows = Array.from(table.getElementsByTagName('tr'));
+const pagination = document.getElementById('pagination');
+const totalPages = 10;
+let currentPage = 1;
+
+function updateDashboardTotals() {
+  let totalProducts = 0;
+  let totalOrders = rows.length;
+  let totalRevenue = 0;
+
+  for(let i=0; i<rows.length; i++){
+    const products = rows[i].cells[3].textContent.trim();
+    totalProducts += products.split('-').length;
+    const price = parseFloat(rows[i].cells[4].textContent.trim());
+    totalRevenue += price;
+  }
+
+  document.getElementById('totalProducts').textContent = totalProducts;
+  document.getElementById('totalOrders').textContent = totalOrders;
+  document.getElementById('totalRevenue').textContent = '$'+totalRevenue;
+}
+
+function showPage(page) {
+  currentPage = page;
+  const start = (page - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+
+  rows.forEach((row, i) => {
+    row.style.display = (i >= start && i < end) ? '' : 'none';
+  });
+
+  renderPagination();
+}
+
+function renderPagination() {
+  const ul = pagination;
+
+  ul.querySelectorAll('li.page-item, li.dots').forEach(li => li.remove());
+
+  const pageItems = [];
+  const maxVisible = 5;
+
+  // Page oneeeee/////////////
+  pageItems.push(createPageItem(1));
+
+  if(currentPage > 3) pageItems.push(createDots());
+
+  for(let i=currentPage-2; i<=currentPage+2; i++){
+    if(i>1 && i<totalPages) pageItems.push(createPageItem(i));
+  }
+
+  if(currentPage < totalPages-2) pageItems.push(createDots());
+
+  // last page/////////////
+  if(totalPages>1) pageItems.push(createPageItem(totalPages));
+
+  // next
+  const nextLi = ul.querySelector('#next').parentElement;
+  pageItems.forEach(item => ul.insertBefore(item, nextLi));
+
+  ul.querySelectorAll('li.page-item').forEach(li => {
+    li.classList.toggle('active', parseInt(li.dataset.page) === currentPage);
+  });
+}
+
+function createPageItem(page) {
+  const li = document.createElement('li');
+  li.className = 'page-item';
+  li.dataset.page = page;
+  const a = document.createElement('a');
+  a.href = '#';
+  a.textContent = page;
+  li.appendChild(a);
+  return li;
+}
+
+function createDots() {
+  const li = document.createElement('li');
+  li.className = 'dots';
+  li.textContent = '••';
+  return li;
+}
+
+pagination.addEventListener('click', function(e){
+  e.preventDefault();
+  const target = e.target.closest('li');
+  if(!target) return;
+
+  if(target.id === 'prev') {
+    if(currentPage > 1) showPage(currentPage - 1);
+  } else if(target.id === 'next') {
+    if(currentPage < totalPages) showPage(currentPage + 1);
+  } else if(target.dataset.page) {
+    showPage(parseInt(target.dataset.page));
+  }
+});
+
+updateDashboardTotals();
+showPage(1);
+</script>
+
+
+  </body>
+</html>
