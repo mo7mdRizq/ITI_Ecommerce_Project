@@ -293,8 +293,14 @@
       </a>
 
       <div class="icons-container d-flex align-items-center gap-3 order-lg-3 ms-auto">
-        <a class="nav-link" href="../cart.html">
-          <img src="../../assets/icons/shopping-cart.svg" alt="Cart">
+        <a class="nav-link cart-icon-container position-relative" href="../cart.html">
+          <i>
+            <img src="../../assets/icons/shopping-cart.svg" alt="">
+          </i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" 
+                style="font-size: 0.7rem; display: none;">
+            0
+          </span>
         </a>
         <a class="nav-link" href="../wishlist.html">
           <img src="../../assets/icons/heart.svg" alt="Wishlist">
@@ -435,33 +441,7 @@
                 </tr>
               </thead>
               <tbody id="productsTableBody">
-                <tr>
-                  <td>1</td>
-                  <td>Laptop HP</td>
-                  <td>Electronics</td>
-                  <td>$15500</td>
-                  <td>12</td>
-                  <td><span class="status-available">Available</span></td>
-                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>iPhone 15 Pro</td>
-                  <td>Mobiles</td>
-                  <td>$53000</td>
-                  <td>5</td>
-                  <td><span class="status-available">Available</span></td>
-                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Samsung S23</td>
-                  <td>Mobiles</td>
-                  <td>$47000</td>
-                  <td>0</td>
-                  <td><span class="status-out">Out of stock</span></td>
-                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
-                </tr>
+                <!--  -->
               </tbody>
             </table>
           </div>
@@ -545,6 +525,9 @@
   document.addEventListener("DOMContentLoaded", loadProducts);
 </script>
 
+
+<!-- navbar -->
+<script src="../../component/nav.js"></script>
 
 </body>
 </html>

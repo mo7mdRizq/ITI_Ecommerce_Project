@@ -442,8 +442,14 @@
 
     <!-- Right Side Icons (visible by default) -->
     <div class="icons-container d-flex align-items-center gap-3 order-lg-3 ms-auto">
-      <a class="nav-link cart-icon-container position-relative" href="../cart.html">
-        <img src="../../assets/icons/shopping-cart.svg" alt="">
+      <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
+        <i>
+          <img src="../../assets/icons/shopping-cart.svg" alt="">
+        </i>
+        <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" 
+              style="font-size: 0.7rem; display: none;">
+          0
+        </span>
       </a>
       <a class="nav-link cart-icon-container position-relative" href="../auth/profile.html">
         <img src="../../assets/icons/heart.svg" alt="">
@@ -456,11 +462,11 @@
     <!-- Collapsible Menu -->
     <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item mx-2"><a class="nav-link main-nav-link active" href="../testHome.html">Home</a></li>
+        <li class="nav-item mx-2"><a class="nav-link main-nav-link " href="../testHome.html">Home</a></li>
         <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
         <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../about.html">About</a></li>
         <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
-        <li class="nav-item me-5" id="dashboard"><a class="nav-link main-nav-link" href="../admin/admin-dashboard.html">Dashboard</a></li>
+        <li class="nav-item me-5" id="dashboard"><a class="nav-link active main-nav-link" href="../admin/admin-dashboard.html">Dashboard</a></li>
       </ul>
 
       <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px;">
@@ -603,79 +609,9 @@
             <th>Date</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Marvin McKinney</td>
-            <td>Marvin@Mail.Com</td>
-            <td><strong>Customer</strong></td>
-            <td>Reset Password</td>
-            <td><span class="status active">Active</span></td>
-            <td>2-10-2025</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Esther Howard</td>
-            <td>Esther@Mail.Com</td>
-            <td><strong>Seller</strong></td>
-            <td>Reset Password</td>
-            <td><span class="status active">Active</span></td>
-            <td>12-10-2025</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Guy Hawkins</td>
-            <td>Guy@Mail.Com</td>
-            <td><strong>Customer</strong></td>
-            <td>Approve</td>
-            <td><span class="status banned">Banned</span></td>
-            <td>20-10-2025</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Bessie Cooper</td>
-            <td>Bessie@Mail.Com</td>
-            <td><strong>Admin</strong></td>
-            <td>Reset Password</td>
-            <td><span class="status active">Active</span></td>
-            <td>29-10-2025</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Jacob Jones</td>
-            <td>Jacob@Mail.Com</td>
-            <td><strong>Seller</strong></td>
-            <td>Reset Password</td>
-            <td><span class="status active">Active</span></td>
-            <td>2-11-2025</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Diaz Cameron</td>
-            <td>Diaz@Mail.Com</td>
-            <td><strong>Customer</strong></td>
-            <td>Reset Password</td>
-            <td><span class="status active">Active</span></td>
-            <td>14-11-2025</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>Eleanor Pena</td>
-            <td>Eleanor@Mail.Com</td>
-            <td><strong>Seller</strong></td>
-            <td>Reset Password</td>
-            <td><span class="status active">Active</span></td>
-            <td>20-11-2025</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>Arlene McCoy</td>
-            <td>Arlene@Mail.Com</td>
-            <td><strong>Customer</strong></td>
-            <td>Approve</td>
-            <td><span class="status banned">Banned</span></td>
-            <td>23-11-2025</td>
-          </tr>
+        <tbody id="usersTableBody">
+          
+
         </tbody>
       </table>
     </div>
@@ -701,64 +637,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 <script>
-   const sidebar = document.querySelector(".sidebar");
-  const toggleBtn = document.getElementById("toggleSidebar");
-
-  function handleSidebar() {
-    if (window.innerWidth <= 767.98) {
-      sidebar?.classList.add("collapsed");
-    } else {
-      sidebar?.classList.remove("collapsed");
-    }
-  }
-  // ✅ تحديد الصفحة الحالية
-  const currentPage = window.location.pathname.split("/").pop(); // آخر جزء في الـ URL
-
-  // ✅ كل روابط السايدبار (في الموبايل)
-  const mobileLinks = document.querySelectorAll("#mobileSidebar .list-group-item");
-
-  mobileLinks.forEach(link => {
-    const linkPage = link.getAttribute("href").split("/").pop(); // اسم الصفحة من الرابط
-
-    // لو الصفحة الحالية هي نفس صفحة الرابط → أضف الكلاس active
-    if (linkPage === currentPage) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
-  });
-
-  handleSidebar();
-  window.addEventListener("resize", handleSidebar);
-  // ---------- إغلاق القائمة بعد الضغط ----------
-  document.querySelectorAll('.navbar .nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      const navbar = document.querySelector('.navbar-collapse');
-      const bsCollapse = bootstrap.Collapse.getInstance(navbar);
-      if (bsCollapse) bsCollapse.hide();
-    });
-  });
-
-  // ---------- تفعيل الزر المناسب في السايد بار ----------
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('.sidebar .nav-button').forEach(btn => btn.classList.remove('active'));
-const usersBtn = document.querySelector('.sidebar .nav-button[href="users-management.html"]');
-    if (usersBtn) usersBtn.classList.add('active');
-  });
-
-  // ✅ بيانات تجريبية أول مرة
+  /* 🧩 1. لو مفيش بيانات مستخدمين نحط شوية تجريبية */
   if (!localStorage.getItem("users")) {
     const sampleUsers = [
-      { id: 1, name: "Ahmed Ali", email: "ahmed@mail.com", role: "Customer", status: "Active", date: "10-10-2025" },
-      { id: 2, name: "Sara Mohamed", email: "sara@mail.com", role: "Seller", status: "Banned", date: "12-10-2025" },
-      { id: 3, name: "Omar Hassan", email: "omar@mail.com", role: "Customer", status: "Active", date: "15-10-2025" },
-      { id: 4, name: "Laila Samir", email: "laila@mail.com", role: "Admin", status: "Active", date: "20-10-2025" },
-      { id: 5, name: "Mona Fathy", email: "mona@mail.com", role: "Seller", status: "Banned", date: "22-10-2025" }
+      {
+        id: "u_1",
+        name: "Ahmed Ali",
+        email: "ahmed@mail.com",
+        role: "customer",
+        status: "Active",
+        createdAt: Date.now(),
+      },
+      {
+        id: "u_2",
+        name: "Sara Mohamed",
+        email: "sara@mail.com",
+        role: "seller",
+        status: "Banned",
+        createdAt: Date.now(),
+      },
+      {
+        id: "u_3",
+        name: "Omar Hassan",
+        email: "omar@mail.com",
+        role: "customer",
+        status: "Active",
+        createdAt: Date.now(),
+      }
     ];
     localStorage.setItem("users", JSON.stringify(sampleUsers));
   }
 
-  // ✅ دوال المساعدة
+  /* 🧩 2. دوال مساعدة أساسية */
   function getUsers() {
     return JSON.parse(localStorage.getItem("users")) || [];
   }
@@ -767,17 +677,26 @@ const usersBtn = document.querySelector('.sidebar .nav-button[href="users-manage
     localStorage.setItem("users", JSON.stringify(users));
   }
 
-  // ✅ عرض المستخدمين في الجدول
+  /* 🧩 3. تجهيز البيانات لو ناقصها حاجات */
+  function normalizedUsers() {
+    return (getUsers() || []).map(u => ({
+      ...u,
+      status: u.status || "Active",
+      date: u.date || (u.createdAt ? new Date(Number(u.createdAt)).toLocaleDateString() : new Date().toLocaleDateString()),
+    }));
+  }
+
+  /* 🧩 4. عرض المستخدمين في الجدول */
   function renderUsers(filter = "") {
-    const users = getUsers();
-    const tbody = document.querySelector("tbody");
+    const users = normalizedUsers();
+    const tbody = document.getElementById("usersTableBody");
     tbody.innerHTML = "";
 
     const filteredUsers = users.filter(u =>
-      u.name.toLowerCase().includes(filter.toLowerCase()) ||
-      u.email.toLowerCase().includes(filter.toLowerCase()) ||
-      u.role.toLowerCase().includes(filter.toLowerCase()) ||
-      u.status.toLowerCase().includes(filter.toLowerCase())
+      (u.name || "").toLowerCase().includes(filter.toLowerCase()) ||
+      (u.email || "").toLowerCase().includes(filter.toLowerCase()) ||
+      (u.role || "").toLowerCase().includes(filter.toLowerCase()) ||
+      (u.status || "").toLowerCase().includes(filter.toLowerCase())
     );
 
     if (filteredUsers.length === 0) {
@@ -787,40 +706,56 @@ const usersBtn = document.querySelector('.sidebar .nav-button[href="users-manage
     }
 
     filteredUsers.forEach((user, index) => {
-      const row = document.createElement("tr");
-      const isActive = user.status === "Active";
-      row.innerHTML = `
+      const isActive = (user.status || "Active") === "Active";
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
         <td>${index + 1}</td>
-        <td>${user.name}</td>
-        <td>${user.email}</td>
-        <td><strong>${user.role}</strong></td>
+        <td>${user.name || "-"}</td>
+        <td>${user.email || "-"}</td>
+        <td><strong>${user.role || "-"}</strong></td>
         <td>
           <button class="btn btn-sm ${isActive ? "btn-danger" : "btn-success"} toggle-status" data-id="${user.id}">
             ${isActive ? "Ban User" : "Unban User"}
           </button>
         </td>
-        <td><span class="status ${user.status.toLowerCase()}">${user.status}</span></td>
-        <td>${user.date}</td>
+        <td><span class="status ${ (user.status || "Active").toLowerCase() }">${user.status || "Active"}</span></td>
+        <td>${user.date || "-"}</td>
       `;
-      tbody.appendChild(row);
+      tbody.appendChild(tr);
     });
 
     attachBanButtons();
     updateCards(users);
   }
 
-  // ✅ تحديث الكروت
-  function updateCards(users) {
-    const totalUsers = users.length;
-    const activeUsers = users.filter(u => u.status === "Active").length;
-    const bannedUsers = users.filter(u => u.status === "Banned").length;
+  /* 🧩 5. زر Ban / Unban */
+  function attachBanButtons() {
+    document.querySelectorAll(".toggle-status").forEach(btn => {
+      btn.removeEventListener?.("click", btn._handler);
+      const handler = () => {
+        const userId = btn.dataset.id;
+        const users = getUsers();
+        const idx = users.findIndex(u => (u.id + "") === (userId + ""));
+        if (idx === -1) return;
 
-    document.querySelector(".card-total h2").textContent = totalUsers;
-    document.querySelector(".card-active h2").textContent = activeUsers;
-    document.querySelector(".card-pending h2").textContent = bannedUsers;
+        users[idx].status = users[idx].status === "Active" ? "Banned" : "Active";
+        saveUsers(users);
+        renderUsers();
+      };
+      btn._handler = handler;
+      btn.addEventListener("click", handler);
+    });
   }
 
-  // ✅ تفعيل البحث
+  /* 🧩 6. تحديث الكروت فوق الجدول */
+  function updateCards(users) {
+    const list = normalizedUsers();
+    document.getElementById("total-users").textContent = list.length;
+    document.getElementById("active-users").textContent = list.filter(u => u.status === "Active").length;
+    document.getElementById("banned-users").textContent = list.filter(u => u.status === "Banned").length;
+  }
+
+  /* 🧩 7. البحث المباشر + تهيئة الصفحة */
   document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.querySelector(".search-box input");
     if (searchInput) {
@@ -828,62 +763,10 @@ const usersBtn = document.querySelector('.sidebar .nav-button[href="users-manage
     }
     renderUsers();
   });
-
-  // ✅ تفعيل زر Ban / Unban مع تنبيه
-  function attachBanButtons() {
-    document.querySelectorAll(".toggle-status").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const userId = parseInt(btn.dataset.id);
-        const users = getUsers();
-        const user = users.find(u => u.id === userId);
-
-        if (user) {
-          const oldStatus = user.status;
-          user.status = user.status === "Active" ? "Banned" : "Active";
-          saveUsers(users);
-          renderUsers();
-
-          // تنبيه جميل عند التغيير
-          const alertBox = document.createElement("div");
-          alertBox.className = `alert ${user.status === "Active" ? "alert-success" : "alert-warning"} position-fixed top-0 end-0 m-3 shadow`;
-          alertBox.style.zIndex = "9999";
-          alertBox.innerHTML = `
-            <strong>${user.name}</strong> has been ${user.status === "Active" ? "Unbanned ✅" : "Banned 🚫"}.
-          `;
-          document.body.appendChild(alertBox);
-          setTimeout(() => alertBox.remove(), 3000);
-        }
-      });
-    });
-  }
-
-  // ✅ تحديث تلقائي لو اتغير localStorage
-  window.addEventListener("storage", e => {
-    if (e.key === "users") renderUsers();
-  });
-   document.addEventListener("DOMContentLoaded", () => {
-    const currentPage = window.location.pathname.split("/").pop();
-
-    // ✅ تفعيل الـ active تلقائي في الـ Navbar
-    document.querySelectorAll(".navbar .nav-link.main-nav-link").forEach(link => {
-      const href = link.getAttribute("href");
-
-      // لو المستخدم داخل أي صفحة Dashboard
-      if (window.location.pathname.includes("admin") || window.location.pathname.includes("dashboard")) {
-        if (href.includes("dashboard.html")) {
-          link.classList.add("active");
-        } else {
-          link.classList.remove("active");
-        }
-      } 
-      // لو مش في الداشبورد → فعّل الرابط العادي حسب الصفحة
-      else if (href && href.includes(currentPage)) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
-    });
-  });
 </script>
+
+<!-- navbar -->
+<script src="../../component/nav.js"></script>
+
   </body>
 </html>
