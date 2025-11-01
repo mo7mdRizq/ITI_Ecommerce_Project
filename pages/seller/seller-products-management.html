@@ -896,47 +896,156 @@ label[for="filter"] {
   }
 
   // ---------- Render Table ----------
-  function renderTable(filteredProducts = null) {
-    const list = filteredProducts || products;
-    tableBody.innerHTML = "";
+  // function renderTable(filteredProducts = null) {
+  //   const list = filteredProducts || products;
+  //   tableBody.innerHTML = "";
 
-    list.forEach((p, i) => {
-      const status = p.stock > 0
-        ? `<span class="badge bg-success bg-opacity-25 text-success fw-semibold">Available</span>`
-        : `<span class="badge bg-danger bg-opacity-25 text-danger fw-semibold">Out of stock</span>`;
+  //   list.forEach((p, i) => {
+  //     const status = p.stock > 0
+  //       ? `<span class="badge bg-success bg-opacity-25 text-success fw-semibold">Available</span>`
+  //       : `<span class="badge bg-danger bg-opacity-25 text-danger fw-semibold">Out of stock</span>`;
 
-      const row = `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${p.name}</td>
-          <td>${p.category}</td>
-          <td>$${p.price}</td>
-          <td>${p.stock}</td>
-          <td>${status}</td>
-          <td>
-            <button class="btn btn-link text-success action-btn edit-btn" data-index="${i}">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-link text-danger action-btn delete-btn" data-index="${i}">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-      `;
-      tableBody.insertAdjacentHTML("beforeend", row);
-    });
+  //     const row = `
+  //       <tr>
+  //         <td>${i + 1}</td>
+  //         <td>${p.name}</td>
+  //         <td>${p.category}</td>
+  //         <td>$${p.price}</td>
+  //         <td>${p.stock}</td>
+  //         <td>${status}</td>
+  //         <td>
+  //           <button class="btn btn-link text-success action-btn edit-btn" data-index="${i}">
+  //             <i class="bi bi-pencil-square"></i>
+  //           </button>
+  //           <button class="btn btn-link text-danger action-btn delete-btn" data-index="${i}">
+  //             <i class="bi bi-trash"></i>
+  //           </button>
+  //         </td>
+  //       </tr>
+  //     `;
+  //     tableBody.insertAdjacentHTML("beforeend", row);
+  //   });
 
-    updateDashboardCards();
+  //   updateDashboardCards();
 
-    document.querySelectorAll(".delete-btn").forEach(btn =>
-      btn.addEventListener("click", deleteProduct)
-    );
-    document.querySelectorAll(".edit-btn").forEach(btn =>
-      btn.addEventListener("click", editProduct)
-    );
-  }
+  //   document.querySelectorAll(".delete-btn").forEach(btn =>
+  //     btn.addEventListener("click", deleteProduct)
+  //   );
+  //   document.querySelectorAll(".edit-btn").forEach(btn =>
+  //     btn.addEventListener("click", editProduct)
+  //   );
+  // }
 
   // ---------- Search Filter ----------
+  
+  
+
+// ---------- Pagination Settings ----------
+let currentPage = 1;
+let rowsPerPage = 5;
+
+// ---------- Render Table with Pagination ----------
+function renderTable(filteredProducts = null) {
+  const list = filteredProducts || products;
+  const totalPages = Math.ceil(list.length / rowsPerPage);
+
+  // لو الصفحة الحالية أكبر من عدد الصفحات نرجع لآخر صفحة موجودة
+  if (currentPage > totalPages) currentPage = totalPages || 1;
+
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageItems = list.slice(start, end);
+
+  tableBody.innerHTML = "";
+
+  pageItems.forEach((p, i) => {
+    const status = p.stock > 0
+      ? `<span class="badge bg-success bg-opacity-25 text-success fw-semibold">Available</span>`
+      : `<span class="badge bg-danger bg-opacity-25 text-danger fw-semibold">Out of stock</span>`;
+
+    const row = `
+      <tr>
+        <td>${start + i + 1}</td>
+        <td>${p.name}</td>
+        <td>${p.category}</td>
+        <td>$${p.price}</td>
+        <td>${p.stock}</td>
+        <td>${status}</td>
+        <td>
+          <button class="btn btn-link text-success action-btn edit-btn" data-index="${start + i}">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button class="btn btn-link text-danger action-btn delete-btn" data-index="${start + i}">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+    tableBody.insertAdjacentHTML("beforeend", row);
+  });
+
+  updateDashboardCards();
+  renderPagination(list, totalPages);
+
+  document.querySelectorAll(".delete-btn").forEach(btn =>
+    btn.addEventListener("click", deleteProduct)
+  );
+  document.querySelectorAll(".edit-btn").forEach(btn =>
+    btn.addEventListener("click", editProduct)
+  );
+}
+
+// ---------- Render Pagination Buttons ----------
+function renderPagination(list, totalPages) {
+  let paginationHTML = `<ul class="custom-pagination">`;
+
+  if (currentPage > 1) {
+    paginationHTML += `<li><a href="#" data-page="${currentPage - 1}">&laquo;</a></li>`;
+  }
+
+  for (let i = 1; i <= totalPages; i++) {
+    paginationHTML += `
+      <li class="${i === currentPage ? "active" : ""}">
+        <a href="#" data-page="${i}">${i}</a>
+      </li>
+    `;
+  }
+
+  if (currentPage < totalPages) {
+    paginationHTML += `<li><a href="#" data-page="${currentPage + 1}">&raquo;</a></li>`;
+  }
+
+  paginationHTML += `</ul>`;
+
+  let paginationContainer = document.querySelector(".pagination-container");
+  if (!paginationContainer) {
+    paginationContainer = document.createElement("div");
+    paginationContainer.classList.add("pagination-container");
+    paginationContainer.classList.add("mt-3", "text-center");
+    document.querySelector(".product-card").appendChild(paginationContainer);
+  }
+  paginationContainer.innerHTML = paginationHTML;
+
+  // ✅ عند الضغط على زر صفحة
+  document.querySelectorAll(".custom-pagination a").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      currentPage = Number(e.target.dataset.page);
+      renderTable();
+    });
+  });
+}
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
   searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
     const filteredProducts = products.filter(p => p.name.toLowerCase().includes(query));

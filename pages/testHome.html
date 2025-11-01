@@ -113,6 +113,85 @@ border: 2px solid #3f756c
 }
 
 
+
+
+
+.product-card {
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .card-img-container {
+  height: 250px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+.product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.4s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.08);
+}
+
+.product-card .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .overlay {
+  opacity: 1;
+}
+
+.product-card .overlay button {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .overlay button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card .card-body {
+  padding: 15px;
+}
+
+.product-card .card-title {
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-card .card-text {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.product-card .text-primary {
+  color: #007bff !important;
+}
+
+
+
+
     </style>
 
 <body>
@@ -210,7 +289,7 @@ border: 2px solid #3f756c
       <div class="col-12 col-md-6 order-2 order-md-1 text-center text-md-start text-white text-shadow">
         <h5 class="fw-bold display-5 mb-md-3">Fresh Styles for a <br> New Season</h5>
         <h1 class="lead mb-md-4">Discover our newest collection crafted to inspire confidence <br>and redefine your everyday look with modern elegance and effortless charm.</h1>
-        <a href="product-catalog.html" class="primaryButton btn  mt-3 px-4 py-2">Shop Now</a>
+        <a href="product-catalog.html" class="btn btn-success btn  mt-3 px-4 py-2">Shop Now</a>
       </div>
 
 
@@ -221,26 +300,6 @@ border: 2px solid #3f756c
   </div>
 </section>
 
-                <!-- Hero Section -->
-    <!-- <section class="py-5 mt-5" style="background-color: #eaf2ef;">
-        <div class="container">
-            <div class="row  align-items-center">
-                
-                <div class="col-12 col-md-6 order-2 order-md-1 text-center text-md-start">
-                    <h5 class="fw-bold display-5">Fresh Styles for a <br> New Season</h5>
-                    <h1 class="lead">Discover our newest collection crafted to inspire confidence and redefine your everyday look with modern elegance and effortless charm.</h1>
-                    <a href="#" class="btn btn-dark mt-3 px-4 py-2 ">Shop Now</a>
-                </div>
-                
-                <div class="col-12 col-md-6 text-center order-1 order-md-2 text-md-end ">
-                    <img src="Images/2.jpg" alt="Fashion Model" class="w-50 rounded shadow" style="width: 50%;">
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-
-    
 
         <!-- Collections Section -->
     <section class="py-5">
@@ -313,7 +372,7 @@ border: 2px solid #3f756c
             <h2 class="fw-bold mb-5">Our Featured Products</h2>
             <div class="row g-4">
                 
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card border-0 shadow-sm h-100">
                         <img src="../assets/images/112.jpg" class="card-img-top" alt="Product 1">
                         <div class="card-body">
@@ -413,7 +472,17 @@ border: 2px solid #3f756c
                             <button class="cardBtn-outline btn btn-sm">Add to wishlist</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
+
+                <section class="container my-5">
+                  <!-- <h2 class="text-center mb-4">Our Featured Products</h2> -->
+                  <div class="row" id="featured-products">
+                    <!-- المنتجات العشوائية هتظهر هنا -->
+                  </div>
+                </section>
+
+
             </div>
         </div>
 
@@ -484,7 +553,7 @@ border: 2px solid #3f756c
 
 
         <!-- Overlay Message -->
-<div id="introOverlay">
+<!-- <div id="introOverlay">
   <div class="overlay-content text-center px-4">
     <h2 class="mb-3"> دا شكل الهووم بيدج</h2>
     <p class="lead">
@@ -495,7 +564,7 @@ border: 2px solid #3f756c
     </p>
     <p class="text-secondary mt-3">جاري التحميل يدولي<br><span id="countdown">7</span> ثواني...</p>
   </div>
-</div>
+</div> -->
 
 
 <script>
@@ -634,7 +703,102 @@ searchInput.addEventListener("keydown", (e) => {
   });
 </script>
 
+
+
+
+<script>
+// ✅ دالة تجيب كل المنتجات من localStorage
+function getProducts() {
+  return JSON.parse(localStorage.getItem("products")) || [];
+}
+
+// ✅ دالة تجيب منتجات عشوائية
+function getRandomProducts(count = 8) {
+  const all = getProducts();
+  const shuffled = all.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+// ✅ دالة توليد HTML للمنتجات بنفس شكل الكروت القديمة
+function renderFeaturedProducts() {
+  const container = document.getElementById("featured-products");
+  if (!container) return;
+
+  const products = getRandomProducts(8);
+  container.innerHTML = "";
+
+  products.forEach(p => {
+    const card = `
+<div class="col-md-3 col-sm-6 mb-4">
+  <div class="product-card card border-0 shadow-sm h-100">
+    <div class="card-img-container position-relative overflow-hidden">
+      <img src="${p.image}" class="card-img-top" alt="${p.name}">
+      <div class="overlay d-flex flex-column align-items-center justify-content-center gap-2">
+        <button class="btn btn-primary rounded-pill px-3" onclick="addToCartById('${p.id}')">
+          <i class="bi bi-cart-plus me-1"></i> Add to Cart
+        </button>
+        <button class="btn btn-light btn-sm rounded-circle shadow-sm" onclick="addToWishlistById('${p.id}')">
+          <i class="bi bi-heart"></i>
+        </button>
+
+
+
+
+      </div>
+    </div>
+    <div class="card-body text-center">
+      <h5 class="card-title fw-semibold mb-2 text-dark">${p.name}</h5>
+      <p class="card-text text-muted small mb-3">${p.description.slice(0, 60)}...</p>
+      <p class="fw-bold fs-5 text-primary mb-0">$${p.price}</p>
+    </div>
+  </div>
+</div>
+
+
+    `;
+    container.insertAdjacentHTML("beforeend", card);
+  });
+}
+
+// ✅ دالة لإضافة منتج للسلة عن طريق ID
+function addToCartById(id) {
+  const products = getProducts();
+  const p = products.find(prod => prod.id === id);
+  if (!p) return alert("Product not found");
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const exist = cart.find(item => item.id === id);
+
+  if (exist) exist.qty = (exist.qty || 1) + 1;
+  else cart.push({ ...p, qty: 1 });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert(`${p.name} added to cart ✅`);
+
+  if (typeof updateCartCount === "function") updateCartCount();
+}
+
+// ✅ لما الصفحة تفتح نعرض المنتجات
+document.addEventListener("DOMContentLoaded", renderFeaturedProducts);
+</script>
+
+<script>
+function getWishlist() {
+  return JSON.parse(localStorage.getItem("wishlist")) || [];
+}
+
+function saveWishlist(wishlist) {
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+}
+
+
+
+</script>
+
+
 <script src="../component/nav.js"></script>
+
+<script src="../component/wishlist.js"></script>
 
 
 
