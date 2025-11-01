@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Orders</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    :root {
+      --main-green: #4caf50;
+      --dark-green: #388e3c;
+      --light-green: #e8f5e9;
+      --text-color: #2e2e2e;
+      --gray: #777;
+    }
+
+    body {
+      background: linear-gradient(135deg, #eaf2ed, #f7faf8);
+      font-family: "Poppins", sans-serif;
+      min-height: 100vh;
+      padding: 60px 0;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--text-color);
+      font-weight: 700;
+      font-size: 2rem;
+      position: relative;
+    }
+
+    .page-title::after {
+      content: "";
+      width: 70px;
+      height: 4px;
+      background: var(--main-green);
+      display: block;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .order-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .order-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .order-id {
+      font-weight: 600;
+      color: var(--main-green);
+    }
+
+    .order-status {
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 10px;
+      color: white;
+    }
+
+    .status-Delivered { background-color: var(--main-green); }
+    .status-Processing { background-color: #ffc107; }
+    .status-Cancelled { background-color: #dc3545; }
+
+    .order-info {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .btn-view {
+      background: var(--main-green);
+      color: #fff;
+      border-radius: 10px;
+      padding: 8px 18px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .btn-view:hover {
+      background: var(--dark-green);
+    }
+
+    /* Empty state */
+    .empty-orders {
+      text-align: center;
+      margin-top: 100px;
+      color: var(--gray);
+    }
+
+    .empty-orders i {
+      font-size: 5rem;
+      color: var(--main-green);
+      opacity: 0.3;
+      margin-bottom: 20px;
+    }
+
+    /* Modal styling */
+    .modal-header {
+      background: var(--main-green);
+      color: white;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .product-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+  </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+    
+            <!-- Brand -->
+            <a class="navbar-brand" href="../pages/testHome.html" id="brand">
+                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+            </a>
+        
+            <!-- Center Links - Collapse -->
+            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link active" href="../pages/testHome.html">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="../pages/product-catalog.html">Shop</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="../pages/about.html">About</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="../pages/contact.html">Contact</a>
+                </li>
+                <li class="nav-item me-5" id="dashboard">
+                    <a class="nav-link main-nav-link" href="">dashboard</a>
+                </li>
+
+                
+                </ul>
+
+                <form class="d-flex align-items-center" role="search" style="width: 300px;">
+                    <input
+                    id="navbarSearchInput"
+                    class="form-control form-control-sm rounded-4 ps-3"
+                    type="search"
+                    placeholder="Search products..."
+                    aria-label="Search"
+                    />
+                </form>
+
+            </div>
+        
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+
+        
+                <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
+                    <i>
+                        <img src="../../assets/icons/shopping-cart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
+                    <i>
+                        <img src="../../assets/icons/heart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
+                    <i>
+                        <img src="../../assets/icons/profileIcon.svg" alt="">
+                    </i>
+                </a>
+        
+                <!-- Navar Toggler -->
+                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+                     <img src="../../assets/icons/menu.svg">
+                </button>
+            </div>
+    
+        </div>
+    </nav>
+
+
+
+  <div class="container mt-5">
+    <h1 class="page-title">My Orders</h1>
+    <div id="ordersContainer" class="row g-4"></div>
+
+    <div class="empty-orders d-none" id="emptyOrders">
+      <i class="bi bi-box-seam"></i>
+      <h4>No orders found</h4>
+      <p>Looks like you haven’t made any purchases yet.</p>
+      <a href="product-catalog.html" class="btn btn-success px-4 py-2 mt-3">Start Shopping</a>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="orderDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title">Order Details</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="orderDetailsContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // 🧩 Load Orders
+    const ordersContainer = document.getElementById("ordersContainer");
+    const emptyOrders = document.getElementById("emptyOrders");
+
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    if (orders.length === 0) {
+      emptyOrders.classList.remove("d-none");
+    } else {
+      orders.forEach(order => {
+        const col = document.createElement("div");
+        col.className = "col-md-6 col-lg-4";
+        col.innerHTML = `
+          <div class="order-card">
+            <div class="order-header">
+              <span class="order-id">#${order.id}</span>
+              <span class="order-status status-${order.status}">${order.status}</span>
+            </div>
+            <div class="order-info"><i class="bi bi-calendar"></i> ${order.date}</div>
+            <div class="order-info"><i class="bi bi-cash"></i> Total: $${order.total}</div>
+            <button class="btn-view mt-2" onclick="viewOrderDetails('${order.id}')">
+              <i class="bi bi-eye"></i> View Details
+            </button>
+          </div>
+        `;
+        ordersContainer.appendChild(col);
+      });
+    }
+
+    // 🔍 View details in modal
+    function viewOrderDetails(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const content = document.getElementById("orderDetailsContent");
+      content.innerHTML = `
+        ${order.items.map(item => `
+          <div class="product-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div>
+              <h6 class="mb-1">${item.name}</h6>
+              <p class="mb-0 text-muted">$${item.price} × ${item.qty}</p>
+            </div>
+          </div>
+        `).join('')}
+        <hr>
+        <p class="fw-bold text-end mb-0">Total: $${order.total}</p>
+      `;
+
+      new bootstrap.Modal(document.getElementById('orderDetailsModal')).show();
+    }
+  </script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const searchInputTop = document.getElementById("navbarSearchInput");
+  if (!searchInputTop) return;
+
+  // إنشاء dropdown container
+  const dropdown = document.createElement("div");
+  dropdown.id = "navbarSearchDropdown";
+  Object.assign(dropdown.style, {
+    position: "absolute",
+    top: "100%",
+    left: "0",
+    right: "0",
+    background: "#fff",
+    border: "1px solid #ddd",
+    borderTop: "none",
+    zIndex: "1000",
+    maxHeight: "250px",
+    overflowY: "auto",
+    display: "none",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+    borderRadius: "0 0 10px 10px"
+  });
+  searchInputTop.parentElement.style.position = "relative";
+  searchInputTop.parentElement.appendChild(dropdown);
+
+  searchInputTop.addEventListener("input", () => {
+    const term = searchInputTop.value.trim().toLowerCase();
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    dropdown.innerHTML = "";
+
+    if (!term) {
+      dropdown.style.display = "none";
+      return;
+    }
+
+    const results = products.filter(p => p.name?.toLowerCase().includes(term));
+
+    if (results.length === 0) {
+      dropdown.innerHTML = `<div class="p-2 text-muted small">No results found</div>`;
+    } else {
+      results.forEach(p => {
+        const item = document.createElement("div");
+        item.classList.add("dropdown-item");
+        item.style.padding = "10px 15px";
+        item.style.cursor = "pointer";
+        item.style.borderBottom = "1px solid #f0f0f0";
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.innerHTML = `
+          <img src="${p.image || 'https://via.placeholder.com/40'}"
+               style="width:40px;height:40px;object-fit:cover;border-radius:6px;margin-right:10px;">
+          <div>
+            <div class="fw-semibold">${p.name}</div>
+            <div class="text-muted small">${p.category || ''}</div>
+          </div>
+        `;
+        item.addEventListener("click", () => {
+          localStorage.setItem("selectedProduct", JSON.stringify(p));
+          window.location.href = "product-details.html";
+        });
+        dropdown.appendChild(item);
+      });
+    }
+
+    dropdown.style.display = "block";
+  });
+
+  // إخفاء القائمة لما تضغط براها
+  document.addEventListener("click", (e) => {
+    if (!searchInputTop.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  // Enter يفتح أول نتيجة
+  searchInputTop.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const first = dropdown.querySelector(".dropdown-item");
+      if (first) first.click();
+    }
+  });
+});
+
+</script>
+</body>
+</html>

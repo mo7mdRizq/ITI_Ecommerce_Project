@@ -194,5 +194,33 @@
       <a href="testHome.html" class="btn-home"><i class="bi bi-house-door me-2"></i>Back to Home</a>
     </div>
   </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ✅ Get the latest order
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    const lastOrder = orders[orders.length - 1];
+
+    if (!lastOrder) return;
+
+    // ✅ Generate random order ID
+    const orderId = "MO" + Math.floor(10000 + Math.random() * 90000);
+
+    // ✅ Replace the info dynamically
+    const orderInfo = document.querySelector(".order-info");
+    const orderTotal = lastOrder.cart.reduce((sum, item) => sum + item.price * (item.qty || 1), 0);
+    const shipping = 10;
+    const discount = orderTotal > 100 ? 10 : 0;
+    const total = (orderTotal + shipping - discount).toFixed(2);
+
+    orderInfo.innerHTML = `
+      Order <strong>#${orderId}</strong> | Paid via <strong>${lastOrder.paymentMethod}</strong><br>
+      Total: <strong>$${total}</strong> | Customer: <strong>${lastOrder.firstName} ${lastOrder.lastName}</strong>
+    `;
+  });
+</script>
+
+
+
 </body>
 </html>
