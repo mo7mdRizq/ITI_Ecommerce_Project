@@ -63,44 +63,41 @@
         <div class="container-fluid d-flex align-items-center justify-content-between">
     
             <!-- Brand -->
-            <a class="navbar-brand" href="testHome.html" id="brand">
-                <img src="../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+            <a class="navbar-brand" href="../pages/testHome.html" id="brand">
+                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
             </a>
         
             <!-- Center Links - Collapse -->
             <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
                 <ul class="navbar-nav">
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link " href="testHome.html">Home</a>
+                    <a class="nav-link main-nav-link active" href="../pages/testHome.html">Home</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="product-catalog.html">Shop</a>
+                    <a class="nav-link main-nav-link" href="../pages/product-catalog.html">Shop</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="about.html">About</a>
+                    <a class="nav-link main-nav-link" href="../pages/about.html">About</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link main-nav-link" href="../pages/contact.html">Contact</a>
                 </li>
                 <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="seller/seller-dashboard.html">dashboard</a>
+                    <a class="nav-link main-nav-link" href="">dashboard</a>
                 </li>
 
                 
                 </ul>
-          <!-- 🔍 Search Box -->
-        <div class="autocomplete-container ms-3">
-          <input
-            id="searchInput"
-            class="form-control form-control-sm rounded-5 ps-3"
-            type="search"
-            placeholder="Search..."
-            aria-label="Search"
-          />
-          <div id="autocompleteList" class="autocomplete-list"></div>
-          <div id="errorMsg" class="error-msg"></div>
-        </div>
-      </div>
+
+                <form class="d-flex align-items-center" role="search" style="width: 300px;">
+                    <input
+                    id="navbarSearchInput"
+                    class="form-control form-control-sm rounded-4 ps-3"
+                    type="search"
+                    placeholder="Search products..."
+                    aria-label="Search"
+                    />
+                </form>
 
             </div>
         
@@ -110,300 +107,523 @@
         
                 <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
                     <i>
-                        <img src="../assets/icons/shopping-cart.svg" alt="">
-                    </i>
-                </a>
-
-                <a class="nav-link cart-icon-container position-relative" href="auth/profile.html">
-                    <i>
-                        <img src="../assets/icons/heart.svg" alt="">
+                        <img src="../../assets/icons/shopping-cart.svg" alt="">
                     </i>
                 </a>
 
                 <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
                     <i>
-                        <img src="../assets/icons/profileIcon.svg" alt="">
+                        <img src="../../assets/icons/heart.svg" alt="">
+                    </i>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
+                    <i>
+                        <img src="../../assets/icons/profileIcon.svg" alt="">
                     </i>
                 </a>
         
                 <!-- Navar Toggler -->
                 <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 
-                     <img src="../assets/icons/menu.svg">
+                     <img src="../../assets/icons/menu.svg">
                 </button>
             </div>
     
         </div>
     </nav>
 
+
+    
   <div class="container pt-5 mt-5 mb-4">
     <div class="row g-4">
       <!-- Sidebar Filter -->
+      <div class="col-md-12">
+        <!-- Sidebar Filter -->
       <div class="col-md-3">
-        <div class="filter-box">
-          <h5>Filter by Category</h5>
-          <div class="form-check">
-            <input class="form-check-input category-filter" type="radio" name="category" id="filterAll" value="all" checked>
-            <label class="form-check-label" for="filterAll">All</label>
+          <div class="filter-box">
+            <h5>Filter by Category</h5>
+            <div class="form-check">
+              <input class="form-check-input category-filter" type="checkbox" value="all" id="filterAll" checked>
+              <label class="form-check-label" for="filterAll">All</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input category-filter" type="checkbox" value="men" id="filterMen">
+              <label class="form-check-label" for="filterMen">Men</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input category-filter" type="checkbox" value="women" id="filterWomen">
+              <label class="form-check-label" for="filterWomen">Women</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input category-filter" type="checkbox" value="kids" id="filterKids">
+              <label class="form-check-label" for="filterKids">Kids</label>
+            </div>
+
+            <hr>
+            <h5>Filter by Price</h5>
+            <div class="d-flex gap-2 align-items-center">
+              <input type="number" id="minPrice" class="form-control form-control-sm" placeholder="Min">
+              <span>-</span>
+              <input type="number" id="maxPrice" class="form-control form-control-sm" placeholder="Max">
+            </div>
+
+            <hr>
+            <button class="btn btn-outline-secondary w-100 mt-3" id="resetFilters">
+              Reset Filters
+            </button>
+
           </div>
-          <div class="form-check">
-            <input class="form-check-input category-filter" type="radio" name="category" id="filterMen" value="men">
-            <label class="form-check-label" for="filterMen">Men</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input category-filter" type="radio" name="category" id="filterWomen" value="women">
-            <label class="form-check-label" for="filterWomen">Women</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input category-filter" type="radio" name="category" id="filterKids" value="kids">
-            <label class="form-check-label" for="filterKids">Kids</label>
-          </div>
+
         </div>
+
       </div>
+      <hr>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- 🧭 Search -->
+        <input
+          type="text"
+          id="catalogSearchInput"
+          class="form-control w-50"
+          placeholder="Search by name..."
+        />
+
+
+        <!-- 🧮 Sort -->
+        <select id="sortSelect" class="form-select w-auto">
+          <option value="default">Sort by</option>
+          <option value="priceLow">Price: Low → High</option>
+          <option value="priceHigh">Price: High → Low</option>
+          <option value="nameAZ">Name: A → Z</option>
+          <option value="nameZA">Name: Z → A</option>
+        </select>
+      </div>
+
+      <hr>
+
+
 
       <!-- Products Grid -->
       <div class="col-md-9">
+        <div class="mb-4"><h2>All Products</h2></div>
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3" id="productsRow"></div>
       </div>
     </div>
   </div>
 
-  <script>
-    function getProducts() {
-      try { return JSON.parse(localStorage.getItem('products')) || []; }
-      catch { return []; }
-    }
 
-    function getCart() {
-      try { return JSON.parse(localStorage.getItem('cart')) || []; }
-      catch { return []; }
-    }
+          <!-- Footer -->
+<footer class="py-5" style="background-color: #222; color: #fff;">
+            <div class="container">
+                <div class="row text-md-start">
+                    <!-- Logo -->
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <img src="../assets/images/logo_footer.png" alt="" style="width: 150px;">
+                        <p class="text-white-50 small my-2">Your favorite destination for modern fashion and trends.</p>
+                    </div>
 
-    function saveCart(cart) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
+                    <!-- Links -->
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <h6 class="fw-bold mb-3">Quick Links</h6>
+                        <ul class="list-unstyled">
+                        <li><a href="testHome.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li><a href="product-catalog.html" class="text-white-50 text-decoration-none">Shop</a></li>
+                        <li><a href="about.html" class="text-white-50 text-decoration-none">About</a></li>
+                        <li><a href="contact.html" class="text-white-50 text-decoration-none">Contact</a></li>
+                        </ul>
+                    </div>
 
-    function escapeHtml(str) {
-      return String(str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-    }
+                    <!-- Categories -->
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <h6 class="fw-bold mb-3">Categories</h6>
+                        <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Men's Collection</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Women's Collection</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Kids Collection</a></li>
+                        </ul>
+                    </div>
 
-    function createCardHTML(p, idx) {
-      const placeholder = 'https://via.placeholder.com/400x300?text=No+Image';
-      const imgSrc = p.image && (p.image.startsWith('data:') || p.image.startsWith('http')) ? p.image : placeholder;
-      const priceText = p.price ? `$${p.price}` : '$0';
-      return `
-        <div class="col">
-          <div class="card h-100 shadow-sm">
-            <img src="${imgSrc}" onerror="this.src='${placeholder}'" class="card-img-top" alt="${escapeHtml(p.name)}">
-            <div class="card-body d-flex flex-column">
-              <div class="mb-2 d-flex justify-content-between align-items-center">
-                <span class="badge bg-success">${p.category || 'General'}</span>
-              </div>
-              <h5 class="card-title mb-1">${escapeHtml(p.name || 'No name')}</h5>
-              <p class="card-text small text-muted mb-2">${escapeHtml(p.description || '')}</p>
-              <div class="mt-auto d-flex justify-content-between align-items-center">
-                <div class="fw-bold fs-5">${priceText}</div>
-                <div>
-                  <button class="btn btn-sm btn-outline-primary me-2 view-btn" data-index="${idx}">View</button>
-                  <button class="btn btn-sm btn-success addcart-btn" data-index="${idx}">Add</button>
+                    <!-- Social -->
+                    <div class="col-md-4">
+                        <h6 class="fw-bold mb-3">Follow Us</h6>
+                        <div class="d-flex justify-content-center justify-content-md-start gap-3">
+                        <a href="#" class="text-white-50 fs-4"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white-50 fs-4"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white-50 fs-4"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white-50 fs-4"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+
+
+                    
+
                 </div>
+
+                <hr class="border-secondary my-4">
+
+                <!-- End-->
+                <div class="text-center">
+                <p class="text-white-50 mb-0">&copy; 2025 MODEVIA. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+
+<script>
+  // --------------------------
+  // 🧩 Data Handling
+  // --------------------------
+  function getProducts() {
+    try { return JSON.parse(localStorage.getItem('products')) || []; }
+    catch { return []; }
+  }
+
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem('cart')) || []; }
+    catch { return []; }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  // --------------------------
+  // 🧩 Utils
+  // --------------------------
+  function escapeHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function createCardHTML(p, idx) {
+    const placeholder = 'https://via.placeholder.com/400x300?text=No+Image';
+    const imgSrc = p.image && (p.image.startsWith('data:') || p.image.startsWith('http')) ? p.image : placeholder;
+    const priceText = p.price ? `$${p.price}` : '$0';
+    return `
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <img src="${imgSrc}" onerror="this.src='${placeholder}'" class="card-img-top" alt="${escapeHtml(p.name)}">
+          <div class="card-body d-flex flex-column">
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              <span class="badge bg-success">${p.category || 'General'}</span>
+            </div>
+            <h5 class="card-title mb-1">${escapeHtml(p.name || 'No name')}</h5>
+            <p class="card-text small text-muted mb-2">${escapeHtml(p.description || '')}</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="fw-bold fs-5">${priceText}</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary me-2 view-btn" data-index="${idx}">View</button>
+                <button class="btn btn-sm btn-success addcart-btn" data-index="${idx}">Add</button>
               </div>
             </div>
           </div>
-        </div>`;
+        </div>
+      </div>`;
+  }
+
+  // --------------------------
+  // 🧩 Main Rendering
+  // --------------------------
+  function renderProducts() {
+    const products = getProducts();
+    const container = document.getElementById('productsRow');
+    if (!container) return;
+
+    const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(c => c.value);
+    const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+    const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+    const sortOption = document.getElementById('sortSelect')?.value || 'default';
+    const searchTerm = document.getElementById('catalogSearchInput')?.value.toLowerCase().trim() || '';
+
+    let filtered = products.filter(p => {
+      const categoryMatch =
+        selectedCategories.includes('all') ||
+        selectedCategories.includes((p.category || '').toLowerCase());
+      const priceMatch = p.price >= minPrice && p.price <= maxPrice;
+      const searchMatch = p.name?.toLowerCase().includes(searchTerm);
+      return categoryMatch && priceMatch && searchMatch;
+    });
+
+    // ✅ Sorting logic
+    switch (sortOption) {
+      case 'priceLow': filtered.sort((a, b) => a.price - b.price); break;
+      case 'priceHigh': filtered.sort((a, b) => b.price - a.price); break;
+      case 'nameAZ': filtered.sort((a, b) => a.name.localeCompare(b.name)); break;
+      case 'nameZA': filtered.sort((a, b) => b.name.localeCompare(a.name)); break;
     }
 
-    function renderProducts(filter = 'all') {
-      const products = getProducts();
-      const container = document.getElementById('productsRow');
-      if (!container) return;
+    if (!filtered.length) {
+      container.innerHTML = `<div class="col-12"><div class="alert alert-warning text-center">No products found.</div></div>`;
+      return;
+    }
 
-      let filtered = products;
-      if (filter !== 'all') {
-        filtered = products.filter(p => p.category && p.category.toLowerCase() === filter.toLowerCase());
+    container.innerHTML = filtered.map((p, i) => createCardHTML(p, i)).join('');
+
+    container.querySelectorAll('.addcart-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => addToCart(+e.currentTarget.dataset.index));
+    });
+
+    container.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => viewProduct(+e.currentTarget.dataset.index));
+    });
+  }
+
+  // --------------------------
+  // 🛒 Cart & Product View
+  // --------------------------
+  function addToCart(index) {
+    const products = getProducts();
+    const p = products[index];
+    if (!p) return alert('Product not found');
+
+    const cart = getCart();
+    const exist = cart.find(item => item.name === p.name);
+    if (exist) exist.qty = (exist.qty || 1) + 1;
+    else cart.push({ ...p, qty: 1 });
+
+    saveCart(cart);
+    alert(`${p.name} added to cart ✅`);
+  }
+
+  function viewProduct(index) {
+    const products = getProducts();
+    const p = products[index];
+    if (!p) return;
+    localStorage.setItem('selectedProduct', JSON.stringify(p));
+    window.location.href = 'product-details.html';
+  }
+
+  // --------------------------
+  // 🌐 URL + Events
+  // --------------------------
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+
+    if (category) {
+      const checkbox = document.querySelector(`.category-filter[value="${category}"]`);
+      if (checkbox) {
+        document.querySelectorAll('.category-filter').forEach(c => c.checked = false);
+        checkbox.checked = true;
       }
+    }
 
-      if (!filtered.length) {
-        container.innerHTML = `<div class="col-12"><div class="alert alert-warning text-center">No products found for this category.</div></div>`;
-        return;
-      }
-
-      container.innerHTML = filtered.map((p, i) => createCardHTML(p, i)).join('');
-
-      container.querySelectorAll('.addcart-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => addToCart(+e.currentTarget.dataset.index));
+    document.querySelectorAll('.category-filter').forEach(cb => {
+      cb.addEventListener('change', () => {
+        if (cb.value === 'all' && cb.checked) {
+          document.querySelectorAll('.category-filter').forEach(other => {
+            if (other.value !== 'all') other.checked = false;
+          });
+        } else {
+          document.getElementById('filterAll').checked = false;
+        }
+        renderProducts();
       });
+    });
 
-      container.querySelectorAll('.view-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => viewProduct(+e.currentTarget.dataset.index));
+    document.getElementById('minPrice').addEventListener('input', renderProducts);
+    document.getElementById('maxPrice').addEventListener('input', renderProducts);
+    document.getElementById('sortSelect').addEventListener('change', renderProducts);
+    document.getElementById('catalogSearchInput').addEventListener('input', renderProducts);
+
+    const resetBtn = document.getElementById('resetFilters');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        document.querySelectorAll('.category-filter').forEach(cb => cb.checked = false);
+        document.getElementById('filterAll').checked = true;
+        document.getElementById('minPrice').value = '';
+        document.getElementById('maxPrice').value = '';
+        document.getElementById('sortSelect').value = 'default';
+        document.getElementById('catalogSearchInput').value = '';
+        renderProducts();
       });
     }
 
-    function addToCart(index) {
-      const products = getProducts();
-      const p = products[index];
-      if (!p) return alert('Product not found');
+    renderProducts();
+  });
 
-      const cart = getCart();
-      const exist = cart.find(item => item.name === p.name);
-      if (exist) exist.qty = (exist.qty || 1) + 1;
-      else cart.push({ ...p, qty: 1 });
 
-      saveCart(cart);
-      alert(`${p.name} added to cart ✅`);
+
+
+
+
+
+
+
+
+  // --------------------------
+// 🔍 Navbar Search Dropdown
+// --------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInputTop = document.querySelector('.navbar #searchInput');
+  if (!searchInputTop) return;
+
+  // إنشاء dropdown container لو مش موجود
+  let dropdown = document.createElement('div');
+  dropdown.id = "navbarSearchDropdown";
+  dropdown.style.position = "absolute";
+  dropdown.style.top = "100%";
+  dropdown.style.left = "0";
+  dropdown.style.right = "0";
+  dropdown.style.background = "#fff";
+  dropdown.style.border = "1px solid #ddd";
+  dropdown.style.borderTop = "none";
+  dropdown.style.zIndex = "1000";
+  dropdown.style.maxHeight = "250px";
+  dropdown.style.overflowY = "auto";
+  dropdown.style.display = "none";
+  dropdown.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
+  dropdown.style.borderRadius = "0 0 10px 10px";
+  searchInputTop.parentElement.style.position = "relative";
+  searchInputTop.parentElement.appendChild(dropdown);
+
+  searchInputTop.addEventListener("input", () => {
+    const term = searchInputTop.value.trim().toLowerCase();
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    dropdown.innerHTML = "";
+
+    if (!term) {
+      dropdown.style.display = "none";
+      return;
     }
 
-    function viewProduct(index){
-  const products = getProducts();
-  const p = products[index];
-  if(!p) return;
-
-  localStorage.setItem('selectedProduct', JSON.stringify(p));
-
-  window.location.href = 'product-details.html';
-}
-
-    document.addEventListener('DOMContentLoaded', () => {
-      renderProducts();
-
-      document.querySelectorAll('.category-filter').forEach(radio => {
-        radio.addEventListener('change', (e) => {
-          renderProducts(e.target.value);
+    const results = products.filter(p => p.name.toLowerCase().includes(term));
+    if (results.length === 0) {
+      dropdown.innerHTML = `<div class="p-2 text-muted small">No results found</div>`;
+    } else {
+      results.forEach(p => {
+        const item = document.createElement("div");
+        item.classList.add("dropdown-item");
+        item.style.padding = "10px 15px";
+        item.style.cursor = "pointer";
+        item.style.borderBottom = "1px solid #f0f0f0";
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.innerHTML = `
+          <img src="${p.image || 'https://via.placeholder.com/40'}" alt="" style="width:40px;height:40px;object-fit:cover;border-radius:6px;margin-right:10px;">
+          <div>
+            <div class="fw-semibold">${p.name}</div>
+            <div class="text-muted small">${p.category || ''}</div>
+          </div>
+        `;
+        item.addEventListener("click", () => {
+          localStorage.setItem("selectedProduct", JSON.stringify(p));
+          window.location.href = "product-details.html";
         });
+        dropdown.appendChild(item);
       });
-    });
-
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'products') renderProducts();
-    });
-
-    const products = [
-    "Casual T-Shirt",
-    "Summer Dress",
-    "Denim Jacket",
-    "Stylish Hat",
-    "Men’s Collection",
-    "Women’s Collection",
-    "Kids’ Collection",
-    "Sneakers",
-    "Leather Jacket",
-    "Formal Suit",
-  ];
-
-  const searchInput = document.getElementById("searchInput");
-  const autocompleteList = document.getElementById("autocompleteList");
-  const errorMsg = document.getElementById("errorMsg");
-
-  // Function to navigate based on search
-  function navigateProduct(inputVal) {
-    const exactMatch = products.find(
-      (item) => item.toLowerCase() === inputVal.toLowerCase()
-    );
-
-    if (exactMatch) {
-      // Redirect to product-details.html
-      window.location.href = "product-details.html?product=" + encodeURIComponent(exactMatch);
-    } else {
-      // Redirect to product-catalog.html with query
-      window.location.href = "product-catalog.html?search=" + encodeURIComponent(inputVal);
-    }
-  }
-
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-    autocompleteList.innerHTML = "";
-    errorMsg.textContent = "";
-
-    if (query.length === 0) {
-      autocompleteList.style.display = "none";
-      return;
     }
 
-    const matches = products.filter((item) =>
-      item.toLowerCase().includes(query)
-    );
-
-    if (matches.length === 0) {
-      autocompleteList.style.display = "none";
-      return;
-    }
-
-    matches.forEach((item) => {
-      const div = document.createElement("div");
-      div.classList.add("autocomplete-item", "p-2", "border-bottom", "bg-white", "cursor-pointer");
-      div.textContent = item;
-      div.style.position = "relative";
-      div.addEventListener("click", () => {
-        searchInput.value = item;
-        autocompleteList.style.display = "none";
-        navigateProduct(item);
-      });
-      autocompleteList.appendChild(div);
-    });
-
-    autocompleteList.style.display = "block";
-    autocompleteList.style.position = "absolute";
-    autocompleteList.style.backgroundColor = "#fff";
-    autocompleteList.style.border = "1px solid #ccc";
-    autocompleteList.style.borderRadius = "8px";
-    autocompleteList.style.top = searchInput.offsetTop + searchInput.offsetHeight + "px";
-    autocompleteList.style.left = searchInput.offsetLeft + "px";
-    autocompleteList.style.width = searchInput.offsetWidth + "px";
-    autocompleteList.style.zIndex = 10000;
+    dropdown.style.display = "block";
   });
 
-  // Enter key
-  searchInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      const inputVal = searchInput.value.trim();
-      if (!inputVal) return;
-      navigateProduct(inputVal);
-    }
-  });
-
-  // Hide list when clicking outside
+  // إخفاء الـ dropdown عند الضغط خارج السيرش
   document.addEventListener("click", (e) => {
-    if (!e.target.closest(".autocomplete-container")) {
-      autocompleteList.style.display = "none";
+    if (!searchInputTop.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = "none";
     }
   });
-  // Enter key
-searchInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    const inputVal = searchInput.value.trim();
-    if (!inputVal) return;
-
-    const exactMatch = products.find(
-      (item) => item.toLowerCase() === inputVal.toLowerCase()
-    );
-
-    if (exactMatch) {
-      // Redirect to product-details.html
-      window.location.href = "product-details.html?product=" + encodeURIComponent(exactMatch);
-    } else {
-      // Check for partial matches
-      const partialMatches = products.filter((item) =>
-        item.toLowerCase().includes(inputVal.toLowerCase())
-      );
-
-      if (partialMatches.length > 0) {
-        window.location.href = "product-catalog.html?search=" + encodeURIComponent(inputVal);
-      } else {
-        // Show error message
-        errorMsg.textContent = "❌ No product found with this name.";
-        autocompleteList.style.display = "none";
-      }
-    }
-  }
 });
 
-  </script>
+</script>
+
+
+
+
+
+<!-- navbar search -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const searchInputTop = document.getElementById("navbarSearchInput");
+  if (!searchInputTop) return;
+
+  // إنشاء dropdown container
+  const dropdown = document.createElement("div");
+  dropdown.id = "navbarSearchDropdown";
+  Object.assign(dropdown.style, {
+    position: "absolute",
+    top: "100%",
+    left: "0",
+    right: "0",
+    background: "#fff",
+    border: "1px solid #ddd",
+    borderTop: "none",
+    zIndex: "1000",
+    maxHeight: "250px",
+    overflowY: "auto",
+    display: "none",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+    borderRadius: "0 0 10px 10px"
+  });
+  searchInputTop.parentElement.style.position = "relative";
+  searchInputTop.parentElement.appendChild(dropdown);
+
+  searchInputTop.addEventListener("input", () => {
+    const term = searchInputTop.value.trim().toLowerCase();
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    dropdown.innerHTML = "";
+
+    if (!term) {
+      dropdown.style.display = "none";
+      return;
+    }
+
+    const results = products.filter(p => p.name?.toLowerCase().includes(term));
+
+    if (results.length === 0) {
+      dropdown.innerHTML = `<div class="p-2 text-muted small">No results found</div>`;
+    } else {
+      results.forEach(p => {
+        const item = document.createElement("div");
+        item.classList.add("dropdown-item");
+        item.style.padding = "10px 15px";
+        item.style.cursor = "pointer";
+        item.style.borderBottom = "1px solid #f0f0f0";
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.innerHTML = `
+          <img src="${p.image || 'https://via.placeholder.com/40'}"
+               style="width:40px;height:40px;object-fit:cover;border-radius:6px;margin-right:10px;">
+          <div>
+            <div class="fw-semibold">${p.name}</div>
+            <div class="text-muted small">${p.category || ''}</div>
+          </div>
+        `;
+        item.addEventListener("click", () => {
+          localStorage.setItem("selectedProduct", JSON.stringify(p));
+          window.location.href = "product-details.html";
+        });
+        dropdown.appendChild(item);
+      });
+    }
+
+    dropdown.style.display = "block";
+  });
+
+  // إخفاء القائمة لما تضغط براها
+  document.addEventListener("click", (e) => {
+    if (!searchInputTop.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  // Enter يفتح أول نتيجة
+  searchInputTop.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const first = dropdown.querySelector(".dropdown-item");
+      if (first) first.click();
+    }
+  });
+});
+
+</script>
+
+
+
+
 </body>
 </html>
