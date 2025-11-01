@@ -573,214 +573,416 @@ label[for="filter"] {
 
 
 <script>
-     const sidebar = document.querySelector(".sidebar");
-  const toggleBtn = document.getElementById("toggleSidebar");
+   const sidebar = document.querySelector(".sidebar");
+const toggleBtn = document.getElementById("toggleSidebar");
 
-  function handleSidebar() {
-    if (window.innerWidth <= 767.98) {
-      sidebar?.classList.add("collapsed");
-    } else {
-      sidebar?.classList.remove("collapsed");
-    }
+// ✅ متغيرات الـ Pagination
+let currentPageNum = 1;
+const rowsPerPage = 4;
+let allFilteredOrders = [];
+
+function handleSidebar() {
+  if (window.innerWidth <= 767.98) {
+    sidebar?.classList.add("collapsed");
+  } else {
+    sidebar?.classList.remove("collapsed");
   }
-  // ✅ تحديد الصفحة الحالية
-  const currentPage = window.location.pathname.split("/").pop(); // آخر جزء في الـ URL
+}
 
-  // ✅ كل روابط السايدبار (في الموبايل)
-  const mobileLinks = document.querySelectorAll("#mobileSidebar .list-group-item");
+// ✅ تحديد الصفحة الحالية
+const currentPage = window.location.pathname.split("/").pop();
 
-  mobileLinks.forEach(link => {
-    const linkPage = link.getAttribute("href").split("/").pop(); // اسم الصفحة من الرابط
+// ✅ كل روابط السايدبار (في الموبايل)
+const mobileLinks = document.querySelectorAll("#mobileSidebar .list-group-item");
 
-    // لو الصفحة الحالية هي نفس صفحة الرابط → أضف الكلاس active
-    if (linkPage === currentPage) {
+mobileLinks.forEach(link => {
+  const linkPage = link.getAttribute("href").split("/").pop();
+  if (linkPage === currentPage) {
+    link.classList.add("active");
+  } else {
+    link.classList.remove("active");
+  }
+});
+
+handleSidebar();
+window.addEventListener("resize", handleSidebar);
+
+// ✅ بيانات تجريبية مبدئية (مرة واحدة فقط)
+if (!localStorage.getItem("orders")) {
+  const demoOrders = [
+    { orderId: 1001, customerId: 201, products: ["T-Shirt", "Sneakers"], totalPrice: 75, status: "pending", date: "2025-10-23" },
+    { orderId: 1002, customerId: 202, products: ["Jeans", "Cap"], totalPrice: 90, status: "shipped", date: "2025-10-22" },
+    { orderId: 1003, customerId: 203, products: ["Bag"], totalPrice: 45, status: "delivered", date: "2025-10-21" },
+    { orderId: 1004, customerId: 204, products: ["Shoes"], totalPrice: 120, status: "pending", date: "2025-10-20" },
+    { orderId: 1005, customerId: 205, products: ["Watch"], totalPrice: 200, status: "shipped", date: "2025-10-19" },
+    { orderId: 1006, customerId: 206, products: ["Jacket"], totalPrice: 150, status: "delivered", date: "2025-10-18" },
+    { orderId: 1007, customerId: 207, products: ["Hat"], totalPrice: 25, status: "cancelled", date: "2025-10-17" },
+    { orderId: 1008, customerId: 208, products: ["Scarf"], totalPrice: 30, status: "pending", date: "2025-10-16" },
+    { orderId: 1009, customerId: 209, products: ["Belt"], totalPrice: 40, status: "shipped", date: "2025-10-15" },
+    { orderId: 1010, customerId: 210, products: ["Sunglasses"], totalPrice: 80, status: "delivered", date: "2025-10-14" },
+    { orderId: 1011, customerId: 211, products: ["Backpack"], totalPrice: 95, status: "pending", date: "2025-10-13" },
+    { orderId: 1012, customerId: 212, products: ["Gloves"], totalPrice: 20, status: "shipped", date: "2025-10-12" }
+  ];
+  localStorage.setItem("orders", JSON.stringify(demoOrders));
+} else {
+  // ✅ تحديث البيانات الموجودة في localStorage
+  const existingOrders = JSON.parse(localStorage.getItem("orders"));
+  
+  // التأكد من وجود 12 طلب على الأقل للحصول على 3 صفحات
+  if (existingOrders.length < 12) {
+    const additionalOrders = [
+      { orderId: 1004, customerId: 204, products: ["Shoes"], totalPrice: 120, status: "pending", date: "2025-10-20" },
+      { orderId: 1005, customerId: 205, products: ["Watch"], totalPrice: 200, status: "shipped", date: "2025-10-19" },
+      { orderId: 1006, customerId: 206, products: ["Jacket"], totalPrice: 150, status: "delivered", date: "2025-10-18" },
+      { orderId: 1007, customerId: 207, products: ["Hat"], totalPrice: 25, status: "cancelled", date: "2025-10-17" },
+      { orderId: 1008, customerId: 208, products: ["Scarf"], totalPrice: 30, status: "pending", date: "2025-10-16" },
+      { orderId: 1009, customerId: 209, products: ["Belt"], totalPrice: 40, status: "shipped", date: "2025-10-15" },
+      { orderId: 1010, customerId: 210, products: ["Sunglasses"], totalPrice: 80, status: "delivered", date: "2025-10-14" },
+      { orderId: 1011, customerId: 211, products: ["Backpack"], totalPrice: 95, status: "pending", date: "2025-10-13" },
+      { orderId: 1012, customerId: 212, products: ["Gloves"], totalPrice: 20, status: "shipped", date: "2025-10-12" }
+    ];
+    
+    // إضافة الطلبات الإضافية بدون تكرار
+    additionalOrders.forEach(newOrder => {
+      if (!existingOrders.find(o => o.orderId === newOrder.orderId)) {
+        existingOrders.push(newOrder);
+      }
+    });
+    
+    localStorage.setItem("orders", JSON.stringify(existingOrders));
+  }
+}
+
+// ✅ تحميل وعرض الطلبات من localStorage
+function loadOrders(filter = "All Orders") {
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  // تطبيق الفلتر
+  if (filter !== "All Orders") {
+    allFilteredOrders = orders.filter(order => order.status?.toLowerCase() === filter.toLowerCase());
+  } else {
+    allFilteredOrders = orders;
+  }
+
+  // عدادات
+  const totalOrders = orders.length;
+  const activeOrders = orders.filter(o => o.status === "shipped" || o.status === "delivered").length;
+  const pendingOrders = orders.filter(o => o.status === "pending").length;
+
+  // تحديث العدادات في الكروت
+  document.querySelector(".card-total h2").textContent = totalOrders;
+  document.querySelector(".card-active h2").textContent = activeOrders;
+  document.querySelector(".card-pending h2").textContent = pendingOrders;
+
+  // عرض الصفحة الحالية
+  displayPage(currentPageNum);
+}
+
+// ✅ دالة عرض الصفحة المحددة
+function displayPage(pageNum) {
+  currentPageNum = pageNum;
+  const tableBody = document.querySelector("table tbody");
+  tableBody.innerHTML = "";
+
+  // حساب البداية والنهاية
+  const start = (pageNum - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageOrders = allFilteredOrders.slice(start, end);
+
+  // بناء صفوف الجدول
+  pageOrders.forEach((order, index) => {
+    const productsDisplay = Array.isArray(order.products)
+      ? order.products.join(" - ")
+      : (order.products || "No products");
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${start + index + 1}</td>
+      <td>${order.orderId || "-"}</td>
+      <td>${order.customerId || "-"}</td>
+      <td>${productsDisplay}</td>
+      <td>$${order.totalPrice ?? "-"}</td>
+      <td>
+        <select class="form-select form-select-sm order-status" data-id="${order.orderId}">
+          <option value="pending" ${order.status === "pending" ? "selected" : ""}>Pending</option>
+          <option value="shipped" ${order.status === "shipped" ? "selected" : ""}>Shipped</option>
+          <option value="delivered" ${order.status === "delivered" ? "selected" : ""}>Delivered</option>
+          <option value="cancelled" ${order.status === "cancelled" ? "selected" : ""}>Cancelled</option>
+        </select>
+      </td>
+      <td>${order.date || "-"}</td>
+    `;
+    tableBody.appendChild(tr);
+  });
+
+  // في حالة عدم وجود نتائج
+  if (pageOrders.length === 0) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td colspan="7" class="text-muted py-4">No orders found</td>`;
+    tableBody.appendChild(tr);
+  }
+
+  // تطبيق ألوان الحالات
+  applyStatusColors();
+
+  // حدث عند تغيير الحالة
+  document.querySelectorAll(".order-status").forEach(select => {
+    select.addEventListener("change", e => {
+      const id = e.target.dataset.id;
+      const newStatus = e.target.value;
+      updateOrderStatus(id, newStatus);
+    });
+  });
+
+  // تحديث أزرار الـ Pagination
+  updatePaginationButtons();
+}
+
+// ✅ تحديث أزرار الـ Pagination
+function updatePaginationButtons() {
+  const totalPages = Math.ceil(allFilteredOrders.length / rowsPerPage);
+  const pagination = document.getElementById("pagination");
+  
+  // مسح كل الأزرار الموجودة ما عدا السابق والتالي
+  pagination.innerHTML = '';
+  
+  // إضافة زر السابق
+  const prevLi = document.createElement('li');
+  prevLi.innerHTML = '<a href="#" class="arrow" id="prev">&lsaquo;</a>';
+  pagination.appendChild(prevLi);
+  
+  // حساب الصفحات المراد عرضها (3 أرقام فقط)
+  let startPage = Math.max(1, currentPageNum - 1);
+  let endPage = Math.min(totalPages, startPage + 2);
+  
+  // تعديل في حالة كنا في نهاية الصفحات
+  if (endPage - startPage < 2) {
+    startPage = Math.max(1, endPage - 2);
+  }
+  
+  // إضافة أرقام الصفحات (3 أرقام فقط)
+  for (let i = startPage; i <= endPage; i++) {
+    const li = document.createElement('li');
+    if (i === currentPageNum) {
+      li.classList.add('active');
+    }
+    li.innerHTML = `<a href="#">${i}</a>`;
+    pagination.appendChild(li);
+  }
+  
+  // إضافة زر التالي
+  const nextLi = document.createElement('li');
+  nextLi.innerHTML = '<a href="#" class="arrow" id="next">&rsaquo;</a>';
+  pagination.appendChild(nextLi);
+  
+  // إعادة ربط الأحداث
+  setupPaginationEvents();
+  
+  // تعطيل/تفعيل أزرار السابق والتالي
+  const newPrevBtn = document.getElementById("prev");
+  const newNextBtn = document.getElementById("next");
+  
+  if (currentPageNum === 1) {
+    newPrevBtn.style.opacity = "0.5";
+    newPrevBtn.style.pointerEvents = "none";
+  } else {
+    newPrevBtn.style.opacity = "1";
+    newPrevBtn.style.pointerEvents = "auto";
+  }
+
+  if (currentPageNum === totalPages || totalPages === 0) {
+    newNextBtn.style.opacity = "0.5";
+    newNextBtn.style.pointerEvents = "none";
+  } else {
+    newNextBtn.style.opacity = "1";
+    newNextBtn.style.pointerEvents = "auto";
+  }
+}
+
+// ✅ تحديث حالة الطلب في localStorage
+function updateOrderStatus(orderId, newStatus) {
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  orders = orders.map(order =>
+    order.orderId == orderId ? { ...order, status: newStatus } : order
+  );
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  // إعادة تحميل الجدول والكروت بعد التحديث
+  const currentFilter = document.getElementById("filter").value;
+  loadOrders(currentFilter);
+}
+
+// ✅ تلوين الحالات
+function applyStatusColors() {
+  document.querySelectorAll(".order-status").forEach(select => {
+    const status = select.value.toLowerCase();
+    select.style.color = "#fff";
+    select.style.fontWeight = "600";
+    select.style.border = "none";
+
+    switch (status) {
+      case "pending":
+        select.style.backgroundColor = "#f0ad4e";
+        break;
+      case "shipped":
+        select.style.backgroundColor = "#0275d8";
+        break;
+      case "delivered":
+        select.style.backgroundColor = "#5cb85c";
+        break;
+      case "cancelled":
+        select.style.backgroundColor = "#d9534f";
+        break;
+      default:
+        select.style.backgroundColor = "#adb5bd";
+    }
+  });
+}
+
+// ✅ إعداد أزرار الـ Pagination
+function setupPagination() {
+  setupPaginationEvents();
+}
+
+// ✅ ربط الأحداث بأزرار الـ Pagination
+function setupPaginationEvents() {
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+  const pagination = document.getElementById("pagination");
+
+  // إزالة الأحداث القديمة
+  const newPrevBtn = prevBtn.cloneNode(true);
+  const newNextBtn = nextBtn.cloneNode(true);
+  prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+  nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+
+  // زر السابق
+  document.getElementById("prev").addEventListener("click", e => {
+    e.preventDefault();
+    if (currentPageNum > 1) {
+      currentPageNum--;
+      displayPage(currentPageNum);
+    }
+  });
+
+  // زر التالي
+  document.getElementById("next").addEventListener("click", e => {
+    e.preventDefault();
+    const totalPages = Math.ceil(allFilteredOrders.length / rowsPerPage);
+    if (currentPageNum < totalPages) {
+      currentPageNum++;
+      displayPage(currentPageNum);
+    }
+  });
+
+  // أزرار الأرقام
+  pagination.querySelectorAll("li:not(:first-child):not(:last-child) a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const pageNum = parseInt(e.target.textContent);
+      if (!isNaN(pageNum)) {
+        displayPage(pageNum);
+      }
+    });
+  });
+}
+
+// ✅ عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", () => {
+  const filterSelect = document.getElementById("filter");
+  loadOrders(filterSelect.value);
+
+  filterSelect.addEventListener("change", e => {
+    currentPageNum = 1;
+    loadOrders(e.target.value);
+  });
+
+  // تفعيل السايد بار الحالي
+  const currentPage = window.location.pathname.split("/").pop();
+  document.querySelectorAll(".sidebar .nav-button").forEach(link => {
+    const href = link.getAttribute("href");
+    if (href === currentPage) link.classList.add("active");
+    else link.classList.remove("active");
+  });
+
+  // تفعيل الـ active تلقائي في الـ Navbar
+  document.querySelectorAll(".navbar .nav-link.main-nav-link").forEach(link => {
+    const href = link.getAttribute("href");
+    if (window.location.pathname.includes("admin") || window.location.pathname.includes("dashboard")) {
+      if (href.includes("dashboard.html")) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    } else if (href && href.includes(currentPage)) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
     }
   });
 
-  handleSidebar();
-  window.addEventListener("resize", handleSidebar);
-  // ✅ تحميل وعرض الطلبات من localStorage
-  function loadOrders(filter = "All Orders") {
-    const orders = JSON.parse(localStorage.getItem("orders")) || [];
-    const tableBody = document.querySelector("table tbody");
-    tableBody.innerHTML = "";
+  // ✅ أحداث الـ Pagination
+  setupPagination();
+});
 
-    // تطبيق الفلتر
-    let filteredOrders = orders;
-    if (filter !== "All Orders") {
-      filteredOrders = orders.filter(order => order.status?.toLowerCase() === filter.toLowerCase());
-    }
-
-    // عدادات
-    const totalOrders = orders.length;
-    const activeOrders = orders.filter(o => o.status === "shipped" || o.status === "delivered").length;
-    const pendingOrders = orders.filter(o => o.status === "pending").length;
-
-    // تحديث العدادات في الكروت
-    document.querySelector(".card-total h2").textContent = totalOrders;
-    document.querySelector(".card-active h2").textContent = activeOrders;
-    document.querySelector(".card-pending h2").textContent = pendingOrders;
-
-    // بناء صفوف الجدول
-    filteredOrders.forEach((order, index) => {
-      const productsDisplay = Array.isArray(order.products)
-        ? order.products.join(" - ")
-        : (order.products || "No products");
-
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${order.orderId || "-"}</td>
-        <td>${order.customerId || "-"}</td>
-        <td>${productsDisplay}</td>
-        <td>$${order.totalPrice ?? "-"}</td>
-        <td>
-          <select class="form-select form-select-sm order-status" data-id="${order.orderId}">
-            <option value="pending" ${order.status === "pending" ? "selected" : ""}>Pending</option>
-            <option value="shipped" ${order.status === "shipped" ? "selected" : ""}>Shipped</option>
-            <option value="delivered" ${order.status === "delivered" ? "selected" : ""}>Delivered</option>
-            <option value="cancelled" ${order.status === "cancelled" ? "selected" : ""}>Cancelled</option>
-          </select>
-        </td>
-        <td>${order.date || "-"}</td>
-      `;
-      tableBody.appendChild(tr);
-    });
-
-    // في حالة عدم وجود نتائج
-    if (filteredOrders.length === 0) {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td colspan="7" class="text-muted py-4">No orders found</td>`;
-      tableBody.appendChild(tr);
-    }
-
-    // تطبيق ألوان الحالات
-    applyStatusColors();
-
-    // حدث عند تغيير الحالة
-    document.querySelectorAll(".order-status").forEach(select => {
-      select.addEventListener("change", e => {
-        const id = e.target.dataset.id;
-        const newStatus = e.target.value;
-        updateOrderStatus(id, newStatus);
-      });
-    });
-  }
-
-  // ✅ تحديث حالة الطلب في localStorage
-  function updateOrderStatus(orderId, newStatus) {
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
-    orders = orders.map(order =>
-      order.orderId == orderId ? { ...order, status: newStatus } : order
-    );
-    localStorage.setItem("orders", JSON.stringify(orders));
-
-    // إعادة تحميل الجدول والكروت بعد التحديث
+// ✅ مراقبة التغييرات في localStorage (للتحديث التلقائي)
+window.addEventListener("storage", e => {
+  if (e.key === "orders") {
     const currentFilter = document.getElementById("filter").value;
     loadOrders(currentFilter);
   }
+});
 
-  // ✅ تلوين الحالات
-  function applyStatusColors() {
-    document.querySelectorAll(".order-status").forEach(select => {
-      const status = select.value.toLowerCase();
-      select.style.color = "#fff";
-      select.style.fontWeight = "600";
-      select.style.border = "none";
+// ✅ وظيفة لإضافة طلب جديد (يمكن استخدامها من صفحات أخرى)
+function addNewOrder(orderData) {
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  
+  // توليد ID جديد
+  const maxId = orders.length > 0 ? Math.max(...orders.map(o => o.orderId)) : 1000;
+  
+  const newOrder = {
+    orderId: maxId + 1,
+    customerId: orderData.customerId || Math.floor(Math.random() * 1000) + 100,
+    products: orderData.products || ["Product"],
+    totalPrice: orderData.totalPrice || 0,
+    status: orderData.status || "pending",
+    date: orderData.date || new Date().toISOString().split('T')[0]
+  };
+  
+  orders.push(newOrder);
+  localStorage.setItem("orders", JSON.stringify(orders));
+  
+  // إعادة تحميل الجدول
+  const currentFilter = document.getElementById("filter").value;
+  loadOrders(currentFilter);
+  
+  return newOrder;
+}
 
-      switch (status) {
-        case "pending":
-          select.style.backgroundColor = "#f0ad4e"; // برتقالي
-          break;
-        case "shipped":
-          select.style.backgroundColor = "#0275d8"; // أزرق
-          break;
-        case "delivered":
-          select.style.backgroundColor = "#5cb85c"; // أخضر
-          break;
-        case "cancelled":
-          select.style.backgroundColor = "#d9534f"; // أحمر
-          break;
-        default:
-          select.style.backgroundColor = "#adb5bd"; // رمادي افتراضي
-      }
-    });
+// ✅ وظيفة لحذف طلب
+function deleteOrder(orderId) {
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  orders = orders.filter(order => order.orderId != orderId);
+  localStorage.setItem("orders", JSON.stringify(orders));
+  
+  // إعادة تحميل الجدول
+  const currentFilter = document.getElementById("filter").value;
+  currentPageNum = 1; // العودة للصفحة الأولى
+  loadOrders(currentFilter);
+}
+
+// ✅ وظيفة لمسح كل localStorage (للتجربة)
+function resetOrdersData() {
+  if (confirm("Are you sure you want to reset all orders data?")) {
+    localStorage.removeItem("orders");
+    location.reload();
   }
+}
 
-  // ✅ بيانات تجريبية مبدئية (مرة واحدة فقط)
-  if (!localStorage.getItem("orders")) {
-    const demoOrders = [
-      {
-        orderId: 1001,
-        customerId: 201,
-        products: ["T-Shirt", "Sneakers"],
-        totalPrice: 75,
-        status: "pending",
-        date: "2025-10-23"
-      },
-      {
-        orderId: 1002,
-        customerId: 202,
-        products: ["Jeans", "Cap"],
-        totalPrice: 90,
-        status: "shipped",
-        date: "2025-10-22"
-      },
-      {
-        orderId: 1003,
-        customerId: 203,
-        products: ["Bag"],
-        totalPrice: 45,
-        status: "delivered",
-        date: "2025-10-21"
-      }
-    ];
-    localStorage.setItem("orders", JSON.stringify(demoOrders));
-  }
-
-  // ✅ عند تحميل الصفحة
-  document.addEventListener("DOMContentLoaded", () => {
-    const filterSelect = document.getElementById("filter");
-    loadOrders(filterSelect.value);
-
-    filterSelect.addEventListener("change", e => {
-      loadOrders(e.target.value);
-    });
-
-    // تفعيل السايد بار الحالي
-    const currentPage = window.location.pathname.split("/").pop();
-    document.querySelectorAll(".sidebar .nav-button").forEach(link => {
-      const href = link.getAttribute("href");
-      if (href === currentPage) link.classList.add("active");
-      else link.classList.remove("active");
-    });
-  });
-  document.addEventListener("DOMContentLoaded", () => {
-    const currentPage = window.location.pathname.split("/").pop();
-
-    // ✅ تفعيل الـ active تلقائي في الـ Navbar
-    document.querySelectorAll(".navbar .nav-link.main-nav-link").forEach(link => {
-      const href = link.getAttribute("href");
-
-      // لو المستخدم داخل أي صفحة Dashboard
-      if (window.location.pathname.includes("admin") || window.location.pathname.includes("dashboard")) {
-        if (href.includes("dashboard.html")) {
-          link.classList.add("active");
-        } else {
-          link.classList.remove("active");
-        }
-      } 
-      // لو مش في الداشبورد → فعّل الرابط العادي حسب الصفحة
-      else if (href && href.includes(currentPage)) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
-    });
-  });
+// جعل الوظائف متاحة globally
+window.addNewOrder = addNewOrder;
+window.deleteOrder = deleteOrder;
+window.resetOrdersData = resetOrdersData;
 
 
 </script>

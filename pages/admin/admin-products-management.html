@@ -6,7 +6,7 @@
   <title>Products Management</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-        <link rel="stylesheet" href="../../style/style.css" />
+  <link rel="stylesheet" href="../../style/style.css" />
 
   <style>
     body {
@@ -105,6 +105,120 @@
       border-radius: 8px;
     }
 
+    /* Custom Modal Styles */
+    .custom-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .custom-modal-overlay.show {
+      display: flex;
+    }
+
+    .custom-modal {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .custom-modal-header {
+      background-color: #618674;
+      color: white;
+      padding: 20px 25px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .custom-modal-body {
+      padding: 30px 25px;
+      text-align: center;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .custom-modal-footer {
+      padding: 20px 25px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .modal-btn {
+      padding: 10px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-btn-cancel {
+      background-color: #f1f3f5;
+      color: #333;
+    }
+
+    .modal-btn-cancel:hover {
+      background-color: #e0e0e0;
+    }
+
+    .modal-btn-confirm {
+      background-color: #618674;
+      color: white;
+    }
+
+    .modal-btn-confirm:hover {
+      background-color: #4D6B5C;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+
+    .empty-state i {
+      font-size: 80px;
+      color: #ddd;
+      margin-bottom: 20px;
+    }
+
+    .empty-state h5 {
+      color: #666;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .empty-state p {
+      color: #999;
+      font-size: 14px;
+    }
+
     /* زر Menu الثابت أسفل يسار الناف بار */
     .mobile-menu-btn {
       display: none;
@@ -112,7 +226,6 @@
       bottom: auto;
       left: 0;
       top: 58px;
-      /* z-index: 1030; */
       padding: 6px 10px;
       background: #007bff;
       color: white;
@@ -122,7 +235,6 @@
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s;
-      /* box-shadow: 2px 2px 8px rgba(0,0,0,0.15); */
     }
 
     .mobile-menu-btn:hover {
@@ -141,95 +253,6 @@
         align-items: center;
         gap: 5px;
       }
-
-      /* .container-fluid {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 0 15px !important;
-      }
-      
-      .navbar-brand img {
-        width: 100px !important;
-      }
-      
-      .icons-container {
-        display: flex !important;
-        gap: 18px !important;
-        margin-left: auto !important;
-      }
-      
-      .icons-container img {
-        width: 22px;
-        height: 22px;
-      }
-      
-      .navbar-toggler {
-        padding: 0 !important;
-        border: none !important;
-        margin-left: 18px !important;
-        background: transparent !important;
-      }
-      
-      .navbar-toggler img {
-        width: 28px;
-        height: 28px;
-      }
-      
-      .navbar-collapse {
-        position: fixed !important;
-        top: 65px;
-        left: 0;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        max-height: calc(100vh - 65px);
-        overflow-y: auto;
-        z-index: 1040;
-      }
-      
-      .navbar-collapse:not(.show) {
-        display: none !important;
-      }
-      
-      .navbar-collapse.show {
-        display: block !important;
-      }
-      
-      .navbar-nav {
-        width: 100%;
-        padding: 0;
-      }
-      
-      .navbar-nav .nav-item {
-        margin: 0 !important;
-        border-bottom: 1px solid #f0f0f0;
-      }
-      
-      .navbar-nav .nav-link {
-        padding: 18px 20px !important;
-        font-size: 15px;
-        color: #333 !important;
-      }
-      
-      .navbar-nav .nav-link:hover,
-      .navbar-nav .nav-link.active {
-        background-color: #618674 !important;
-        color: white !important;
-      }
-      
-      .navbar form {
-        width: 100% !important;
-        padding: 15px 20px;
-        margin: 0 !important;
-      }
-      
-      .navbar form input {
-        width: 100%;
-        height: 45px;
-        font-size: 15px;
-        border-radius: 50px;
-      } */
       
       .offcanvas {
         width: 280px !important;
@@ -281,10 +304,93 @@
         margin-right: 0;
       }
     }
+     /* ===== Pagination ===== */
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .custom-pagination {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .custom-pagination li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .custom-pagination a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid #7ca394;
+      border-radius: 50%;
+      text-decoration: none;
+      color: #7ca394;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .custom-pagination a:hover {
+      background-color: #e3eee9;
+    }
+
+    .custom-pagination .active a {
+      background-color: #7ca394;
+      color: white;
+      border-color: #7ca394;
+    }
+
+    .custom-pagination .dots {
+      color: #7ca394;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0 6px;
+    }
+
+    .custom-pagination .arrow {
+      font-size: 30px;
+      border: none;
+      background: none;
+      color: #7ca394;
+      width: auto;
+      height: auto;
+      cursor: pointer;
+    }
+
+    .custom-pagination .arrow:hover {
+      color: #5d7e71;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Custom Confirmation Modal -->
+  <div class="custom-modal-overlay" id="deleteModal">
+    <div class="custom-modal">
+      <div class="custom-modal-header">
+        Confirm Action
+      </div>
+      <div class="custom-modal-body">
+        Are you sure you want to delete this product?
+      </div>
+      <div class="custom-modal-footer">
+        <button class="modal-btn modal-btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+        <button class="modal-btn modal-btn-confirm" onclick="confirmDelete()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
     <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -312,7 +418,6 @@
           <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
           <li class="nav-item me-5"><a class="nav-link main-nav-link active" href="./admin-dashboard.html">Dashboard</a></li>
         </ul>
-        
       </div>
 
       <button class="navbar-toggler border-0 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -377,7 +482,7 @@
               <div class="dashboard-card-header">
                 <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Products
               </div>
-              <h2 id="totalProducts">4,500</h2>
+              <h2 id="totalProducts">0</h2>
               <small>All products in your store</small>
             </div>
           </div>
@@ -392,7 +497,7 @@
                 </div>
                 Available Products
               </div>
-              <h2 id="availableProducts">3,500</h2>
+              <h2 id="availableProducts">0</h2>
               <small>Currently available products</small>
             </div>
           </div>
@@ -402,7 +507,7 @@
               <div class="dashboard-card-header">
                 <i class="bi bi-receipt icon-red"></i> Out of Stock
               </div>
-              <h2 id="outOfStock">1,000</h2>
+              <h2 id="outOfStock">0</h2>
               <small>Out of stock products</small>
             </div>
           </div>
@@ -433,35 +538,26 @@
                 </tr>
               </thead>
               <tbody id="productsTableBody">
-                <tr>
-                  <td>1</td>
-                  <td>Laptop HP</td>
-                  <td>Electronics</td>
-                  <td>$15500</td>
-                  <td>12</td>
-                  <td><span class="status-available">Available</span></td>
-                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>iPhone 15 Pro</td>
-                  <td>Mobiles</td>
-                  <td>$53000</td>
-                  <td>5</td>
-                  <td><span class="status-available">Available</span></td>
-                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Samsung S23</td>
-                  <td>Mobiles</td>
-                  <td>$47000</td>
-                  <td>0</td>
-                  <td><span class="status-out">Out of stock</span></td>
-                  <td><button class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></td>
-                </tr>
+                <!-- Products will be loaded here -->
               </tbody>
             </table>
+             <nav class="pagination-container">
+  <ul class="custom-pagination" id="pagination">
+    <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li class="dots" id="dots">••</li>
+    <li style="display:none;"><a href="#">5</a></li>
+    <li style="display:none;"><a href="#">6</a></li>
+    <li style="display:none;"><a href="#">7</a></li>
+    <li style="display:none;"><a href="#">8</a></li>
+    <li style="display:none;"><a href="#">9</a></li>
+    <li><a href="#">10</a></li>
+    <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
+  </ul>
+</nav>
           </div>
         </div>
       </div>
@@ -469,80 +565,411 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
-<script>
-  function loadProducts() {
-    const products = JSON.parse(localStorage.getItem("products")) || [];
-    const tbody = document.getElementById("productsTableBody");
-    
-    // if (products.length === 0) {
-    //   const sampleProducts = [
-    //     { id: 1, name: "Laptop HP Pavilion", category: "Electronics", price: 15500, stock: 12 },
-    //     { id: 2, name: "iPhone 15 Pro", category: "Mobiles", price: 53000, stock: 5 },
-    //     { id: 3, name: "Samsung Galaxy S23", category: "Mobiles", price: 47000, stock: 0 }
-    //   ];
-    //   localStorage.setItem("products", JSON.stringify(sampleProducts));
-    //   return loadProducts();
-    // }
-    
-    tbody.innerHTML = "";
-    products.forEach((product, index) => {
-      const row = `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${product.name}</td>
-          <td>${product.category}</td>
-          <td>$${product.price}</td>
-          <td>${product.stock}</td>
-          <td>
-            <span class="${product.stock > 0 ? 'status-available' : 'status-out'}">
-              ${product.stock > 0 ? 'Available' : 'Out of stock'}
-            </span>
-          </td>
-          <td>
-            <button class="btn btn-link text-danger" title="Delete Product">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-      `;
-      tbody.innerHTML += row;
-    });
+  <script>
+    let productToDelete = null;
 
-    // ✅ تفعيل زرار الحذف بعد تحميل الجدول
-    document.querySelectorAll(".btn-link.text-danger").forEach((btn, index) => {
-      btn.addEventListener("click", () => {
-        deleteProduct(index);
+    function loadProducts() {
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      const tbody = document.getElementById("productsTableBody");
+      
+      tbody.innerHTML = "";
+
+      // إذا كان الجدول فاضي، اعرض رسالة
+      if (products.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7">
+              <div class="empty-state">
+                <i class="bi bi-inbox"></i>
+                <h5>لا توجد منتجات</h5>
+                <p>لم يتم إضافة أي منتجات بعد. قم بإضافة منتجات لعرضها هنا.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        updateDashboardCards();
+        return;
+      }
+      
+      products.forEach((product, index) => {
+        const row = `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${product.name}</td>
+            <td>${product.category}</td>
+            <td>$${product.price}</td>
+            <td>${product.stock}</td>
+            <td>
+              <span class="${product.stock > 0 ? 'status-available' : 'status-out'}">
+                ${product.stock > 0 ? 'Available' : 'Out of stock'}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-link text-danger" onclick="showDeleteModal(${index})" title="Delete Product">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
       });
+
+      updateDashboardCards();
+    }
+
+    function showDeleteModal(index) {
+      productToDelete = index;
+      document.getElementById("deleteModal").classList.add("show");
+    }
+
+    function closeDeleteModal() {
+      productToDelete = null;
+      document.getElementById("deleteModal").classList.remove("show");
+    }
+
+    function confirmDelete() {
+      if (productToDelete !== null) {
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        products.splice(productToDelete, 1);
+        localStorage.setItem("products", JSON.stringify(products));
+        closeDeleteModal();
+        loadProducts();
+      }
+    }
+
+    function updateDashboardCards() {
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      document.getElementById("totalProducts").textContent = products.length;
+      document.getElementById("availableProducts").textContent = products.filter(p => p.stock > 0).length;
+      document.getElementById("outOfStock").textContent = products.filter(p => p.stock === 0).length;
+    }
+
+    // إغلاق المودال عند الضغط خارجه
+    document.getElementById("deleteModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        closeDeleteModal();
+      }
     });
 
-    updateDashboardCards();
+    document.addEventListener("DOMContentLoaded", function() {
+      // إضافة منتجات تجريبية إذا كان localStorage فاضي
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      if (products.length === 0) {
+        const sampleProducts = [
+          { id: 1, name: "Laptop HP Pavilion", category: "Electronics", price: 15500, stock: 12 },
+          { id: 2, name: "iPhone 15 Pro", category: "Mobiles", price: 53000, stock: 5 },
+          { id: 3, name: "Samsung Galaxy S23", category: "Mobiles", price: 47000, stock: 0 }
+        ];
+        localStorage.setItem("products", JSON.stringify(sampleProducts));
+      }
+      loadProducts();
+    });
+    // ✅ متغيرات الـ Pagination
+let currentPageNum = 1;
+const rowsPerPage = 4;
+let allFilteredProducts = [];
+
+// ✅ إضافة منتجات تجريبية (12 منتج = 3 صفحات)
+if (!localStorage.getItem("products")) {
+  const sampleProducts = [
+    { id: 1, name: "Laptop HP Pavilion", category: "Electronics", price: 15500, stock: 12 },
+    { id: 2, name: "iPhone 15 Pro", category: "Mobiles", price: 53000, stock: 5 },
+    { id: 3, name: "Samsung Galaxy S23", category: "Mobiles", price: 47000, stock: 0 },
+    { id: 4, name: "Dell XPS 13", category: "Electronics", price: 18000, stock: 8 },
+    { id: 5, name: "MacBook Air M2", category: "Electronics", price: 25000, stock: 15 },
+    { id: 6, name: "iPad Pro", category: "Tablets", price: 22000, stock: 10 },
+    { id: 7, name: "Sony Headphones", category: "Audio", price: 3500, stock: 20 },
+    { id: 8, name: "Samsung TV 55\"", category: "Electronics", price: 12000, stock: 0 },
+    { id: 9, name: "Canon Camera", category: "Photography", price: 8500, stock: 6 },
+    { id: 10, name: "Gaming Mouse", category: "Accessories", price: 450, stock: 30 },
+    { id: 11, name: "Mechanical Keyboard", category: "Accessories", price: 850, stock: 25 },
+    { id: 12, name: "External SSD 1TB", category: "Storage", price: 1200, stock: 18 }
+  ];
+  localStorage.setItem("products", JSON.stringify(sampleProducts));
+} else {
+  // تحديث البيانات الموجودة
+  const existingProducts = JSON.parse(localStorage.getItem("products"));
+  if (existingProducts.length < 12) {
+    const additionalProducts = [
+      { id: 4, name: "Dell XPS 13", category: "Electronics", price: 18000, stock: 8 },
+      { id: 5, name: "MacBook Air M2", category: "Electronics", price: 25000, stock: 15 },
+      { id: 6, name: "iPad Pro", category: "Tablets", price: 22000, stock: 10 },
+      { id: 7, name: "Sony Headphones", category: "Audio", price: 3500, stock: 20 },
+      { id: 8, name: "Samsung TV 55\"", category: "Electronics", price: 12000, stock: 0 },
+      { id: 9, name: "Canon Camera", category: "Photography", price: 8500, stock: 6 },
+      { id: 10, name: "Gaming Mouse", category: "Accessories", price: 450, stock: 30 },
+      { id: 11, name: "Mechanical Keyboard", category: "Accessories", price: 850, stock: 25 },
+      { id: 12, name: "External SSD 1TB", category: "Storage", price: 1200, stock: 18 }
+    ];
+    
+    additionalProducts.forEach(newProduct => {
+      if (!existingProducts.find(p => p.id === newProduct.id)) {
+        existingProducts.push(newProduct);
+      }
+    });
+    
+    localStorage.setItem("products", JSON.stringify(existingProducts));
+  }
+}
+
+// ✅ تحميل المنتجات مع الفلتر
+function loadProducts(searchTerm = "") {
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+  
+  // تطبيق البحث
+  if (searchTerm) {
+    allFilteredProducts = products.filter(p =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  } else {
+    allFilteredProducts = products;
   }
 
-  // ✅ دالة الحذف مع التأكيد
-  function deleteProduct(index) {
+  updateDashboardCards(products);
+  currentPageNum = 1;
+  displayPage(1);
+}
+
+// ✅ دالة عرض الصفحة المحددة
+function displayPage(pageNum) {
+  currentPageNum = pageNum;
+  const tbody = document.getElementById("productsTableBody");
+  tbody.innerHTML = "";
+
+  // إذا كان الجدول فاضي
+  if (allFilteredProducts.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7">
+          <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <h5>لا توجد منتجات</h5>
+            <p>لم يتم إضافة أي منتجات بعد. قم بإضافة منتجات لعرضها هنا.</p>
+          </div>
+        </td>
+      </tr>
+    `;
+    updatePaginationButtons();
+    return;
+  }
+
+  // حساب البداية والنهاية
+  const start = (pageNum - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageProducts = allFilteredProducts.slice(start, end);
+
+  pageProducts.forEach((product, index) => {
+    const row = `
+      <tr>
+        <td>${start + index + 1}</td>
+        <td>${product.name}</td>
+        <td>${product.category}</td>
+        <td>$${product.price}</td>
+        <td>${product.stock}</td>
+        <td>
+          <span class="${product.stock > 0 ? 'status-available' : 'status-out'}">
+            ${product.stock > 0 ? 'Available' : 'Out of stock'}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-link text-danger" onclick="showDeleteModal(${allFilteredProducts.indexOf(product)})" title="Delete Product">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+
+  updatePaginationButtons();
+}
+
+// ✅ تحديث أزرار الـ Pagination
+function updatePaginationButtons() {
+  const totalPages = Math.ceil(allFilteredProducts.length / rowsPerPage);
+  const pagination = document.getElementById("pagination");
+  
+  pagination.innerHTML = '';
+  
+  // زر السابق
+  const prevLi = document.createElement('li');
+  prevLi.innerHTML = '<a href="#" class="arrow" id="prev">&lsaquo;</a>';
+  pagination.appendChild(prevLi);
+  
+  // حساب الصفحات (3 أرقام فقط)
+  let startPage = Math.max(1, currentPageNum - 1);
+  let endPage = Math.min(totalPages, startPage + 2);
+  
+  if (endPage - startPage < 2) {
+    startPage = Math.max(1, endPage - 2);
+  }
+  
+  // أرقام الصفحات
+  for (let i = startPage; i <= endPage; i++) {
+    const li = document.createElement('li');
+    if (i === currentPageNum) {
+      li.classList.add('active');
+    }
+    li.innerHTML = `<a href="#">${i}</a>`;
+    pagination.appendChild(li);
+  }
+  
+  // زر التالي
+  const nextLi = document.createElement('li');
+  nextLi.innerHTML = '<a href="#" class="arrow" id="next">&rsaquo;</a>';
+  pagination.appendChild(nextLi);
+  
+  setupPaginationEvents();
+  
+  // تعطيل/تفعيل الأزرار
+  const newPrevBtn = document.getElementById("prev");
+  const newNextBtn = document.getElementById("next");
+  
+  if (currentPageNum === 1) {
+    newPrevBtn.style.opacity = "0.5";
+    newPrevBtn.style.pointerEvents = "none";
+  } else {
+    newPrevBtn.style.opacity = "1";
+    newPrevBtn.style.pointerEvents = "auto";
+  }
+
+  if (currentPageNum === totalPages || totalPages === 0) {
+    newNextBtn.style.opacity = "0.5";
+    newNextBtn.style.pointerEvents = "none";
+  } else {
+    newNextBtn.style.opacity = "1";
+    newNextBtn.style.pointerEvents = "auto";
+  }
+}
+
+// ✅ ربط الأحداث بأزرار الـ Pagination
+function setupPaginationEvents() {
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+  const pagination = document.getElementById("pagination");
+
+  const newPrevBtn = prevBtn.cloneNode(true);
+  const newNextBtn = nextBtn.cloneNode(true);
+  prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+  nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+
+  document.getElementById("prev").addEventListener("click", e => {
+    e.preventDefault();
+    if (currentPageNum > 1) {
+      currentPageNum--;
+      displayPage(currentPageNum);
+    }
+  });
+
+  document.getElementById("next").addEventListener("click", e => {
+    e.preventDefault();
+    const totalPages = Math.ceil(allFilteredProducts.length / rowsPerPage);
+    if (currentPageNum < totalPages) {
+      currentPageNum++;
+      displayPage(currentPageNum);
+    }
+  });
+
+  pagination.querySelectorAll("li:not(:first-child):not(:last-child) a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const pageNum = parseInt(e.target.textContent);
+      if (!isNaN(pageNum)) {
+        displayPage(pageNum);
+      }
+    });
+  });
+}
+
+// ✅ تحديث الكروت
+function updateDashboardCards(products) {
+  document.getElementById("totalProducts").textContent = products.length;
+  document.getElementById("availableProducts").textContent = products.filter(p => p.stock > 0).length;
+  document.getElementById("outOfStock").textContent = products.filter(p => p.stock === 0).length;
+}
+
+// ✅ عرض مودال الحذف
+function showDeleteModal(index) {
+  productToDelete = index;
+  document.getElementById("deleteModal").classList.add("show");
+}
+
+// ✅ إغلاق مودال الحذف
+function closeDeleteModal() {
+  productToDelete = null;
+  document.getElementById("deleteModal").classList.remove("show");
+}
+
+// ✅ تأكيد الحذف
+function confirmDelete() {
+  if (productToDelete !== null) {
     let products = JSON.parse(localStorage.getItem("products")) || [];
-    const productName = products[index].name; // عرض اسم المنتج في التأكيد
-
-    const confirmDelete = confirm(`هل أنت متأكد من حذف المنتج "${productName}"؟`);
-    if (!confirmDelete) return; // لو المستخدم ضغط Cancel → نخرج من الدالة
-
-    products.splice(index, 1); // حذف المنتج
+    const productId = allFilteredProducts[productToDelete].id;
+    products = products.filter(p => p.id !== productId);
     localStorage.setItem("products", JSON.stringify(products));
-    loadProducts(); // تحديث الجدول بعد الحذف
+    closeDeleteModal();
+    
+    const searchTerm = document.getElementById("searchInput").value;
+    loadProducts(searchTerm);
   }
+}
 
-  function updateDashboardCards() {
-    const products = JSON.parse(localStorage.getItem("products")) || [];
-    document.getElementById("totalProducts").textContent = products.length;
-    document.getElementById("availableProducts").textContent = products.filter(p => p.stock > 0).length;
-    document.getElementById("outOfStock").textContent = products.filter(p => p.stock === 0).length;
+// ✅ إغلاق المودال عند الضغط خارجه
+document.getElementById("deleteModal").addEventListener("click", function(e) {
+  if (e.target === this) {
+    closeDeleteModal();
   }
+});
 
-  document.addEventListener("DOMContentLoaded", loadProducts);
-</script>
+// ✅ البحث
+document.addEventListener("DOMContentLoaded", function() {
+  loadProducts();
+  
+  const searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", e => {
+    loadProducts(e.target.value);
+  });
+});
 
+// ✅ مراقبة التغييرات في localStorage
+window.addEventListener("storage", e => {
+  if (e.key === "products") {
+    const searchTerm = document.getElementById("searchInput").value;
+    loadProducts(searchTerm);
+  }
+});
 
+// ✅ وظائف إضافية
+function addNewProduct(productData) {
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+  const maxId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
+  
+  const newProduct = {
+    id: maxId + 1,
+    name: productData.name || "New Product",
+    category: productData.category || "General",
+    price: productData.price || 0,
+    stock: productData.stock || 0
+  };
+  
+  products.push(newProduct);
+  localStorage.setItem("products", JSON.stringify(products));
+  loadProducts();
+  return newProduct;
+}
+
+function resetProductsData() {
+  if (confirm("Are you sure you want to reset all products data?")) {
+    localStorage.removeItem("products");
+    location.reload();
+  }
+}
+
+window.addNewProduct = addNewProduct;
+window.resetProductsData = resetProductsData;
+  </script>
 </body>
 </html>
