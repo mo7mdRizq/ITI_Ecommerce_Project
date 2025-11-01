@@ -419,7 +419,7 @@ label[for="filter"] {
             <div class="dashboard-card-header">
               <i class="bi bi-bag-dash-fill icon-yellow"></i> Total Orders
             </div>
-            <h2>10,500</h2>
+            <h2><span id="totalOrdersCount"></span></h2>
             <small>All orders in your store</small>
           </div>
         </div>
@@ -434,7 +434,7 @@ label[for="filter"] {
               </div>
               Active Orders
             </div>
-            <h2>9,200</h2>
+            <h2><span id="activeOrdersCount"></span></h2>
             <small>All active orders in your store</small>
           </div>
         </div>
@@ -444,7 +444,7 @@ label[for="filter"] {
             <div class="dashboard-card-header">
               <i class="bi bi-receipt icon-red"></i> Pending Orders
             </div>
-            <h2>1,300</h2>
+            <h2><span id="pendingOrdersCount"></span></h2>
             <small>All pending orders in your store</small>
           </div>
         </div>
@@ -477,7 +477,7 @@ label[for="filter"] {
 
 
     <div class="table-responsive">
-      <table class="table table-bordered text-center">
+      <!-- <table class="table table-bordered text-center">
         <thead>
           <tr>
             <th>No</th>
@@ -545,7 +545,28 @@ label[for="filter"] {
             <td>23-10-2025</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
+    
+
+
+      <table class="table table-bordered text-center">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Order ID</th>
+      <th>Customer ID</th>
+      <th>Seller ID</th> <!-- عمود جديد -->
+      <th>Products</th>
+      <th>Total Price</th>
+      <th>Status</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody id="ordersTableBody"></tbody> <!-- سيتم تعبئته ديناميكيًا -->
+</table>
+    
+    
+    
     </div>
 
    <nav class="pagination-container">
@@ -574,7 +595,6 @@ label[for="filter"] {
 
 
 
-<script>
      const sidebar = document.querySelector(".sidebar");
   const toggleBtn = document.getElementById("toggleSidebar");
 
@@ -785,8 +805,67 @@ label[for="filter"] {
   });
 
 
-</script>
+</script> -->
 
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 🧩 1. اقرأ الطلبات من localStorage
+  const orders = JSON.parse(localStorage.getItem("adminOrders")) || [];
+
+  // لو مفيش بيانات خالص، اعمل بيانات تجريبية (اختياري)
+  if (!orders.length) {
+    document.querySelector("#ordersTableBody").innerHTML = `
+      <tr>
+        <td colspan="7" class="text-center text-muted py-4">
+          <i class="bi bi-box-seam"></i> No orders found
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  // 🧩 2. جهّز البيانات بشكل مناسب لعرضها في الجدول
+  const formattedOrders = orders.map((order, index) => ({
+    orderId: order.id || `#${index + 1}`,
+    customerId: order.buyer?.email || "-",
+    sellerId: order.sellerId || "-",
+    products: order.items?.length ? order.items.map(i => i.name).join(", ") : "No products",
+    total: order.total || order.subtotal || 0,
+    status: order.status || "Pending",
+    date: order.date || "-"
+  }));
+
+  // 🧩 3. اعرض البيانات في الجدول
+  const tbody = document.querySelector("#ordersTableBody");
+  tbody.innerHTML = formattedOrders.map((o, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td>${o.orderId}</td>
+      <td>${o.customerId}</td>
+      <td>${o.sellerId}</td>
+      <td>${o.products}</td>
+      <td>$${o.total}</td>
+      <td>
+        <span class="badge bg-${o.status === "Delivered" ? "success" :
+                                o.status === "Processing" ? "warning" :
+                                "secondary"}">${o.status}</span>
+      </td>
+      <td>${o.date}</td>
+    </tr>
+  `).join("");
+
+  // 🧩 4. تحديث الإحصائيات العلوية
+  const totalOrders = formattedOrders.length;
+  const activeOrders = formattedOrders.filter(o => o.status === "Processing" || o.status === "Shipped").length;
+  const pendingOrders = formattedOrders.filter(o => o.status === "Pending").length;
+
+  document.getElementById("totalOrdersCount").textContent = totalOrders;
+  document.getElementById("activeOrdersCount").textContent = activeOrders;
+  document.getElementById("pendingOrdersCount").textContent = pendingOrders;
+});
+</script>
 
 </body>
 </html>

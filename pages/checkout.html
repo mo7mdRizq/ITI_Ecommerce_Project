@@ -389,108 +389,6 @@
 </div>
 
 
-  function selectPayment(el) {
-    document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
-    el.classList.add('selected');
-    document.getElementById('paymentError').style.display = 'none';
-  }
-
-  (function () {
-    'use strict';
-    const form = document.getElementById('checkoutForm');
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      const selectedPayment = document.querySelector('.payment-option.selected');
-      const paymentError = document.getElementById('paymentError');
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-      // ❌ Empty cart => show danger toast
-      if (cart.length === 0) {
-        const toast = new bootstrap.Toast(document.getElementById('cartToast'), { delay: 3000 });
-        toast.show();
-        return;
-      }
-
-      if (!selectedPayment) paymentError.style.display = 'block';
-      if (!form.checkValidity() || !selectedPayment) {
-        form.classList.add('was-validated');
-        return;
-      }
-
-      // ✅ Save order data
-      const order = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        address: document.getElementById('address').value,
-        city: document.getElementById('city').value,
-        notes: document.getElementById('notes').value || "No notes",
-        paymentMethod: selectedPayment.textContent.trim(),
-        date: new Date().toLocaleString(),
-        status: "Pending",
-        cart: cart
-      };
-
-      let orders = JSON.parse(localStorage.getItem('orders')) || [];
-      orders.push(order);
-      localStorage.setItem('orders', JSON.stringify(orders));
-      localStorage.removeItem('cart');
-
-      // ✅ Show success toast then redirect
-      const successToast = new bootstrap.Toast(document.getElementById('successToast'), { delay: 2000 });
-      successToast.show();
-
-      setTimeout(() => {
-        window.location.href = "successPayment.html";
-      }, 2000);
-    }, false);
-  })();
-
-  // ✅ Cart summary loader
-  function loadCartSummary() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartContainer = document.getElementById('cartItems');
-    let subtotal = 0;
-
-    if (cart.length === 0) {
-      cartContainer.innerHTML = '<div class="alert alert-warning">Your cart is empty.</div>';
-      document.getElementById('subtotal').textContent = '$0.00';
-      document.getElementById('total').textContent = '$0.00';
-      return;
-    }
-
-    cartContainer.innerHTML = cart.map(item => {
-      const itemTotal = item.price * (item.qty || 1);
-      subtotal += itemTotal;
-      const imgSrc = item.image && (item.image.startsWith('data:') || item.image.startsWith('http'))
-        ? item.image
-        : 'https://via.placeholder.com/100?text=No+Image';
-
-      return `
-        <div class="list-group-item d-flex align-items-center mb-2 p-2 border rounded">
-          <img src="${imgSrc}" alt="${item.name}" class="img-fluid rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
-          <div class="flex-grow-1">
-            <p class="mb-1 fw-semibold">${item.name}</p>
-            <small class="text-muted">${item.qty || 1}x</small>
-          </div>
-          <span class="fw-bold">$${itemTotal.toFixed(2)}</span>
-        </div>`;
-    }).join('');
-
-    const shipping = 10;
-    const discount = subtotal > 100 ? 10 : 0;
-    const total = subtotal + shipping - discount;
-
-    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
-    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-    if (discount > 0) document.getElementById('discountRow').style.display = 'flex';
-  }
-
-  document.addEventListener('DOMContentLoaded', loadCartSummary);
-</script> -->
 
 
 <!-- <script>
@@ -719,12 +617,19 @@ function showFloatingToast(message, type = 'success', duration = 2500) {
     };
 
     // احفظ الأوردر
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    orders.push(order);
-    localStorage.setItem('orders', JSON.stringify(orders));
+// احفظ الأوردر
+const orders = JSON.parse(localStorage.getItem('orders')) || [];
+orders.push(order);
+localStorage.setItem('orders', JSON.stringify(orders));
 
-    // فاضي الكارت
-    localStorage.removeItem('cart');
+// ✅ كمان خزّنه في جدول الأدمن
+let adminOrders = JSON.parse(localStorage.getItem('adminOrders')) || [];
+adminOrders.push(order);
+localStorage.setItem('adminOrders', JSON.stringify(adminOrders));
+
+// فاضي الكارت
+localStorage.removeItem('cart');
+
 
     // أظهر Toast نجاح ثم ريديرِكت
     if (document.getElementById('successToast')) showBootstrapToastById('successToast', 1800);

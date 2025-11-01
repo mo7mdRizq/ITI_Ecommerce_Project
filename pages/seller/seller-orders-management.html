@@ -688,7 +688,7 @@ label[for="filter"] {
 
 
 <!-- ✅ سكربت إدارة الطلبات من localStorage -->
-<script>
+<!-- <script>
 document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.querySelector(".orders-section table tbody");
   let orders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -743,9 +743,137 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2500);
   }
 });
+</script> -->
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const tableBody = document.querySelector(".orders-section table tbody");
+  const filterSelect = document.getElementById("filter");
+  const totalOrdersEl = document.querySelector(".card-total h2");
+  const deliveredOrdersEl = document.querySelector(".card-active h2");
+  const pendingOrdersEl = document.querySelector(".card-pending h2");
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  // إعداد Pagination
+  const rowsPerPage = 5;
+  let currentPage = 1;
+  const paginationContainer = document.getElementById("pagination");
+
+  function renderOrders() {
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const paginatedOrders = orders.slice(start, end);
+
+    tableBody.innerHTML = paginatedOrders.map((order, i) => `
+      <tr>
+        <td>${start + i + 1}</td>
+        <td>${order.id}</td>
+        <td>${order.buyer ? `${order.buyer.firstName} ${order.buyer.lastName}` : "N/A"}</td>
+        <td>${order.items.map(p => p.name).join(", ")}</td>
+        <td>$${order.total}</td>
+        <td>
+          <select class="form-select form-select-sm statusSelect" data-index="${start + i}">
+            <option ${order.status === "Processing" ? "selected" : ""}>Processing</option>
+            <option ${order.status === "Shipped" ? "selected" : ""}>Shipped</option>
+            <option ${order.status === "Delivered" ? "selected" : ""}>Delivered</option>
+          </select>
+        </td>
+        <td>${order.date}</td>
+      </tr>
+    `).join("");
+
+    updateCounts();
+    renderPagination();
+  }
+
+  // تحديث العدادات
+  function updateCounts() {
+    let total = 0, delivered = 0, shipped = 0, cancelled = 0;
+    tableBody.querySelectorAll("tr").forEach(row => {
+      if (row.style.display !== "none") {
+        total++;
+        const statusSelect = row.querySelector(".statusSelect");
+        const status = statusSelect ? statusSelect.value.toLowerCase() : "";
+        if (status === "delivered") delivered++;
+        if (status === "shipped") shipped++;
+        if (status === "processing") shipped++; // تعتبر pending
+      }
+    });
+    totalOrdersEl.textContent = total;
+    deliveredOrdersEl.textContent = delivered;
+    pendingOrdersEl.textContent = shipped;
+  }
+
+  // تغيير الحالة وحفظها
+  document.addEventListener("change", e => {
+    if (e.target.classList.contains("statusSelect")) {
+      const index = e.target.dataset.index;
+      const newStatus = e.target.value;
+      orders[index].status = newStatus;
+      localStorage.setItem("orders", JSON.stringify(orders));
+      showToast(`Order #${orders[index].id} updated to ${newStatus}`, "success");
+      renderOrders();
+    }
+  });
+
+  // الفلترة
+  filterSelect.addEventListener("change", () => {
+    const selected = filterSelect.value.toLowerCase();
+    tableBody.querySelectorAll("tr").forEach(row => {
+      const statusSelect = row.querySelector(".statusSelect");
+      const status = statusSelect ? statusSelect.value.toLowerCase() : "";
+      row.style.display = (selected === "all orders" || status.includes(selected)) ? "" : "none";
+    });
+    updateCounts();
+  });
+
+  // Pagination
+  function renderPagination() {
+    const totalPages = Math.ceil(orders.length / rowsPerPage);
+    let html = `<li><a href="#" class="arrow" data-action="prev">&lsaquo;</a></li>`;
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<li class="${i === currentPage ? "active" : ""}"><a href="#" data-page="${i}">${i}</a></li>`;
+    }
+    html += `<li><a href="#" class="arrow" data-action="next">&rsaquo;</a></li>`;
+    paginationContainer.innerHTML = html;
+
+    paginationContainer.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        const action = link.dataset.action;
+        if (page) currentPage = Number(page);
+        if (action === "prev" && currentPage > 1) currentPage--;
+        if (action === "next" && currentPage < totalPages) currentPage++;
+        renderOrders();
+      });
+    });
+  }
+
+  // Toast notification
+  function showToast(msg, type = "success") {
+    const toast = document.createElement("div");
+    toast.className = `position-fixed bottom-0 end-0 m-4 px-4 py-2 text-white rounded shadow bg-${type === "success" ? "success" : "danger"}`;
+    toast.textContent = msg;
+    toast.style.zIndex = 1080;
+    toast.style.fontWeight = "500";
+    toast.style.fontSize = "15px";
+    toast.style.transition = "opacity 0.3s ease";
+    toast.style.opacity = "0";
+    document.body.appendChild(toast);
+    setTimeout(() => toast.style.opacity = "1", 50);
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      setTimeout(() => toast.remove(), 300);
+    }, 2500);
+  }
+
+  // بداية التشغيل
+  renderOrders();
+});
 </script>
-
-
 
 
 
