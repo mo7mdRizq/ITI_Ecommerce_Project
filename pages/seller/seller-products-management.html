@@ -358,11 +358,11 @@ label[for="filter"] {
 
   <body>
        <!-- nav&side bar -->
-     <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
         <div class="container-fluid d-flex align-items-center justify-content-between">
     
             <!-- Brand -->
-            <a class="navbar-brand" href="../index.html" id="brand">
+            <a class="navbar-brand" href="../pages/testHome.html" id="brand">
                 <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
             </a>
         
@@ -370,16 +370,16 @@ label[for="filter"] {
             <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
                 <ul class="navbar-nav">
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="/">Home</a>
+                    <a class="nav-link main-nav-link active" href="../pages/testHome.html">Home</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">Shop</a>
+                    <a class="nav-link main-nav-link" href="../pages/product-catalog.html">Shop</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">About</a>
+                    <a class="nav-link main-nav-link" href="../pages/about.html">About</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
+                    <a class="nav-link main-nav-link" href="../pages/contact.html">Contact</a>
                 </li>
                 <li class="nav-item me-5" id="dashboard">
                     <a class="nav-link main-nav-link" href="">dashboard</a>
@@ -389,7 +389,13 @@ label[for="filter"] {
                 </ul>
 
                 <form class="d-flex align-items-center" role="search" style="width: 300px;">
-                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
+                    <input
+                    id="navbarSearchInput"
+                    class="form-control form-control-sm rounded-4 ps-3"
+                    type="search"
+                    placeholder="Search products..."
+                    aria-label="Search"
+                    />
                 </form>
 
             </div>
@@ -398,20 +404,19 @@ label[for="filter"] {
             <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
 
         
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
                     <i>
                         <img src="../../assets/icons/shopping-cart.svg" alt="">
                     </i>
                 </a>
 
-
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
                     <i>
                         <img src="../../assets/icons/heart.svg" alt="">
                     </i>
                 </a>
 
-                <a class="nav-link cart-icon-container position-relative" href="#">
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
                     <i>
                         <img src="../../assets/icons/profileIcon.svg" alt="">
                     </i>
@@ -1054,7 +1059,91 @@ label[for="filter"] {
 </script>
 
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const searchInputTop = document.getElementById("navbarSearchInput");
+  if (!searchInputTop) return;
 
+  // إنشاء dropdown container
+  const dropdown = document.createElement("div");
+  dropdown.id = "navbarSearchDropdown";
+  Object.assign(dropdown.style, {
+    position: "absolute",
+    top: "100%",
+    left: "0",
+    right: "0",
+    background: "#fff",
+    border: "1px solid #ddd",
+    borderTop: "none",
+    zIndex: "1000",
+    maxHeight: "250px",
+    overflowY: "auto",
+    display: "none",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+    borderRadius: "0 0 10px 10px"
+  });
+  searchInputTop.parentElement.style.position = "relative";
+  searchInputTop.parentElement.appendChild(dropdown);
+
+  searchInputTop.addEventListener("input", () => {
+    const term = searchInputTop.value.trim().toLowerCase();
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    dropdown.innerHTML = "";
+
+    if (!term) {
+      dropdown.style.display = "none";
+      return;
+    }
+
+    const results = products.filter(p => p.name?.toLowerCase().includes(term));
+
+    if (results.length === 0) {
+      dropdown.innerHTML = `<div class="p-2 text-muted small">No results found</div>`;
+    } else {
+      results.forEach(p => {
+        const item = document.createElement("div");
+        item.classList.add("dropdown-item");
+        item.style.padding = "10px 15px";
+        item.style.cursor = "pointer";
+        item.style.borderBottom = "1px solid #f0f0f0";
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.innerHTML = `
+          <img src="${p.image || 'https://via.placeholder.com/40'}"
+               style="width:40px;height:40px;object-fit:cover;border-radius:6px;margin-right:10px;">
+          <div>
+            <div class="fw-semibold">${p.name}</div>
+            <div class="text-muted small">${p.category || ''}</div>
+          </div>
+        `;
+        item.addEventListener("click", () => {
+          localStorage.setItem("selectedProduct", JSON.stringify(p));
+          window.location.href = "product-details.html";
+        });
+        dropdown.appendChild(item);
+      });
+    }
+
+    dropdown.style.display = "block";
+  });
+
+  // إخفاء القائمة لما تضغط براها
+  document.addEventListener("click", (e) => {
+    if (!searchInputTop.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  // Enter يفتح أول نتيجة
+  searchInputTop.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const first = dropdown.querySelector(".dropdown-item");
+      if (first) first.click();
+    }
+  });
+});
+
+</script>
 
 
   </body>
