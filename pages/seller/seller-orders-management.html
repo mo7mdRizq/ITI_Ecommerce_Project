@@ -328,85 +328,83 @@ label[for="filter"] {
 
 </head>
 <body>
-    <!-- nav&side bar -->
-     <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-    
-            <!-- Brand -->
-            <a class="navbar-brand" href="../index.html" id="brand">
-                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
-            </a>
-        
-            <!-- Center Links - Collapse -->
-            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="/">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">Shop</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="">About</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
-                </li>
-                <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="">dashboard</a>
-                </li>
+ <!-- ===================== Navbar & Sidebar ===================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
 
-                
-                </ul>
+    <!-- Brand -->
+    <a class="navbar-brand" href="../index.html" id="brand">
+      <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;" />
+    </a>
 
-                <form class="d-flex align-items-center" role="search" style="width: 300px;">
-                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
-                </form>
+    <!-- Center Links -->
+    <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="../index.html">Home</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="../pages/shop.html">Shop</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="../pages/about.html">About</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link main-nav-link" href="#footer">Contact</a>
+        </li>
+        <li class="nav-item me-5" id="dashboard">
+          <a class="nav-link main-nav-link" href="../dashboard/seller-dashboard.html">Dashboard</a>
+        </li>
+      </ul>
 
-            </div>
-        
-            <!-- Right Side -->
-            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+      <!-- Search -->
+      <form class="d-flex align-items-center" role="search" style="width: 300px;">
+        <input
+          class="form-control form-control-sm rounded-4 ps-3"
+          type="search"
+          placeholder="Search..."
+          aria-label="Search"
+        />
+      </form>
+    </div>
 
-        
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/shopping-cart.svg" alt="">
-                    </i>
-                </a>
+    <!-- Right Side -->
+    <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
 
+      <!-- Cart -->
+      <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html" title="Cart">
+        <i><img src="../../assets/icons/shopping-cart.svg" alt="cart" /></i>
+      </a>
 
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/heart.svg" alt="">
-                    </i>
-                </a>
+      <!-- Wishlist -->
+      <a class="nav-link cart-icon-container position-relative" href="../pages/wishlist.html" title="Wishlist">
+        <i><img src="../../assets/icons/heart.svg" alt="wishlist" /></i>
+      </a>
 
-                <a class="nav-link cart-icon-container position-relative" href="#">
-                    <i>
-                        <img src="../../assets/icons/profileIcon.svg" alt="">
-                    </i>
-                </a>
-        
-                <!-- Navar Toggler -->
-                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <!-- Profile -->
+      <a class="nav-link cart-icon-container position-relative" href="../pages/account.html" title="Account">
+        <i><img src="../../assets/icons/profileIcon.svg" alt="profile" /></i>
+      </a>
 
-                     <img src="../../assets/icons/menu.svg">
-                </button>
-            </div>
-    
-        </div>
-    </nav>
-
-
-
+      <!-- Navbar Toggler -->
+      <button
+        class="navbar-toggler ms-2 border-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <img src="../../assets/icons/menu.svg" />
+      </button>
+    </div>
+  </div>
+</nav>
 
 <!-- Navbar for small screens -->
 <nav class="navbar bg-white d-lg-none px-3 shadow-sm">
   <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
     <i class="bi bi-list"></i>
   </button>
-  <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
+  <span class="navbar-brand ms-3 fw-bold">Menu</span>
 </nav>
 
  <!-- Sidebar -->

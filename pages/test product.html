@@ -146,6 +146,7 @@
       opacity: 1;
       transform: translateY(0);
     }
+      /* ===== Scroll Notification ===== */
 /* ===== Scroll Notification ===== */
 .scroll-notification {
   position: fixed;
@@ -211,87 +212,28 @@
 </head>
 <body>
 
-   <!-- Navbar -->
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-    
-            <!-- Brand -->
-            <a class="navbar-brand" href="testHome.html" id="brand">
-                <img src="../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
-            </a>
-        
-            <!-- Center Links - Collapse -->
-            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item mx-2">
+  <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg bg-light shadow-sm fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="../index.html">
+      <img src="../../assets/images/logo.png" alt="Logo" style="width: 110px;">
+    </a>
+    <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#nav">
+      <i class="bi bi-list fs-2"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="nav">
+      <ul class="navbar-nav align-items-center gap-3">
                     <a class="nav-link main-nav-link " href="testHome.html">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="product-catalog.html">Shop</a>
-                </li>
-                <li class="nav-item mx-2">
+        <li><a href="product-catalog.html" class="nav-link active">Shop</a></li>
                     <a class="nav-link main-nav-link" href="about.html">About</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="contact.html">Contact</a>
-                </li>
-                <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="seller/seller-dashboard.html">dashboard</a>
-                </li>
-
-                
-                </ul>
-
-                
-                <!-- 🔍 Search Box -->
-        <div class="autocomplete-container ms-3">
-          <input
-            id="searchInput"
-            class="form-control form-control-sm rounded-5 ps-3"
-            type="search"
-            placeholder="Search..."
-            aria-label="Search"
-          />
-          <div id="autocompleteList" class="autocomplete-list"></div>
-          <div id="errorMsg" class="error-msg"></div>
-        </div>
-      </div>
-
-
-            </div>
-        
-            <!-- Right Side -->
-            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+        <li><a href=" contact.html" class="nav-link">Contact</a></li>
 
         
-                <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
-                    <i>
-                        <img src="../assets/icons/shopping-cart.svg" alt="">
-                    </i>
-                </a>
-
-                <a class="nav-link cart-icon-container position-relative" href="auth/profile.html">
-                    <i>
-                        <img src="../assets/icons/heart.svg" alt="">
-                    </i>
-                </a>
-
-                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
-                    <i>
-                        <img src="../assets/icons/profileIcon.svg" alt="">
-                    </i>
-                </a>
-        
-                <!-- Navar Toggler -->
-                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-
-                     <img src="../assets/icons/menu.svg">
-                </button>
-            </div>
-    
-        </div>
-    </nav>
+        <li><a href="cart.html" class="nav-link"><i class="bi bi-cart3 fs-5"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 
   <!-- Product Details -->
@@ -299,24 +241,15 @@
     <div class="product-wrapper row align-items-center g-5" id="productDetails"></div>
   </section>
 
+  <!-- Reviews -->
 <!-- ========== Review Section (Button + Modal) ========== -->
-<section class="container my-5 position-relative" data-fade>
-  <!-- ===== زرار Leave a Review ثابت فوق يمين ===== -->
-  <button class="btn btn-outline-success rounded-pill px-4 py-2 shadow-sm position-absolute top-0 end-0 mt-3 me-3 z-3"
-          data-bs-toggle="modal" data-bs-target="#reviewModal">
+<section class="container my-5" data-fade>
+  <h4 class="fw-bold mb-4">Customer Reviews</h4>
+  <div id="reviewList" class="mb-4"></div>
+
+  <button class="btn btn-outline-success rounded-pill px-4 py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#reviewModal">
     <i class="bi bi-star me-2"></i> Leave a Review
   </button>
-
-  <!-- ===== عنوان ومحتوى الريفيو ===== -->
-  <div class="pt-5">
-    <h4 class="fw-bold mb-4">Customer Reviews</h4>
-
-    <div id="reviewList" class="mb-4"></div>
-
-    <button id="viewMoreBtn" class="btn btn-outline-secondary w-100 mt-3" style="display:none;">
-      View More
-    </button>
-  </div>
 </section>
 
 <!-- ========== Modal ========== -->
@@ -324,12 +257,9 @@
   <div class="modal-dialog">
     <div class="modal-content border-0 shadow-lg rounded-4">
       <div class="modal-header border-0">
-        <h5 class="modal-title fw-bold">
-          <i class="bi bi-chat-dots me-2 text-success"></i> Share Your Feedback
-        </h5>
+        <h5 class="modal-title fw-bold"><i class="bi bi-chat-dots me-2 text-success"></i>Share Your Feedback</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-
       <div class="modal-body">
         <form id="reviewForm">
           <div class="mb-3">
@@ -337,7 +267,6 @@
             <input type="email" id="reviewEmail" class="form-control" placeholder="name@example.com" required>
           </div>
 
-          <!-- ===== نجوم التقييم ===== -->
           <div class="mb-3 star-input text-warning fs-4 text-center">
             <i class="bi bi-star"></i>
             <i class="bi bi-star"></i>
@@ -355,13 +284,10 @@
           </button>
         </form>
       </div>
-
-      <p class="text-muted mb-0 text-center pb-3">Looks exactly like the pictures.</p>
+      <p class="text-muted mb-0">Looks exactly like the pictures.</p>
     </div>
   </div>
 </div>
-
-
 
 
   <!-- You May Also Like -->
@@ -417,11 +343,7 @@
 </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
 <script>
-  // ===== Fade In Animation =====
   function fadeInOnScroll() {
     document.querySelectorAll("[data-fade]").forEach(el => {
       const rect = el.getBoundingClientRect();
@@ -431,7 +353,6 @@
   window.addEventListener("scroll", fadeInOnScroll);
   window.addEventListener("load", fadeInOnScroll);
 
-  // ===== Load Product Details =====
   function loadProductDetails() {
     const p = JSON.parse(localStorage.getItem("selectedProduct"));
     let products = JSON.parse(localStorage.getItem("products")) || [];
@@ -598,25 +519,20 @@
     const reviewForm = document.getElementById("reviewForm");
     const reviewList = document.getElementById("reviewList");
     const stars = document.querySelectorAll(".star-input i");
-    const viewMoreBtn = document.getElementById("viewMoreBtn");
     let ratingValue = 0;
     let halfStar = false;
-    let reviews = [];
-    let displayedCount = 0;
 
     stars.forEach((star, index) => {
       star.addEventListener("mousemove", (e) => {
         const isHalf = e.offsetX < star.clientWidth / 2;
         highlightStars(index, isHalf);
       });
-
       star.addEventListener("mouseleave", () => {
-        highlightStars(Math.ceil(ratingValue) - 1, ratingValue % 1 === 0.5);
+        highlightStars(ratingValue - 1, halfStar);
       });
-
       star.addEventListener("click", (e) => {
         const isHalf = e.offsetX < star.clientWidth / 2;
-        ratingValue = index + (isHalf ? 0.5 : 1);
+        ratingValue = index + 1;
         halfStar = isHalf;
         highlightStars(index, isHalf);
       });
@@ -641,14 +557,16 @@
         return;
       }
 
-      const newReview = {
-        email,
-        text,
-        rating: ratingValue,
-        date: new Date().toLocaleString()
-      };
-      reviews.unshift(newReview);
-      renderReviews(true);
+      const reviewDiv = document.createElement("div");
+      reviewDiv.className = "review-card p-3 border rounded-3 mb-3 shadow-sm bg-light";
+      reviewDiv.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="mb-0 fw-semibold">${email}</h6>
+          <div class="text-warning">${getStarIcons(ratingValue, halfStar)}</div>
+        </div>
+        <p class="text-muted mb-0">${text}</p>
+      `;
+      reviewList.prepend(reviewDiv);
 
       reviewForm.reset();
       ratingValue = 0;
@@ -659,189 +577,19 @@
       modal.hide();
     });
 
-    function renderReviews(animated = false) {
-      reviewList.innerHTML = "";
-      const visible = reviews.slice(0, displayedCount || 3);
-      visible.forEach((r, i) => {
-        const div = document.createElement("div");
-        div.className = "review-card p-3 border rounded-3 mb-3 shadow-sm bg-light";
-        div.style.opacity = "0";
-        div.style.transform = "translateY(10px)";
-        div.innerHTML = `
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h6 class="mb-0 fw-semibold">${r.email}</h6>
-            <div class="text-warning">${getStarIcons(r.rating)}</div>
-          </div>
-          <p class="text-muted mb-0">${r.text}</p>
-          <small class="text-secondary">${r.date}</small>
-        `;
-        reviewList.appendChild(div);
-        if (animated) {
-          setTimeout(() => {
-            div.style.transition = "all .4s ease";
-            div.style.opacity = "1";
-            div.style.transform = "translateY(0)";
-          }, 100 * i);
-        } else {
-          div.style.opacity = "1";
-          div.style.transform = "translateY(0)";
-        }
-      });
-
-      displayedCount = visible.length;
-      viewMoreBtn.style.display = reviews.length > displayedCount ? "block" : "none";
-    }
-
-    function getStarIcons(value) {
+    function getStarIcons(value, half) {
       let starsHTML = "";
       for (let i = 0; i < 5; i++) {
-        if (value >= i + 1) starsHTML += '<i class="bi bi-star-fill"></i>';
-        else if (value >= i + 0.5) starsHTML += '<i class="bi bi-star-half"></i>';
+        if (i < value - 1) starsHTML += '<i class="bi bi-star-fill"></i>';
+        else if (i === value - 1 && half) starsHTML += '<i class="bi bi-star-half"></i>';
+        else if (i === value - 1 && !half) starsHTML += '<i class="bi bi-star-fill"></i>';
         else starsHTML += '<i class="bi bi-star"></i>';
       }
       return starsHTML;
     }
-
-    viewMoreBtn.addEventListener("click", () => {
-      displayedCount += 3;
-      renderReviews(true);
-    });
-
-    reviews = [
-      { email: "ahmed@example.com", text: "Great product and fast delivery!", rating: 4.5, date: "2025-10-29 13:45" },
-      { email: "sara@example.com", text: "Loved the design and quality ❤️", rating: 5, date: "2025-10-28 10:20" },
-      { email: "nour@example.com", text: "Could be better, but still decent.", rating: 3.5, date: "2025-10-25 14:12" },
-      { email: "layla@example.com", text: "Excellent customer service!", rating: 5, date: "2025-10-24 09:05" },
-      { email: "youssef@example.com", text: "Packaging was perfect.", rating: 4.5, date: "2025-10-23 21:17" }
-    ];
-    renderReviews(true);
   });
-
- // ---------- Search Filter ----------
-const products = [
-    "Casual T-Shirt",
-    "Summer Dress",
-    "Denim Jacket",
-    "Stylish Hat",
-    "Men’s Collection",
-    "Women’s Collection",
-    "Kids’ Collection",
-    "Sneakers",
-    "Leather Jacket",
-    "Formal Suit",
-  ];
-
-  const searchInput = document.getElementById("searchInput");
-  const autocompleteList = document.getElementById("autocompleteList");
-  const errorMsg = document.getElementById("errorMsg");
-
-  // Function to navigate based on search
-  function navigateProduct(inputVal) {
-    const exactMatch = products.find(
-      (item) => item.toLowerCase() === inputVal.toLowerCase()
-    );
-
-    if (exactMatch) {
-      // Redirect to product-details.html
-      window.location.href = "product-details.html?product=" + encodeURIComponent(exactMatch);
-    } else {
-      // Redirect to product-catalog.html with query
-      window.location.href = "product-catalog.html?search=" + encodeURIComponent(inputVal);
-    }
-  }
-
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-    autocompleteList.innerHTML = "";
-    errorMsg.textContent = "";
-
-    if (query.length === 0) {
-      autocompleteList.style.display = "none";
-      return;
-    }
-
-    const matches = products.filter((item) =>
-      item.toLowerCase().includes(query)
-    );
-
-    if (matches.length === 0) {
-      autocompleteList.style.display = "none";
-      return;
-    }
-
-    matches.forEach((item) => {
-      const div = document.createElement("div");
-      div.classList.add("autocomplete-item", "p-2", "border-bottom", "bg-white", "cursor-pointer");
-      div.textContent = item;
-      div.style.position = "relative";
-      div.addEventListener("click", () => {
-        searchInput.value = item;
-        autocompleteList.style.display = "none";
-        navigateProduct(item);
-      });
-      autocompleteList.appendChild(div);
-    });
-
-    autocompleteList.style.display = "block";
-    autocompleteList.style.position = "absolute";
-    autocompleteList.style.backgroundColor = "#fff";
-    autocompleteList.style.border = "1px solid #ccc";
-    autocompleteList.style.borderRadius = "8px";
-    autocompleteList.style.top = searchInput.offsetTop + searchInput.offsetHeight + "px";
-    autocompleteList.style.left = searchInput.offsetLeft + "px";
-    autocompleteList.style.width = searchInput.offsetWidth + "px";
-    autocompleteList.style.zIndex = 10000;
-  });
-
-  // Enter key
-  searchInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      const inputVal = searchInput.value.trim();
-      if (!inputVal) return;
-      navigateProduct(inputVal);
-    }
-  });
-
-  // Hide list when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".autocomplete-container")) {
-      autocompleteList.style.display = "none";
-    }
-  });
-  // Enter key
-searchInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    const inputVal = searchInput.value.trim();
-    if (!inputVal) return;
-
-    const exactMatch = products.find(
-      (item) => item.toLowerCase() === inputVal.toLowerCase()
-    );
-
-    if (exactMatch) {
-      // Redirect to product-details.html
-      window.location.href = "product-details.html?product=" + encodeURIComponent(exactMatch);
-    } else {
-      // Check for partial matches
-      const partialMatches = products.filter((item) =>
-        item.toLowerCase().includes(inputVal.toLowerCase())
-      );
-
-      if (partialMatches.length > 0) {
-        window.location.href = "product-catalog.html?search=" + encodeURIComponent(inputVal);
-      } else {
-        // Show error message
-        errorMsg.textContent = "❌ No product found with this name.";
-        autocompleteList.style.display = "none";
-      }
-    }
-  }
-});
-
-
 </script>
+
 
 
 
