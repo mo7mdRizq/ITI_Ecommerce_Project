@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home - MODEVIA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
+  <link rel="icon" type="image/png" href="../../assets/icons/logo 1.png">
+
+  </head>
 <style>
 
 
@@ -252,8 +254,9 @@ border: 2px solid #3f756c
                 <li class="nav-item mx-2">
                     <a class="nav-link main-nav-link" href="../pages/contact.html">Contact</a>
                 </li>
-                <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="">dashboard</a>
+                <li class="nav-item me-5">
+                  <a href="../pages/seller/seller-dashboard.html" id="dashboardLink" class="nav-link main-nav-link"
+                    style="display: none;">Dashboard</a>
                 </li>
 
                 
@@ -779,12 +782,6 @@ searchInput.addEventListener("keydown", (e) => {
   ensureProductIds();
 </script>
 
-
-
-
-
-
-
 <script>
 // ✅ دالة تجيب كل المنتجات من localStorage
 function getProducts() {
@@ -887,11 +884,6 @@ function addToCartById(id) {
 // ✅ لما الصفحة تفتح نعرض المنتجات
 document.addEventListener("DOMContentLoaded", renderFeaturedProducts);
 </script>
-
-
-
-
-
 
 
 <script>
@@ -1012,7 +1004,7 @@ function addToWishlistById(id) {
   }
 </script>
 
-
+<script src="../js/profile.js"></script>
 
 </body>
 </html>
