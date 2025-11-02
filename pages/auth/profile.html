@@ -78,7 +78,7 @@
         <div class="container-fluid d-flex align-items-center justify-content-between">
     
             <!-- Brand -->
-            <a class="navbar-brand" href="../index.html" id="brand">
+            <a class="navbar-brand" href="../testHome.html" id="brand">
                 <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
             </a>
         
@@ -124,10 +124,12 @@
                   </span>
                 </a>
 
-                <a class="nav-link cart-icon-container position-relative" href="../auth/profile.html">
+                <a class="nav-link cart-icon-container position-relative" href="../wishlist.html">
                     <i>
                         <img src="../../assets/icons/heart.svg" alt="">
                     </i>
+                    <span id="wishlist-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle" style="display:none;">0</span>
+
                 </a>
 
                 <a class="nav-link cart-icon-container position-relative" href="../auth/profile.html">
@@ -553,5 +555,7 @@ saveBtn.addEventListener('click', function () {
     window.location.href = 'signin.html'; 
   });
 </script>
+
+<script src="../../component/nav.js"></script>
 </body>
 </html>

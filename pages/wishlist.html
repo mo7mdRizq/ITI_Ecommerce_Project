@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wishllist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+    
+            <!-- Brand -->
+            <a class="navbar-brand" href="../pages/testHome.html" id="brand">
+                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
+            </a>
+        
+            <!-- Center Links - Collapse -->
+            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link active" href="../pages/testHome.html">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="../pages/product-catalog.html">Shop</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="../pages/about.html">About</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link main-nav-link" href="../pages/contact.html">Contact</a>
+                </li>
+                <li class="nav-item me-5" id="dashboard">
+                    <a class="nav-link main-nav-link" href="">dashboard</a>
+                </li>
+
+                
+                </ul>
+
+                <form class="d-flex align-items-center" role="search" style="width: 300px;">
+                    <input
+                    id="navbarSearchInput"
+                    class="form-control form-control-sm rounded-4 ps-3"
+                    type="search"
+                    placeholder="Search products..."
+                    aria-label="Search"
+                    />
+                </form>
+
+            </div>
+        
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
+
+        
+                <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
+                    <i>
+                        <img src="../../assets/icons/shopping-cart.svg" alt="">
+                    </i>
+                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" 
+                        style="font-size: 0.7rem; display: none;">
+                    0
+                  </span>
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="wishlist.html">
+                    <i>
+                        <img src="../../assets/icons/heart.svg" alt="">
+                    </i>
+                    <span id="wishlist-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle" style="display:none;">0</span>
+
+                </a>
+
+                <a class="nav-link cart-icon-container position-relative" href="../pages/auth/profile.html">
+                    <i>
+                        <img src="../../assets/icons/profileIcon.svg" alt="">
+                    </i>
+                </a>
+        
+                <!-- Navar Toggler -->
+                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+                     <img src="../../assets/icons/menu.svg">
+                </button>
+            </div>
+    
+        </div>
+    </nav>
+
+
+<!-- 🩷 Wishlist Page Content -->
+<div class="container py-5 mt-5">
+  <h2 class="mb-4 text-center fw-bold">💖 Your Wishlist</h2>
+
+  <!-- ✅ مكان عرض المنتجات -->
+  <div id="wishlistContainer" class="row g-4"></div>
+
+  <!-- ❤️ رسالة لو القائمة فاضية -->
+  <div id="emptyWishlist" class="text-center text-muted my-5" style="display:none;">
+    <h5>Your wishlist is empty 💔</h5>
+    <p>Browse products and add what you love!</p>
+    <a href="testHome.html" class="btn btn-outline-dark mt-2">Back to Home</a>
+  </div>
+</div>
+
+
+
+
+
+
+
+<script>
+  // ✅ جلب / حفظ wishlist
+  function getWishlist() {
+    return JSON.parse(localStorage.getItem("wishlist")) || [];
+  }
+
+  function saveWishlist(list) {
+    localStorage.setItem("wishlist", JSON.stringify(list));
+  }
+
+  // ✅ إزالة منتج
+  function removeFromWishlist(id) {
+    let wishlist = getWishlist();
+    wishlist = wishlist.filter(item => item.id !== id);
+    saveWishlist(wishlist);
+    showToast("Removed from wishlist 💔", "warning");
+    renderWishlist();
+  }
+
+  // ✅ عرض المنتجات
+  function renderWishlist() {
+    const wishlist = getWishlist();
+    const container = document.getElementById("wishlistContainer");
+    const empty = document.getElementById("emptyWishlist");
+
+    container.innerHTML = "";
+
+    if (wishlist.length === 0) {
+      empty.style.display = "block";
+      return;
+    } else {
+      empty.style.display = "none";
+    }
+
+    wishlist.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "col-lg-3 col-md-4 col-sm-6";
+      div.innerHTML = `
+        <div class="card product-card shadow-sm border-0 h-100">
+          <div class="position-relative">
+            <img src="${p.image}" class="card-img-top" alt="${p.name}" 
+                 style="height:260px;object-fit:cover;border-radius:10px;">
+            <button class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm"
+                    onclick="removeFromWishlist('${p.id}')" title="Remove from wishlist">
+              <i class="bi bi-heartbreak text-danger fs-5"></i>
+            </button>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title mb-1">${p.name}</h5>
+            <p class="text-muted small mb-2">${p.category || ''}</p>
+            <p class="fw-bold mb-3">$${p.price}</p>
+            <button class="btn btn-dark btn-sm w-100 mb-2" onclick="addToCartFromWishlist('${p.id}')">
+              <i class="bi bi-cart-plus"></i> Add to Cart
+            </button>
+            <button class="btn btn-outline-secondary btn-sm w-100" onclick="viewProduct('${p.id}')">
+              <i class="bi bi-eye"></i> View Details
+            </button>
+          </div>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  // ✅ نقل المنتج إلى الكارت
+  function addToCartFromWishlist(id) {
+    const wishlist = getWishlist();
+    const product = wishlist.find(p => p.id === id);
+    if (!product) return showToast("Product not found ❌", "error");
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const exist = cart.find(item => item.id === product.id);
+    if (exist) exist.qty = (exist.qty || 1) + 1;
+    else cart.push({ ...product, qty: 1 });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    showToast(`${product.name} added to cart ✅`, "success");
+  }
+
+  // ✅ عرض تفاصيل المنتج
+  function viewProduct(id) {
+    const wishlist = getWishlist();
+    const product = wishlist.find(p => p.id === id);
+    if (!product) return showToast("Product not found ❌", "error");
+
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+    window.location.href = "product-details.html";
+  }
+
+  // ✅ عند تحميل الصفحة
+  document.addEventListener("DOMContentLoaded", renderWishlist);
+</script>
+
+
+
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="../component/nav.js"></script>
+
+
+<!-- ✅ Toast Container -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;">
+  <div id="liveToast" class="toast align-items-center text-white border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex align-items-center">
+      <div class="toast-icon fs-4 px-3"></div>
+      <div class="toast-body fw-semibold" id="toastMessage">Toast message</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ✅ Toast Function with Icon & Animation
+  function showToast(message, type = "success") {
+    const toastEl = document.getElementById('liveToast');
+    const toastMsg = document.getElementById('toastMessage');
+    const toastIcon = toastEl.querySelector('.toast-icon');
+
+    // إزالة ألوان قديمة
+    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-primary', 'bg-warning', 'bg-dark', 'text-dark');
+
+    let icon = '';
+    switch (type) {
+      case 'success':
+        toastEl.classList.add('bg-success');
+        icon = '<i class="bi bi-check-circle-fill"></i>';
+        break;
+      case 'error':
+        toastEl.classList.add('bg-danger');
+        icon = '<i class="bi bi-x-circle-fill"></i>';
+        break;
+      case 'info':
+        toastEl.classList.add('bg-primary');
+        icon = '<i class="bi bi-info-circle-fill"></i>';
+        break;
+      case 'warning':
+        toastEl.classList.add('bg-warning', 'text-dark');
+        icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
+        break;
+      case 'wishlist':
+        toastEl.classList.add('bg-dark');
+        icon = '<i class="bi bi-heart-fill text-danger"></i>';
+        break;
+      default:
+        toastEl.classList.add('bg-success');
+        icon = '<i class="bi bi-check-circle-fill"></i>';
+    }
+
+    toastMsg.textContent = message;
+    toastIcon.innerHTML = icon;
+
+    // ✅ إظهار التوست
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    toast.show();
+  }
+</script>
+
+
+
+</body>
+</html>

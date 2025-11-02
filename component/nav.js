@@ -1,57 +1,70 @@
+// ✅ جلب السلة من localStorage
+function getCart() {
+  return JSON.parse(localStorage.getItem("cart")) || [];
+}
 
-  // ✅ جلب السلة من localStorage
-  function getCart() {
-    return JSON.parse(localStorage.getItem("cart")) || [];
+// ✅ حفظ السلة
+function saveCart(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount(); // تحديث العدد بعد الحفظ
+}
+
+// ✅ تحديث عداد الكارت
+function updateCartCount() {
+  const cart = getCart();
+  const totalItems = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+  const badge = document.getElementById("cart-count");
+
+  if (!badge) return;
+  if (totalItems > 0) {
+    badge.style.display = "inline";
+    badge.textContent = totalItems;
+  } else {
+    badge.style.display = "none";
   }
+}
 
-  // ✅ حفظ السلة
-  function saveCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount(); // كل مرة نحفظ نحدث العدد
+// ✅ تحديث عداد الـ Wishlist
+function updateWishlistCount() {
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  const badge = document.getElementById("wishlist-count");
+
+  if (!badge) return;
+  if (wishlist.length > 0) {
+    badge.style.display = "inline";
+    badge.textContent = wishlist.length;
+  } else {
+    badge.style.display = "none";
   }
+}
 
-  // ✅ تحديث عداد الكارت في الـ navbar
-  function updateCartCount() {
-    const cart = getCart();
-    const totalItems = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-    const badge = document.getElementById("cart-count");
+// ✅ تحديث العدادات أول ما الصفحة تفتح
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartCount();
+  updateWishlistCount();
+});
 
-    if (!badge) return; // لو الصفحة دي مافيهاش navbar
-    if (totalItems > 0) {
-      badge.style.display = "inline";
-      badge.textContent = totalItems;
-    } else {
-      badge.style.display = "none";
-    }
-  }
+// ✅ تعديل دالة addToCart لتحديث العداد بعد الإضافة
+function addToCart(index) {
+  const products = getProducts();
+  const p = products[index];
+  if (!p) return showToast("Product not found ❌", "error");
 
-  // ✅ تحديث العدّاد أول ما الصفحة تفتح
-  document.addEventListener("DOMContentLoaded", updateCartCount);
+  const cart = getCart();
+  const exist = cart.find(item => item.name === p.name);
+  if (exist) exist.qty = (exist.qty || 1) + 1;
+  else cart.push({ ...p, qty: 1 });
 
-  // ✅ تعديل دالة addToCart عشان تحدث العداد بعد الإضافة
-  function addToCart(index) {
-    const products = getProducts();
-    const p = products[index];
-    if (!p) return alert('Product not found');
+  saveCart(cart);
+  showToast(`${p.name} added to cart ✅`, "success");
+  updateCartCount();
+}
 
-    const cart = getCart();
-    const exist = cart.find(item => item.name === p.name);
-    if (exist) exist.qty = (exist.qty || 1) + 1;
-    else cart.push({ ...p, qty: 1 });
-
-    saveCart(cart);
-    showToast(`${p.name} added to cart ✅`);
-    updateCartCount(); // <-- السطر الجديد المهم 👈
-  }
-
-
-
-
-    document.addEventListener("DOMContentLoaded", () => {
+// ✅ البحث في الـNavbar
+document.addEventListener("DOMContentLoaded", () => {
   const searchInputTop = document.getElementById("navbarSearchInput");
   if (!searchInputTop) return;
 
-  // إنشاء dropdown container
   const dropdown = document.createElement("div");
   dropdown.id = "navbarSearchDropdown";
   Object.assign(dropdown.style, {
@@ -69,6 +82,7 @@
     boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
     borderRadius: "0 0 10px 10px"
   });
+
   searchInputTop.parentElement.style.position = "relative";
   searchInputTop.parentElement.appendChild(dropdown);
 
@@ -114,14 +128,12 @@
     dropdown.style.display = "block";
   });
 
-  // إخفاء القائمة لما تضغط براها
   document.addEventListener("click", (e) => {
     if (!searchInputTop.contains(e.target) && !dropdown.contains(e.target)) {
       dropdown.style.display = "none";
     }
   });
 
-  // Enter يفتح أول نتيجة
   searchInputTop.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const first = dropdown.querySelector(".dropdown-item");
@@ -130,52 +142,46 @@
   });
 });
 
+// ✅ Toast Function with Icon & Animation
+function showToast(message, type = "success") {
+  const toastEl = document.getElementById('liveToast');
+  const toastMsg = document.getElementById('toastMessage');
+  const toastIcon = toastEl.querySelector('.toast-icon');
 
-// toast
+  toastEl.classList.remove('bg-success', 'bg-danger', 'bg-primary', 'bg-warning', 'bg-dark', 'text-dark');
 
-
-  // ✅ Toast Function with Icon & Animation
-  function showToast(message, type = "success") {
-    const toastEl = document.getElementById('liveToast');
-    const toastMsg = document.getElementById('toastMessage');
-    const toastIcon = toastEl.querySelector('.toast-icon');
-
-    // إزالة ألوان قديمة
-    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-primary', 'bg-warning', 'bg-dark', 'text-dark');
-
-    let icon = '';
-    switch (type) {
-      case 'success':
-        toastEl.classList.add('bg-success');
-        icon = '<i class="bi bi-check-circle-fill"></i>';
-        break;
-      case 'error':
-        toastEl.classList.add('bg-danger');
-        icon = '<i class="bi bi-x-circle-fill"></i>';
-        break;
-      case 'info':
-        toastEl.classList.add('bg-primary');
-        icon = '<i class="bi bi-info-circle-fill"></i>';
-        break;
-      case 'warning':
-        toastEl.classList.add('bg-warning', 'text-dark');
-        icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
-        break;
-      case 'wishlist':
-        toastEl.classList.add('bg-dark');
-        icon = '<i class="bi bi-heart-fill text-danger"></i>';
-        break;
-      default:
-        toastEl.classList.add('bg-success');
-        icon = '<i class="bi bi-check-circle-fill"></i>';
-    }
-
-    toastMsg.textContent = message;
-    toastIcon.innerHTML = icon;
-
-    // تطبيق الأنيميشن
-    toastEl.classList.add('custom-toast');
-
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-    toast.show();
+  let icon = '';
+  switch (type) {
+    case 'success':
+      toastEl.classList.add('bg-success');
+      icon = '<i class="bi bi-check-circle-fill"></i>';
+      break;
+    case 'error':
+      toastEl.classList.add('bg-danger');
+      icon = '<i class="bi bi-x-circle-fill"></i>';
+      break;
+    case 'info':
+      toastEl.classList.add('bg-primary');
+      icon = '<i class="bi bi-info-circle-fill"></i>';
+      break;
+    case 'warning':
+      toastEl.classList.add('bg-warning', 'text-dark');
+      icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
+      break;
+    case 'wishlist':
+      toastEl.classList.add('bg-dark');
+      icon = '<i class="bi bi-heart-fill text-danger"></i>';
+      break;
+    default:
+      toastEl.classList.add('bg-success');
+      icon = '<i class="bi bi-check-circle-fill"></i>';
   }
+
+  toastMsg.textContent = message;
+  toastIcon.innerHTML = icon;
+
+  toastEl.classList.add('custom-toast');
+
+  const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+  toast.show();
+}
