@@ -253,6 +253,15 @@
     </div>
   </div>
 
+<!--json///////////////////////////////////-->
+<section id="product-catalog" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">All Products</h2>
+    <div id="catalog-products" class="row"></div>
+  </div>
+</section>
+
+
 
           <!-- Footer -->
 <footer class="py-5" style="background-color: #222; color: #fff;">
@@ -658,7 +667,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script src="../component/nav.js"></script>
 
+<!--Json-->
+<script>
+  fetch("products.json")
+    .then(res => res.json())
+    .then(products => {
+      const container = document.getElementById("catalog-products");
 
+      container.innerHTML = products.map(p => `
+        <div class="col-md-4">
+          <div class="card mb-3 shadow-sm border-0">
+            <img src="${p.image}" class="card-img-top" alt="${p.name}">
+            <div class="card-body">
+              <h5 class="card-title text-center">${p.name}</h5>
+              <p class="card-text text-muted">${p.description}</p>
+              <p class="fw-bold text-primary text-center">${p.price}</p>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    })
+    .catch(err => console.error("Error loading products:", err));
+</script>
 
 </body>
 </html>

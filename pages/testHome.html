@@ -526,6 +526,14 @@ border: 2px solid #3f756c
     </section>
 
     
+<section id="featured-products" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Featured Products</h2>
+    <div id="home-products" class="row"></div>
+  </div>
+</section>
+
+
 
         <!-- Footer -->
 <footer class="py-5" style="background-color: #222; color: #fff;">
@@ -600,7 +608,30 @@ border: 2px solid #3f756c
         </div>
 
 
+<!--///////////////Json//////////////////-->
+<script>
+  fetch("products.json")
+    .then(res => res.json())
+    .then(products => {
+      const container = document.getElementById("home-products");
 
+      const featured = products.slice(0, 3);
+
+      container.innerHTML = featured.map(p => `
+        <div class="col-md-4">
+          <div class="card mb-3 shadow-sm border-0">
+            <img src="${p.image}" class="card-img-top" alt="${p.name}">
+            <div class="card-body">
+              <h5 class="card-title text-center">${p.name}</h5>
+              <p class="card-text text-muted">${p.description}</p>
+              <p class="fw-bold text-primary text-center">${p.price}</p>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    })
+    .catch(err => console.error("Error loading products:", err));
+</script>
 
         <!-- Overlay Message -->
 <!-- <div id="introOverlay">
@@ -615,6 +646,7 @@ border: 2px solid #3f756c
     <p class="text-secondary mt-3">جاري التحميل يدولي<br><span id="countdown">7</span> ثواني...</p>
   </div>
 </div> -->
+
 
 
 <script>
@@ -1012,6 +1044,29 @@ function addToWishlistById(id) {
   }
 </script>
 
+
+<!--json-->
+<script>
+  fetch("products.json")
+    .then(res => res.json())
+    .then(products => {
+      const container = document.getElementById("home-products");
+      const featured = products.slice(0, 3); // أول 3 منتجات
+      container.innerHTML = featured.map(p => `
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <img src="${p.image}" class="card-img-top" alt="${p.name}">
+            <div class="card-body">
+              <h5 class="card-title">${p.name}</h5>
+              <p class="card-text">${p.description}</p>
+              <p class="fw-bold text-primary">${p.price}</p>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    })
+    .catch(err => console.error("Error loading products:", err));
+</script>
 
 
 </body>

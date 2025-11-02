@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "White T-Shirt",
+    "price": "250 EGP",
+    "description": "ssssssss",
+    "image": "../../assets/images/115.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Blue ",
+    "price": "400 EGP",
+    "description": "aaaaaaaaaa",
+    "image": "../../assets/images/105.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Red ",
+    "price": "650 EGP",
+    "description": "aaa",
+    "image": "../../assets/images/135.jpg"
+  }
+]
