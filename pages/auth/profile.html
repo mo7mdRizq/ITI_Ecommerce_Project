@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Profile - E-commerce</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../../assets/icons/logo 1.png">
+
   <style>
     body {
       background-color: #f7f9f8;
       font-family: Arial, sans-serif;
     }
+
     .sidebar {
       background-color: #fff;
       min-height: 90vh;
@@ -18,16 +22,19 @@
       text-align: center;
       box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
     }
+
     .profile-pic {
       position: relative;
       display: inline-block;
     }
+
     .profile-pic img {
       width: 120px;
       height: 120px;
       border-radius: 50%;
       object-fit: cover;
     }
+
     .edit-icon {
       position: absolute;
       bottom: 5px;
@@ -40,113 +47,126 @@
       cursor: pointer;
       transition: 0.3s;
     }
+
     .edit-icon:hover {
       background-color: #618674;
     }
+
     .sidebar h4 {
       margin-top: 15px;
       font-weight: bold;
     }
+
     .nav-pills .nav-link {
       color: #000;
       border-radius: 10px;
       margin: 5px 0;
       transition: 0.3s;
     }
+
     .nav-pills .nav-link:hover {
       background-color: #4D6B5C;
       color: #fff;
     }
+
     .nav-pills .nav-link.active {
       background-color: #618674;
       color: #fff;
     }
+
     .btn-custom {
       background-color: #4D6B5C;
       color: #fff;
       border: none;
       transition: 0.3s;
     }
+
     .btn-custom:hover {
       background-color: #618674;
     }
   </style>
 </head>
+
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow  mb-1">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-    
-            <!-- Brand -->
-            <a class="navbar-brand" href="../testHome.html" id="brand">
-                <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;"/>
-            </a>
-        
-            <!-- Center Links - Collapse -->
-            <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link active" href="../testHome.html">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="../about.html">About</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link main-nav-link" href="#footer">Contact</a>
-                </li>
-                <li class="nav-item me-5" id="dashboard">
-                    <a class="nav-link main-nav-link" href="">dashboard</a>
-                </li>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow  mb-1">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
 
-                
-                </ul>
+      <!-- Brand -->
+      <a class="navbar-brand" href="../testHome.html" id="brand">
+        <img src="../../assets/images/logo.png" alt="Logo" class="logoImg" style="width: 100px;" />
+      </a>
 
-                <form class="d-flex align-items-center" role="search" style="width: 300px;">
-                    <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
-                </form>
+      <!-- Center Links - Collapse -->
+      <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item mx-2">
+            <a class="nav-link main-nav-link active" href="../testHome.html">Home</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link main-nav-link" href="../about.html">About</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link main-nav-link" href="../contact.html">Contact</a>
+          </li>
+          <li class="nav-item me-5">
+            <a href="../pages/seller/seller-dashboard.html" id="dashboardLink" class="nav-link main-nav-link"
+              style="display: none;">Dashboard</a>
+          </li>
 
-            </div>
-        
-            <!-- Right Side -->
-            <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
 
-        
-                <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
-                  <i>
-                    <img src="../../assets/icons/shopping-cart.svg" alt="">
-                  </i>
-                  <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" 
-                        style="font-size: 0.7rem; display: none;">
-                    0
-                  </span>
-                </a>
+        </ul>
 
-                <a class="nav-link cart-icon-container position-relative" href="../wishlist.html">
-                    <i>
-                        <img src="../../assets/icons/heart.svg" alt="">
-                    </i>
-                    <span id="wishlist-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle" style="display:none;">0</span>
+        <form class="d-flex align-items-center" role="search" style="width: 300px;">
+          <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..."
+            aria-label="Search">
+        </form>
 
-                </a>
+      </div>
 
-                <a class="nav-link cart-icon-container position-relative" href="../auth/profile.html">
-                    <i>
-                        <img src="../../assets/icons/profileIcon.svg" alt="">
-                    </i>
-                </a>
-        
-                <!-- Navar Toggler -->
-                <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <!-- Right Side -->
+      <div class="d-flex align-items-center gap-4 order-lg-3 ms-auto">
 
-                     <img src="../../assets/icons/menu.svg">
-                </button>
-            </div>
-    
-        </div>
-    </nav>
+
+        <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
+          <i>
+            <img src="../../assets/icons/shopping-cart.svg" alt="">
+          </i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
+            style="font-size: 0.7rem; display: none;">
+            0
+          </span>
+        </a>
+
+        <a class="nav-link cart-icon-container position-relative" href="../wishlist.html">
+          <i>
+            <img src="../../assets/icons/heart.svg" alt="">
+          </i>
+          <span id="wishlist-count"
+            class="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
+            style="display:none;">0</span>
+
+        </a>
+
+        <a class="nav-link cart-icon-container position-relative" href="../auth/profile.html">
+          <i>
+            <img src="../../assets/icons/profileIcon.svg" alt="">
+          </i>
+        </a>
+
+        <!-- Navar Toggler -->
+        <button class="navbar-toggler ms-2 border-0" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNav">
+
+          <img src="../../assets/icons/menu.svg">
+        </button>
+      </div>
+
+    </div>
+  </nav>
   <div class="container-fluid">
     <div class="row">
       <!-- Sidebar -->
@@ -158,10 +178,14 @@
         <h4 class="mt-3">Mona Emad</h4>
 
         <div class="nav flex-column nav-pills mt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button">Profile</button>
-          <button class="nav-link" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" type="button">Change Password</button>
-          <button class="nav-link" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button">Orders</button>
-          <button class="nav-link" id="v-pills-wishlist-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist" type="button">Wishlist</button>
+          <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
+            data-bs-target="#v-pills-profile" type="button">Profile</button>
+          <button class="nav-link" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password"
+            type="button">Change Password</button>
+          <button class="nav-link" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders"
+            type="button">Orders</button>
+          <button class="nav-link" id="v-pills-wishlist-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist"
+            type="button">Wishlist</button>
           <button class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal">Log out</button>
         </div>
       </div>
@@ -180,20 +204,22 @@
             </div>
             <h4 class="mt-3">Mona Emad</h4>
           </div>
-          <div class="nav flex-column nav-pills mt-4" id="v-pills-tab-mobile" role="tablist" aria-orientation="vertical">
+          <div class="nav flex-column nav-pills mt-4" id="v-pills-tab-mobile" role="tablist"
+            aria-orientation="vertical">
             <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#v-pills-profile">Profile</button>
             <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-password">Change Password</button>
             <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-orders">Orders</button>
             <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist">Wishlist</button>
-            <button class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal" 
-            data-bs-dismiss="offcanvas">Log out</button>
+            <button class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal"
+              data-bs-dismiss="offcanvas">Log out</button>
           </div>
         </div>
       </div>
 
       <!-- Main content -->
       <div class="col-md-9 col-lg-10 p-4 ">
-        <button class="btn btn-outline-secondary d-md-none mb-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+        <button class="btn btn-outline-secondary d-md-none mb-3" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasSidebar">
           <i class="bi bi-list"></i>
         </button>
 
@@ -205,7 +231,7 @@
               <div class="row mb-3">
                 <div class="col-md-6">
                   <label class="form-label">Full Name</label>
-                  <input type="text" class="form-control" id="profileName"  value="Mona Emad" disabled>
+                  <input type="text" class="form-control" id="profileName" value="Mona Emad" disabled>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">Email</label>
@@ -219,7 +245,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">Address</label>
-                  <input type="text" class="form-control" id="profileAddress"  disabled>
+                  <input type="text" class="form-control" id="profileAddress" disabled>
                 </div>
               </div>
               <div class="d-flex justify-content-end">
@@ -315,247 +341,304 @@
 
 
   <!-- Logout Confirmation Modal -->
-<div class="modal fade" id="logoutModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-center">
-      <div class="modal-header border-0">
-        <h5 class="modal-title w-100">Confirm Logout</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <p class="mb-4">Are you sure you want to log out?</p>
-        <div class="d-flex justify-content-center gap-3">
-          <button class="btn btn-danger px-4" id="confirmLogout">Yes, Logout</button>
-          <button class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+  <div class="modal fade" id="logoutModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header border-0">
+          <h5 class="modal-title w-100">Confirm Logout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-4">Are you sure you want to log out?</p>
+          <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-danger px-4" id="confirmLogout">Yes, Logout</button>
+            <button class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-const inputImg = document.getElementById("inputImg");
+    // =========================================================================
+    // 💡 دوال مساعدة لتوحيد قراءة البيانات 💡
+    // =========================================================================
+    function getLoggedInUser() {
+      return JSON.parse(localStorage.getItem("currentUser") || "null");
+    }
 
-window.addEventListener('DOMContentLoaded', function() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  
-  if (!currentUser) {
-    alert('Please login first!');
-    window.location.href = 'signin.html'; 
-    return;
-  }
+    // =========================================================================
+    // 🚀 دالة إظهار وإخفاء الداشبورد (الحل لمشكلة الظهور في البروفايل) 🚀
+    // =========================================================================
+    function setupDashboardVisibility() {
+      // نستخدم ID العنصر الذي أشرت إليه في الناف بار
+      const dashboardLinkLi = document.getElementById("dashboard");
+      const dashboardLinkA = document.getElementById("dashboardLink");
+      const user = getLoggedInUser();
 
-  const savedImage = localStorage.getItem('profileImage');
-  const profileImgs = document.querySelectorAll('.profile-pic img');
-  if (savedImage) {
-    profileImgs.forEach(img => img.src = savedImage);
-  }
-
-  document.querySelector('#profileName').value = currentUser.name || "";
-  document.querySelector('#profileEmail').value = currentUser.email || "";
-  document.querySelector('#profilePhone').value = currentUser.phoneNumber || "";
-  document.querySelector('#profileAddress').value = currentUser.address || "";
-  
-  document.querySelectorAll('.sidebar h4, .offcanvas-body h4').forEach(h4 => {
-    h4.textContent = currentUser.name || "User";
-  });
-});
+      // إخفاء الروابط افتراضياً لـ Dashboard
+      if (dashboardLinkLi) {
+        dashboardLinkLi.style.display = 'none';
+      }
+      if (dashboardLinkA) {
+        dashboardLinkA.style.display = 'none';
+      }
 
 
-const profileForm = document.querySelector('#v-pills-profile form'); 
-const editProfileBtn = document.getElementById('editProfileBtn');
-const saveProfileBtn = document.getElementById('saveProfileBtn');
-const profileInputs = profileForm.querySelectorAll('input');
+      if (user && (user.role === 'seller' || user.role === 'admin')) {
+        let destinationURL = "";
+
+        if (user.role === 'admin') {
+          destinationURL = "../pages/admin/admin-dashboard.html"; // مسار الأدمن
+        } else {
+          destinationURL = "../pages/seller/seller-dashboard.html"; // مسار البائع
+        }
+
+        // إظهار الرابط وتحديث مساره
+        if (dashboardLinkLi) {
+          dashboardLinkLi.style.display = 'block'; // أو 'flex' حسب تصميم الناف بار
+          const innerLink = dashboardLinkLi.querySelector('a');
+          if (innerLink) innerLink.href = destinationURL;
+
+        } else if (dashboardLinkA) {
+          dashboardLinkA.style.display = 'block';
+          dashboardLinkA.href = destinationURL;
+        }
+      }
+    }
+    // =========================================================================
+    // بداية الكود الأصلي
+    // =========================================================================
+    const inputImg = document.getElementById("inputImg");
+
+    window.addEventListener('DOMContentLoaded', function () {
+      // 📌 استدعاء دالة إظهار الداشبورد هنا
+      setupDashboardVisibility();
+
+      const currentUser = getLoggedInUser(); // تم التعديل لاستخدام getLoggedInUser()
+
+      if (!currentUser) {
+        alert('Please login first!');
+        // يجب تعديل هذا المسار ليتوافق مع مسار صفحة تسجيل الدخول لديك (عادةً ../auth/signin.html)
+        window.location.href = '../auth/signin.html';
+        return;
+      }
+
+      const savedImage = localStorage.getItem('profileImage');
+      const profileImgs = document.querySelectorAll('.profile-pic img');
+      if (savedImage) {
+        profileImgs.forEach(img => img.src = savedImage);
+      }
+
+      document.querySelector('#profileName').value = currentUser.name || "";
+      document.querySelector('#profileEmail').value = currentUser.email || "";
+      document.querySelector('#profilePhone').value = currentUser.phoneNumber || "";
+      document.querySelector('#profileAddress').value = currentUser.address || "";
+
+      document.querySelectorAll('.sidebar h4, .offcanvas-body h4').forEach(h4 => {
+        h4.textContent = currentUser.name || "User";
+      });
+    });
 
 
-profileForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
-    if (!currentUser) {
+    const profileForm = document.querySelector('#v-pills-profile form');
+    const editProfileBtn = document.getElementById('editProfileBtn');
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    const profileInputs = profileForm.querySelectorAll('input');
+
+
+    profileForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      let currentUser = getLoggedInUser(); // تم التعديل لاستخدام getLoggedInUser()
+
+      if (!currentUser) {
         alert('Session expired. Please login again.');
         window.location.href = 'signin.html';
         return;
-    }
+      }
 
-    const updatedName = document.querySelector('#profileName').value.trim();
-    const updatedEmail = document.querySelector('#profileEmail').value.trim();
-    const updatedPhone = document.querySelector('#profilePhone').value.trim();
-    const updatedAddress = document.querySelector('#profileAddress').value.trim();
+      const updatedName = document.querySelector('#profileName').value.trim();
+      const updatedEmail = document.querySelector('#profileEmail').value.trim();
+      const updatedPhone = document.querySelector('#profilePhone').value.trim();
+      const updatedAddress = document.querySelector('#profileAddress').value.trim();
 
-    if (!updatedName || !updatedEmail || !updatedPhone) {
+      if (!updatedName || !updatedEmail || !updatedPhone) {
         alert('Please fill in all required fields (Name, Email, Phone)!');
         return;
-    }
-    
-    const phoneRegex = /^(010|011|012|015)\d{8}$/;
-    if (!phoneRegex.test(updatedPhone)) {
+      }
+
+      const phoneRegex = /^(010|011|012|015)\d{8}$/;
+      if (!phoneRegex.test(updatedPhone)) {
         alert('Invalid phone number format! It must start with 010, 011, 012, or 015 and be 11 digits long.');
         document.querySelector('#profilePhone').focus();
         return;
-    }
-    
-    currentUser.name = updatedName;
-    currentUser.email = updatedEmail;
-    currentUser.phoneNumber = updatedPhone;
-    currentUser.address = updatedAddress;
+      }
 
-    let users = JSON.parse(localStorage.getItem('users') || '[]');
-    const userIndex = users.findIndex(u => u.email === currentUser.email); 
-    
-    if (userIndex !== -1) {
-        users[userIndex].name = updatedName;
-        users[userIndex].email = updatedEmail;
-        users[userIndex].phoneNumber = updatedPhone;
-        users[userIndex].address = updatedAddress;
-        
-        localStorage.setItem('users', JSON.stringify(users));
-    }
-    
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    
-    document.querySelectorAll('.sidebar h4, .offcanvas-body h4').forEach(h4 => {
-        h4.textContent = updatedName;
-    });
+      currentUser.name = updatedName;
+      currentUser.email = updatedEmail;
+      currentUser.phoneNumber = updatedPhone;
+      currentUser.address = updatedAddress;
 
-    alert('Profile updated successfully!');
-
-    profileInputs.forEach(input => {
-        input.disabled = true;
-    });
-
-    saveProfileBtn.classList.add('d-none');
-    saveProfileBtn.disabled = true;
-    editProfileBtn.classList.remove('d-none');
-});
-
-if (editProfileBtn) {
-    editProfileBtn.addEventListener('click', function() {
-        profileInputs.forEach(input => {
-            if (input.id !== 'profileEmail') {
-                 input.disabled = false;
-            }
-        });
-
-        this.classList.add('d-none'); 
-        saveProfileBtn.classList.remove('d-none'); 
-        saveProfileBtn.disabled = false; 
-        
-        document.querySelector('#profileName').focus();
-    });
-}
-
-// ha3ml change pass w validation 3aleh
-
-const passwordForm = document.querySelector('#v-pills-password form');
-
-passwordForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const currentPasswordInput = document.getElementById('currentPassword');
-    const newPasswordInput = document.getElementById('newPassword');
-    const confirmPasswordInput = document.getElementById('confirmNewPassword');
-
-    const currentPass = currentPasswordInput.value.trim();
-    const newPass = newPasswordInput.value.trim();
-    const confirmPass = confirmPasswordInput.value.trim();
-
-    const currentUserSession = JSON.parse(localStorage.getItem('currentUser'));
-    
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const userIndex = users.findIndex(u => u.id === currentUserSession.id);
-
-    if (userIndex === -1) {
-        alert('User data not found in database. Please log out and log in again.');
-        return;
-    }
-    
-    const userInDB = users[userIndex]; 
-
-    if (userInDB.password !== currentPass) {
-        alert('Current password is incorrect!');
-        currentPasswordInput.value = ''; 
-        return;
-    }
-
-    if (newPass !== confirmPass) {
-        alert('New Password and Confirm Password do not match!');
-        return;
-    }
-
-    if (newPass.length < 6) {
-        alert('New password must be at least 6 characters long.');
-        return;
-    }
-
-    if (newPass === currentPass) {
-        alert('New password cannot be the same as the current password.');
-        return;
-    }
-
-    userInDB.password = newPass;
-    localStorage.setItem('users', JSON.stringify(users));
-
-    currentUserSession.password = newPass;
-    localStorage.setItem('currentUser', JSON.stringify(currentUserSession));
-
-    alert('Password changed successfully! ✅');
-    currentPasswordInput.value = '';
-    newPasswordInput.value = '';
-    confirmPasswordInput.value = '';
-});
-
-
-
-const fileInput = document.querySelector('#editPhotoModal input[type="file"]');
-const profileImgs = document.querySelectorAll('.profile-pic img');
-const saveBtn = document.querySelector('#editPhotoModal .btn-custom');
-
-saveBtn.addEventListener('click', function () {
-  const file = inputImg.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function () {
-      const base64 = reader.result;
-
-      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      currentUser.profileImage = base64; 
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      localStorage.setItem('profileImage', base64); 
-
-     
       let users = JSON.parse(localStorage.getItem('users') || '[]');
       const userIndex = users.findIndex(u => u.email === currentUser.email);
 
       if (userIndex !== -1) {
-        users[userIndex].profileImage = base64;
+        users[userIndex].name = updatedName;
+        users[userIndex].email = updatedEmail;
+        users[userIndex].phoneNumber = updatedPhone;
+        users[userIndex].address = updatedAddress;
+
         localStorage.setItem('users', JSON.stringify(users));
       }
 
-      profileImgs.forEach(img => img.src = base64);
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-      const modal = bootstrap.Modal.getInstance(document.getElementById('editPhotoModal'));
-      modal.hide();
+      document.querySelectorAll('.sidebar h4, .offcanvas-body h4').forEach(h4 => {
+        h4.textContent = updatedName;
+      });
+
+      alert('Profile updated successfully!');
+
+      profileInputs.forEach(input => {
+        input.disabled = true;
+      });
+
+      saveProfileBtn.classList.add('d-none');
+      saveProfileBtn.disabled = true;
+      editProfileBtn.classList.remove('d-none');
+    });
+
+    if (editProfileBtn) {
+      editProfileBtn.addEventListener('click', function () {
+        profileInputs.forEach(input => {
+          if (input.id !== 'profileEmail') {
+            input.disabled = false;
+          }
+        });
+
+        this.classList.add('d-none');
+        saveProfileBtn.classList.remove('d-none');
+        saveProfileBtn.disabled = false;
+
+        document.querySelector('#profileName').focus();
+      });
     }
-    reader.readAsDataURL(file);
-    inputImg.value = "";
-  }
-});
+
+    // ha3ml change pass w validation 3aleh
+
+    const passwordForm = document.querySelector('#v-pills-password form');
+
+    passwordForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const currentPasswordInput = document.getElementById('currentPassword');
+      const newPasswordInput = document.getElementById('newPassword');
+      const confirmPasswordInput = document.getElementById('confirmNewPassword');
+
+      const currentPass = currentPasswordInput.value.trim();
+      const newPass = newPasswordInput.value.trim();
+      const confirmPass = confirmPasswordInput.value.trim();
+
+      const currentUserSession = getLoggedInUser(); // تم التعديل لاستخدام getLoggedInUser()
+
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const userIndex = users.findIndex(u => u.email === currentUserSession.email); // البحث بالإيميل أفضل إذا لم يكن الـ ID معرفًا بشكل صحيح
+
+      if (userIndex === -1) {
+        alert('User data not found in database. Please log out and log in again.');
+        return;
+      }
+
+      const userInDB = users[userIndex];
+
+      if (userInDB.password !== currentPass) {
+        alert('Current password is incorrect!');
+        currentPasswordInput.value = '';
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        alert('New Password and Confirm Password do not match!');
+        return;
+      }
+
+      if (newPass.length < 6) {
+        alert('New password must be at least 6 characters long.');
+        return;
+      }
+
+      if (newPass === currentPass) {
+        alert('New password cannot be the same as the current password.');
+        return;
+      }
+
+      userInDB.password = newPass;
+      localStorage.setItem('users', JSON.stringify(users));
+
+      currentUserSession.password = newPass;
+      localStorage.setItem('currentUser', JSON.stringify(currentUserSession));
+
+      alert('Password changed successfully! ✅');
+      currentPasswordInput.value = '';
+      newPasswordInput.value = '';
+      confirmPasswordInput.value = '';
+    });
 
 
 
- 
-  document.querySelector('#confirmLogout').addEventListener('click', function () {
-    localStorage.removeItem('currentUser');
+    const fileInput = document.querySelector('#editPhotoModal input[type="file"]');
+    const profileImgs = document.querySelectorAll('.profile-pic img');
+    const saveBtn = document.querySelector('#editPhotoModal .btn-custom');
 
-    alert('Logged out successfully!');
-    window.location.href = 'signin.html'; 
-  });
-</script>
+    saveBtn.addEventListener('click', function () {
+      const file = inputImg.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const base64 = reader.result;
 
-<script src="../../component/nav.js"></script>
+          let currentUser = getLoggedInUser(); // تم التعديل لاستخدام getLoggedInUser()
+          currentUser.profileImage = base64;
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          localStorage.setItem('profileImage', base64);
+
+
+          let users = JSON.parse(localStorage.getItem('users') || '[]');
+          const userIndex = users.findIndex(u => u.email === currentUser.email);
+
+          if (userIndex !== -1) {
+            users[userIndex].profileImage = base64;
+            localStorage.setItem('users', JSON.stringify(users));
+          }
+
+          profileImgs.forEach(img => img.src = base64);
+
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editPhotoModal'));
+          modal.hide();
+        }
+        reader.readAsDataURL(file);
+        inputImg.value = "";
+      }
+    });
+
+
+
+
+    document.querySelector('#confirmLogout').addEventListener('click', function () {
+      localStorage.removeItem('currentUser');
+
+      alert('Logged out successfully!');
+      // يجب تعديل هذا المسار ليتوافق مع مسار صفحة تسجيل الدخول لديك (عادةً ../auth/signin.html)
+      window.location.href = '../auth/signin.html';
+    });
+  </script>
+
+  <script src="../../component/nav.js"></script>
+  <script src="../js/profile.js"></script>
+
 </body>
+
 </html>
