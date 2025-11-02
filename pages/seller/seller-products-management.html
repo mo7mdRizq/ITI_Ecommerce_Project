@@ -436,7 +436,18 @@ label[for="filter"] {
         </div>
     </nav>
 
-<!-- Navbar for small screens -->
+
+
+<!-- Sidebar -->
+    <div class="sidebar d-none d-lg-block position-fixed">
+      <a href="seller-dashboard.html" class="nav-button "><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+      <a href="seller-products-management.html" class="nav-button active"><i class="bi bi-box"></i> Product Management</a>
+      <a href="seller-orders-management.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
+      <hr />
+      <!-- <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a> -->
+      <a href="../auth/signin.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+    </div>
+    <!-- ✅ Navbar الصغيرة اللي فيها زر القائمة -->
 <nav class="navbar bg-white d-lg-none px-3 shadow-sm">
   <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
     <i class="bi bi-list"></i>
@@ -444,29 +455,34 @@ label[for="filter"] {
   <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
 </nav>
 
-<!-- Sidebar for Desktop -->
-<div class="sidebar d-none d-lg-block position-fixed">
-  <a href="seller-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
-  <a href="seller-products-management.html" class="nav-button active"><i class="bi bi-box"></i> Product Management</a>
-  <a href="seller-orders-management.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
-  <hr />
-  <!-- <a href="seller-settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a> -->
-  <a href="../signin.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
-</div>
+<!-- ✅ الزر الاختياري لفتح السايدبار (مش ضروري لو فوق شغال) -->
+<button id="toggleSidebar" class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+  ☰ Menu
+</button>
 
-<!-- Offcanvas for mobile sidebar -->
+<!-- ✅ الـ Offcanvas Sidebar نفسه -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="mobileSidebarLabel">Menu</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
+
   <div class="offcanvas-body p-0">
     <div class="list-group list-group-flush">
-      <a href="seller-dashboard.html" class="list-group-item list-group-item-action">Dashboard Overview</a>
-      <a href="seller-products-management.html" class="list-group-item list-group-item-action active">Product Management</a>
-      <a href="seller-orders-management.html" class="list-group-item list-group-item-action">Order Management</a>
-      <!-- <a href="seller-settings.html" class="list-group-item list-group-item-action">Settings</a> -->
-      <a href="../auth/signin.html" class="list-group-item list-group-item-action">Log Out</a>
+      <a href="../seller/seller-dashboard.html" class="list-group-item list-group-item-action">
+        <i class="bi bi-speedometer2 me-2"></i> Dashboard Overview
+      </a>
+      <a href="../seller/seller-products-management.html" class="list-group-item list-group-item-action">
+        <i class="bi bi-box me-2"></i> Product Management
+      </a>
+      <a href="../seller/seller-orders-management.html" class="list-group-item list-group-item-action active">
+        <i class="bi bi-journal-text me-2"></i> Order Management
+      </a>
+     
+      <hr>
+      <a href="../auth/signin.html" class="list-group-item list-group-item-action">
+        <i class="bi bi-box-arrow-left me-2"></i> Log Out
+      </a>
     </div>
   </div>
 </div>
@@ -714,30 +730,44 @@ label[for="filter"] {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
   const sidebar = document.querySelector(".sidebar");
   const toggleBtn = document.getElementById("toggleSidebar");
 
   function handleSidebar() {
     if (window.innerWidth <= 767.98) {
-      sidebar.classList.add("collapsed");
+      sidebar?.classList.add("collapsed");
     } else {
-      sidebar.classList.remove("collapsed");
+      sidebar?.classList.remove("collapsed");
     }
   }
+  // ✅ تحديد الصفحة الحالية
+  const activePage = window.location.pathname.split("/").pop(); // آخر جزء في الـ URL
+
+  // ✅ كل روابط السايدبار (في الموبايل)
+  const mobileLinks = document.querySelectorAll("#mobileSidebar .list-group-item");
+
+  mobileLinks.forEach(link => {
+    const linkPage = link.getAttribute("href").split("/").pop(); // اسم الصفحة من الرابط
+
+    // لو الصفحة الحالية هي نفس صفحة الرابط → أضف الكلاس active
+    if (linkPage === activePage) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
 
   handleSidebar();
   window.addEventListener("resize", handleSidebar);
-
-  toggleBtn?.addEventListener("click", () => {
-    sidebar.classList.toggle("collapsed");
-  });
-</script>
+const table = document.getElementById('ordersTable')?.getElementsByTagName('tbody')[0];
+const rows = table ? Array.from(table.getElementsByTagName('tr')) : [];
+const pagination = document.getElementById('pagination');
 
 
 
 
-<script>
   // ---------- DOM Elements ----------
   const saveBtn = document.getElementById("saveProductBtn");
   const form = document.getElementById("productForm");
