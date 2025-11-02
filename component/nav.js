@@ -40,7 +40,7 @@
     else cart.push({ ...p, qty: 1 });
 
     saveCart(cart);
-    alert(`${p.name} added to cart ✅`);
+    showToast(`${p.name} added to cart ✅`);
     updateCartCount(); // <-- السطر الجديد المهم 👈
   }
 
@@ -130,3 +130,52 @@
   });
 });
 
+
+// toast
+
+
+  // ✅ Toast Function with Icon & Animation
+  function showToast(message, type = "success") {
+    const toastEl = document.getElementById('liveToast');
+    const toastMsg = document.getElementById('toastMessage');
+    const toastIcon = toastEl.querySelector('.toast-icon');
+
+    // إزالة ألوان قديمة
+    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-primary', 'bg-warning', 'bg-dark', 'text-dark');
+
+    let icon = '';
+    switch (type) {
+      case 'success':
+        toastEl.classList.add('bg-success');
+        icon = '<i class="bi bi-check-circle-fill"></i>';
+        break;
+      case 'error':
+        toastEl.classList.add('bg-danger');
+        icon = '<i class="bi bi-x-circle-fill"></i>';
+        break;
+      case 'info':
+        toastEl.classList.add('bg-primary');
+        icon = '<i class="bi bi-info-circle-fill"></i>';
+        break;
+      case 'warning':
+        toastEl.classList.add('bg-warning', 'text-dark');
+        icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
+        break;
+      case 'wishlist':
+        toastEl.classList.add('bg-dark');
+        icon = '<i class="bi bi-heart-fill text-danger"></i>';
+        break;
+      default:
+        toastEl.classList.add('bg-success');
+        icon = '<i class="bi bi-check-circle-fill"></i>';
+    }
+
+    toastMsg.textContent = message;
+    toastIcon.innerHTML = icon;
+
+    // تطبيق الأنيميشن
+    toastEl.classList.add('custom-toast');
+
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    toast.show();
+  }

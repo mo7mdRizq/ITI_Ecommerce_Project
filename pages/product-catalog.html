@@ -53,6 +53,41 @@
     .filter-box label {
       cursor: pointer;
     }
+
+
+
+
+
+    /* Toast */
+/* ✅ Toast Animation - Slide from top */
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-toast {
+  animation: slideDownFade 0.5s ease forwards;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* ظل خفيف واحترافية */
+.toast-container .toast {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* شوية spacing بين الإشعارات لو ظهر أكتر من Toast */
+.toast-container > .toast:not(:last-child) {
+  margin-bottom: 10px;
+}
+
   </style>
 </head>
 
@@ -274,6 +309,31 @@
         </footer>
 
 
+
+
+
+
+<!-- ✅ Toast Container -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;">
+  <div id="liveToast" class="toast align-items-center text-white border-0 shadow-lg custom-toast"
+       role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex align-items-center">
+      <div class="toast-icon fs-4 px-3"></div>
+      <div class="toast-body fw-semibold" id="toastMessage">Toast message</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 <script>
   // --------------------------
   // 🧩 Data Handling
@@ -383,7 +443,8 @@
   function addToCart(index) {
     const products = getProducts();
     const p = products[index];
-    if (!p) return alert('Product not found');
+    if (!p) return showToast("Product not found", "error");
+
 
     const cart = getCart();
     const exist = cart.find(item => item.name === p.name);
@@ -391,7 +452,7 @@
     else cart.push({ ...p, qty: 1 });
 
     saveCart(cart);
-    alert(`${p.name} added to cart ✅`);
+    showToast(`${p.name} added to cart 🛒`, 'success');
   }
 
   function viewProduct(index) {
@@ -538,11 +599,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
+
+
+
+
+
+    <script>
+  // ✅ Toast Function with Icon & Animation
+  function showToast(message, type = "success") {
+    const toastEl = document.getElementById('liveToast');
+    const toastMsg = document.getElementById('toastMessage');
+    const toastIcon = toastEl.querySelector('.toast-icon');
+
+    // إزالة ألوان قديمة
+    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-primary', 'bg-warning', 'bg-dark', 'text-dark');
+
+    let icon = '';
+    switch (type) {
+      case 'success':
+        toastEl.classList.add('bg-success');
+        icon = '<i class="bi bi-check-circle-fill"></i>';
+        break;
+      case 'error':
+        toastEl.classList.add('bg-danger');
+        icon = '<i class="bi bi-x-circle-fill"></i>';
+        break;
+      case 'info':
+        toastEl.classList.add('bg-primary');
+        icon = '<i class="bi bi-info-circle-fill"></i>';
+        break;
+      case 'warning':
+        toastEl.classList.add('bg-warning', 'text-dark');
+        icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
+        break;
+      case 'wishlist':
+        toastEl.classList.add('bg-dark');
+        icon = '<i class="bi bi-heart-fill text-danger"></i>';
+        break;
+      default:
+        toastEl.classList.add('bg-success');
+        icon = '<i class="bi bi-check-circle-fill"></i>';
+    }
+
+    toastMsg.textContent = message;
+    toastIcon.innerHTML = icon;
+
+    // تطبيق الأنيميشن
+    toastEl.classList.add('custom-toast');
+
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    toast.show();
+  }
+</script>
 
 <script src="../component/nav.js"></script>
-
-<script src="../component/wishlist.js"></script>
 
 
 

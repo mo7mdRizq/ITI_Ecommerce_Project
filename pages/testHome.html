@@ -191,6 +191,37 @@ border: 2px solid #3f756c
 
 
 
+/* Toast */
+/* ✅ Toast Animation - Slide from top */
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-toast {
+  animation: slideDownFade 0.5s ease forwards;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* ظل خفيف واحترافية */
+.toast-container .toast {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* شوية spacing بين الإشعارات لو ظهر أكتر من Toast */
+.toast-container > .toast:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+ 
 
     </style>
 
@@ -552,6 +583,24 @@ border: 2px solid #3f756c
         </footer>
 
 
+
+
+        <!-- ✅ Toast Container -->
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;">
+          <div id="liveToast" class="toast align-items-center text-white border-0 shadow-lg custom-toast"
+              role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+              <div class="toast-icon fs-4 px-3"></div>
+              <div class="toast-body fw-semibold" id="toastMessage">Toast message</div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                      data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+
+
+
+
         <!-- Overlay Message -->
 <!-- <div id="introOverlay">
   <div class="overlay-content text-center px-4">
@@ -706,6 +755,35 @@ searchInput.addEventListener("keydown", (e) => {
 
 
 
+
+<script>
+  // ✅ تأكد إن كل منتج عنده id
+  function ensureProductIds() {
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    let updated = false;
+
+    products.forEach((p, index) => {
+      if (!p.id) {
+        p.id = "prod_" + (index + 1) + "_" + Date.now();
+        updated = true;
+      }
+    });
+
+    if (updated) {
+      localStorage.setItem("products", JSON.stringify(products));
+      console.log("✅ IDs added to products");
+    }
+  }
+
+  ensureProductIds();
+</script>
+
+
+
+
+
+
+
 <script>
 // ✅ دالة تجيب كل المنتجات من localStorage
 function getProducts() {
@@ -737,14 +815,15 @@ function renderFeaturedProducts() {
         <button class="btn btn-primary rounded-pill px-3" onclick="addToCartById('${p.id}')">
           <i class="bi bi-cart-plus me-1"></i> Add to Cart
         </button>
-        <button class="btn btn-light btn-sm rounded-circle shadow-sm" onclick="addToWishlistById('${p.id}')">
-          <i class="bi bi-heart"></i>
+        <button class="btn btn-light btn-sm rounded-pill shadow-sm" onclick="addToWishlistById('${p.id}')">
+          <i class="bi bi-heart"></i>Add to Wishlist
         </button>
-
-
-
-
+        <button class="btn btn-outline-danger rounded-pill px-3 mt-1" onclick="viewProductById('${p.id}')">
+          <i class="bi bi-eye me-1"></i> View
+        </button>
       </div>
+
+
     </div>
     <div class="card-body text-center">
       <h5 class="card-title fw-semibold mb-2 text-dark">${p.name}</h5>
@@ -760,6 +839,30 @@ function renderFeaturedProducts() {
   });
 }
 
+function viewProduct(id) {
+  window.location.href = `product-details.html?id=${id}`;
+}
+
+
+
+
+function viewProductById(id) {
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+  const product = products.find(p => p.id === id);
+  if (!product) {
+    alert("Product not found");
+    return;
+  }
+  localStorage.setItem("selectedProduct", JSON.stringify(product));
+  window.location.href = "product-details.html";
+}
+
+
+
+
+
+
+
 // ✅ دالة لإضافة منتج للسلة عن طريق ID
 function addToCartById(id) {
   const products = getProducts();
@@ -773,7 +876,7 @@ function addToCartById(id) {
   else cart.push({ ...p, qty: 1 });
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${p.name} added to cart ✅`);
+  showToast(`${p.name} added to cart ✅`);
 
   if (typeof updateCartCount === "function") updateCartCount();
 }
@@ -782,26 +885,107 @@ function addToCartById(id) {
 document.addEventListener("DOMContentLoaded", renderFeaturedProducts);
 </script>
 
+
+
+
+
+
+
 <script>
-function getWishlist() {
-  return JSON.parse(localStorage.getItem("wishlist")) || [];
-}
+  // ✅ نفس النظام المستخدم في صفحة product-catalog
+  function getProducts() {
+    try { return JSON.parse(localStorage.getItem('products')) || []; }
+    catch { return []; }
+  }
 
-function saveWishlist(wishlist) {
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
-}
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem('cart')) || []; }
+    catch { return []; }
+  }
 
+  function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
 
+  // ✅ إضافة منتج للسلة عن طريق ID
+  function addToCartById(id) {
+    const products = getProducts();
+    const p = products.find(prod => prod.id === id);
+    if (!p) return alert("❌ Product not found");
 
+    const cart = getCart();
+    const exist = cart.find(item => item.name === p.name);
+
+    if (exist) exist.qty = (exist.qty || 1) + 1;
+    else cart.push({ ...p, qty: 1 });
+
+    saveCart(cart);
+    showToast(`${p.name} added to cart ✅`);
+  }
 </script>
+
+
+
+<!-- Toast Message -->
+
+
 
 
 <script src="../component/nav.js"></script>
 
-<script src="../component/wishlist.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
+    <script>
+  // ✅ Toast Function with Icon & Animation
+  function showToast(message, type = "success") {
+    const toastEl = document.getElementById('liveToast');
+    const toastMsg = document.getElementById('toastMessage');
+    const toastIcon = toastEl.querySelector('.toast-icon');
+
+    // إزالة ألوان قديمة
+    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-primary', 'bg-warning', 'bg-dark', 'text-dark');
+
+    let icon = '';
+    switch (type) {
+      case 'success':
+        toastEl.classList.add('bg-success');
+        icon = '<i class="bi bi-check-circle-fill"></i>';
+        break;
+      case 'error':
+        toastEl.classList.add('bg-danger');
+        icon = '<i class="bi bi-x-circle-fill"></i>';
+        break;
+      case 'info':
+        toastEl.classList.add('bg-primary');
+        icon = '<i class="bi bi-info-circle-fill"></i>';
+        break;
+      case 'warning':
+        toastEl.classList.add('bg-warning', 'text-dark');
+        icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
+        break;
+      case 'wishlist':
+        toastEl.classList.add('bg-dark');
+        icon = '<i class="bi bi-heart-fill text-danger"></i>';
+        break;
+      default:
+        toastEl.classList.add('bg-success');
+        icon = '<i class="bi bi-check-circle-fill"></i>';
+    }
+
+    toastMsg.textContent = message;
+    toastIcon.innerHTML = icon;
+
+    // تطبيق الأنيميشن
+    toastEl.classList.add('custom-toast');
+
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    toast.show();
+  }
+</script>
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
