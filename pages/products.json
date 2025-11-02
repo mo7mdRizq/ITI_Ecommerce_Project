@@ -19,5 +19,13 @@
     "price": "650 EGP",
     "description": "aaa",
     "image": "../../assets/images/135.jpg"
+  },
+   {
+    "id": 2,
+    "name": "Blue ",
+    "price": "400 EGP",
+    "description": "aaaaaaaaaa",
+    "image": "../../assets/images/105.jpg"
   }
+  
 ]
