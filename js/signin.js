@@ -48,7 +48,7 @@ function setupSignIn() {
             localStorage.setItem("currentUser", JSON.stringify(adminUser));
             alert(`Hello ${ADMIN_NAME}!`);
 
-            window.location.href = "../pages/admin/admin-dashboard.html"; 
+            window.location.href = "../admin/admin-dashboard.html"; 
             return; 
         }
 
@@ -65,7 +65,7 @@ function setupSignIn() {
             alert(`Welcome ${user.name}Your role: ${user.role}`);
 
             if (user.role === 'seller') {
-                window.location.href = "../../pages/seller/seller-dashboard.html"; 
+                window.location.href = "../seller/seller-dashboard.html"; 
             } else {
                 window.location.href = "../testHome.html"; 
             }
