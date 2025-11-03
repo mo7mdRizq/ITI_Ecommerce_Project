@@ -442,14 +442,8 @@
 
     <!-- Right Side Icons (visible by default) -->
     <div class="icons-container d-flex align-items-center gap-3 order-lg-3 ms-auto">
-      <a class="nav-link cart-icon-container position-relative" href="../pages/cart.html">
-        <i>
-          <img src="../../assets/icons/shopping-cart.svg" alt="">
-        </i>
-        <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" 
-              style="font-size: 0.7rem; display: none;">
-          0
-        </span>
+      <a class="nav-link cart-icon-container position-relative" href="../cart.html">
+        <img src="../../assets/icons/shopping-cart.svg" alt="">
       </a>
       <a class="nav-link cart-icon-container position-relative" href="../auth/profile.html">
         <img src="../../assets/icons/heart.svg" alt="">
@@ -462,16 +456,14 @@
     <!-- Collapsible Menu -->
     <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item mx-2"><a class="nav-link main-nav-link " href="../testHome.html">Home</a></li>
+        <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../testHome.html">Home</a></li>
         <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../product-catalog.html">Shop</a></li>
         <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../about.html">About</a></li>
         <li class="nav-item mx-2"><a class="nav-link main-nav-link" href="../contact.html">Contact</a></li>
-        <li class="nav-item me-5" id="dashboard"><a class="nav-link active main-nav-link" href="../admin/admin-dashboard.html">Dashboard</a></li>
+        <li class="nav-item me-5" id="dashboard"><a class="nav-link main-nav-link active" href="../admin/admin-dashboard.html">Dashboard</a></li>
       </ul>
 
-      <form class="d-flex align-items-center mt-3 mt-lg-0" role="search" style="width: 300px;">
-        <input class="form-control form-control-sm rounded-4 ps-3" type="search" placeholder="Search..." aria-label="Search">
-      </form>
+     
     </div>
 
     
@@ -489,10 +481,10 @@
 
 <!-- Sidebar -->
     <div class="sidebar d-none d-lg-block position-fixed">
-      <a href="admin-dashboard.html" class="nav-button active"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+      <a href="admin-dashboard.html" class="nav-button"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
       <a href="admin-products-management.html" class="nav-button"><i class="bi bi-box"></i> Product Management</a>
       <a href="admin-dahboard-orders.html" class="nav-button"><i class="bi bi-journal-text"></i> Order Management</a>
-      <a href="users-management.html" class="nav-button"><i class="bi bi-person"></i> Users Management</a>
+      <a href="users-management.html" class="nav-button active"><i class="bi bi-person"></i> Users Management</a>
       <hr />
       <!-- <a href="settings.html" class="nav-button"><i class="bi bi-gear"></i> Settings</a> -->
       <a href="../auth/signin.html" class="nav-button"><i class="bi bi-box-arrow-left"></i> Log Out</a>
@@ -609,164 +601,321 @@
             <th>Date</th>
           </tr>
         </thead>
-        <tbody id="usersTableBody">
-          
-
+        <tbody>
+         
         </tbody>
       </table>
     </div>
 
-    <nav class="pagination-container">
-      <ul class="custom-pagination">
-        <li><a href="#" class="arrow">&lsaquo;</a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li class="dots">••</li>
-        <li><a href="#">10</a></li>
-        <li><a href="#" class="arrow">&rsaquo;</a></li>
-      </ul>
-    </nav>
+     <nav class="pagination-container">
+  <ul class="custom-pagination" id="pagination">
+    <li><a href="#" class="arrow" id="prev">&lsaquo;</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li class="dots" id="dots">••</li>
+    <li style="display:none;"><a href="#">5</a></li>
+    <li style="display:none;"><a href="#">6</a></li>
+    <li style="display:none;"><a href="#">7</a></li>
+    <li style="display:none;"><a href="#">8</a></li>
+    <li style="display:none;"><a href="#">9</a></li>
+    <li><a href="#">10</a></li>
+    <li><a href="#" class="arrow" id="next">&rsaquo;</a></li>
+  </ul>
+</nav>
     </section>
     </div>
     </div>
     </div>
- <!-- Link Bootstrap JavaScript -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+ <!-- Bootstrap + ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 <script>
-  /* 🧩 1. لو مفيش بيانات مستخدمين نحط شوية تجريبية */
-  if (!localStorage.getItem("users")) {
-    const sampleUsers = [
-      {
-        id: "u_1",
-        name: "Ahmed Ali",
-        email: "ahmed@mail.com",
-        role: "customer",
-        status: "Active",
-        createdAt: Date.now(),
-      },
-      {
-        id: "u_2",
-        name: "Sara Mohamed",
-        email: "sara@mail.com",
-        role: "seller",
-        status: "Banned",
-        createdAt: Date.now(),
-      },
-      {
-        id: "u_3",
-        name: "Omar Hassan",
-        email: "omar@mail.com",
-        role: "customer",
-        status: "Active",
-        createdAt: Date.now(),
-      }
-    ];
-    localStorage.setItem("users", JSON.stringify(sampleUsers));
+const sidebar = document.querySelector(".sidebar");
+const toggleBtn = document.getElementById("toggleSidebar");
+
+// ✅ متغيرات الـ Pagination
+let currentPageNum = 1;
+const rowsPerPage = 4;
+let allFilteredUsers = [];
+
+function handleSidebar() {
+  if (window.innerWidth <= 767.98) {
+    sidebar?.classList.add("collapsed");
+  } else {
+    sidebar?.classList.remove("collapsed");
+  }
+}
+
+// ✅ تحديد الصفحة الحالية
+const currentPage = window.location.pathname.split("/").pop();
+const mobileLinks = document.querySelectorAll("#mobileSidebar .list-group-item");
+mobileLinks.forEach(link => {
+  const linkPage = link.getAttribute("href").split("/").pop();
+  if (linkPage === currentPage) link.classList.add("active");
+});
+
+handleSidebar();
+window.addEventListener("resize", handleSidebar);
+
+// ✅ إغلاق القائمة بعد الضغط على أي رابط في Navbar
+document.querySelectorAll('.navbar .nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    const navbar = document.querySelector('.navbar-collapse');
+    const bsCollapse = bootstrap.Collapse.getInstance(navbar);
+    if (bsCollapse) bsCollapse.hide();
+  });
+});
+
+// ✅ جلب وتخزين المستخدمين من localStorage
+function getUsers() {
+  return JSON.parse(localStorage.getItem("users")) || [];
+}
+
+function saveUsers(users) {
+  localStorage.setItem("users", JSON.stringify(users));
+}
+
+// ✅ تحميل بيانات تجريبية
+if (!localStorage.getItem("users")) {
+  const sampleUsers = [
+    { id: 1, name: "Ahmed Ali", email: "ahmed@mail.com", role: "Customer", status: "Active", date: "10-10-2025" },
+    { id: 2, name: "Sara Mohamed", email: "sara@mail.com", role: "Seller", status: "Banned", date: "12-10-2025" },
+    { id: 3, name: "Omar Hassan", email: "omar@mail.com", role: "Customer", status: "Active", date: "15-10-2025" },
+    { id: 4, name: "Laila Samir", email: "laila@mail.com", role: "Admin", status: "Active", date: "20-10-2025" },
+    { id: 5, name: "Mona Fathy", email: "mona@mail.com", role: "Seller", status: "Banned", date: "22-10-2025" },
+    { id: 6, name: "Karim Youssef", email: "karim@mail.com", role: "Customer", status: "Active", date: "25-10-2025" },
+    { id: 7, name: "Nada Tarek", email: "nada@mail.com", role: "Seller", status: "Active", date: "26-10-2025" },
+    { id: 8, name: "Hassan Ibrahim", email: "hassan@mail.com", role: "Customer", status: "Banned", date: "27-10-2025" },
+    { id: 9, name: "Heba Khaled", email: "heba@mail.com", role: "Admin", status: "Active", date: "28-10-2025" },
+    { id: 10, name: "Ali Mahmoud", email: "ali@mail.com", role: "Customer", status: "Active", date: "29-10-2025" },
+    { id: 11, name: "Yasmin Ahmed", email: "yasmin@mail.com", role: "Seller", status: "Banned", date: "30-10-2025" },
+    { id: 12, name: "Mohamed Sayed", email: "mohamed@mail.com", role: "Customer", status: "Active", date: "31-10-2025" }
+  ];
+  saveUsers(sampleUsers);
+}
+
+// ✅ دالة عرض صفحة معينة
+function displayPage(pageNum) {
+  currentPageNum = pageNum;
+  const tbody = document.querySelector("tbody");
+  tbody.innerHTML = "";
+
+  // حساب البداية والنهاية
+  const start = (pageNum - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageUsers = allFilteredUsers.slice(start, end);
+
+  if (pageUsers.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="text-muted text-center">No users found.</td></tr>`;
+    updatePaginationButtons();
+    return;
   }
 
-  /* 🧩 2. دوال مساعدة أساسية */
-  function getUsers() {
-    return JSON.parse(localStorage.getItem("users")) || [];
+  pageUsers.forEach((user, index) => {
+    const row = document.createElement("tr");
+    const isActive = user.status === "Active";
+    row.innerHTML = `
+      <td>${start + index + 1}</td>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td><strong>${user.role}</strong></td>
+      <td>
+        <button class="btn btn-sm ${isActive ? "btn-danger" : "btn-success"} toggle-status" data-id="${user.id}">
+          ${isActive ? "Ban User" : "Unban User"}
+        </button>
+      </td>
+      <td><span class="status ${user.status.toLowerCase()}">${user.status}</span></td>
+      <td>${user.date}</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  attachBanButtons();
+  updatePaginationButtons();
+}
+
+// ✅ عرض المستخدمين مع الفلتر
+function renderUsers(filter = "") {
+  const users = getUsers();
+  
+  allFilteredUsers = users.filter(u =>
+    u.name.toLowerCase().includes(filter.toLowerCase()) ||
+    u.email.toLowerCase().includes(filter.toLowerCase()) ||
+    u.role.toLowerCase().includes(filter.toLowerCase()) ||
+    u.status.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  updateCards(users);
+  currentPageNum = 1; // العودة للصفحة الأولى عند البحث
+  displayPage(1);
+}
+
+// ✅ تحديث الكروت
+function updateCards(users) {
+  const totalUsers = users.length;
+  const activeUsers = users.filter(u => u.status === "Active").length;
+  const bannedUsers = users.filter(u => u.status === "Banned").length;
+
+  document.getElementById("total-users").textContent = totalUsers;
+  document.getElementById("active-users").textContent = activeUsers;
+  document.getElementById("banned-users").textContent = bannedUsers;
+}
+
+// ✅ تحديث أزرار الـ Pagination
+function updatePaginationButtons() {
+  const totalPages = Math.ceil(allFilteredUsers.length / rowsPerPage);
+  const pagination = document.getElementById("pagination");
+  
+  // مسح كل الأزرار الموجودة ما عدا السابق والتالي
+  pagination.innerHTML = '';
+  
+  // إضافة زر السابق
+  const prevLi = document.createElement('li');
+  prevLi.innerHTML = '<a href="#" class="arrow" id="prev">&lsaquo;</a>';
+  pagination.appendChild(prevLi);
+  
+  // حساب الصفحات المراد عرضها (3 أرقام فقط)
+  let startPage = Math.max(1, currentPageNum - 1);
+  let endPage = Math.min(totalPages, startPage + 2);
+  
+  // تعديل في حالة كنا في نهاية الصفحات
+  if (endPage - startPage < 2) {
+    startPage = Math.max(1, endPage - 2);
   }
-
-  function saveUsers(users) {
-    localStorage.setItem("users", JSON.stringify(users));
-  }
-
-  /* 🧩 3. تجهيز البيانات لو ناقصها حاجات */
-  function normalizedUsers() {
-    return (getUsers() || []).map(u => ({
-      ...u,
-      status: u.status || "Active",
-      date: u.date || (u.createdAt ? new Date(Number(u.createdAt)).toLocaleDateString() : new Date().toLocaleDateString()),
-    }));
-  }
-
-  /* 🧩 4. عرض المستخدمين في الجدول */
-  function renderUsers(filter = "") {
-    const users = normalizedUsers();
-    const tbody = document.getElementById("usersTableBody");
-    tbody.innerHTML = "";
-
-    const filteredUsers = users.filter(u =>
-      (u.name || "").toLowerCase().includes(filter.toLowerCase()) ||
-      (u.email || "").toLowerCase().includes(filter.toLowerCase()) ||
-      (u.role || "").toLowerCase().includes(filter.toLowerCase()) ||
-      (u.status || "").toLowerCase().includes(filter.toLowerCase())
-    );
-
-    if (filteredUsers.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" class="text-muted">No users found.</td></tr>`;
-      updateCards(users);
-      return;
+  
+  // إضافة أرقام الصفحات (3 أرقام فقط)
+  for (let i = startPage; i <= endPage; i++) {
+    const li = document.createElement('li');
+    if (i === currentPageNum) {
+      li.classList.add('active');
     }
-
-    filteredUsers.forEach((user, index) => {
-      const isActive = (user.status || "Active") === "Active";
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${user.name || "-"}</td>
-        <td>${user.email || "-"}</td>
-        <td><strong>${user.role || "-"}</strong></td>
-        <td>
-          <button class="btn btn-sm ${isActive ? "btn-danger" : "btn-success"} toggle-status" data-id="${user.id}">
-            ${isActive ? "Ban User" : "Unban User"}
-          </button>
-        </td>
-        <td><span class="status ${ (user.status || "Active").toLowerCase() }">${user.status || "Active"}</span></td>
-        <td>${user.date || "-"}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-
-    attachBanButtons();
-    updateCards(users);
+    li.innerHTML = `<a href="#">${i}</a>`;
+    pagination.appendChild(li);
+  }
+  
+  // إضافة زر التالي
+  const nextLi = document.createElement('li');
+  nextLi.innerHTML = '<a href="#" class="arrow" id="next">&rsaquo;</a>';
+  pagination.appendChild(nextLi);
+  
+  // إعادة ربط الأحداث
+  setupPaginationEvents();
+  
+  // تعطيل/تفعيل أزرار السابق والتالي
+  const newPrevBtn = document.getElementById("prev");
+  const newNextBtn = document.getElementById("next");
+  
+  if (currentPageNum === 1) {
+    newPrevBtn.style.opacity = "0.5";
+    newPrevBtn.style.pointerEvents = "none";
+  } else {
+    newPrevBtn.style.opacity = "1";
+    newPrevBtn.style.pointerEvents = "auto";
   }
 
-  /* 🧩 5. زر Ban / Unban */
-  function attachBanButtons() {
-    document.querySelectorAll(".toggle-status").forEach(btn => {
-      btn.removeEventListener?.("click", btn._handler);
-      const handler = () => {
-        const userId = btn.dataset.id;
-        const users = getUsers();
-        const idx = users.findIndex(u => (u.id + "") === (userId + ""));
-        if (idx === -1) return;
+  if (currentPageNum === totalPages || totalPages === 0) {
+    newNextBtn.style.opacity = "0.5";
+    newNextBtn.style.pointerEvents = "none";
+  } else {
+    newNextBtn.style.opacity = "1";
+    newNextBtn.style.pointerEvents = "auto";
+  }
+}
 
-        users[idx].status = users[idx].status === "Active" ? "Banned" : "Active";
+// ✅ ربط الأحداث بأزرار الـ Pagination
+function setupPaginationEvents() {
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+  const pagination = document.getElementById("pagination");
+
+  // إزالة الأحداث القديمة
+  const newPrevBtn = prevBtn.cloneNode(true);
+  const newNextBtn = nextBtn.cloneNode(true);
+  prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+  nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+
+  // زر السابق
+  document.getElementById("prev").addEventListener("click", e => {
+    e.preventDefault();
+    if (currentPageNum > 1) {
+      currentPageNum--;
+      displayPage(currentPageNum);
+    }
+  });
+
+  // زر التالي
+  document.getElementById("next").addEventListener("click", e => {
+    e.preventDefault();
+    const totalPages = Math.ceil(allFilteredUsers.length / rowsPerPage);
+    if (currentPageNum < totalPages) {
+      currentPageNum++;
+      displayPage(currentPageNum);
+    }
+  });
+
+  // أزرار الأرقام
+  pagination.querySelectorAll("li:not(:first-child):not(:last-child) a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const pageNum = parseInt(e.target.textContent);
+      if (!isNaN(pageNum)) {
+        displayPage(pageNum);
+      }
+    });
+  });
+}
+
+// ✅ تفعيل البحث
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.querySelector(".search-box input");
+  if (searchInput) {
+    searchInput.addEventListener("input", e => renderUsers(e.target.value));
+  }
+  renderUsers();
+  
+  // تفعيل السايد بار
+  const currentPage = window.location.pathname.split("/").pop();
+  document.querySelectorAll(".sidebar .nav-button").forEach(link => {
+    const href = link.getAttribute("href");
+    if (href === currentPage) link.classList.add("active");
+    else link.classList.remove("active");
+  });
+});
+
+// ✅ زر Ban / Unban + Alert
+function attachBanButtons() {
+  document.querySelectorAll(".toggle-status").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const userId = parseInt(btn.dataset.id);
+      const users = getUsers();
+      const user = users.find(u => u.id === userId);
+
+      if (user) {
+        user.status = user.status === "Active" ? "Banned" : "Active";
         saveUsers(users);
         renderUsers();
-      };
-      btn._handler = handler;
-      btn.addEventListener("click", handler);
+
+        const alertBox = document.createElement("div");
+        alertBox.className = `alert ${user.status === "Active" ? "alert-success" : "alert-warning"} position-fixed top-0 end-0 m-3 shadow`;
+        alertBox.style.zIndex = "9999";
+        alertBox.innerHTML = `
+          <strong>${user.name}</strong> has been ${user.status === "Active" ? "Unbanned ✅" : "Banned 🚫"}.
+        `;
+        document.body.appendChild(alertBox);
+        setTimeout(() => alertBox.remove(), 3000);
+      }
     });
-  }
-
-  /* 🧩 6. تحديث الكروت فوق الجدول */
-  function updateCards(users) {
-    const list = normalizedUsers();
-    document.getElementById("total-users").textContent = list.length;
-    document.getElementById("active-users").textContent = list.filter(u => u.status === "Active").length;
-    document.getElementById("banned-users").textContent = list.filter(u => u.status === "Banned").length;
-  }
-
-  /* 🧩 7. البحث المباشر + تهيئة الصفحة */
-  document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.querySelector(".search-box input");
-    if (searchInput) {
-      searchInput.addEventListener("input", e => renderUsers(e.target.value));
-    }
-    renderUsers();
   });
-</script>
+}
 
-<!-- navbar -->
-<script src="../../component/nav.js"></script>
+// ✅ تحديث تلقائي لو اتغير localStorage
+window.addEventListener("storage", e => {
+  if (e.key === "users") renderUsers();
+});
+</script>
 
   </body>
 </html>
