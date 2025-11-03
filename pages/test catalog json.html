@@ -532,7 +532,7 @@ border: 2px solid #3f756c
     <!--///////////Json-->
 <section id="featured-products" class="py-5">
   <div class="container">
-
+    <h2 class="text-center mb-4">Featured Products</h2>
     <div id="home-products" class="row"></div>
   </div>
 </section>
@@ -628,13 +628,13 @@ border: 2px solid #3f756c
     <p class="text-secondary mt-3">جاري التحميل يدولي<br><span id="countdown">7</span> ثواني...</p>
   </div>
 </div> -->
-
-
 <script>
-
+// ==============================
+// ✅ تحميل وتخزين المنتجات
+// ==============================
 async function initProducts() {
   try {
-    const res = await fetch("products.json");
+    const res = await fetch("products.json"); // لو عندك ملف JSON للمنتجات
     const products = await res.json();
     localStorage.setItem("products", JSON.stringify(products));
     return products;
@@ -644,19 +644,30 @@ async function initProducts() {
   }
 }
 
-
-
-
+// ==============================
+// ✅ جلب المنتجات
+// ==============================
 function getProducts() {
   return JSON.parse(localStorage.getItem("products")) || [];
 }
 
+// ==============================
+// ✅ جلب منتجات عشوائية
+// ==============================
+function getRandomProducts(count = 8) {
+  const all = getProducts();
+  const shuffled = [...all].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+// ==============================
+// ✅ توليد HTML للمنتجات
+// ==============================
 function renderFeaturedProducts(containerId = "featured-products") {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  const allProducts = getProducts();
-  const products = [...allProducts].sort(() => 0.5 - Math.random()).slice(0, 8); 
+  const products = getRandomProducts(8);
   container.innerHTML = "";
 
   products.forEach((p) => {
@@ -689,7 +700,9 @@ function renderFeaturedProducts(containerId = "featured-products") {
   });
 }
 
-
+// ==============================
+// ✅ عرض منتج معين بالاسم
+// ==============================
 function viewProductByName(name) {
   const products = getProducts();
   const product = products.find(p => p.name === name);
@@ -698,7 +711,9 @@ function viewProductByName(name) {
   window.location.href = "product-details.html";
 }
 
-
+// ==============================
+// ✅ إضافة منتج للكارت
+// ==============================
 function addToCartByName(name) {
   const products = getProducts();
   const p = products.find(prod => prod.name === name);
@@ -716,6 +731,9 @@ function addToCartByName(name) {
   playSound("cart");
 }
 
+// ==============================
+// ✅ إضافة منتج للويش ليست مع صوت
+// ==============================
 function addToWishlistByName(name) {
   const products = getProducts();
   const p = products.find(prod => prod.name === name);
@@ -728,14 +746,16 @@ function addToWishlistByName(name) {
     wishlist.push(p);
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
     updateWishlistCount();
-    showToast(`${p.name} added to wishlist 💖`, "wishlist"); 
-    playSound("wishlist"); 
+    showToast(`${p.name} added to wishlist 💖`, "wishlist"); // Toast + لون مختلف
+    playSound("wishlist"); // تشغيل الصوت عند الإضافة
   } else {
     showToast(`${p.name} is already in wishlist ❤️`, "info");
   }
 }
 
-
+// ==============================
+// ✅ تحديث عداد الكارت
+// ==============================
 function updateCartCount() {
   const cartCountEl = document.getElementById("cart-count");
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -745,7 +765,9 @@ function updateCartCount() {
   }
 }
 
-
+// ==============================
+// ✅ تحديث عداد الويش ليست
+// ==============================
 function updateWishlistCount() {
   const wishlistCountEl = document.getElementById("wishlist-count");
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -755,13 +777,15 @@ function updateWishlistCount() {
   }
 }
 
-
+// ==============================
+// ✅ Toast
+// ==============================
 function showToast(message, type = "success") {
   const toastEl = document.getElementById('liveToast');
   const toastMsg = document.getElementById('toastMessage');
   const toastIcon = toastEl.querySelector('.toast-icon');
 
-  toastEl.className = "toast custom-toast"; 
+  toastEl.className = "toast custom-toast"; // reset
   let icon = '';
 
   switch (type) {
@@ -779,6 +803,19 @@ function showToast(message, type = "success") {
   toast.show();
 }
 
+// ==============================
+// ✅ تشغيل صوت عند إضافة للكارت أو الويش ليست
+// ==============================
+function playSound(type) {
+  let audio;
+  if(type === "cart") audio = new Audio("../../assets/sounds/cart.mp3");
+  else if(type === "wishlist") audio = new Audio("../../assets/sounds/wishlist.mp3");
+  if(audio) audio.play();
+}
+
+// ==============================
+// ✅ عند تحميل الصفحة
+// ==============================
 document.addEventListener("DOMContentLoaded", async () => {
   if (!localStorage.getItem("products")) await initProducts();
   renderFeaturedProducts();
@@ -786,6 +823,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   updateWishlistCount();
 });
 </script>
+
+
+
+
+
 
 
 

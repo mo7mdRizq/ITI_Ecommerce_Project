@@ -8,24 +8,52 @@
   },
   {
     "id": 2,
-    "name": "Blue ",
-    "price": "400 EGP",
+    "name": "Blue",
+    "price": "408 EGP",
     "description": "aaaaaaaaaa",
     "image": "../../assets/images/105.jpg"
   },
+    {
+    "id": 9,
+    "name": "gray",
+    "price": "410 EGP",
+    "description": "zzzzzzzzz",
+    "image": "../../assets/images/117.jpg"
+  },
+    {
+    "id": 6,
+    "name": "Blue",
+    "price": "400 EGP",
+    "description": "aaaaaaaaaa",
+    "image": "../../assets/images/109.jpg"
+  },
   {
     "id": 3,
-    "name": "Red ",
+    "name": "Red",
     "price": "650 EGP",
     "description": "aaa",
     "image": "../../assets/images/135.jpg"
   },
-   {
-    "id": 2,
-    "name": "Blue ",
-    "price": "400 EGP",
-    "description": "aaaaaaaaaa",
-    "image": "../../assets/images/105.jpg"
+    {
+    "id": 7,
+    "name": "Brown",
+    "price": "800 EGP",
+    "description": "aaa",
+    "image": "../../assets/images/112.jpg"
+  },
+    {
+    "id": 10,
+    "name": "yellow",
+    "price": "600 EGP",
+    "description": "za",
+    "image": "../../assets/images/109.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Green",
+    "price": "300 EGP",
+    "description": "bbb",
+    "image": "../../assets/images/125.jpg"
   }
   
 ]
