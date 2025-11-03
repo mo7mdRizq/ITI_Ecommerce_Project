@@ -397,5 +397,111 @@
 <script src="../component/nav.js"></script>
 <script src="../js/profile.js"></script>
 
+<script>
+  function getCart() {
+    try {
+      return JSON.parse(localStorage.getItem('cart')) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function renderCart() {
+    const cart = getCart();
+    const container = document.getElementById('cartItems');
+    const subtotalElement = document.getElementById('subtotal');
+    const totalElement = document.getElementById('total');
+    const deliveryFee = 80;
+    let subtotal = 0;
+
+    if (!container) return;
+
+    if (cart.length === 0) {
+      container.innerHTML = `
+        <div class="alert alert-info text-center">
+          Cart is empty
+        </div>`;
+      subtotalElement.textContent = "0 L.E";
+      totalElement.textContent = "0 L.E";
+      return;
+    }
+
+    container.innerHTML = cart.map((item, i) => {
+      // ✅ نحسب السعر بشكل مضمون
+      const price =
+        parseFloat(item.priceValue) || 
+        parseFloat((item.price || '').toString().replace(/[^0-9.]/g, '')) || 
+        0;
+
+      const qty = Number(item.qty) || 1;
+      const itemTotal = price * qty;
+      subtotal += itemTotal;
+
+      const img = item.image && (item.image.startsWith('data:') || item.image.startsWith('http'))
+        ? item.image
+        : 'https://via.placeholder.com/150x150?text=No+Image';
+
+      return `
+        <div class="cart-item" data-index="${i}">
+          <div class="d-flex align-items-center">
+            <img src="${img}" alt="${item.name}" class="product-img">
+            <div class="ms-3">
+              <h6 class="fw-bold mb-1">${item.name}</h6>
+              <p class="fw-bold mt-2">${price.toFixed(2)} L.E</p>
+            </div>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-between delete">
+            <div class="delete-btn mb-2">
+              <img src="../assets/icons/delete.png" alt="Delete" class="delete-icon">
+            </div>
+            <div class="quantity-control d-flex align-items-center justify-content-end">
+              <button class="decrease">-</button>
+              <span class="mx-2">${qty}</span>
+              <button class="increase">+</button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+
+    subtotalElement.textContent = `${subtotal.toFixed(2)} L.E`;
+    totalElement.textContent = `${(subtotal + deliveryFee).toFixed(2)} L.E`;
+
+    // ✅ تحديث الأحداث بعد إعادة الرسم
+    container.querySelectorAll('.increase').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const i = e.target.closest('.cart-item').dataset.index;
+        cart[i].qty++;
+        saveCart(cart);
+        renderCart();
+      });
+    });
+
+    container.querySelectorAll('.decrease').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const i = e.target.closest('.cart-item').dataset.index;
+        if (cart[i].qty > 1) cart[i].qty--;
+        else cart.splice(i, 1);
+        saveCart(cart);
+        renderCart();
+      });
+    });
+
+    container.querySelectorAll('.delete-icon').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const i = e.target.closest('.cart-item').dataset.index;
+        cart.splice(i, 1);
+        saveCart(cart);
+        renderCart();
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCart);
+</script>
+
 </body>
 </html>

@@ -630,8 +630,9 @@ border: 2px solid #3f756c
 </div> -->
 
 
-<script>
 
+<script>
+  
 async function initProducts() {
   try {
     const res = await fetch("products.json");
@@ -646,17 +647,16 @@ async function initProducts() {
 
 
 
-
 function getProducts() {
   return JSON.parse(localStorage.getItem("products")) || [];
 }
 
-function renderFeaturedProducts(containerId = "featured-products") {
+function renderFeaturedProducts(containerId = "home-products") {
   const container = document.getElementById(containerId);
   if (!container) return;
 
   const allProducts = getProducts();
-  const products = [...allProducts].sort(() => 0.5 - Math.random()).slice(0, 8); 
+  const products = [...allProducts].sort(() => 0.5 - Math.random()).slice(0, 8);
   container.innerHTML = "";
 
   products.forEach((p) => {
@@ -707,8 +707,14 @@ function addToCartByName(name) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const exist = cart.find(item => item.name === name);
 
-  if (exist) exist.qty = (exist.qty || 1) + 1;
-  else cart.push({ ...p, qty: 1 });
+  // 🧩 خلي السعر يتحول لقيمة رقمية
+  const priceValue = parseFloat(p.price.replace(/[^0-9.]/g, "")) || 0;
+
+  if (exist) {
+    exist.qty = (exist.qty || 1) + 1;
+  } else {
+    cart.push({ ...p, qty: 1, priceValue });
+  }
 
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
@@ -755,7 +761,6 @@ function updateWishlistCount() {
   }
 }
 
-
 function showToast(message, type = "success") {
   const toastEl = document.getElementById('liveToast');
   const toastMsg = document.getElementById('toastMessage');
@@ -781,11 +786,12 @@ function showToast(message, type = "success") {
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!localStorage.getItem("products")) await initProducts();
-  renderFeaturedProducts();
+  renderFeaturedProducts("home-products");
   updateCartCount();
   updateWishlistCount();
 });
 </script>
+
 
 
 
