@@ -936,20 +936,30 @@ function addToWishlistById(id) {
   const p = products.find(prod => prod.id === id);
   if (!p) return showToast("❌ Product not found", "error");
 
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  const exist = wishlist.find(item => item.id === id);
+  // ✅ تحديد المستخدم الحالي
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const userKey = currentUser && currentUser.email 
+    ? `wishlist_${currentUser.email}` 
+    : "wishlist_guest";
 
+  // ✅ جلب الـ wishlist الخاصة بالمستخدم
+  let wishlist = JSON.parse(localStorage.getItem(userKey)) || [];
+
+  // ✅ التحقق لو المنتج موجود بالفعل
+  const exist = wishlist.find(item => item.id === id);
   if (exist) {
     showToast(`${p.name} is already in wishlist ❤️`, "info");
     return;
   }
 
+  // ✅ إضافة المنتج
   wishlist.push(p);
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  localStorage.setItem(userKey, JSON.stringify(wishlist));
+
   showToast(`${p.name} added to wishlist 💖`, "wishlist");
   updateWishlistCount();
-
 }
+
 
 
 </script>

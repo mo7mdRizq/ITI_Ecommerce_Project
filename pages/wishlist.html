@@ -116,14 +116,37 @@
 
 
 <script>
-  // ✅ جلب / حفظ wishlist
-  function getWishlist() {
-    return JSON.parse(localStorage.getItem("wishlist")) || [];
+  // ✅ جلب المستخدم الحالي
+  function getCurrentUser() {
+    try {
+      return JSON.parse(localStorage.getItem("currentUser"));
+    } catch {
+      return null;
+    }
   }
 
-  function saveWishlist(list) {
-    localStorage.setItem("wishlist", JSON.stringify(list));
+  // ✅ تحديد مفتاح الويشليست حسب المستخدم
+  function getWishlistKey() {
+    const user = getCurrentUser();
+    return user && user.email ? `wishlist_${user.email}` : "wishlist_guest";
   }
+
+  // ✅ جلب / حفظ wishlist
+function getWishlist() {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const userKey = currentUser && currentUser.email 
+    ? `wishlist_${currentUser.email}` 
+    : "wishlist_guest";
+  return JSON.parse(localStorage.getItem(userKey)) || [];
+}
+
+function saveWishlist(list) {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const userKey = currentUser && currentUser.email 
+    ? `wishlist_${currentUser.email}` 
+    : "wishlist_guest";
+  localStorage.setItem(userKey, JSON.stringify(list));
+}
 
   // ✅ إزالة منتج
   function removeFromWishlist(id) {
@@ -132,8 +155,7 @@
     saveWishlist(wishlist);
     showToast("Removed from wishlist 💔", "warning");
     renderWishlist();
-      updateWishlistCount();
-
+    updateWishlistCount && updateWishlistCount();
   }
 
   // ✅ عرض المنتجات
@@ -142,7 +164,15 @@
     const container = document.getElementById("wishlistContainer");
     const empty = document.getElementById("emptyWishlist");
 
+    if (!container) return;
+
     container.innerHTML = "";
+
+    const user = getCurrentUser();
+    // 🧹 تنظيف ويشليست الزائر القديم
+    if (!user) {
+      localStorage.removeItem("wishlist_guest");
+    }
 
     if (wishlist.length === 0) {
       empty.style.display = "block";
@@ -167,7 +197,7 @@
           <div class="card-body text-center">
             <h5 class="card-title mb-1">${p.name}</h5>
             <p class="text-muted small mb-2">${p.category || ''}</p>
-            <p class="fw-bold mb-3">$${p.price}</p>
+            <p class="fw-bold mb-3">${p.price} L.E</p>
             <button class="btn btn-dark btn-sm w-100 mb-2" onclick="addToCartFromWishlist('${p.id}')">
               <i class="bi bi-cart-plus"></i> Add to Cart
             </button>
@@ -187,12 +217,15 @@
     const product = wishlist.find(p => p.id === id);
     if (!product) return showToast("Product not found ❌", "error");
 
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const currentUser = getCurrentUser();
+    const cartKey = currentUser && currentUser.email ? `cart_${currentUser.email}` : "cart_guest";
+
+    const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
     const exist = cart.find(item => item.id === product.id);
     if (exist) exist.qty = (exist.qty || 1) + 1;
     else cart.push({ ...product, qty: 1 });
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(cartKey, JSON.stringify(cart));
     showToast(`${product.name} added to cart ✅`, "success");
   }
 
@@ -209,8 +242,6 @@
   // ✅ عند تحميل الصفحة
   document.addEventListener("DOMContentLoaded", renderWishlist);
 </script>
-
-
 
 
 

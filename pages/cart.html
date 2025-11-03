@@ -292,7 +292,149 @@
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
+  
+<script>
+  function getCurrentUser() {
+    try {
+      return JSON.parse(localStorage.getItem("currentUser"));
+    } catch {
+      return null;
+    }
+  }
+
+  function getCartKey() {
+    const user = getCurrentUser();
+    // كل مستخدم ليه cart خاص بيه، والضيف ليه cart_guest
+    return user && user.email ? `cart_${user.email}` : "cart_guest";
+  }
+
+  function getCart() {
+    try {
+      const key = getCartKey();
+      return JSON.parse(localStorage.getItem(key)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveCart(cart) {
+    const key = getCartKey();
+    localStorage.setItem(key, JSON.stringify(cart));
+  }
+
+  function renderCart() {
+    const user = getCurrentUser();
+
+    // ✅ لو مفيش مستخدم (يعني Logout أو ضيف)، الكارت يتنضف ويتقفل
+    if (!user) {
+      localStorage.removeItem("cart");
+      localStorage.removeItem("cart_guest");
+      document.getElementById("cartItems").innerHTML =
+        `<div class="alert alert-info text-center">Please login to view your cart.</div>`;
+      document.getElementById("subtotal").textContent = "0 L.E";
+      document.getElementById("total").textContent = "0 L.E";
+      return;
+    }
+
+    const cart = getCart();
+    const container = document.getElementById("cartItems");
+    const subtotalElement = document.getElementById("subtotal");
+    const totalElement = document.getElementById("total");
+    const deliveryFee = 80;
+    let subtotal = 0;
+
+    if (!container) return;
+
+    // ✅ حماية إضافية: تنظيف أي كارت عام قديم
+    localStorage.removeItem("cart_guest");
+    localStorage.removeItem("cart");
+
+    if (cart.length === 0) {
+      container.innerHTML = `<div class="alert alert-info text-center">Cart is empty</div>`;
+      subtotalElement.textContent = "0 L.E";
+      totalElement.textContent = "0 L.E";
+      return;
+    }
+
+    container.innerHTML = cart.map((item, i) => {
+      const price = Number(item.price) || 0;
+      const qty = Number(item.qty) || 1;
+      subtotal += price * qty;
+      const img =
+        item.image && (item.image.startsWith("data:") || item.image.startsWith("http"))
+          ? item.image
+          : "https://via.placeholder.com/150x150?text=No+Image";
+
+      return `
+        <div class="cart-item" data-index="${i}">
+          <div class="d-flex align-items-center">
+            <img src="${img}" alt="${item.name}" class="product-img">
+            <div class="ms-3">
+              <h6 class="fw-bold mb-1">${item.name}</h6>
+              <p class="fw-bold mt-2">${price} L.E</p>
+            </div>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-between delete">
+            <div class="delete-btn mb-2">
+              <img src="../assets/icons/delete.png" alt="Delete" class="delete-icon">
+            </div>
+            <div class="quantity-control d-flex align-items-center justify-content-end">
+              <button class="decrease">-</button>
+              <span class="mx-2">${qty}</span>
+              <button class="increase">+</button>
+            </div>
+          </div>
+        </div>`;
+    }).join("");
+
+    subtotalElement.textContent = `${subtotal.toFixed(2)} L.E`;
+    totalElement.textContent = `${(subtotal + deliveryFee).toFixed(2)} L.E`;
+
+    // 🔁 Increase / Decrease / Delete
+    container.querySelectorAll(".increase").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const i = e.target.closest(".cart-item").dataset.index;
+        cart[i].qty++;
+        saveCart(cart);
+        renderCart();
+      });
+    });
+
+    container.querySelectorAll(".decrease").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const i = e.target.closest(".cart-item").dataset.index;
+        if (cart[i].qty > 1) cart[i].qty--;
+        else cart.splice(i, 1);
+        saveCart(cart);
+        renderCart();
+      });
+    });
+
+    container.querySelectorAll(".delete-icon").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const i = e.target.closest(".cart-item").dataset.index;
+        cart.splice(i, 1);
+        saveCart(cart);
+        renderCart();
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", renderCart);
+</script>
+
+
+
+
+<!-- navbar -->
+<script src="../component/nav.js"></script>
+
+</body>
+</html>
+
+
+
+<!-- <script>
     function getCart() {
       try {
         return JSON.parse(localStorage.getItem('cart')) || [];
@@ -389,11 +531,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', renderCart);
-  </script>
+  </script> -->
 
 
-<!-- navbar -->
-<script src="../component/nav.js"></script>
 
-</body>
-</html>

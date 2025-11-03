@@ -25,18 +25,35 @@ function updateCartCount() {
 }
 
 // ✅ تحديث عداد الـ Wishlist
+// ✅ تحديث عداد الـ Wishlist
 function updateWishlistCount() {
-  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  const badge = document.getElementById("wishlist-count");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const key = currentUser && currentUser.email 
+    ? `wishlist_${currentUser.email}` 
+    : "wishlist_guest";
 
-  if (!badge) return;
-  if (wishlist.length > 0) {
-    badge.style.display = "inline";
-    badge.textContent = wishlist.length;
-  } else {
-    badge.style.display = "none";
+  const wishlist = JSON.parse(localStorage.getItem(key)) || [];
+  const countElement = document.getElementById("wishlistCount");
+
+  if (countElement) {
+    if (wishlist.length > 0) {
+      countElement.style.display = "inline";
+      countElement.textContent = wishlist.length;
+    } else {
+      countElement.style.display = "none";
+    }
   }
 }
+
+// ✅ نداء التحديث بعد تحميل الصفحة بشكل آمن
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartCount();
+
+  // نضمن تنفيذها بعد تحميل الهيدر
+  setTimeout(updateWishlistCount, 100);
+});
+
+
 
 // ✅ تحديث العدادات أول ما الصفحة تفتح
 document.addEventListener("DOMContentLoaded", () => {
