@@ -48,7 +48,7 @@ function setupSignIn() {
             localStorage.setItem("currentUser", JSON.stringify(adminUser));
             alert(`Hello ${ADMIN_NAME}!`);
 
-            window.location.href = "../pages/admin/admin-dashboard.html"; 
+            window.location.href = "../admin/admin-dashboard.html"; 
             return; 
         }
 
