@@ -511,10 +511,10 @@ border: 2px solid #3f756c
 
 
                 <section class="container my-5">
-                  <!-- <h2 class="text-center mb-4">Our Featured Products</h2> -->
-                  <div class="row" id="featured-products">
-                    <!-- المنتجات العشوائية هتظهر هنا -->
-                  </div>
+              <div class="row" id="home-products">
+  <!-- المنتجات هتظهر هنا -->
+</div>
+
                 </section>
 
 
@@ -790,6 +790,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   updateCartCount();
   updateWishlistCount();
 });
+document.addEventListener("DOMContentLoaded", async () => {
+  await initProducts(); // يقرا المنتجات من json ويحفظها في localStorage
+  renderFeaturedProducts("home-products"); // يعرض 8 منتجات عشوائية
+  updateCartCount();
+  updateWishlistCount();
+});
+
 </script>
 
 
